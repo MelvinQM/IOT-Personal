@@ -19,5 +19,6 @@ This project will be a Embedded system take on the game Duck Hunt. This project 
 
 ### Extra components
 Besides the required inputs and outputs some extra components will be added if enough time presents itself
+
 - A Rumble pack in the controller for extra satisfying game feedback.
 - A battery to allow the system to be completely wireless.
