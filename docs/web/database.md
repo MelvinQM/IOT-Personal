@@ -11,3 +11,14 @@ To realise the previous established ERD this EER diagram was generated from the 
 <div align="center">
   <img src="../assets/EER.png" alt="logo">
 </div>
+
+## Database setup
+
+### MYSQLWorkbench
+To interface with the SQL Database MYSQLWorkbench was used. To connect to the database through this program you need to fill in the sql login details.
+<div align="center">
+  <img src="../assets/sqlworkbenchconnect.png" alt="logo">
+</div>
+
+
+
