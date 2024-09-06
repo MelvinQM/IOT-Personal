@@ -1,6 +1,12 @@
 version: "3.7"
 services:
   php:
+    environment:
+      - MYSQL_PORT=${MYSQL_PORT}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_SERVER_NAME=${MYSQL_SERVER_NAME}
     build:
       context: ./docker/images/php
     container_name: iot-php

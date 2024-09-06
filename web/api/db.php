@@ -1,9 +1,9 @@
 <?php
-$servername = "mariadb";
-$username = "root";
-$password = "7YKyE8R2AhKzswfN";
-$database = "iot_moesmq";
-$port = 3306;
+$servername = getenv("MYSQL_SERVER_NAME"); 
+$username = getenv("MYSQL_USER");
+$password = getenv("MYSQL_ROOT_PASSWORD");
+$database = getenv("MYSQL_DATABASE");
+$port = getenv("MYSQL_PORT");
 
 $dbConnection = new mysqli($servername, $username, $password, $database);
 

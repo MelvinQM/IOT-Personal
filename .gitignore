@@ -1,2 +1,3 @@
 docker/config/mariadb/
 docker/config/phpmyadmin/sessions
+.env
