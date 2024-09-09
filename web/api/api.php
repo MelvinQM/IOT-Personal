@@ -7,10 +7,11 @@ $database = getenv("MYSQL_DATABASE");
 $port = getenv("MYSQL_PORT");
 
 
-// Load classes from folder src
+// Load classes from folder src automatically
 spl_autoload_register(function ($class){
     require __DIR__ . "/src/$class.php";
 });
+set_exception_handler("ErrorHandler::handleError");
 
 header("Content-type: application/json; charset=UTF-8");
 
@@ -18,12 +19,10 @@ $parts = explode("/", $_SERVER["REQUEST_URI"]);
 
 //TODO: Add check if table name doesnt exist in db return 404
 
-$id = $parts[3] ?? null;
-
-
 $db = new Database($servername, $database, $username, $password);
 $db->getConnection();
 
+$id = $parts[3] ?? null;
 $controller = new RequestController();
 $controller->handleRequest($_SERVER["REQUEST_METHOD"], $id);
 
