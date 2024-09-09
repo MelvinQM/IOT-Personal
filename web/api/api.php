@@ -11,19 +11,24 @@ $port = getenv("MYSQL_PORT");
 spl_autoload_register(function ($class){
     require __DIR__ . "/src/$class.php";
 });
-set_exception_handler("ErrorHandler::handleError");
 
+set_error_handler("ErrorHandler::handleError");
+set_exception_handler("ErrorHandler::handleException");
 header("Content-type: application/json; charset=UTF-8");
 
 $parts = explode("/", $_SERVER["REQUEST_URI"]);
+print_r($parts);
 
-//TODO: Add check if table name doesnt exist in db return 404
+// if($parts[2] != "player") {
+//     http_response_code(404);
+//     exit;
+// }
 
 $db = new Database($servername, $database, $username, $password);
-$db->getConnection();
+$gateway = new PlayerGateway($db);
 
 $id = $parts[3] ?? null;
-$controller = new RequestController();
+$controller = new PlayerController($gateway);
 $controller->handleRequest($_SERVER["REQUEST_METHOD"], $id);
 
 

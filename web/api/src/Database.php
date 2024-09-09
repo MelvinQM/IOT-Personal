@@ -21,7 +21,7 @@ class Database {
         }
 
 
-        // Set the charset
+        $dbConnection->options(MYSQLI_OPT_INT_AND_FLOAT_NATIVE, 1);
         $dbConnection->set_charset("utf8");
     
         return $dbConnection;
