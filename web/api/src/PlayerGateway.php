@@ -59,8 +59,20 @@ class PlayerGateway
     
         $data = $result->fetch_assoc();
         
-        return $data;
+        return $data !== null ? $data : false;
     }
 
+    public function update(string $id, array $data) : string
+    {
+        $sql = "UPDATE player SET name = ? WHERE id = ?";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bind_param("ss", $data["name"], $id);
+
+        $stmt->execute();
+
+        return $stmt->affected_rows;
+    }
 
   }

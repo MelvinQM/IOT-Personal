@@ -19,7 +19,33 @@ class PlayerController {
     public function handlePlayerRequest(string $method, ?string $id): void 
     {
         $product = $this->gateway->get($id);
-        echo json_encode($product);
+        if(!$product) {
+            ErrorCodeHelper::getInstance()->handleErrorCode(404, "", "Player not found");
+        }
+        switch($method) {
+            case "GET":
+                echo json_encode($product);
+                break;
+            case "PATCH":
+                $data = $_GET;
+                $errors = $this->getValidationErrors($data);
+                if(!empty($errors)) {
+                    ErrorCodeHelper::getInstance()->handleErrorCode(422);
+                    echo json_encode(["errors" => $errors]);
+                    break;
+                }
+                $rows = $this->gateway->update($id, $data);
+
+                echo json_encode([
+                    "message" => "Player updated",
+                    "rows" => $rows
+                ]);
+                break;
+            default:
+                ErrorCodeHelper::getInstance()->handleErrorCode(405, "Allow: GET, PATCH");
+                break;
+
+        }
     }
     
     public function handlePlayerCollectionRequest(string $method, ?string $id): void 
@@ -32,14 +58,14 @@ class PlayerController {
                 $data = $_GET;
                 $errors = $this->getValidationErrors($data);
                 if(!empty($errors)) {
-                    ErrorCodeHelper::getInstance()->handleErrorCode(422, "");
+                    ErrorCodeHelper::getInstance()->handleErrorCode(422);
                     echo json_encode(["errors" => $errors]);
                     break;
                 }
                 $id = $this->gateway->create($data);
 
                 echo json_encode([
-                    "message" => "Product created",
+                    "message" => "Player created",
                     "id" => $id
                 ]);
                 break;

@@ -18,7 +18,7 @@ header("Content-type: application/json; charset=UTF-8");
 
 $uri = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 $parts = explode("/", trim($uri, "/"));
-print_r($parts);
+// print_r($parts);
 
 
 if($parts[1] != "player") {
