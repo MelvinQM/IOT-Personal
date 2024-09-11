@@ -75,12 +75,6 @@ class PlayerController {
                     "id" => $id
                 ]);
                 break;
-            // case "DELETE":
-            //     echo "DELETE";
-            //     break;
-            // case "UPDATE":
-            //     echo "UPDATE";
-            //     break;
             default:
                 ErrorCodeHelper::getInstance()->handleErrorCode(405, "Allow: GET, POST");
                 break;
