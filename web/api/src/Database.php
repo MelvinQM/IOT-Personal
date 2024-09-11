@@ -17,7 +17,7 @@ class Database {
             echo json_encode(array("success" => false, "error" => $dbConnection->connect_error));
             exit();
         } else {
-            echo "Connected to database";
+            // echo "Connected to database";
         }
 
 
