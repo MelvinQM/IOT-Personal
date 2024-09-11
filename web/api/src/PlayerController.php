@@ -28,16 +28,23 @@ class PlayerController {
                 break;
             case "PATCH":
                 $data = $_GET;
-                $errors = $this->getValidationErrors($data);
+                $errors = $this->getValidationErrors($data, false);
                 if(!empty($errors)) {
-                    ErrorCodeHelper::getInstance()->handleErrorCode(422);
-                    echo json_encode(["errors" => $errors]);
+                    ErrorCodeHelper::getInstance()->handleErrorCode(422, "", json_encode(["errors" => $errors]));
                     break;
                 }
                 $rows = $this->gateway->update($id, $data);
 
                 echo json_encode([
                     "message" => "Player updated",
+                    "rows" => $rows
+                ]);
+                break;
+            case "DELETE":
+                $rows = $this->gateway->delete($id);
+
+                echo json_encode([
+                    "message" => "Player deleted",
                     "rows" => $rows
                 ]);
                 break;
@@ -58,8 +65,7 @@ class PlayerController {
                 $data = $_GET;
                 $errors = $this->getValidationErrors($data);
                 if(!empty($errors)) {
-                    ErrorCodeHelper::getInstance()->handleErrorCode(422);
-                    echo json_encode(["errors" => $errors]);
+                    ErrorCodeHelper::getInstance()->handleErrorCode(422, "", json_encode(["errors" => $errors]));
                     break;
                 }
                 $id = $this->gateway->create($data);
@@ -82,10 +88,10 @@ class PlayerController {
         }
     }
 
-    private function getValidationErrors(array $data) : array
+    private function getValidationErrors(array $data, bool $isNew = true) : array
     {
         $errors = [];
-        if(empty($data["name"])) 
+        if($isNew && empty($data["name"])) 
         {
             $errors[] = "Name is required";
         }

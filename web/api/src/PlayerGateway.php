@@ -75,4 +75,17 @@ class PlayerGateway
         return $stmt->affected_rows;
     }
 
+    public function delete(string $id) : bool
+    {
+        $sql = "DELETE FROM player WHERE id = ?";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bind_param("s", $id);
+
+        $stmt->execute();
+
+        return $stmt->affected_rows;
+    }
+
   }
