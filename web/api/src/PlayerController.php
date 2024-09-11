@@ -18,7 +18,8 @@ class PlayerController {
 
     public function handlePlayerRequest(string $method, ?string $id): void 
     {
-
+        $product = $this->gateway->get($id);
+        echo json_encode($product);
     }
     
     public function handlePlayerCollectionRequest(string $method, ?string $id): void 

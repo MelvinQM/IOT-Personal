@@ -40,4 +40,27 @@ class PlayerGateway
 
         return $insertedId;
     }
+
+    public function get(string $id) : array | false
+    {
+        $sql = "SELECT * FROM player WHERE id = ?";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bind_param("s", $id);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        if ($result === false) {
+            return false;
+        }
+    
+        $data = $result->fetch_assoc();
+        
+        return $data;
+    }
+
+
   }
