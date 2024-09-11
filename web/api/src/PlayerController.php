@@ -49,7 +49,7 @@ class PlayerController {
                 ]);
                 break;
             default:
-                ErrorCodeHelper::getInstance()->handleErrorCode(405, "Allow: GET, PATCH");
+                ErrorCodeHelper::getInstance()->handleErrorCode(405, "Allow: GET, PATCH, DELETE");
                 break;
 
         }

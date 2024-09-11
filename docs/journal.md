@@ -43,7 +43,18 @@ I spent some time learning the basics of PHP and setting up some basic scripts. 
 ### Setting up platform.io project
 For my embedded part I decided to not use the Arduino IDE and instead choose platform.io as this was more familiar for me. This also allows me to easily create multiple files and work in a more OOP fashion. Another benefit is that platform.io is an extension in vscode allowing me to work in vscode for all parts of the project.
 
+### Environmental variabels
+To run the project a file named .env is needed which includes all login details for connecting to the database. This information is something you don't want to upload to the repository that's why I worked on being able to load these in through code and exclude the .env file from being pushed to the repository.
+
 ### Documentation
 This week I also worked on some documentation. I wrote documentation for my database and embedded requirements.
 
 ## Week 2
+
+### REST API
+I worked on creating the first version of my API. I worked on this through a [tutorial](https://www.youtube.com/watch?v=X51KOJKrofU&ab_channel=DaveHollingworth) this tutorial taught me to make a simple rest API capable of performing CRUD operations with a single table. This doesn't allow for full communication with my database as of yet. It's a great start however, as it allows control over atleast the player table which is sufficient for now for testing purposes.
+
+Additionally I added a custom http error code display using the http.cat API
+<div align="center">
+  <img src="assets/errorcodedisplay.png" alt="logo">
+</div>
