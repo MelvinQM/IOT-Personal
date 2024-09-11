@@ -29,7 +29,12 @@ class PlayerController {
                 break;
             case "POST":
                 $data = $_GET;
-                
+                $errors = $this->getValidationErrors($data);
+                if(!empty($errors)) {
+                    ErrorCodeHelper::getInstance()->handleErrorCode(422, "");
+                    echo json_encode(["errors" => $errors]);
+                    break;
+                }
                 $id = $this->gateway->create($data);
 
                 echo json_encode([
@@ -37,7 +42,27 @@ class PlayerController {
                     "id" => $id
                 ]);
                 break;
+            // case "DELETE":
+            //     echo "DELETE";
+            //     break;
+            // case "UPDATE":
+            //     echo "UPDATE";
+            //     break;
+            default:
+                ErrorCodeHelper::getInstance()->handleErrorCode(405, "Allow: GET, POST");
+                break;
 
         }
+    }
+
+    private function getValidationErrors(array $data) : array
+    {
+        $errors = [];
+        if(empty($data["name"])) 
+        {
+            $errors[] = "Name is required";
+        }
+
+        return $errors;
     }
 }

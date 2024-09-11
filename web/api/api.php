@@ -21,7 +21,6 @@ $parts = explode("/", trim($uri, "/"));
 print_r($parts);
 
 
-//TODO: Find a way for this to not prevent player?name=melvin
 if($parts[1] != "player") {
     http_response_code(404);
     exit;
