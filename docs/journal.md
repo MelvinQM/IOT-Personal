@@ -11,7 +11,7 @@ Monday I was unfortunately not able to attend the lesson. In my own time I spent
 I started the course setting up all seperate parts of the project and seeing if they would run. I installed all necessary programs and setup the template project. After this I started working on an ERD for a Database design.
 
 <div align="center">
-  <img src="assets/ERD.drawio.png" alt="logo">
+  <img src="/assets/ERD.drawio.png" alt="ERD">
 </div>
 
 ### Feedback
@@ -34,7 +34,7 @@ I have not received feedback for this as of this moment.
 After making my first draft of ERD I started designing the Database itself to show this I've made an EER Diagram.
 
 <div align="center">
-  <img src="assets/EER.png" alt="logo">
+  <img src="/assets/EER.png" alt="EER">
 </div>
 
 ### PHP Learning
@@ -56,11 +56,11 @@ I worked on creating the first version of my API. I worked on this through a [tu
 
 Additionally I added a custom http error code display using the http.cat API
 <div align="center">
-  <img src="assets/errorcodedisplay.png" alt="logo">
+  <img src="/assets/errorcodedisplay.png" alt="errorcodedisplay">
 </div>
 
 ### Frontend 
 To visualise the data I worked on my frontend a bit. I added tailwindcss as i've already worked with bootstrap a lot and wanted to learn a bit more about tailwind.
 <div align="center">
-  <img src="assets/frontend.png" alt="logo">
+  <img src="/assets/frontend.png" alt="frontendexample">
 </div>
