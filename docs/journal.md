@@ -58,3 +58,9 @@ Additionally I added a custom http error code display using the http.cat API
 <div align="center">
   <img src="assets/errorcodedisplay.png" alt="logo">
 </div>
+
+### Frontend 
+To visualise the data I worked on my frontend a bit. I added tailwindcss as i've already worked with bootstrap a lot and wanted to learn a bit more about tailwind.
+<div align="center">
+  <img src="assets/frontend.png" alt="logo">
+</div>
