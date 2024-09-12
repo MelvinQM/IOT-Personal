@@ -15,7 +15,7 @@ class Api {
         void CreatePlayer(String name);
         void FetchPlayers();
     private:
-
+        String hostName = "moesmq.loca.lt";
 };
 
 #endif

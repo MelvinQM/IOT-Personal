@@ -25,7 +25,7 @@ void Game::Run()
     if(digitalRead(BUTTON_PIN)) 
     {
         Serial.println("Button pressed");
-        // api.CreatePlayer("Lucas");
+        api.CreatePlayer("Lucas");
         api.FetchPlayers();
     }
 

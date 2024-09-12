@@ -40,8 +40,11 @@ void Api::CreatePlayer(String name)
 {
     WiFiClient wifiClient;
     HTTPClient http;
+    wifiClient.setTimeout(10000);
 
-    http.begin(wifiClient, "http://moesmq.loca.lt/api/player");
+    String url = "http://"+ hostName +"/api/player";
+    Serial.println("API Call to: " + url);
+    http.begin(wifiClient, url);
     http.addHeader("Content-Type", "application/json");
 
     String httpRequestData = "{\"name\":\"" + name + "\"}";
@@ -64,8 +67,11 @@ void Api::FetchPlayers()
 {
     WiFiClient wifiClient;
     HTTPClient http;
+    wifiClient.setTimeout(10000);
 
-    http.begin(wifiClient, "http://moesmq.loca.lt/api/player");
+    String url = "http://"+ hostName +"/api/player";
+    Serial.println("API Call to: " + url);
+    http.begin(wifiClient, url);
     int httpResponseCode = http.GET();
     Serial.println("HTTP Response code: " + String(httpResponseCode));
     
