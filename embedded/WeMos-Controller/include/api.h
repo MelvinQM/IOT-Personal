@@ -10,6 +10,7 @@ class Api {
         ~Api();
         void Init();
         bool IsConnected();
+        void CreatePlayer(String name);
     private:
 
 };

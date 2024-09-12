@@ -3,4 +3,6 @@
 
 #include <Arduino.h>
 
+#define BUTTON_PIN 16
+
 #endif
