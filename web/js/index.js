@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 
                 // Create a row
                 const row = document.createElement('tr');
-                row.className = 'hover:bg-gray-50';
+                row.className = 'hover:bg-gray-50 border-t-2 border-gray-100';
                 row.appendChild(id);
                 row.appendChild(name);
                 
