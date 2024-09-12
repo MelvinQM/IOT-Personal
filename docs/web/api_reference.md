@@ -10,7 +10,11 @@
 | PATCH   | `/api/player/{id}`  | [Update a user by ID](#update-player)     | `name`: string       | Updated player object  |
 | DELETE  | `/api/player/{id}`  | [Delete a user by ID](#delete-player)     | `id`: int            | Status message         |
 
+<br>
+
 ## Score
+
+<br>
 
 # Endpoints explained
 
