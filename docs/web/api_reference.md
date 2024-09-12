@@ -6,8 +6,8 @@
 |---------|---------------------|-------------------------------------------|----------------------|------------------------|
 | GET     | `/api/player`       | [Get all users](#fetch-all-players)       | None                 | JSON list of players   |
 | GET     | `/api/player/{id}`  | [Get a player by ID](#fetch-player-by-id) | `id`: int            | JSON player object     |
-| POST    | `/api/player`       | [Create a new user](#create-new-player)   | JSON body            | Created player object  |
-| PATCH   | `/api/player/{id}`  | [Update a user by ID](#update-player)     | `id`: int, JSON body | Updated player object  |
+| POST    | `/api/player`       | [Create a new user](#create-new-player)   | `name`: string       | Created player object  |
+| PATCH   | `/api/player/{id}`  | [Update a user by ID](#update-player)     | `name`: string       | Updated player object  |
 | DELETE  | `/api/player/{id}`  | [Delete a user by ID](#delete-player)     | `id`: int            | Status message         |
 
 ## Score
@@ -65,7 +65,7 @@ subscription information.
 
 Create a new player by providing a name parameter in the query.
 
-**URL** : `/api/player?name=John Doe`
+**URL** : `/api/player`
 
 **Method** : `POST`
 
@@ -93,7 +93,7 @@ Create a new player by providing a name parameter in the query.
 
 ## Update player
 
-**URL** : `/api/player?name=John Doe`
+**URL** : `/api/player`
 
 **Method** : `POST`
 

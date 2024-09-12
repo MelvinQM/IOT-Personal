@@ -20,17 +20,20 @@ class PlayerController {
     {
         $product = $this->gateway->get($id);
         if(!$product) {
-            ErrorCodeHelper::getInstance()->handleErrorCode(404, "", "Player not found");
+            ErrorCodeHelper::getInstance()->handleErrorCode(404, "Player not found");
         }
         switch($method) {
             case "GET":
                 echo json_encode($product);
                 break;
             case "PATCH":
-                $data = $_GET;
+                $data = json_decode(file_get_contents('php://input'), true);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    ErrorCodeHelper::getInstance()->handleErrorCode(400,'Invalid JSON format');
+                }
                 $errors = $this->getValidationErrors($data, false);
                 if(!empty($errors)) {
-                    ErrorCodeHelper::getInstance()->handleErrorCode(422, "", json_encode(["errors" => $errors]));
+                    ErrorCodeHelper::getInstance()->handleErrorCode(422, json_encode(["errors" => $errors]));
                     break;
                 }
                 $rows = $this->gateway->update($id, $data);
@@ -49,7 +52,7 @@ class PlayerController {
                 ]);
                 break;
             default:
-                ErrorCodeHelper::getInstance()->handleErrorCode(405, "Allow: GET, PATCH, DELETE");
+                ErrorCodeHelper::getInstance()->handleErrorCode(405, "Method not allowed","Allow: GET, PATCH, DELETE");
                 break;
 
         }
@@ -62,10 +65,13 @@ class PlayerController {
                 echo json_encode($this->gateway->getAll());
                 break;
             case "POST":
-                $data = $_GET;
+                $data = json_decode(file_get_contents('php://input'), true);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    ErrorCodeHelper::getInstance()->handleErrorCode(400,'Invalid JSON format');
+                }
                 $errors = $this->getValidationErrors($data);
                 if(!empty($errors)) {
-                    ErrorCodeHelper::getInstance()->handleErrorCode(422, "", json_encode(["errors" => $errors]));
+                    ErrorCodeHelper::getInstance()->handleErrorCode(422, json_encode(["errors" => $errors]));
                     break;
                 }
                 $id = $this->gateway->create($data);
@@ -76,7 +82,7 @@ class PlayerController {
                 ]);
                 break;
             default:
-                ErrorCodeHelper::getInstance()->handleErrorCode(405, "Allow: GET, POST");
+                ErrorCodeHelper::getInstance()->handleErrorCode(405, "Method not allowed", "Allow: GET, POST");
                 break;
 
         }
