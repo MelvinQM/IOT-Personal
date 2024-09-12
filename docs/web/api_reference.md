@@ -2,13 +2,13 @@
 
 # Endpoints
 ## Players
-| Method      | Endpoint              | Description                                     | Parameters           | Response                  |
-|-------------|-----------------------|-------------------------------------------------|----------------------|---------------------------|
-| GET         | `/api/player`         | [Get all users](#fetch-all-players)             | None                 | JSON list of players      |
-| GET         | `/api/player/{id}`    | [Get a player by ID](#fetch-player-by-id)       | `id`: int            | JSON player object        |
-| POST        | `/api/player`         | [Create a new user](#create-new-player)         | JSON body            | Created player object     |
-| PATCH       | `/api/player/{id}`    | [Update a user by ID](#update-player)           | `id`: int, JSON body | Updated player object     |
-| DELETE      | `/api/player/{id}`    | [Delete a user by ID](#delete-player)           | `id`: int            | Status message            |
+| Method  | Endpoint            | Description                               | Parameters           | Response               |
+|---------|---------------------|-------------------------------------------|----------------------|------------------------|
+| GET     | `/api/player`       | [Get all users](#fetch-all-players)       | None                 | JSON list of players   |
+| GET     | `/api/player/{id}`  | [Get a player by ID](#fetch-player-by-id) | `id`: int            | JSON player object     |
+| POST    | `/api/player`       | [Create a new user](#create-new-player)   | JSON body            | Created player object  |
+| PATCH   | `/api/player/{id}`  | [Update a user by ID](#update-player)     | `id`: int, JSON body | Updated player object  |
+| DELETE  | `/api/player/{id}`  | [Delete a user by ID](#delete-player)     | `id`: int            | Status message         |
 
 ## Score
 
