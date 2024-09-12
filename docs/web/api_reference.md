@@ -42,6 +42,8 @@
 }
 ```
 
+<br>
+
 ## Fetch player by id
 
 Get the details of the currently Authenticated User along with basic
@@ -64,6 +66,8 @@ subscription information.
     "name": "John Doe",
 }
 ```
+
+<br>
 
 ## Create new player
 
@@ -95,6 +99,8 @@ Create a new player by providing a name parameter in the query.
 {"errors":["Name is required"]}
 ```
 
+<br>
+
 ## Update player
 
 **URL** : `/api/player`
@@ -115,6 +121,7 @@ Create a new player by providing a name parameter in the query.
     "rows":"1"
 }
 ```
+<br>
 
 ## Delete player
 
