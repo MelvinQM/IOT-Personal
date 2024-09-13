@@ -124,18 +124,29 @@ Result:
 
 <br>
 
+### Wifi Manager
+To connect the WeMos and any other embedded device that will be needed for my project I made use of the library WiFiManager. This allows the WeMos to connect to a wifi access point without needing to hard code the SSID and password inside the code. This is more user friendly.
+
+<br>
+
+<div align="center">
+  <img src="/assets/wifimanager.jpg" alt="wifimanager">
+</div>
+
+<br>
+
 ### Gyroscope
 
 I worked on getting data from the gyroscope. The gyroscope gives me 3 axis xyz data to see the tilt of the sensor. This will be used to determine the orientation of the controller.
 
 <div align="center">
-  <img src="/assets/mpu-setup.jpg" alt="frontendexample">
+  <img src="/assets/mpu-setup.jpg" alt="mpu-setup">
 </div>
 
 <br>
 
 <div align="center">
-  <img src="/assets/mpu-data.png" alt="frontendexample">
+  <img src="/assets/mpu-data.png" alt="mpu-data">
 </div>
 
 <br>
