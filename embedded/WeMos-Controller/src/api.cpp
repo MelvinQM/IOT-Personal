@@ -12,7 +12,7 @@ Api::~Api()
 
 void Api::Init()
 {
-    Serial.println("----[Wifi & Api]----");
+    Serial.println("------------[Wifi & Api]------------");
     WiFi.mode(WIFI_STA);
     WiFiManager wm;
     wm.setDarkMode(true);
@@ -23,8 +23,8 @@ void Api::Init()
     bool res = wm.autoConnect("DuckHuntAP","password"); 
 
     if(!res) {
-        Serial.println("Failed to connect");
-        // ESP.restart();
+        Serial.println("Failed to connect");        // ESP.restart();
+
     } 
     else { 
         Serial.println("**WiFi Connected**");
