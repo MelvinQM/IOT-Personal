@@ -106,3 +106,36 @@ I ended up improving the frontend by adding a scrollable table body allowing the
 TODO:
 
 <br>
+
+### Start of embedded device
+After having a basic API up and running the start of the embedded device was next. The goal was to have a simple embedded device with a button that can trigger some API calls to test the connection between the different elements.
+
+Result:
+
+<div align="center">
+  <img src="/assets/basicembeddeddevice.jpg" alt="basicembeddeddevice">
+</div>
+
+<br>
+
+<div align="center">
+  <img src="/assets/frontend.png" alt="frontendexample">
+</div>
+
+<br>
+
+### Gyroscope
+
+I worked on getting data from the gyroscope. The gyroscope gives me 3 axis xyz data to see the tilt of the sensor. This will be used to determine the orientation of the controller.
+
+<div align="center">
+  <img src="/assets/mpu-setup.jpg" alt="frontendexample">
+</div>
+
+<br>
+
+<div align="center">
+  <img src="/assets/mpu-data.png" alt="frontendexample">
+</div>
+
+<br>
