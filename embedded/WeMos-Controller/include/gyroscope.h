@@ -10,13 +10,14 @@ class Gyroscope {
         ~Gyroscope();
         void Init();
         void Loop();
+        void CalibrateGyro();
     private:
         //MPU6050 accelgyro(0x69); // <-- use for AD0 high
         //MPU6050 accelgyro(0x68, &Wire1); // <-- use for AD0 low, but 2nd Wire (TWI/I2C) object
 
         int16_t ax, ay, az;
         int16_t gx, gy, gz;
-        
+
         // uncomment "OUTPUT_READABLE_ACCELGYRO" if you want to see a tab-separated
         // list of the accel X/Y/Z and then gyro X/Y/Z values in decimal. Easy to read,
         // not so easy to parse, and slow(er) over UART.

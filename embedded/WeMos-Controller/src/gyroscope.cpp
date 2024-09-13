@@ -25,27 +25,29 @@ void Gyroscope::Init()
 
     // use the code below to change accel/gyro offset values
     Serial.println("Updating internal sensor offsets...");
-    // -76	-2359	1688	0	0	0
-    Serial.print(accelgyro.getXAccelOffset()); Serial.print("\t"); // -76
-    Serial.print(accelgyro.getYAccelOffset()); Serial.print("\t"); // -2359
-    Serial.print(accelgyro.getZAccelOffset()); Serial.print("\t"); // 1688
-    Serial.print(accelgyro.getXGyroOffset()); Serial.print("\t"); // 0
-    Serial.print(accelgyro.getYGyroOffset()); Serial.print("\t"); // 0
-    Serial.print(accelgyro.getZGyroOffset()); Serial.print("\t"); // 0
-    Serial.print("\n");
-    // accelgyro.setXGyroOffset(220);
-    // accelgyro.setYGyroOffset(76);
-    // accelgyro.setZGyroOffset(-85);
-    Serial.print(accelgyro.getXAccelOffset()); Serial.print("\t"); // -76
-    Serial.print(accelgyro.getYAccelOffset()); Serial.print("\t"); // -2359
-    Serial.print(accelgyro.getZAccelOffset()); Serial.print("\t"); // 1688
-    Serial.print(accelgyro.getXGyroOffset()); Serial.print("\t"); // 0
-    Serial.print(accelgyro.getYGyroOffset()); Serial.print("\t"); // 0
-    Serial.print(accelgyro.getZGyroOffset()); Serial.print("\t"); // 0
-    Serial.print("\n");
+    Serial.println( 
+        String(accelgyro.getXAccelOffset()) + "\t" +        // -76
+        String(accelgyro.getYAccelOffset()) + "\t" +        // -2359
+        String(accelgyro.getZAccelOffset()) + "\t" +        // 1688
+        String(accelgyro.getXGyroOffset()) + "\t" +         // 0
+        String(accelgyro.getYGyroOffset()) + "\t" +         // 0
+        String(accelgyro.getZGyroOffset())                  // 0
+    );              
 
-    // configure Arduino LED pin for output
-    pinMode(LED_PIN, OUTPUT);
+    CalibrateGyro();
+    accelgyro.setXGyroOffset(91.00000);
+    accelgyro.setYGyroOffset(-5.00000);
+    accelgyro.setZGyroOffset(10.00000);
+    accelgyro.setZAccelOffset(1574.00000);
+
+    Serial.println( 
+        String(accelgyro.getXAccelOffset()) + "\t" +        // -76
+        String(accelgyro.getYAccelOffset()) + "\t" +        // -2359
+        String(accelgyro.getZAccelOffset()) + "\t" +        // 1688
+        String(accelgyro.getXGyroOffset()) + "\t" +         // 0
+        String(accelgyro.getYGyroOffset()) + "\t" +         // 0
+        String(accelgyro.getZGyroOffset())                  // 0
+    );           
 }
 
 struct MyData {
@@ -63,7 +65,7 @@ void Gyroscope::Loop()
     data.Y = map(gy, -17000, 17000, 0, 255); 
     data.Z = map(gz, -17000, 17000, 0, 255);  // Y axis data
     delay(500);
-
+    
     // these methods (and a few others) are also available
     //accelgyro.getAcceleration(&ax, &ay, &az);
     //accelgyro.getRotation(&gx, &gy, &gz);
@@ -95,8 +97,33 @@ void Gyroscope::Loop()
         Serial.write((uint8_t)(gy >> 8)); Serial.write((uint8_t)(gy & 0xFF));
         Serial.write((uint8_t)(gz >> 8)); Serial.write((uint8_t)(gz & 0xFF));
     #endif
+}
 
-    // blink LED to indicate activity
-    blinkState = !blinkState;
-    digitalWrite(LED_PIN, blinkState);
+void Gyroscope::CalibrateGyro()
+{
+    accelgyro.CalibrateAccel(6);
+    accelgyro.CalibrateGyro(6);
+    Serial.println("\nat 600 Readings");
+    accelgyro.PrintActiveOffsets();
+    Serial.println();
+    accelgyro.CalibrateAccel(1);
+    accelgyro.CalibrateGyro(1);
+    Serial.println("700 Total Readings");
+    accelgyro.PrintActiveOffsets();
+    Serial.println();
+    accelgyro.CalibrateAccel(1);
+    accelgyro.CalibrateGyro(1);
+    Serial.println("800 Total Readings");
+    accelgyro.PrintActiveOffsets();
+    Serial.println();
+    accelgyro.CalibrateAccel(1);
+    accelgyro.CalibrateGyro(1);
+    Serial.println("900 Total Readings");
+    accelgyro.PrintActiveOffsets();
+    Serial.println();    
+    accelgyro.CalibrateAccel(1);
+    accelgyro.CalibrateGyro(1);
+    Serial.println("1000 Total Readings");
+    accelgyro.PrintActiveOffsets();
+    Serial.println("\n\n Any of the above offsets will work nice \n\n Lets proof the PID tuning using another method:"); 
 }
