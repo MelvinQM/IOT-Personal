@@ -150,3 +150,8 @@ I worked on getting data from the gyroscope. The gyroscope gives me 3 axis xyz d
 </div>
 
 <br>
+
+### Documentation
+During week 2 I worked on several portions of documentation. I started with fixing some images not correctly showing up in the documentation. After this I wrote documentation explaining my API. For now this only explains the endpoints for fetching, creating, deleting and updating players. I also went around all my documentatin to add some br tags to improve readability. Finally I worked throughout the week to keep my journal up to date to prevent having to write it all in one go.
+
+In the weekend I additionally worked on writing some documentation about working with the MPU6050.
