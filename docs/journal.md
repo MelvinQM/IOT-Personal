@@ -103,7 +103,7 @@ I ended up improving the frontend by adding a scrollable table body allowing the
 
 **Feedback:** Please add a summary in your php code above your functions. The rest looks good! Nice to see the comments in your functions it self.
 
-**Takeaway:** TODO:
+**Takeaway:** I've added comments above all functions in my API to explain more clearly what kind of parameters are expected, a summary about the function and what the function might return.
 
 <br>
 
