@@ -61,9 +61,9 @@ void Gyroscope::Loop()
 {
     // read raw accel/gyro measurements from device
     accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-    data.X = map(gx, -17000, 17000, 0, 255 ); // X axis data
-    data.Y = map(gy, -17000, 17000, 0, 255); 
-    data.Z = map(gz, -17000, 17000, 0, 255);  // Y axis data
+    // data.X = map(gx, -17000, 17000, 0, 255 ); // X axis data
+    // data.Y = map(gy, -17000, 17000, 0, 255); 
+    // data.Z = map(gz, -17000, 17000, 0, 255);  // Y axis data
     delay(500);
     
     // these methods (and a few others) are also available
@@ -72,21 +72,21 @@ void Gyroscope::Loop()
 
     #ifdef OUTPUT_READABLE_ACCELGYRO
         // display tab-separated accel/gyro x/y/z values
-        // Serial.print("a/g:\t");
+        Serial.print("a/g:\t");
         // Serial.print(ax); Serial.print("\t");
         // Serial.print(ay); Serial.print("\t");
         // Serial.print(az); Serial.print("\t");
-        // Serial.print(gx); Serial.print("\t");
-        // Serial.print(gy); Serial.print("\t");
-        // Serial.println(gz);
-        Serial.print("Axis X = ");
-        Serial.print(data.X);
-        Serial.print("  ");
-        Serial.print("Axis Y = ");
-        Serial.print(data.Y);
-        Serial.print("  ");
-        Serial.print("Axis Z  = ");
-        Serial.println(data.Z);
+        Serial.print(gx); Serial.print("\t");
+        Serial.print(gy); Serial.print("\t");
+        Serial.println(gz);
+        // Serial.print("Axis X = ");
+        // Serial.print(data.X);
+        // Serial.print("  ");
+        // Serial.print("Axis Y = ");
+        // Serial.print(data.Y);
+        // Serial.print("  ");
+        // Serial.print("Axis Z  = ");
+        // Serial.println(data.Z);
     #endif
 
     #ifdef OUTPUT_BINARY_ACCELGYRO
