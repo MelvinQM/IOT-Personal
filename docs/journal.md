@@ -25,9 +25,9 @@ I started the course setting up all seperate parts of the project and seeing if 
 
 **Reviewer: Nick Schokker**
 
-**Feedback: looks good but in the highscore field you should add the player because you would like to know who has the highest score.**
+**Feedback:** looks good but in the highscore field you should add the player because you would like to know who has the highest score.
 
-Although I ended up not using this feedback as I instead completely removed the highscore table as it was redundant due to the existence of a score table that could just be sorted.
+**Takeaway:** Although I ended up not using this feedback as I instead completely removed the highscore table as it was redundant due to the existence of a score table that could just be sorted.
 
 <br>
 
@@ -36,9 +36,9 @@ Although I ended up not using this feedback as I instead completely removed the 
 
 **Reviewer: Mats Otten**
 
-**Feedback: Without context, it's hard to say if your ERD (Entity-Relationship Diagram) is suitable for your application. However, it seems that you might not need a 'Highscore' entity if you already have a 'Score' entity. Additionally, you also have a score in the Player entity? And you also have a Shot which might also contain a Score?**
+**Feedback:** Without context, it's hard to say if your ERD (Entity-Relationship Diagram) is suitable for your application. However, it seems that you might not need a 'Highscore' entity if you already have a 'Score' entity. Additionally, you also have a score in the Player entity? And you also have a Shot which might also contain a Score?
 
-Coincidentally I had already applied the above feedback but it was good to have a confirmation of the assumption that the highscore table was not needed.
+**Takeaway:** Coincidentally I had already applied the above feedback but it was good to have a confirmation of the assumption that the highscore table was not needed.
 
 <br>
 
@@ -101,9 +101,9 @@ I ended up improving the frontend by adding a scrollable table body allowing the
 
 **Reviewer: Lucas Hilgevoord**
 
-**Feedback: Please add a summary in your php code above your functions. The rest looks good! Nice to see the comments in your functions it self.**
+**Feedback:** Please add a summary in your php code above your functions. The rest looks good! Nice to see the comments in your functions it self.
 
-TODO:
+**Takeaway:** TODO:
 
 <br>
 
@@ -130,7 +130,7 @@ To connect the WeMos and any other embedded device that will be needed for my pr
 <br>
 
 <div align="center">
-  <img src="/assets/wifimanager.jpg" alt="wifimanager">
+  <img src="/assets/images/wifimanager.jpg" alt="wifimanager">
 </div>
 
 <br>
@@ -140,13 +140,13 @@ To connect the WeMos and any other embedded device that will be needed for my pr
 I worked on getting data from the gyroscope. The gyroscope gives me 3 axis xyz data to see the tilt of the sensor. This will be used to determine the orientation of the controller.
 
 <div align="center">
-  <img src="/assets/mpu-setup.jpg" alt="mpu-setup">
+  <img src="/assets/images/mpu-setup.jpg" alt="mpu-setup">
 </div>
 
 <br>
 
 <div align="center">
-  <img src="/assets/mpu-data.png" alt="mpu-data">
+  <img src="/assets/images/mpu-data.png" alt="mpu-data">
 </div>
 
 <br>
