@@ -12,6 +12,17 @@ class ErrorCodeHelper {
         return self::$instances[$cls];
     }
 
+
+    /**
+     * Handles HTTP error codes and returns a JSON response.
+     *
+     * This function sets the HTTP response code, optionally adds a header,
+     * and returns a JSON-encoded error message.
+     *
+     * @param int $code The HTTP response code to set (e.g., 404, 500).
+     * @param string $msg The error message to include in the response body. Default is an empty string.
+     * @param string $header Optional. A custom header to be sent. Default is null.
+     */
     public function handleErrorCode(int $code, ?string $msg = "", ?string $header = ""): void
     {
         http_response_code($code);
@@ -41,7 +52,7 @@ class ErrorCodeHelper {
         //                     display: flex;
         //                     flex-direction: column;
         //                     align-items: center;
-        //                     color: white; /* Ensure text is visible on black background */
+        //                     color: white;
         //                 }
         //             </style>
         //         </head>

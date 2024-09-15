@@ -1,10 +1,17 @@
 <?php
 
 class PlayerController {
-    public function __construct(private PlayerGateway $gateway) 
-    {
-        
-    }
+    public function __construct(private PlayerGateway $gateway) {}
+
+    /**
+     * Handles HTTP requests for either a single player or a collection of players based on the provided ID.
+     *
+     * If an ID is provided, it routes the request to handle a single player resource; otherwise,
+     * it handles requests for a collection of player resources.
+     *
+     * @param string $method The HTTP request method.
+     * @param string|null $id The ID of the player. Null for collection requests.
+     */
     public function handleRequest(string $method, ?string $id) : void
     {
         if($id) {
@@ -16,6 +23,15 @@ class PlayerController {
         }
     }
 
+    /**
+     * Handles requests for a single player.
+     *
+     * This function processes requests for a specific player, identified by the ID.
+     * It supports GET, PATCH, and DELETE methods, responding with appropriate data or errors.
+     *
+     * @param string $method The HTTP request method.
+     * @param string|null $id The ID of the player.
+     */
     public function handlePlayerRequest(string $method, ?string $id): void 
     {
         $product = $this->gateway->get($id);
@@ -58,6 +74,15 @@ class PlayerController {
         }
     }
     
+    /**
+     * Handles requests for a collection of player resources.
+     *
+     * This function processes requests for a collection of players, supporting GET and POST methods.
+     * It responds with the list of players or creates a new player based on the provided data.
+     *
+     * @param string $method The HTTP request method.
+     * @param string|null $id The ID of the player.
+     */
     public function handlePlayerCollectionRequest(string $method, ?string $id): void 
     {
         switch($method) {
@@ -88,6 +113,16 @@ class PlayerController {
         }
     }
 
+    /**
+     * Validates player data for required fields.
+     *
+     * This function checks the provided data for validation errors, such as missing required fields
+     *
+     * @param array $data The player data to validate.
+     * @param bool $isNew Whether the validation is for a new player or an existing player.
+     *
+     * @return array Returns an array of validation errors.
+     */
     private function getValidationErrors(array $data, bool $isNew = true) : array
     {
         $errors = [];
