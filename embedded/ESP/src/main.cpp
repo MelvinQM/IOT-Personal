@@ -1,19 +1,13 @@
-#include <Arduino.h>
+#include "utilities.h"
+#include "BluetoothHandler.h"
+
+BluetoothHandler bluetooth;
 
 void setup() {
-  Serial.begin(115200);
-  pinMode(16, INPUT);
-  digitalWrite(16, LOW);
+    Serial.begin(115200);
+    bluetooth.Init();
 }
 
 void loop() {
-  bool pressed = digitalRead(16);
-  Serial.println(pressed);
-  if(pressed) 
-  {
-      Serial.println("Button pressed");
-      //api.CreatePlayer("Lucas");
-  }
-
-  delay(1000);
+    bluetooth.Loop();
 }
