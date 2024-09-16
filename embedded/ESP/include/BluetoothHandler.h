@@ -14,7 +14,6 @@ class BluetoothHandler {
         void Init();
         void Loop();
     private:
-        // See the following for generating UUIDs:
         // https://www.uuidgenerator.net/
         #define SERVICE_UUID        "b2f6ac88-8216-4faf-b31e-3f37926031be"
         #define CHARACTERISTIC_UUID "797bd60e-c9f7-4657-ac8f-aca7b9dd4b58"

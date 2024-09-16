@@ -169,3 +169,26 @@ Improved mpu data collection by using the [DMP](embedded/technical_documentation
 </div>
 
 <br>
+
+### Concept sketches
+To visualize the end product better I drew up some concept sketches.
+<div align="center">
+  <img src="/assets/images/product_concept.png" alt="product_concept">
+  <img src="/assets/images/cursor_concept.png" alt="cursor_concept">
+</div>
+
+<br>
+
+### Bluetooth server
+To connect the controller to the display in the future a form of communication was needed. I worked on setting up a bluetooth server that can receive data through a bluetooth connection.
+
+I used the app: BluetoothLE (IOS)
+<div align="center">
+  <img src="assets/images/bluetooth_app_connection.jpg" alt="bluetooth_app_connection">
+</div>
+
+<div align="center">
+  <img src="assets/images/bluetooth_data.png" alt="bluetooth_data">
+</div>
+
+<br>
