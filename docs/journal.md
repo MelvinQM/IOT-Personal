@@ -7,6 +7,7 @@ So for example when you receive feedback on your project, you can write down the
 <br>
 
 ## Week 1
+<hr>
 
 Monday I was unfortunately not able to attend the lesson. In my own time I spent some time looking through all the online files about the lectures I also asked a few fellow students about the information i missed. 
 
@@ -15,7 +16,7 @@ I started the course setting up all seperate parts of the project and seeing if 
 <br>
 
 <div align="center">
-  <img src="/assets/ERD.drawio.png" alt="ERD">
+  <img src="/assets/images/ERD.drawio.png" alt="ERD">
 </div>
 
 <br>
@@ -48,7 +49,7 @@ After making my first draft of ERD I started designing the Database itself to sh
 <br>
 
 <div align="center">
-  <img src="/assets/EER.png" alt="EER">
+  <img src="/assets/images/EER.png" alt="EER">
 </div>
 
 <br>
@@ -73,14 +74,16 @@ This week I also worked on some documentation. I wrote documentation for my data
 
 <br>
 
+
 ## Week 2
+<hr>
 
 ### REST API
 I worked on creating the first version of my API. I worked on this through a [tutorial](https://www.youtube.com/watch?v=X51KOJKrofU&ab_channel=DaveHollingworth) this tutorial taught me to make a simple rest API capable of performing CRUD operations with a single table. This doesn't allow for full communication with my database as of yet. It's a great start however, as it allows control over atleast the player table which is sufficient for now for testing purposes.
 
 Additionally I added a custom http error code display using the http.cat API
 <div align="center">
-  <img src="/assets/errorcodedisplay.png" alt="errorcodedisplay">
+  <img src="/assets/images/errorcodedisplay.png" alt="errorcodedisplay">
 </div>
 
 <br>
@@ -88,7 +91,7 @@ Additionally I added a custom http error code display using the http.cat API
 ### Frontend 
 To visualise the data I worked on my frontend a bit. I added tailwindcss as i've already worked with bootstrap a lot and wanted to learn a bit more about tailwind.
 <div align="center">
-  <img src="/assets/frontend.png" alt="frontendexample">
+  <img src="/assets/images/frontend.png" alt="frontendexample">
 </div>
 
 I ended up improving the frontend by adding a scrollable table body allowing the page to not extend endlessly with the size of the tabe. Also cell border dividers were added to improve the readability.
@@ -113,13 +116,13 @@ After having a basic API up and running the start of the embedded device was nex
 Result:
 
 <div align="center">
-  <img src="/assets/basicembeddeddevice.jpg" alt="basicembeddeddevice">
+  <img src="/assets/images/basicembeddeddevice.jpg" alt="basicembeddeddevice">
 </div>
 
 <br>
 
 <div align="center">
-  <img src="/assets/frontend.png" alt="frontendexample">
+  <img src="/assets/images/frontend.png" alt="frontendexample">
 </div>
 
 <br>
@@ -155,3 +158,14 @@ I worked on getting data from the gyroscope. The gyroscope gives me 3 axis xyz d
 During week 2 I worked on several portions of documentation. I started with fixing some images not correctly showing up in the documentation. After this I wrote documentation explaining my API. For now this only explains the endpoints for fetching, creating, deleting and updating players. I also went around all my documentatin to add some br tags to improve readability. Finally I worked throughout the week to keep my journal up to date to prevent having to write it all in one go.
 
 In the weekend I additionally worked on writing some documentation about working with the MPU6050.
+
+## Week 3
+<hr>
+
+### MPU6050
+Improved mpu data collection by using the [DMP](embedded/technical_documentation.md#). The data collected is now processed before being retrieved from the sensor. 
+<div align="center">
+  <img src="/assets/images/mpuimproveddata.png" alt="mpu-data">
+</div>
+
+<br>
