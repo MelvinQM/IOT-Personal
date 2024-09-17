@@ -116,14 +116,15 @@ After having a basic API up and running the start of the embedded device was nex
 Result:
 
 <div align="center">
-  <img src="/assets/images/basicembeddeddevice.jpg" alt="basicembeddeddevice">
+  <img src="/assets/images/frontend.png" alt="frontendexample">
+</div>
+
+<div align="center">
+  <img src="/assets/images/basicembeddeddevice.jpg" alt="basicembeddeddevice" style="width: 50%; height: auto;">
 </div>
 
 <br>
 
-<div align="center">
-  <img src="/assets/images/frontend.png" alt="frontendexample">
-</div>
 
 <br>
 
@@ -184,11 +185,11 @@ To connect the controller to the display in the future a form of communication w
 
 I used the app: BluetoothLE (IOS)
 <div align="center">
-  <img src="assets/images/bluetooth_app_connection.jpg" alt="bluetooth_app_connection">
-</div>
-
-<div align="center">
   <img src="assets/images/bluetooth_data.png" alt="bluetooth_data">
 </div>
+<div align="center">
+  <img src="assets/images/bluetooth_app_connection.jpg" alt="bluetooth_app_connection" style="width: 25%; height: auto;">
+</div>
+
 
 <br>

@@ -1,4 +1,10 @@
-# Blueprint name here
+# Game console
+
+<div align="center">
+  <img src="./assets/images/gameconsole.png" alt="cursorconcept">
+</div>
+
+<br>
 
 Describe the purpose of your blueprint. Design a nice front-page image that will describe your product.
 
