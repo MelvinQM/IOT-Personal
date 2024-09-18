@@ -39,6 +39,13 @@ This project will be a Embedded system take on the game Duck Hunt. This project 
 
 ## Bill of materials
 
+A Bill of Materials (BOM) is a all encompassing list of parts, materials, and components required to build or assemble a product. It serves as a blueprint/shopping list for all the necessary materials and allows potential builders of this project to ensure all components are available before starting the project.
+
+Below is the table that outlines the necessary parts for this project:
+| **Part**        | **Manufacturer** | **Description**                  | **Quantity** | **Price (incl VAT)** | **Subtotal (incl VAT)** | **URL**                             |
+| --------------- | ---------------- | -------------------------------- | ------------ | -------------------- | ----------------------- | ----------------------------------- |
+| MPU6050         | Invensense       | 6 Axis gyroscope & Accelerometer | 1            | €8,50                | €8,5 0                  | [Tinytronics](https://www.tinytronics.nl/nl/sensoren/acceleratie-rotatie/mpu-6050-accelerometer-en-gyroscope-3-axis-module-3.3v-5v) |
+
 <br>
 
 ## Project wiring diagram

@@ -17,6 +17,12 @@ Additionally the controller will be wireless and communicate with the display th
 ### Demographic
 The demographic of people using this system would be an all ages demographic from retro game enjoyers of old to young kids. The system must be easy to use and most importantly fun. This will influence some design decisions such as the controller. The gun can't look too violent and shouldn't look like a traditional gun. Also the handle can't be too large to allow all types of people to be able to comfortably hold the controller.
 
+#### Product requirements
+- The game console must be set up by users in under 15 minutes, with clear instructions provided.
+- The controller's design should be non-violent and appealing to users of all ages.
+- The wireless controller should be easy to hold for both children and adults, with a comfortable design.
+- The controller must maintain a stable Bluetooth connection to the display within a 10-meter range.
+
 ### Controller concepts
 
 
