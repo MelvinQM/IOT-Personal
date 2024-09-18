@@ -13,7 +13,7 @@ Api::~Api()
 void Api::Init()
 {
     Serial.println("------------[Wifi & Api]------------");
-    // GetMacAddress();
+    GetMacAddress();
     WiFi.mode(WIFI_STA);
     WiFiManager wm;
     wm.setDarkMode(true);

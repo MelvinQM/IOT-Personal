@@ -16,9 +16,9 @@ class Api {
         bool IsConnected();
         void CreatePlayer(String name);
         void FetchPlayers();
-        void GetMacAddress();
     private:
-        String hostName = "moesmq.loca.lt";
+        void GetMacAddress();
+        String hostName = "145.92.189.173";
 };
 
 #endif
