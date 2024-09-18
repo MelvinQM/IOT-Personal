@@ -6,6 +6,7 @@ BluetoothClient::~BluetoothClient() {}
 
 // The remote service we wish to connect to.
 static BLEUUID serviceUUID("b2f6ac88-8216-4faf-b31e-3f37926031be");
+
 // The characteristic of the remote service we are interested in.
 static BLEUUID charUUID("797bd60e-c9f7-4657-ac8f-aca7b9dd4b58");
 
