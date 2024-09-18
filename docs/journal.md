@@ -180,7 +180,9 @@ To visualize the end product better I drew up some concept sketches.
 
 <br>
 
-### Bluetooth server
+### Bluetooth
+
+#### Bluetooth server
 To connect the controller to the display in the future a form of communication was needed. I worked on setting up a bluetooth server that can receive data through a bluetooth connection.
 
 I used the app: BluetoothLE (IOS)
@@ -191,5 +193,10 @@ I used the app: BluetoothLE (IOS)
   <img src="assets/images/bluetooth_app_connection.jpg" alt="bluetooth_app_connection" style="width: 25%; height: auto;">
 </div>
 
+#### Bluetooth client
+To test the connectivity between the controller and the display. I established a Bluetooth client for the controller. This allows the controller to connect to the other ESP32
 
 <br>
+
+### Switching WeMos to ESP32-S3
+The WeMos allows for a wifi connection but not a bluetooth connection. Together with some other issues I encountered I decided to switch to the ESP32-S3. This not only allows me to use bluetooth but also opens some other options such as using 2 cores, better performance and ability to connect to 5Ghz wifi channels which the WeMos could not.
