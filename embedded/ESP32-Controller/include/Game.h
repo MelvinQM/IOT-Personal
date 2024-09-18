@@ -2,8 +2,9 @@
 #define GAME_H
 
 #include "utilities.h"
-#include "gyroscope.h"
-#include "api.h"
+#include "Gyroscope.h"
+#include "Api.h"
+#include "BluetoothClient.h"
 
 class Game {
     public:
@@ -14,6 +15,7 @@ class Game {
     private:
         Gyroscope gyro;
         Api api;
+        BluetoothClient btClient;
 };
 
 

@@ -13,19 +13,21 @@ Game::~Game()
 void Game::Init()
 {
     Serial.println("\n------------[Initializing Game]------------");
-    api.Init();
-    pinMode(BUTTON_PIN, INPUT);
+    btClient.Init();
+    // api.Init();
+    // pinMode(BUTTON_PIN, INPUT);
     // gyro.Init();
 }
 
 void Game::Run()
 {
-    if(digitalRead(BUTTON_PIN)) 
-    {
-        Serial.println("Button pressed");
-        api.CreatePlayer("Lucas");
-        api.FetchPlayers();
-    }
+    // if(digitalRead(BUTTON_PIN)) 
+    // {
+    //     Serial.println("Button pressed");
+    //     api.CreatePlayer("Lucas");
+    //     api.FetchPlayers();
+    // }
     // gyro.Loop();
-    delay(1000);        
+    // delay(1000);        
+    btClient.Loop();
 }
