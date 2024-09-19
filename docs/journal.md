@@ -196,6 +196,9 @@ I used the app: BluetoothLE (IOS)
 #### Bluetooth client
 To test the connectivity between the controller and the display. I established a Bluetooth client for the controller. This allows the controller to connect to the other ESP32
 
+### Bluetooth reconnection
+I also added an option to reconnect to the BT server when the device is disconnected. This wasn't working automatically before so I added this feature by making the server resume advertising after its device is disconnected.
+
 <br>
 
 ### Switching WeMos to ESP32-S3
