@@ -5,6 +5,7 @@
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include <BLEServer.h>
+#include <ArduinoJson.h>
 
 
 class BluetoothServer {
@@ -35,6 +36,21 @@ class BluetoothServer {
                     }
                     Serial.println();
                 }
+
+                // Deserialize the JSON data
+                StaticJsonDocument<200> doc;  // Adjust size based on expected JSON size
+                DeserializationError error = deserializeJson(doc, value);
+
+                if (error) {
+                    Serial.print("Failed to parse JSON: ");
+                    Serial.println(error.c_str());
+                    return;
+                }
+                
+                // Assuming the JSON has key "exampleKey" with string value
+                int exampleValue = doc["x"];
+                Serial.print("Parsed value from JSON: ");
+                Serial.println(exampleValue);
             }
         };  
 

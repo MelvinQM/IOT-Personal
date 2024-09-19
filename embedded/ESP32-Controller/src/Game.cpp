@@ -24,19 +24,22 @@ void Game::Init()
         0                     // Run on core 0 (for dual-core devices like ESP32)
     );
     
-    xTaskCreatePinnedToCore(
-        WiFiTask,             // Function that implements the task
-        "WiFiTask",           // Name of the task
-        10000,                // Stack size (in words) for the task
-        &api,                 // Parameter passed to the task (Game object)
-        1,                    // Priority of the task
-        &WiFiTaskHandle,      // Task handle for WiFi
-        1                     // Run on core 1 (if applicable)
-    );
+    // xTaskCreatePinnedToCore(
+    //     WiFiTask,             // Function that implements the task
+    //     "WiFiTask",           // Name of the task
+    //     10000,                // Stack size (in words) for the task
+    //     &api,                 // Parameter passed to the task (Game object)
+    //     1,                    // Priority of the task
+    //     &WiFiTaskHandle,      // Task handle for WiFi
+    //     1                     // Run on core 1 (if applicable)
+    // );
 
 
-    // gyro.Init();
+    gyro.Init();
 }
 
-void Game::Run() {}
+void Game::Run() 
+{
+    gyro.Loop();
+}
 
