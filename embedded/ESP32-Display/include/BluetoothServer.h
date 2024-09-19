@@ -38,7 +38,7 @@ class BluetoothServer {
                 }
 
                 // Deserialize the JSON data
-                StaticJsonDocument<200> doc;  // Adjust size based on expected JSON size
+                StaticJsonDocument<256> doc;
                 DeserializationError error = deserializeJson(doc, value);
 
                 if (error) {
@@ -47,10 +47,12 @@ class BluetoothServer {
                     return;
                 }
                 
-                // Assuming the JSON has key "exampleKey" with string value
-                int exampleValue = doc["x"];
+                float exampleValue = doc["x"];
                 Serial.print("Parsed value from JSON: ");
                 Serial.println(exampleValue);
+
+                // TODO: Set cursor position (x,y)
+
             }
         };  
 

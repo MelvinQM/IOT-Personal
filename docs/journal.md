@@ -187,17 +187,25 @@ To connect the controller to the display in the future a form of communication w
 
 I used the app: BluetoothLE (IOS)
 <div align="center">
-  <img src="assets/images/bluetooth_data.png" alt="bluetooth_data">
+  <img src="/assets/images/bluetooth_data.png" alt="bluetooth_data">
 </div>
 <div align="center">
-  <img src="assets/images/bluetooth_app_connection.jpg" alt="bluetooth_app_connection" style="width: 25%; height: auto;">
+  <img src="/assets/images/bluetooth_app_connection.jpg" alt="bluetooth_app_connection" style="width: 25%; height: auto;">
 </div>
 
 #### Bluetooth client
 To test the connectivity between the controller and the display. I established a Bluetooth client for the controller. This allows the controller to connect to the other ESP32
 
-### Bluetooth reconnection
+#### Reconnection
 I also added an option to reconnect to the BT server when the device is disconnected. This wasn't working automatically before so I added this feature by making the server resume advertising after its device is disconnected.
+
+#### Data communication
+I worked on communicating between two ESP32's to send over the MPU data below is the result of this work:
+<div align="center">
+  <img src="/assets/images/bt-mpu-data.png" alt="bluetooth_app_connection" style="width: 75%;">
+  <img src="/assets/images/bt-setup.jpg" alt="bluetooth_data" style="width: 75%;">
+</div>
+
 
 <br>
 
