@@ -200,3 +200,6 @@ To test the connectivity between the controller and the display. I established a
 
 ### Switching WeMos to ESP32-S3
 The WeMos allows for a wifi connection but not a bluetooth connection. Together with some other issues I encountered I decided to switch to the ESP32-S3. This not only allows me to use bluetooth but also opens some other options such as using 2 cores, better performance and ability to connect to 5Ghz wifi channels which the WeMos could not.
+
+### Rubrics Frontend, Backend & Database
+During the course of IoT we discussed the requirements of all 3 elements. From this I learned not much from the backend and frontend side of the discussion, but I did however get reminded to normalize my database. This is good information to get reminded of and I've added this to my todo list.
