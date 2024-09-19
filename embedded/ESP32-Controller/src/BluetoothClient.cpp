@@ -1,7 +1,7 @@
 #include "utilities.h"
 #include "BluetoothClient.h"
 
-BluetoothClient::BluetoothClient() {}
+BluetoothClient::BluetoothClient(Gyroscope *gyro) : gyro(gyro) {}
 BluetoothClient::~BluetoothClient() {}
 
 // The remote service we wish to connect to.
@@ -123,15 +123,29 @@ void BluetoothClient::Loop()
     doConnect = false;
   }
 
-  // If we are connected to a peer BLE Server, update the characteristic each time we are reached
-  // with the current time since boot.
   if (connected) {
-    String newValue = "Time since boot: " + String(millis() / 1000);
-    Serial.println("Setting new characteristic value to \"" + newValue + "\"");
-
-    // Set the characteristic's value to be the array of bytes that is actually a string.
-    pRemoteCharacteristic->writeValue(newValue.c_str(), newValue.length());
+    // String newValue = "Time since boot: " + String(millis() / 1000);
+    String data = SendGyroData();
+    Serial.println("Setting new characteristic value to \"" + data + "\"");
+    pRemoteCharacteristic->writeValue(data.c_str(), data.length());
   } else if (doScan) {
     BLEDevice::getScan()->start(0);  // this is just example to start scan after disconnect, most likely there is better way to do it in arduino
   }
+}
+
+String BluetoothClient::SendGyroData()
+{
+  // Get data from gyroscope
+  GyroData data = gyro->GetXYZ();
+
+  // Create a JSON document
+  StaticJsonDocument<256> jsonDoc;
+  jsonDoc["x"] = data.x;
+  jsonDoc["y"] = data.y;
+
+  // Serialize the JSON document to a string
+  String output;
+  serializeJson(jsonDoc, output);
+
+  return output;
 }

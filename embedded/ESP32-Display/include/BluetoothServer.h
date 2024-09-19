@@ -40,11 +40,12 @@ class BluetoothServer {
 
         class ServerCallbacks : public BLEServerCallbacks {
             void onConnect(BLEServer *pServer) {
+                Serial.println("BLE: Device connected");
                 deviceConnected = true;
-                BLEDevice::startAdvertising();
             };
 
             void onDisconnect(BLEServer *pServer) {
+                Serial.println("BLE: Device disconnected");
                 deviceConnected = false;
             }
         };

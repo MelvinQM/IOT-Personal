@@ -1,9 +1,6 @@
 #include "Game.h"
 
-Game::Game()
-{
-
-}
+Game::Game() : btClient(&gyro){}
 
 Game::~Game()
 {
@@ -15,8 +12,7 @@ Game::~Game()
 void Game::Init()
 {
     Serial.println("\n------------[Initializing Game]------------");
-    // gyro.Init();
-
+    
     // Create the tasks for Bluetooth and WiFi handling
     xTaskCreatePinnedToCore(
         BluetoothTask,        // Function that implements the task
@@ -37,10 +33,10 @@ void Game::Init()
         &WiFiTaskHandle,      // Task handle for WiFi
         1                     // Run on core 1 (if applicable)
     );
+
+
+    // gyro.Init();
 }
 
-void Game::Run()
-{
-
-}
+void Game::Run() {}
 

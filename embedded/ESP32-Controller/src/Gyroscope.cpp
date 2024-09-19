@@ -148,3 +148,11 @@ void Gyroscope::Loop()
         #endif
     }
 }
+
+GyroData Gyroscope::GetXYZ() 
+{    
+    // Yaw = Z, Pitch = Y, Roll = X
+    // Rotating on Yaw is moving on X
+    // Rotating on Pitch is moving on Y
+    return {ypr[0], ypr[1]};;
+}

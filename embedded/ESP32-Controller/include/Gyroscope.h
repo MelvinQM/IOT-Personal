@@ -18,6 +18,7 @@ class Gyroscope {
         void Init();
         void Loop();
         void CalibrateGyro();
+        GyroData GetXYZ();
     private:
         MPU6050 mpu;
         // uncomment "OUTPUT_READABLE_QUATERNION" if you want to see the actual
