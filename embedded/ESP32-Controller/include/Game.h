@@ -22,24 +22,26 @@ class Game {
 
         static void BluetoothTask(void *pvParameters)
         {
-            Game* game = static_cast<Game*>(pvParameters);
+            BluetoothClient* btClient = static_cast<BluetoothClient*>(pvParameters);
+            btClient->Init();
             for (;;)
             {
-                game->btClient.Loop();
+                btClient->Loop();
                 vTaskDelay(10 / portTICK_PERIOD_MS);
             }
         }
 
         static void WiFiTask(void *pvParameters)
         {
-            Game* game = static_cast<Game*>(pvParameters);
+            Api* api = static_cast<Api*>(pvParameters);
+            api->Init();
             for (;;)
             {
                 if (digitalRead(BUTTON_PIN))
                 {
                     Serial.println("Button pressed");
-                    game->api.CreatePlayer("Lucas");
-                    game->api.FetchPlayers();
+                    api->CreatePlayer("Lucas");
+                    api->FetchPlayers();
                 }
                 vTaskDelay(1000 / portTICK_PERIOD_MS);
             }

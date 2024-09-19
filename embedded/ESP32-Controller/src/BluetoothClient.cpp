@@ -84,28 +84,20 @@ bool connectToServer() {
   return true;
 }
 
-/**
- * Scan for BLE servers and find the first one that advertises the service we are looking for.
- */
 class MyAdvertisedDeviceCallbacks : public BLEAdvertisedDeviceCallbacks {
-  /**
-   * Called for each advertising BLE server.
-   */
+  //Called for each advertising BLE server.
   void onResult(BLEAdvertisedDevice advertisedDevice) {
-    Serial.print("BLE Advertised Device found: ");
-    Serial.println(advertisedDevice.toString().c_str());
+    // Serial.print("BLE Advertised Device found: ");
+    // Serial.println(advertisedDevice.toString().c_str());
 
-    // We have found a device, let us now see if it contains the service we are looking for.
     if (advertisedDevice.haveServiceUUID() && advertisedDevice.isAdvertisingService(serviceUUID)) {
-
       BLEDevice::getScan()->stop();
       myDevice = new BLEAdvertisedDevice(advertisedDevice);
       doConnect = true;
       doScan = true;
-
-    }  // Found our server
-  }  // onResult
-};  // MyAdvertisedDeviceCallbacks
+    }
+  }
+};
 
 void BluetoothClient::Init()
 {
@@ -149,5 +141,5 @@ void BluetoothClient::Loop()
     BLEDevice::getScan()->start(0);  // this is just example to start scan after disconnect, most likely there is better way to do it in arduino
   }
 
-  delay(1000);  // Delay a second between loops.
+  delay(1000);
 }

@@ -15,10 +15,7 @@ Game::~Game()
 void Game::Init()
 {
     Serial.println("\n------------[Initializing Game]------------");
-    btClient.Init();
     pinMode(BUTTON_PIN, INPUT);
-    api.Init();
-
     // gyro.Init();
 
     // Create the tasks for Bluetooth and WiFi handling
@@ -26,7 +23,7 @@ void Game::Init()
         BluetoothTask,        // Function that implements the task
         "BluetoothTask",      // Name of the task
         10000,                // Stack size (in words) for the task
-        this,                 // Parameter passed to the task (Game object)
+        &btClient,                 // Parameter passed to the task (Game object)
         1,                    // Priority of the task
         &BluetoothTaskHandle, // Task handle for Bluetooth
         0                     // Run on core 0 (for dual-core devices like ESP32)
@@ -36,7 +33,7 @@ void Game::Init()
         WiFiTask,             // Function that implements the task
         "WiFiTask",           // Name of the task
         10000,                // Stack size (in words) for the task
-        this,                 // Parameter passed to the task (Game object)
+        &api,                 // Parameter passed to the task (Game object)
         1,                    // Priority of the task
         &WiFiTaskHandle,      // Task handle for WiFi
         1                     // Run on core 1 (if applicable)
