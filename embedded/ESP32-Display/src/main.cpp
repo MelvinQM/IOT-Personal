@@ -1,7 +1,7 @@
 #include "utilities.h"
-#include "BluetoothHandler.h"
+#include "BluetoothServer.h"
 
-BluetoothHandler bluetooth;
+BluetoothServer bluetooth;
 
 void setup() {
     Serial.begin(115200);

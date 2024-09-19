@@ -8,27 +8,27 @@ void Api::Init()
     Serial.println("------------[Wifi & Api]------------");
     GetMacAddress();
     WiFi.mode(WIFI_STA);
-    WiFiManager wm;
     wm.setDarkMode(true);
-
     // wm.resetSettings(); // To reset the saved wifi connections
+    
+    Connect();
+}
+
+void Api::Connect()
+{
+    if(WiFi.status() == WL_CONNECTED) return;
 
     // Password protected ap
     bool res = wm.autoConnect("DuckHuntAP","password"); 
 
     if(!res) {
-        Serial.println("Failed to connect");        // ESP.restart();
-
-    } 
-    else { 
+        Serial.println("Failed to connect");        
+        // ESP.restart();
+    } else { 
         Serial.println("**WiFi Connected**");
     }
 }
 
-bool Api::IsConnected() 
-{
-    return WiFi.status() == WL_CONNECTED;
-}
 
 void Api::CreatePlayer(String name)
 {

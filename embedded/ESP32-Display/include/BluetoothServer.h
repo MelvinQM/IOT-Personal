@@ -7,19 +7,24 @@
 #include <BLEServer.h>
 
 
-class BluetoothHandler {
+class BluetoothServer {
     public:
-        BluetoothHandler();
-        ~BluetoothHandler();
+        BluetoothServer();
+        ~BluetoothServer();
         void Init();
         void Loop();
     private:
         // https://www.uuidgenerator.net/
         #define SERVICE_UUID        "b2f6ac88-8216-4faf-b31e-3f37926031be"
         #define CHARACTERISTIC_UUID "797bd60e-c9f7-4657-ac8f-aca7b9dd4b58"
+        
+        static bool deviceConnected;
+        bool isAdvertising = false;
+        BLEServer *pServer = NULL;
+        BLECharacteristic *pCharacteristic = NULL;
 
         // Callback when a message is written to the BT server
-        class MyCallbacks : public BLECharacteristicCallbacks {
+        class WriteCallback : public BLECharacteristicCallbacks {
             void onWrite(BLECharacteristic *pCharacteristic) {
                 std::string value = pCharacteristic->getValue();
 
@@ -32,6 +37,17 @@ class BluetoothHandler {
                 }
             }
         };  
+
+        class ServerCallbacks : public BLEServerCallbacks {
+            void onConnect(BLEServer *pServer) {
+                deviceConnected = true;
+                BLEDevice::startAdvertising();
+            };
+
+            void onDisconnect(BLEServer *pServer) {
+                deviceConnected = false;
+            }
+        };
 };
 
 #endif

@@ -16,8 +16,10 @@ class Api {
         bool IsConnected();
         void CreatePlayer(String name);
         void FetchPlayers();
+        void Connect();
     private:
         void GetMacAddress();
+        WiFiManager wm;
         String hostName = "145.92.189.173";
 };
 

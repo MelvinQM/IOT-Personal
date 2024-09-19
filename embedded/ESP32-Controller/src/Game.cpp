@@ -15,7 +15,6 @@ Game::~Game()
 void Game::Init()
 {
     Serial.println("\n------------[Initializing Game]------------");
-    pinMode(BUTTON_PIN, INPUT);
     // gyro.Init();
 
     // Create the tasks for Bluetooth and WiFi handling

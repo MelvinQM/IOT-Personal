@@ -104,9 +104,6 @@ void BluetoothClient::Init()
   Serial.println("Starting Arduino BLE Client application...");
   BLEDevice::init("");
 
-  // Retrieve a Scanner and set the callback we want to use to be informed when we
-  // have detected a new device.  Specify that we want active scanning and start the
-  // scan to run for 5 seconds.
   BLEScan *pBLEScan = BLEDevice::getScan();
   pBLEScan->setAdvertisedDeviceCallbacks(new MyAdvertisedDeviceCallbacks());
   pBLEScan->setInterval(1349);
@@ -117,9 +114,6 @@ void BluetoothClient::Init()
 
 void BluetoothClient::Loop()
 {
-  // If the flag "doConnect" is true then we have scanned for and found the desired
-  // BLE Server with which we wish to connect.  Now we connect to it.  Once we are
-  // connected we set the connected flag to be true.
   if (doConnect == true) {
     if (connectToServer()) {
       Serial.println("We are now connected to the BLE Server.");
@@ -140,6 +134,4 @@ void BluetoothClient::Loop()
   } else if (doScan) {
     BLEDevice::getScan()->start(0);  // this is just example to start scan after disconnect, most likely there is better way to do it in arduino
   }
-
-  delay(1000);
 }

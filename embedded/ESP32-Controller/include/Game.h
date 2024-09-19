@@ -27,16 +27,18 @@ class Game {
             for (;;)
             {
                 btClient->Loop();
-                vTaskDelay(10 / portTICK_PERIOD_MS);
+                vTaskDelay(1000 / portTICK_PERIOD_MS);
             }
         }
 
         static void WiFiTask(void *pvParameters)
         {
             Api* api = static_cast<Api*>(pvParameters);
+            pinMode(BUTTON_PIN, INPUT); // Test button
             api->Init();
             for (;;)
             {
+                api->Connect();
                 if (digitalRead(BUTTON_PIN))
                 {
                     Serial.println("Button pressed");
