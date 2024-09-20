@@ -24,8 +24,24 @@ The demographic of people using this system would be an all ages demographic fro
 - The controller must maintain a stable Bluetooth connection to the display within a 10-meter range.
 
 ### Controller concepts
+The controller is one of the most important elements of this entire projects. Having a solid concept is essential for the project to feel complete.
+Below some concepts can be seen.
+<p align="center">
+  <img src="../assets/images/controller-concepts-1.png" alt="cursorconcept" width="75%">
+</p>
+
+<p align="center">
+  <img src="../assets/images/controller-concepts-2.png" alt="cursorconcept" width="75%">
+</p>
+
+An additional idea is to allow the controller to be plugged into an attachment to give it more of a gun feel. This allows the controller to be more multi purpose incase of additional games, but still allow it to be fitting for the main game being worked on.
+<p align="center">
+  <img src="../assets/images/controller-concepts-attachment.png" alt="cursorconcept" width="75%">
+</p>
 
 
+
+<br>
 
 
 ## Design
