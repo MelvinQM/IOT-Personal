@@ -202,8 +202,8 @@ I also added an option to reconnect to the BT server when the device is disconne
 #### Data communication
 I worked on communicating between two ESP32's to send over the MPU data below is the result of this work:
 <div align="center">
-  <img src="/assets/images/bt-mpu-data.png" alt="bluetooth_app_connection" style="width: 75%;">
-  <img src="/assets/images/bt-setup.jpg" alt="bluetooth_data" style="width: 75%;">
+  <img src="/assets/images/bt-mpu-data.png" alt="bt-mpu-data" style="width: 75%;">
+  <img src="/assets/images/bt-setup.jpg" alt="bt-setup" style="width: 75%;">
 </div>
 
 
@@ -214,3 +214,11 @@ The WeMos allows for a wifi connection but not a bluetooth connection. Together 
 
 ### Rubrics Frontend, Backend & Database
 During the course of IoT we discussed the requirements of all 3 elements. From this I learned not much from the backend and frontend side of the discussion, but I did however get reminded to normalize my database. This is good information to get reminded of and I've added this to my todo list.
+
+### Concept design for controller
+I worked on drawing up some designs for my controller. This can be seen in the concept and design documentation.
+
+I also started working on some prototype 3D models in fusion.
+<div align="center">
+  <img src="/assets/images/fusion-controller-prototype1.png" alt="fusion-controller-prototype">
+</div>
