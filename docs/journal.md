@@ -222,3 +222,7 @@ I also started working on some prototype 3D models in fusion.
 <div align="center">
   <img src="/assets/images/fusion-controller-prototype1.png" alt="fusion-controller-prototype">
 </div>
+
+<div align="center">
+  <img src="/assets/images/joystick-model.png" alt="joystick-model">
+</div>
