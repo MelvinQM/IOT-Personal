@@ -27,16 +27,16 @@ The demographic of people using this system would be an all ages demographic fro
 The controller is one of the most important elements of this entire projects. Having a solid concept is essential for the project to feel complete.
 Below some concepts can be seen.
 <p align="center">
-  <img src="../assets/images/controller-concepts-1.png" alt="cursorconcept" width="75%">
+  <img src="/../assets/images/controller-concepts-1.png" alt="cursorconcept" width="75%">
 </p>
 
 <p align="center">
-  <img src="../assets/images/controller-concepts-2.png" alt="cursorconcept" width="75%">
+  <img src="/../assets/images/controller-concepts-2.png" alt="cursorconcept" width="75%">
 </p>
 
 An additional idea is to allow the controller to be plugged into an attachment to give it more of a gun feel. This allows the controller to be more multi purpose incase of additional games, but still allow it to be fitting for the main game being worked on.
 <p align="center">
-  <img src="../assets/images/controller-concepts-attachment.png" alt="cursorconcept" width="75%">
+  <img src="/../assets/images/controller-concepts-attachment.png" alt="cursorconcept" width="75%">
 </p>
 
 
@@ -45,3 +45,22 @@ An additional idea is to allow the controller to be plugged into an attachment t
 
 
 ## Design
+
+I worked on drawing up some designs for my controller. This can be seen in the concept and design documentation.
+
+I also started working on some prototype 3D models in fusion.
+<div align="center">
+  <img src="/../assets/images/fusion-controller-prototype1.png" alt="fusion-controller-prototype">
+</div>
+
+Next I worked on the design for the trigger button. I opened up a wii controller to see how this was done here. I noticed that the button was loose and was connected using a T join see picture below.
+
+<div align="center">
+  <img src="/../assets/images/wiicontrollerinside.jpg" alt="wiicontrollerinside">
+</div>
+
+This joint allows the button to move up and down to press a button. I worked on making a system similair to this. I changed the button to have a sharper edge to allow for easier shooting. The wii controller has a softer edge which could lead to your finger sliding off easier when rapid firing.
+
+<div align="center">
+  <img src="/../assets/images/trigger-design.png" alt="trigger-design">
+</div>
