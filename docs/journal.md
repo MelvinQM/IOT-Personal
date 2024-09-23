@@ -242,18 +242,6 @@ Some noticeable missing components in the CAD above are:
 - Hole for joystick
 - DC DC Converter
 
-### Concept design for controller
-I worked on drawing up some designs for my controller. This can be seen in the concept and design documentation.
-
-I also started working on some prototype 3D models in fusion.
-<div align="center">
-  <img src="/assets/images/fusion-controller-prototype1.png" alt="fusion-controller-prototype">
-</div>
-
-<div align="center">
-  <img src="/assets/images/joystick-model.png" alt="joystick-model">
-</div>
-
 Next I worked on the design for the trigger button. I opened up a wii controller to see how this was done here. I noticed that the button was loose and was connected using a T join see picture below.
 
 <div align="center">
