@@ -226,3 +226,18 @@ I also started working on some prototype 3D models in fusion.
 <div align="center">
   <img src="/assets/images/joystick-model.png" alt="joystick-model">
 </div>
+
+### 3D printing
+I worked on a fusion model for the controller. For this I used Fusion360.
+<div align="center">
+  <img src="/assets/images/first-print.jpg" alt="bluetooth_app_connection">
+</div>
+This model was mostly to get a feelig of the size of the controller to see if everything would fit the way I expted from inspecting it in the CAD.
+<div align="center">
+  <img src="/assets/images/fusion-inside-controller.png" alt="bluetooth_app_connection">
+</div>
+Some noticeable missing components in the CAD above are:
+
+- Trigger button
+- Hole for joystick
+- DC DC Converter
