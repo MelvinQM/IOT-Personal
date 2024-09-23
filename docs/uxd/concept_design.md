@@ -27,16 +27,16 @@ The demographic of people using this system would be an all ages demographic fro
 The controller is one of the most important elements of this entire projects. Having a solid concept is essential for the project to feel complete.
 Below some concepts can be seen.
 <p align="center">
-  <img src="../assets/images/controller-concepts-1.png" alt="cursorconcept" width="75%">
+  <img src="/../assets/images/controller-concepts-1.png" alt="cursorconcept" width="75%">
 </p>
 
 <p align="center">
-  <img src="../assets/images/controller-concepts-2.png" alt="cursorconcept" width="75%">
+  <img src="/../assets/images/controller-concepts-2.png" alt="cursorconcept" width="75%">
 </p>
 
 An additional idea is to allow the controller to be plugged into an attachment to give it more of a gun feel. This allows the controller to be more multi purpose incase of additional games, but still allow it to be fitting for the main game being worked on.
 <p align="center">
-  <img src="../assets/images/controller-concepts-attachment.png" alt="cursorconcept" width="75%">
+  <img src="/../assets/images/controller-concepts-attachment.png" alt="cursorconcept" width="75%">
 </p>
 
 
@@ -45,3 +45,13 @@ An additional idea is to allow the controller to be plugged into an attachment t
 
 
 ## Design
+
+### The first prototype
+This model was mostly to get a feeling of the size of the controller to see if everything would fit the way I expted from inspecting it in the CAD.
+<div align="center">
+  <img src="../assets/images/first-print.jpg" alt="first-print">
+</div>
+<div align="center">
+  <img src="../assets/images/fusion-inside-controller.png" alt="inside-controller">
+</div>
+Some adjustments that were quite obvious right away was the thickness of the model. 1mm was quite thin and fragile. Increasing the shell of the model to 2mm makes it a lot more robust. This does take some space away from the components inside the model.

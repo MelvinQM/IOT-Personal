@@ -241,3 +241,7 @@ Some noticeable missing components in the CAD above are:
 - Trigger button
 - Hole for joystick
 - DC DC Converter
+
+After reviewing my print I changed the following properties:
+- Changed the shell width from 1mm to 2mm
+- Moved the battery holder cutting line down but keeping the size of the battery holder.
