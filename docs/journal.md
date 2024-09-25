@@ -262,3 +262,14 @@ I followed the [User manual](https://github.com/NoosaHydro/2.4inch_ESP32-2432S02
 To use the display a library is required called TFT_eSPI a important fact for using this library is that the library needs to configured before use. This is done by changing the User_Setup.h to use the correct pins and settings. This was all found in the user manual.
 
 Setup a project using the right board in my case its the "esp32dev" in arduino in platformio this would be "Espressif ESP32 Dev Module"
+
+#### Display board fusion model
+In the future an enclosure needs to be made for the display. This is why I worked on making a fusion model of the display itself. I used the official dimensions provided by the official documentation from the store page.
+
+<div align="center">
+  <img src="assets/images/components/display-dimensions.png" alt="display-dimensions">
+</div>
+
+<div align="center">
+  <img src="assets/images/components/display-model.png" alt="display-model">
+</div>
