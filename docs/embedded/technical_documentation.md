@@ -42,9 +42,12 @@ This project will be a Embedded system take on the game Duck Hunt. This project 
 A Bill of Materials (BOM) is a all encompassing list of parts, materials, and components required to build or assemble a product. It serves as a blueprint/shopping list for all the necessary materials and allows potential builders of this project to ensure all components are available before starting the project.
 
 Below is the table that outlines the necessary parts for this project:
-| **Part**        | **Manufacturer** | **Description**                  | **Quantity** | **Price (incl VAT)** | **Subtotal (incl VAT)** | **URL**                             |
-| --------------- | ---------------- | -------------------------------- | ------------ | -------------------- | ----------------------- | ----------------------------------- |
-| MPU6050         | Invensense       | 6 Axis gyroscope & Accelerometer | 1            | €8,50                | €8,5 0                  | [Tinytronics](https://www.tinytronics.nl/nl/sensoren/acceleratie-rotatie/mpu-6050-accelerometer-en-gyroscope-3-axis-module-3.3v-5v) |
+|**Part**|**Manufacturer**|**Description**|**Quantity**|**Price (incl VAT)**|**Subtotal (incl VAT)**|**URL**|
+|-|-|-|-|-|-|-|
+|MPU6050|Invensense|6 Axis gyroscope & Accelerometer|1|€8,50|€8,50| [Tinytronics](https://www.tinytronics.nl/nl/sensoren/acceleratie-rotatie/mpu-6050-accelerometer-en-gyroscope-3-axis-module-3.3v-5v)|
+|Esp32 Display 2.4Inch TFT |Guition |Esp32 Arduino Lvgl Wifi & Bluetooth Development Board 2.4 "240*320 Smart Display Scherm 2.4Inch Lcd Tft Module|1|€17,99|€17,99| [Aliexpress](https://nl.aliexpress.com/item/1005005865107357.html?spm=a2g0o.order_list.order_list_main.60.7df579d2ajZa7L&gatewayAdapt=glo2nld)|
+
+
 
 <br>
 
