@@ -55,3 +55,22 @@ This model was mostly to get a feeling of the size of the controller to see if e
   <img src="../assets/images/fusion-inside-controller.png" alt="inside-controller">
 </div>
 Some adjustments that were quite obvious right away was the thickness of the model. 1mm was quite thin and fragile. Increasing the shell of the model to 2mm makes it a lot more robust. This does take some space away from the components inside the model.
+
+I worked on drawing up some designs for my controller. This can be seen in the concept and design documentation.
+
+I also started working on some prototype 3D models in fusion.
+<div align="center">
+  <img src="/../assets/images/fusion-controller-prototype1.png" alt="fusion-controller-prototype">
+</div>
+
+Next I worked on the design for the trigger button. I opened up a wii controller to see how this was done here. I noticed that the button was loose and was connected using a T join see picture below.
+
+<div align="center">
+  <img src="/../assets/images/wiicontrollerinside.jpg" alt="wiicontrollerinside">
+</div>
+
+This joint allows the button to move up and down to press a button. I worked on making a system similair to this. I changed the button to have a sharper edge to allow for easier shooting. The wii controller has a softer edge which could lead to your finger sliding off easier when rapid firing.
+
+<div align="center">
+  <img src="/../assets/images/trigger-design.png" alt="trigger-design">
+</div>

@@ -245,3 +245,36 @@ Some noticeable missing components in the CAD above are:
 After reviewing my print I changed the following properties:
 - Changed the shell width from 1mm to 2mm
 - Moved the battery holder cutting line down but keeping the size of the battery holder.
+
+
+Next I worked on the design for the trigger button. I opened up a wii controller to see how this was done here. I noticed that the button was loose and was connected using a T join see picture below.
+
+<div align="center">
+  <img src="/assets/images/trigger-design.png" alt="trigger-design">
+</div>
+
+This joint allows the button to move up and down to press a button. I worked on making a system similair to this. For now I've only made the design of the button itself. I changed the button to have a sharper edge to allow for easier shooting. The wii controller has a softer edge which could lead to your finger sliding off easier when rapid firing.
+
+<div align="center">
+  <img src="/assets/images/wiicontrollerinside.jpg" alt="wiicontrollerinside">
+</div>
+
+### Display board
+I worked on setting up the display board I ordered: [Link](https://nl.aliexpress.com/item/1005005865107357.html?spm=a2g0o.order_list.order_list_main.60.7df579d2vYjQyw&gatewayAdapt=glo2nld) I encountered a lot of problems trying to get any example code to run. I looked into the most used resource for this screen through this repo: https://github.com/witnessmenow/ESP32-Cheap-Yellow-Display. None of the example seemed to work after some research I found out my screen used a slightly different model number than the repo. The display has an onboard ESP32-2432S024 while the repo used ESP32-2432S024. A repo with resources about this model: https://github.com/NoosaHydro/2.4inch_ESP32-2432S024/blob/main/6-User_Manual/Getting%20started%202.4%20Inch.pdf. 
+
+I followed the [User manual](https://github.com/NoosaHydro/2.4inch_ESP32-2432S024/blob/main/6-User_Manual/Getting%20started%202.4%20Inch.pdf) in the Arduino IDE to see if I could get the display running. I plan on moving over to platform.io later but the documentation was written in Arduino.
+
+To use the display a library is required called TFT_eSPI a important fact for using this library is that the library needs to configured before use. This is done by changing the User_Setup.h to use the correct pins and settings. This was all found in the user manual.
+
+Setup a project using the right board in my case its the "esp32dev" in arduino in platformio this would be "Espressif ESP32 Dev Module"
+
+#### Display board fusion model
+In the future an enclosure needs to be made for the display. This is why I worked on making a fusion model of the display itself. I used the official dimensions provided by the official documentation from the store page.
+
+<div align="center">
+  <img src="assets/images/components/display-dimensions.png" alt="display-dimensions">
+</div>
+
+<div align="center">
+  <img src="assets/images/components/display-model.png" alt="display-model">
+</div>
