@@ -3,23 +3,24 @@
 #include "BluetoothServer.h"
 #include "sprites/sprites.h"
 
-
-BluetoothServer bluetooth;
-
 /**
  * DONT FORGET TO CHANGE THE USER_SETUP.H IN THE TFT_eSPI lib inside .pio/libdeps
  */
+
 TFT_eSPI tft = TFT_eSPI();
-TFT_eSprite cursorSprite= TFT_eSprite(&tft);
+TFT_eSprite arrowSprite= TFT_eSprite(&tft);
+TFT_eSprite background= TFT_eSprite(&tft);
+BluetoothServer bluetooth;
 
 void setup() {
   Serial.begin(115200);
-  bluetooth.Init();
+  // bluetooth.Init();
 
   // Start the tft display and set it to black
   tft.init();
   tft.setRotation(1); //This is the display in landscape
-  
+  tft.setSwapBytes(true);
+
   // Clear the screen before writing to it
   tft.fillScreen(TFT_BLACK);
 
@@ -33,24 +34,31 @@ void setup() {
   // tft.setTextColor(TFT_BLUE, TFT_BLACK);
   // tft.drawCentreString("World", x, y, fontNum);
 
-
-
-  cursorSprite.createSprite(16,16);
-  cursorSprite.setSwapBytes(true);
-  cursorSprite.pushImage(0, 0, 16, 16, cursor); // Use pushImage if cursor is in PROGMEM
-  cursorSprite.pushSprite(50, 50, TFT_BLACK);
+  background.createSprite(320,170);
+  background.setSwapBytes(true);
+  arrowSprite.createSprite(32,32);
 }
-float x = 10;
+
+float x = 50;
+float y = 50;
 void loop() {
-  bluetooth.Loop();
+  // bluetooth.Loop();
   // tft.drawString("X: " + String(bluetooth.gyroData.x) + " Y: " + String(bluetooth.gyroData.y), 100, 100, 2); // Left Aligned
-  // tft.fillScreen(TFT_BLACK);
-  //cursorSprite.pushImage(0,0,16,16, &cursor);
-  cursorSprite.pushSprite(x, 50);
+
+  // background.pushImage(0,0,320,170,city);
+  background.fillSprite(TFT_PURPLE);
+  arrowSprite.pushImage(0,0,16,16,cursor);
+  arrowSprite.pushToSprite(&background,100,100,TFT_BLACK); 
   
   x++;
+  y++;
+  if (x > 320) {
+      x = 0;
+  }
+  if (y > 240) {
+      y = 0;
+  }
 
-  if(x>330)
-  x=-100;
+  background.pushSprite(0,0);
   delay(100);
 }
