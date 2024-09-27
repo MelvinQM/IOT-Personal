@@ -17,13 +17,6 @@ void Game::Init()
 
     // Clear the screen before writing to it
     tft.fillScreen(TFT_BLACK);
-
-    background.createSprite(screenWidth, screenHeigth);
-    background.setSwapBytes(true);
-    cursor.createSprite(16,16);
-
-    background.setColorDepth(8);
-    cursor.setColorDepth(8);
 }
 
 
@@ -31,10 +24,18 @@ float x = 50;
 float y = 50;
 void Game::Loop()
 {
+    background.createSprite(screenWidth, screenHeigth);
+    background.setSwapBytes(true); // Correct color
+
+    background.setColorDepth(8);
+    cursor.createSprite(16,16);
+    cursor.setColorDepth(8);
+
     // tft.drawString("X: " + String(bluetooth.gyroData.x) + " Y: " + String(bluetooth.gyroData.y), 100, 100, 2);
+    
     background.pushImage(0, 0, screenWidth, screenHeigth, backgroundSprite);
-    cursor.pushImage(0,0,16,16,cursorSprite);
-    cursor.pushToSprite(&background,100,100,TFT_BLACK); 
+    cursor.pushImage(0, 0, 16, 16, cursorSprite);
+    cursor.pushToSprite(&background, x, y, TFT_BLACK); 
     
     x++;
     y++;
