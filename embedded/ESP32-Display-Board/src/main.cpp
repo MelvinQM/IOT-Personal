@@ -10,5 +10,4 @@ void setup() {
 
 void loop() {
   game.Loop();
-  delay(100);
 }

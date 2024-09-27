@@ -10,6 +10,8 @@
 class Game 
 {
     public:
+        Game();
+        ~Game();
         void Init();
         void Loop();
     private:
@@ -17,9 +19,22 @@ class Game
         TFT_eSprite cursor = TFT_eSprite(&tft);
         TFT_eSprite background = TFT_eSprite(&tft);
         TFT_eSprite gyroText = TFT_eSprite(&tft);
-        BluetoothServer bluetooth;
+        BluetoothServer btServer;
         float screenWidth = 320;
         float screenHeight = 240;
+
+
+        TaskHandle_t BluetoothTaskHandle = NULL;
+        static void BluetoothTask(void *pvParameters)
+        {
+            BluetoothServer* btServer = static_cast<BluetoothServer*>(pvParameters);
+            btServer->Init();
+            for (;;)
+            {
+                btServer->Loop();
+                vTaskDelay(1000 / portTICK_PERIOD_MS);
+            }
+        }
 };
 
 #endif
