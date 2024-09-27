@@ -7,11 +7,11 @@
 #include "sprites/background.h"
 #include "BluetoothServer.h"
 
-class Game 
+class GameController 
 {
     public:
-        Game();
-        ~Game();
+        GameController();
+        ~GameController();
         void Init();
         void Loop();
     private:
@@ -35,6 +35,23 @@ class Game
                 vTaskDelay(1000 / portTICK_PERIOD_MS);
             }
         }
+
+        enum GameState
+        {
+            Intro,
+            Playing,
+            EndGame,
+            ShowingHighScores,
+            Restart,
+        };
+
+        GameState state = Intro;
+
+        void ShowIntro();
+        void Play();
+        void End();
+        void ShowHighScores();
+        void Restarting();
 };
 
 #endif

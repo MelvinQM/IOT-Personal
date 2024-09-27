@@ -1,7 +1,7 @@
 #include "utilities.h"
-#include "game.h"
+#include "GameController.h"
 
-Game game;
+GameController game;
 
 void setup() {
   Serial.begin(115200);
