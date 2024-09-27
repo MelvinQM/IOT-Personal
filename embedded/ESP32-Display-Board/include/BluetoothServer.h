@@ -14,7 +14,7 @@ class BluetoothServer {
         ~BluetoothServer();
         void Init();
         void Loop();
-        GyroData gyroData;
+        GyroData gyroData = {0, 0};
     private:
         // https://www.uuidgenerator.net/
         #define SERVICE_UUID        "b2f6ac88-8216-4faf-b31e-3f37926031be"

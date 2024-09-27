@@ -4,12 +4,11 @@
  * DONT FORGET TO CHANGE THE USER_SETUP.H IN THE TFT_eSPI lib inside .pio/libdeps
  */
 
-TFT_eSPI tft = TFT_eSPI();
-TFT_eSprite cursor = TFT_eSprite(&tft);
-TFT_eSprite background = TFT_eSprite(&tft);
-
 void Game::Init()
 {
+    // Initiate communication with controller
+    // bluetooth.Init();
+
     // Start the tft display and set it to black
     tft.init();
     tft.setRotation(1); //This is the display in landscape
@@ -24,27 +23,38 @@ float x = 50;
 float y = 50;
 void Game::Loop()
 {
-    background.createSprite(screenWidth, screenHeigth);
-    background.setSwapBytes(true); // Correct color
+    // Communication with controller
+    // bluetooth.Loop();
 
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    background.createSprite(screenWidth, screenHeight);
+    background.setSwapBytes(true); // Correct color
     background.setColorDepth(8);
+    background.pushImage(0, 0, screenWidth, screenHeight, backgroundSprite);
+
     cursor.createSprite(16,16);
     cursor.setColorDepth(8);
 
-    // tft.drawString("X: " + String(bluetooth.gyroData.x) + " Y: " + String(bluetooth.gyroData.y), 100, 100, 2);
-    
-    background.pushImage(0, 0, screenWidth, screenHeigth, backgroundSprite);
+    gyroText.createSprite(240,40);
+    gyroText.setTextColor(TFT_WHITE,TFT_BLACK);
+    gyroText.fillSprite(TFT_BLACK);
+    gyroText.drawString("X: " + String(x) + ", Y: " + String(y),0,0,4);
+    gyroText.pushToSprite(&background,10,10,TFT_BLACK);
+
     cursor.pushImage(0, 0, 16, 16, cursorSprite);
     cursor.pushToSprite(&background, x, y, TFT_BLACK); 
     
+    background.pushSprite(0,0);
+
+    ///////////////////////////////////////////////////////////////
     x++;
     y++;
     if (x > screenWidth) {
         x = 0;
     }
-    if (y > screenHeigth) {
+    if (y > screenHeight) {
         y = 0;
     }
-
-    background.pushSprite(0,0);
 }

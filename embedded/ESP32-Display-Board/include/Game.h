@@ -5,6 +5,7 @@
 #include <TFT_eSPI.h>
 #include "sprites/cursor.h"
 #include "sprites/background.h"
+#include "BluetoothServer.h"
 
 class Game 
 {
@@ -12,8 +13,13 @@ class Game
         void Init();
         void Loop();
     private:
+        TFT_eSPI tft = TFT_eSPI();
+        TFT_eSprite cursor = TFT_eSprite(&tft);
+        TFT_eSprite background = TFT_eSprite(&tft);
+        TFT_eSprite gyroText = TFT_eSprite(&tft);
+        BluetoothServer bluetooth;
         float screenWidth = 320;
-        float screenHeigth = 240;
+        float screenHeight = 240;
 };
 
 #endif
