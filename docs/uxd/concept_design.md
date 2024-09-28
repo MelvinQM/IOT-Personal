@@ -1,15 +1,7 @@
 # Concept & Design
 
 
-
-
-
-
-# 2. Demographic
-The demographic of people using this system would be an all ages demographic from retro game enjoyers of old to young kids. The system must be easy to use and most importantly fun. This will influence some design decisions such as the controller. The gun can't look too violent and shouldn't look like a traditional gun. Also the handle can't be too large to allow all types of people to be able to comfortably hold the controller.
-
-
-# 3. Concept
+# Concept
 The concept for my project is to make a game similair to Duck Hunt. Where the player will be provided a controller and a display. Instead of using the traditional way I will be trying to put my own spin on it. The traditional way is by using an optical sensor in the gun/controller that when pressed will see if it is pointing at a portion of the screen that's white. Also the moment the controller is pressed the whole screen goes black except for the target/duck. The moment the screen flickers and the sensor sees a white spot on the screen it has hit a duck. 
 <div align="center">
   <img src="/../assets/images/cursor_concept.png" alt="cursorconcept">
@@ -20,7 +12,10 @@ I wanted to put my own spin on it. The controller will have a gyroscope in it al
 
 Additionally the controller will be wireless and communicate with the display through a bluetooth connection. This will allow the controller to tell the display where to move the cursor.
 
-# 4. Product requirements
+## Demographic
+The demographic of people using this system would be an all ages demographic from retro game enjoyers of old to young kids. The system must be easy to use and most importantly fun. This will influence some design decisions such as the controller. The gun can't look too violent and shouldn't look like a traditional gun. Also the handle can't be too large to allow all types of people to be able to comfortably hold the controller.
+
+## Product requirements
 - The game console must be set up by users in under 15 minutes, with clear instructions provided.
 - The controller's design should be non-violent and appealing to users of all ages.
 - The wireless controller should be easy to hold for both children and adults, with a comfortable design.
@@ -42,38 +37,52 @@ An additional idea is to allow the controller to be plugged into an attachment t
   <img src="/../assets/images/controller-concepts-attachment.png" alt="cursorconcept" width="75%">
 </p>
 
-
-
 <br>
-
 
 ## Design
 
-### The first prototype
-This model was mostly to get a feeling of the size of the controller to see if everything would fit the way I expted from inspecting it in the CAD.
-<div align="center">
-  <img src="../assets/images/first-print.jpg" alt="first-print">
-</div>
-<div align="center">
-  <img src="../assets/images/fusion-inside-controller.png" alt="inside-controller">
-</div>
-Some adjustments that were quite obvious right away was the thickness of the model. 1mm was quite thin and fragile. Increasing the shell of the model to 2mm makes it a lot more robust. This does take some space away from the components inside the model.
+### Software decisions
 
-I worked on drawing up some designs for my controller. This can be seen in the concept and design documentation.
+#### Fusion360
+- **Purpose:** Fusion360 is a cloud-based 3D CAD, CAM, and CAE tool for product design and manufacturing, enabling users to create and simulate complex models.
+- **Decision for Choosing:** Chosen for its vast amount of features and prior experiences with this program.
 
-I also started working on some prototype 3D models in fusion.
+#### Fritzing
+- **Purpose:** an open-source software that allows users to design and document electronic circuits, providing a platform for creating schematic diagrams and PCB layouts.
+- **Decision for Choosing:** Selected for its user-friendly interface and accessibility for beginners in electronics. This software might be replaced to Fusion Electronics if designing a PCB is in the future plans as I've used Fusion for this in the past.
+
+#### Aseprite
+- **Purpose:** Aseprite is a pixel art program that allows users to create 2D graphics and animations, focusing on pixel art.
+- **Decision for Choosing:** A program was required to make low pixel count graphics that low memory for storing on an embedded device.
+
+### First Prototype 3D Model
+This model was to create a basic shape for the controller. 
 <div align="center">
   <img src="/../assets/images/fusion-controller-prototype1.png" alt="fusion-controller-prototype">
 </div>
+I then moved around all components around to see if everything would fit. *(This did not include the trigger yet so the spacing might not be correct here)*
+<div align="center">
+  <img src="/../assets/images/fusion-inside-controller.png" alt="inside-controller">
+</div>
+
+This print was mostly to get a feeling of the size of the controller to see if everything would fit the way I expected from inspecting it in the CAD.
+<div align="center">
+  <img src="/../assets/images/first-print.jpg" alt="first-print">
+</div>
+Some adjustments that were quite obvious right away was the thickness of the model. 1mm was quite thin and fragile. Increasing the shell of the model to 2mm makes it a lot more robust. This does take some space away from the components inside the model.
 
 Next I worked on the design for the trigger button. I opened up a wii controller to see how this was done here. I noticed that the button was loose and was connected using a T join see picture below.
-
 <div align="center">
   <img src="/../assets/images/wiicontrollerinside.jpg" alt="wiicontrollerinside">
 </div>
 
+
 This joint allows the button to move up and down to press a button. I worked on making a system similair to this. I changed the button to have a sharper edge to allow for easier shooting. The wii controller has a softer edge which could lead to your finger sliding off easier when rapid firing.
 
 <div align="center">
-  <img src="/../assets/images/trigger-design.png" alt="trigger-design">
+
+</div>
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="/../assets/images/trigger-design.png" alt="trigger-design" style="width:50%">
+  <img src="/../assets/images/trigger-fusion-model.png" alt="trigger-fusion-model" style="width:50%">
 </div>
