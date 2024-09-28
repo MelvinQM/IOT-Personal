@@ -227,6 +227,8 @@ I also started working on some prototype 3D models in fusion.
   <img src="/assets/images/joystick-model.png" alt="joystick-model">
 </div>
 
+## Week 4
+
 ### 3D printing
 I worked on a fusion model for the controller. For this I used Fusion360.
 <div align="center">
@@ -272,9 +274,15 @@ Setup a project using the right board in my case its the "esp32dev" in arduino i
 In the future an enclosure needs to be made for the display. This is why I worked on making a fusion model of the display itself. I used the official dimensions provided by the official documentation from the store page.
 
 <div align="center">
-  <img src="assets/images/components/display-dimensions.png" alt="display-dimensions">
+  <img src="/assets/images/components/display-dimensions.png" alt="display-dimensions">
 </div>
 
+<div align="center">
+  <img src="/assets/images/components/display-model.png" alt="display-model">
+</div>
+
+### Additional additions to display code
+Later in the week I worked on writing code for the display esp32. I moved over the bluetooth code from the esp32-s3 test project. I set up the TFTeSPI library with correct configurations. This involved looking up the specifics for the display as the UserSetup.h fil had to be edited to accomodate differing screens. I made some basic sprite renderings. I added a background:
 <div align="center">
   <img src="assets/images/components/display-model.png" alt="display-model">
 </div>

@@ -1,7 +1,42 @@
 # Concept & Design
 
-## Concept
+
+## 1. Market Research
+To start out with I wanted to look into some concepts for my project. I needed to think of an idea that could be reasonably made in 10 weeks time.
+I started looking at some known items on the market. I wanted to make a game console with no need of connecting it to a computer. Unless it was for statistics on a website. My initial thought was that I wanted to make a game inspired by Duck Hunt.
+
+<div style="display: flex; align-items: center;">
+    <div style="flex: 1;">
+        <img src="/../assets/images/duckhuntbox.jpg" alt="cursorconcept" style="max-width: 100%;">
+    </div>
+    <div style="flex: 1;">
+        <h2>Duck Hunt</h2>
+        <p>Duck hunt was a game for the NES which made use of a so called light gun to shoot flying by ducks on screen. The game was released back in April of 1984 in Japan and later in October 1985 in America. Duck hunt's gameplay involved shooting ducks and clay pigeons. The player got 3 attempts per round to get a certain number of hits or get a gameover. The game worked by leveraging the CRT tv technology of the time. The gun consists of a trigger and a photodiode(light sensor). When the trigger is pressed the screen will go black for one frame except for the duck. The duck would light up white causing the light sensor "if aimed correctly" to sense the duck and register it as a hit.</p>
+    </div>
+</div>
+<br>
+<div style="display: flex; align-items: center;">
+    <div style="flex: 1;">
+        <img src="/../assets/images/wii-controller.jpg" alt="cursorconcept" style="max-width: 100%;">
+    </div>
+    <div style="flex: 1;">
+        <h2>Wii Motion Controller</h2>
+        <p>The wii motion controller is the signature controller for Nintendo Wii which released worlwide in 2006. The wii motion controller was used to </p>
+    </div>
+</div>
+<br>
+
+
+
+## 2. Demographic
+The demographic of people using this system would be an all ages demographic from retro game enjoyers of old to young kids. The system must be easy to use and most importantly fun. This will influence some design decisions such as the controller. The gun can't look too violent and shouldn't look like a traditional gun. Also the handle can't be too large to allow all types of people to be able to comfortably hold the controller.
+
+
+## 3. Concept
 The concept for my project is to make a game similair to Duck Hunt. Where the player will be provided a controller and a display. Instead of using the traditional way I will be trying to put my own spin on it. The traditional way is by using an optical sensor in the gun/controller that when pressed will see if it is pointing at a portion of the screen that's white. Also the moment the controller is pressed the whole screen goes black except for the target/duck. The moment the screen flickers and the sensor sees a white spot on the screen it has hit a duck. 
+<div align="center">
+  <img src="/../assets/images/cursor_concept.png" alt="cursorconcept">
+</div>
 <div align="center">
   <img src="/../assets/images/product_concept.png" alt="productconcept">
 </div>
@@ -10,14 +45,7 @@ I wanted to put my own spin on it. The controller will have a gyroscope in it al
 
 Additionally the controller will be wireless and communicate with the display through a bluetooth connection. This will allow the controller to tell the display where to move the cursor.
 
-<div align="center">
-  <img src="/../assets/images/cursor_concept.png" alt="cursorconcept">
-</div>
-
-### Demographic
-The demographic of people using this system would be an all ages demographic from retro game enjoyers of old to young kids. The system must be easy to use and most importantly fun. This will influence some design decisions such as the controller. The gun can't look too violent and shouldn't look like a traditional gun. Also the handle can't be too large to allow all types of people to be able to comfortably hold the controller.
-
-#### Product requirements
+## 4. Product requirements
 - The game console must be set up by users in under 15 minutes, with clear instructions provided.
 - The controller's design should be non-violent and appealing to users of all ages.
 - The wireless controller should be easy to hold for both children and adults, with a comfortable design.
