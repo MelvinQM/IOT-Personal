@@ -40,14 +40,13 @@ bool connectToServer() {
   Serial.println(myDevice->getAddress().toString().c_str());
 
   BLEClient *pClient = BLEDevice::createClient();
-  Serial.println(" - Created client");
-
   pClient->setClientCallbacks(new MyClientCallback());
 
-  // Connect to the remove BLE Server.
-  pClient->connect(myDevice);  // if you pass BLEAdvertisedDevice instead of address, it will be recognized type of peer device address (public or private)
+  // Connect to the remote BLE Server.
+  pClient->connect(myDevice);  // If you pass BLEAdvertisedDevice instead of address, it will be recognized type of peer device address (public or private)
   Serial.println(" - Connected to server");
-  pClient->setMTU(517);  //set client to request maximum MTU from server (default is 23 otherwise)
+  // Set client to request maximum MTU from server (default is 23 otherwise)
+  pClient->setMTU(517);  
 
   // Obtain a reference to the service we are after in the remote BLE server.
   BLERemoteService *pRemoteService = pClient->getService(serviceUUID);
@@ -87,9 +86,6 @@ bool connectToServer() {
 class MyAdvertisedDeviceCallbacks : public BLEAdvertisedDeviceCallbacks {
   //Called for each advertising BLE server.
   void onResult(BLEAdvertisedDevice advertisedDevice) {
-    // Serial.print("BLE Advertised Device found: ");
-    // Serial.println(advertisedDevice.toString().c_str());
-
     if (advertisedDevice.haveServiceUUID() && advertisedDevice.isAdvertisingService(serviceUUID)) {
       BLEDevice::getScan()->stop();
       myDevice = new BLEAdvertisedDevice(advertisedDevice);
@@ -114,6 +110,7 @@ void BluetoothClient::Init()
 
 void BluetoothClient::Loop()
 {
+  // Try to connect once
   if (doConnect == true) {
     if (connectToServer()) {
       Serial.println("We are now connected to the BLE Server.");
@@ -123,8 +120,8 @@ void BluetoothClient::Loop()
     doConnect = false;
   }
 
+  // When connection is established send data
   if (connected) {
-    // String newValue = "Time since boot: " + String(millis() / 1000);
     String data = SendGyroData();
     Serial.println("Setting new characteristic value to \"" + data + "\"");
     pRemoteCharacteristic->writeValue(data.c_str(), data.length());

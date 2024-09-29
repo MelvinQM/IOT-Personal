@@ -13,9 +13,17 @@ This is not a place to put your code, but to describe the code that you have wri
 
 
 ## 2. Bluetooth (BLE)
+To use Bluetooth on a ESP32/ESP32-S3 the Arduino core library BLE was used. The header can be included through the arduino core.
 
 ### 2.1 BLE Server
-For more information about the workings of see the [Techincal documentation](./technical_documentation.md##4-bluetooth-ble).
+For more information about the workings of see the [Technical documentation](./technical_documentation.md##4-bluetooth-ble).
+
+For the creation of a BLE server the following headers must be included.
+```c++
+#include <BLEDevice.h>
+#include <BLEUtils.h>
+#include <BLEServer.h>
+```
 
 #### 2.1.1 Initialization
 Initializes the BLE server, sets up the service and characteristic.
@@ -31,14 +39,13 @@ pCharacteristic = pService->createCharacteristic(
                             );
 ```
 
-
-Setting up the callbacks for the characteristic write events and the Server events more on this in [Callbacks](#212-callbacks)
+Setting up the callbacks for the characteristic write events and the Server events more on this in [Callbacks](#212-callbacks).
 ```c++
 pCharacteristic->setCallbacks(new WriteCallback(this));    
 pServer->setCallbacks(new ServerCallbacks());
 ```
-Finally starting the service through the use of the start() function and enabling advertising to allow the client to connect and send data to the server.
 
+Finally, starting the service through the use of the start() function and enabling advertising to allow the client to connect and send data to the server.
 ```c++
 pService->start();
 
@@ -49,31 +56,141 @@ pAdvertising->setScanResponse(true);
 BLEDevice::startAdvertising();
 ```
 
-#### 2.1.2 Callbacks
+**Callbacks**
 
-**WriteCallback**: Handles write operations to the BLE characteristic.
-
-**Functions**:
 ```c++
-void onWrite(BLECharacteristic *pCharacteristic){}
+class WriteCallback : public BLECharacteristicCallbacks {
+    /**
+     * Rest of code ...
+    **/
+
+    void onWrite(BLECharacteristic *pCharacteristic) {
+        // Get the characteristic value from the client
+        std::string value = pCharacteristic->getValue();
+
+        // Deserialize the JSON data
+        JsonDocument doc;
+        DeserializationError error = deserializeJson(doc, value);
+
+        if (error) {
+            Serial.print("Failed to parse JSON: ");
+            Serial.println(error.c_str());
+            return;
+        }
+        
+        // Store data in servers gyrodata
+        server->gyroData = {doc["x"], doc["y"]};
+    }
+};  
 ```
 
-**Usage**: Called when a client writes data to the characteristic.
-Deserializes the JSON data and updates gyroData.
-
-**ServerCallbacks**: Manages connection and disconnection events.
-
-**Functions**:
+The server callbacks notify the user of connections and disconnections. It also stores if a device is currently connected.
 ```c++
-// Called when a device connects.
-void onConnect(BLEServer *pServer)
+class ServerCallbacks : public BLEServerCallbacks {
+    // Called when a device connects.
+    void onConnect(BLEServer *pServer) {
+        Serial.println("BLE: Device connected");
+        deviceConnected = true;
+    };
 
-// Called when a device disconnects.
-void onDisconnect(BLEServer *pServer)
+    // Called when a device disconnects.
+    void onDisconnect(BLEServer *pServer) {
+        Serial.println("BLE: Device disconnected");
+        deviceConnected = false;
+    }
+};
 ```
-
 
 ### 2.2 BLE Client
+To create a BLE client the following headers must be included.
+```c++
+#include <BLEDevice.h>
+```
+**Initialization**:
+
+The device is initialized to use BLE and a scan is done to find all bluetooth devices in the area
+```c++
+  BLEDevice::init("Client Name");
+  BLEScan *pBLEScan = BLEDevice::getScan();
+
+  pBLEScan->setAdvertisedDeviceCallbacks(new MyAdvertisedDeviceCallbacks());
+  pBLEScan->setInterval(1349);
+  pBLEScan->setWindow(449);
+  pBLEScan->setActiveScan(true);
+  pBLEScan->start(5, false);
+```
+
+**Connecting**:
+
+To connect to the server first a client must be created. This client can then look for specific service/chracteristic UUID's to see if the correct server was found.
+```c++
+BLEClient *pClient = BLEDevice::createClient();
+pClient->setClientCallbacks(new MyClientCallback());
+
+// Connect to the BLE Server.
+pClient->connect(myDevice);
+
+// Set client to request maximum MTU from server
+pClient->setMTU(517);  
+```
+
+**Obtaining reference to service**:
+
+```c++
+// Obtain a reference to the service we are after in the remote BLE server.
+BLERemoteService *pRemoteService = pClient->getService(serviceUUID);
+```
+
+**Obtaining reference to characteristic**:
+
+```c++
+// Obtain a reference to the characteristic in the service of the remote BLE server.
+pRemoteCharacteristic = pRemoteService->getCharacteristic(charUUID);
+```
+
+**Callbacks**:
+
+A callback can be made to activate on every BLEServer found by looking at the serviceUUID of the current looked at server thats advertising. We can determine if we found the Server we are looking for.
+```c++
+class MyAdvertisedDeviceCallbacks : public BLEAdvertisedDeviceCallbacks {
+  //Called for each advertising BLE server.
+  void onResult(BLEAdvertisedDevice advertisedDevice) {
+    if (advertisedDevice.haveServiceUUID() && advertisedDevice.isAdvertisingService(serviceUUID)) {
+      BLEDevice::getScan()->stop();
+      myDevice = new BLEAdvertisedDevice(advertisedDevice);
+      doConnect = true;
+      doScan = true;
+    }
+  }
+};
+```
+
+**Main loop**:
+
+When the client is properly initialized the client will attempt to connect to the server once and if a connection is established will start periodically sending gyroscopic data.
+```c++
+// Try to connect once
+if (doConnect == true) 
+{
+    if (connectToServer()) {
+        Serial.println("We are now connected to the BLE Server.");
+    } else {
+        Serial.println("We have failed to connect to the server; there is nothing more we will do.");
+    }
+    doConnect = false;
+}
+
+// When connection is established send data
+if (connected) 
+{
+    String data = SendGyroData();
+    Serial.println("Setting new characteristic value to \"" + data + "\"");
+    pRemoteCharacteristic->writeValue(data.c_str(), data.length());
+} else if (doScan) 
+{
+    BLEDevice::getScan()->start(0);
+}
+```
 
 
 ## 3. WifiManager
