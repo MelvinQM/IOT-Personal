@@ -25,8 +25,9 @@ For the creation of a BLE server the following headers must be included.
 #include <BLEServer.h>
 ```
 
-#### 2.1.1 Initialization
-Initializes the BLE server, sets up the service and characteristic.
+**Initialization**:
+
+To initialize the BLE server and to set up the service and characteristic.
 ```c++
 BLEDevice::init("ESP32 Bluetooth server");
 pServer = BLEDevice::createServer();
@@ -38,26 +39,11 @@ pCharacteristic = pService->createCharacteristic(
                                 BLECharacteristic::PROPERTY_WRITE
                             );
 ```
-
-Setting up the callbacks for the characteristic write events and the Server events more on this in [Callbacks](#212-callbacks).
-```c++
-pCharacteristic->setCallbacks(new WriteCallback(this));    
-pServer->setCallbacks(new ServerCallbacks());
-```
-
-Finally, starting the service through the use of the start() function and enabling advertising to allow the client to connect and send data to the server.
-```c++
-pService->start();
-
-BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
-pAdvertising->addServiceUUID(SERVICE_UUID);
-pAdvertising->setScanResponse(true);
-
-BLEDevice::startAdvertising();
-```
+<br>
 
 **Callbacks**
 
+To handle any incoming messages from clients a Characteristic callback must be assigned to the server.
 ```c++
 class WriteCallback : public BLECharacteristicCallbacks {
     /**
@@ -83,6 +69,11 @@ class WriteCallback : public BLECharacteristicCallbacks {
     }
 };  
 ```
+To then assign this callback to the server
+```c++
+pCharacteristic->setCallbacks(new WriteCallback(this));    
+```
+<br>
 
 The server callbacks notify the user of connections and disconnections. It also stores if a device is currently connected.
 ```c++
@@ -100,6 +91,25 @@ class ServerCallbacks : public BLEServerCallbacks {
     }
 };
 ```
+To then assign this callback to the server
+```c++
+pServer->setCallbacks(new ServerCallbacks());
+```
+<br>
+
+**Starting service and advertising**:
+
+Finally, starting the service through the use of the start() function and enabling advertising to allow the client to connect and send data to the server.
+```c++
+pService->start();
+
+BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+pAdvertising->addServiceUUID(SERVICE_UUID);
+pAdvertising->setScanResponse(true);
+
+BLEDevice::startAdvertising();
+```
+<br>
 
 ### 2.2 BLE Client
 To create a BLE client the following headers must be included.
