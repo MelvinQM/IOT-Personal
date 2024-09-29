@@ -10,7 +10,11 @@ This is not a place to put your code, but to describe the code that you have wri
 3. **[WiFi](#3-wifimanager)**
 
 ## 1. Game statemachine
-
+The game that will be run on the game console. Makes use of the following state diagram as a reference for the code structure:
+<div align="center">
+  <img src="/../assets/images/game-statemachine.drawio.png" alt="game-statemachine.drawio">
+</div>
+As seen in the diagram the game can only go the next state and no differing routes are possible according to this design.
 
 ## 2. Bluetooth (BLE)
 To use Bluetooth on a ESP32/ESP32-S3 the Arduino core library BLE was used. The header can be included through the arduino core.
@@ -210,6 +214,6 @@ if (connected)
 
 
 ### 4.1 MPU6050
-
+To work with the MPU6050 first see the [wiring diagram](../technical_documentation/#321-wiring-diagram)
 
 ### 4.2 ESP32-2432S024
