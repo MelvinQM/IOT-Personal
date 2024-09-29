@@ -292,12 +292,12 @@ In the future an enclosure needs to be made for the display. This is why I worke
 ### Additional additions to display code
 Later in the week I worked on writing code for the display esp32. I moved over the bluetooth code from the esp32-s3 test project. I set up the TFTeSPI library with correct configurations. This involved looking up the specifics for the display as the UserSetup.h fil had to be edited to accomodate differing screens. I made some basic sprite renderings. I added a temporary background:
 <div align="center">
-  <img src="assets/sprites/background.png" alt="display-model" style= image-rendering: pixelated;">
+  <img src="/assets/sprites/background.png" alt="display-model" style= image-rendering: pixelated;">
 </div>
 
 And a cursor:
 <div align="center">
-  <img src="assets/sprites/cursor.png" alt="display-model" style="width:50%; image-rendering: pixelated;">
+  <img src="/assets/sprites/cursor.png" alt="display-model" style="width:50%; image-rendering: pixelated; filter: drop-shadow(2px 2px 5px black);">
 </div>
 
 The cursor is way too small on screen right now. I'm looking into currently if I can just resize the image in code otherwise I will just make my sprites bigger from now on.
