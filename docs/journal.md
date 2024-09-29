@@ -1,8 +1,16 @@
 # Learning journal
 
-Your learning journal can be seen as a diary of your learning process. It is a place where you can reflect on your learning, and where you can keep track of your progress. It is also a place where you can keep track of your questions, and where you can write down your answers to those questions.
-
-So for example when you receive feedback on your project, you can write down the feedback and your reflection on it in your learning journal. You can also write down what you have learned from the feedback, and how you will apply it in your project.
+## Contents
+1. **[Week 1](#week-1)**
+1. **[Week 2](#week-2)**
+1. **[Week 3](#week-3)**
+1. **[Week 4](#week-4)**
+1. **[Week 5](#week-5)**
+1. **[Week 6](#week-6)**
+1. **[Week 7](#week-7)**
+1. **[Week 8](#week-8)**
+1. **[Week 9](#week-9)**
+1. **[Week 10](#week-10)**
 
 <br>
 
@@ -282,7 +290,14 @@ In the future an enclosure needs to be made for the display. This is why I worke
 </div>
 
 ### Additional additions to display code
-Later in the week I worked on writing code for the display esp32. I moved over the bluetooth code from the esp32-s3 test project. I set up the TFTeSPI library with correct configurations. This involved looking up the specifics for the display as the UserSetup.h fil had to be edited to accomodate differing screens. I made some basic sprite renderings. I added a background:
+Later in the week I worked on writing code for the display esp32. I moved over the bluetooth code from the esp32-s3 test project. I set up the TFTeSPI library with correct configurations. This involved looking up the specifics for the display as the UserSetup.h fil had to be edited to accomodate differing screens. I made some basic sprite renderings. I added a temporary background:
 <div align="center">
-  <img src="assets/images/components/display-model.png" alt="display-model">
+  <img src="assets/sprites/background.png" alt="display-model" style= image-rendering: pixelated;">
 </div>
+
+And a cursor:
+<div align="center">
+  <img src="assets/sprites/cursor.png" alt="display-model" style="width:50%; image-rendering: pixelated;">
+</div>
+
+The cursor is way too small on screen right now. I'm looking into currently if I can just resize the image in code otherwise I will just make my sprites bigger from now on.

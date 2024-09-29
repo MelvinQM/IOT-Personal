@@ -1,7 +1,15 @@
 # API reference
 
-# Endpoints
-## Players
+## Contents
+1. **[Player Endpoints](#1-player-endpoints)**
+   - **[Fetch all players](#11-fetch-all-players)**
+   - **[Fetch player by ID](#12-fetch-player-by-id)**
+   - **[Create new player](#13-create-new-player)**
+   - **[Update player](#14-update-player)**
+   - **[Delete player](#15-delete-player)**
+2. **[Highscore Endpoints](#2-highscore-endpoints)**
+
+## 1. Player Endpoints
 | Method  | Endpoint            | Description                               | Parameters           | Response               |
 |---------|---------------------|-------------------------------------------|----------------------|------------------------|
 | GET     | `/api/player`       | [Get all users](#fetch-all-players)       | None                 | JSON list of players   |
@@ -12,24 +20,17 @@
 
 <br>
 
-## Score
+### 1.1 Player Endpoints Explained
 
-<br>
-
-# Endpoints explained
-
-## Fetch all players 
-
+#### **1.1.1 Fetch all players**
+---
 **URL** : `/api/player`
 
 **Method** : `GET`
 
-
-### Success Response
+**Success Response**:
 
 **Code** : `200 OK`
-
-**Response examples**
 
 ```json
 {
@@ -44,8 +45,8 @@
 
 <br>
 
-## Fetch player by id
-
+#### **1.1.2 Fetch player by id**
+---
 Get the details of the currently Authenticated User along with basic
 subscription information.
 
@@ -54,11 +55,9 @@ subscription information.
 **Method** : `GET`
 
 
-### Success Response
+**Success Response**:
 
 **Code** : `200 OK`
-
-**Response examples**
 
 ```json
 {
@@ -69,8 +68,8 @@ subscription information.
 
 <br>
 
-## Create new player
-
+#### **1.1.3 Create new player**
+---
 Create a new player by providing a name parameter in the query.
 
 **URL** : `/api/player`
@@ -79,11 +78,9 @@ Create a new player by providing a name parameter in the query.
 
 **Parameters**: `{name: {name}}`
 
-### Success Response
+**Success Response**:
 
 **Code** : `200 OK`
-
-**Response examples**
 
 ```json
 {
@@ -92,8 +89,8 @@ Create a new player by providing a name parameter in the query.
 }
 ```
 
-**No name provided**
-
+**Error: No name provided**:
+---
 **Code** : `422 Unprocessable Entity`
 ```json
 {"errors":["Name is required"]}
@@ -101,20 +98,17 @@ Create a new player by providing a name parameter in the query.
 
 <br>
 
-## Update player
-
+#### **1.1.4 Update player**
+---
 **URL** : `/api/player`
 
 **Method** : `POST`
 
 **Parameters**: `{name: {name}}`
 
-### Success Response
+**Success Response**:
 
 **Code** : `200 OK`
-
-**Response examples**
-
 ```json
 {
     "message":"Player updated",
@@ -123,18 +117,15 @@ Create a new player by providing a name parameter in the query.
 ```
 <br>
 
-## Delete player
-
+#### **1.1.5 Delete player**
+---
 **URL** : `/api/player/{id}`
 
 **Method** : `POST`
 
-### Success Response
+**Success Response**:
 
 **Code** : `200 OK`
-
-**Response examples**
-
 ```json
 {
     "message":"Player deleted",
@@ -142,3 +133,4 @@ Create a new player by providing a name parameter in the query.
 }
 ```
 
+## 2. Highscore Endpoints

@@ -1,12 +1,20 @@
 # Research to market
 
-### 1 Intro
+1. **[Introduction](#1-intro)**
+2. **[Research Question](#2-research-question)**
+3. **[Research Method](#3-research-method)**
+4. **[Implementations and Results](#4-implementations-and-results)**
+5. **[Conclusion](#5-conclusion)**
+6. **[Recommendations](#6-recommendations)**
+7. **[References](#7-references)**
+
+## 1. Intro
 During my Minor in Internet of Things I was tasked with making an IoT device. There were some "blueprints" that I could choose from. I ended up choosing the game console blueprint. This blueprint involved creating an Embedded device which would serve as the game. This device needed to connect to an API which handled storing data from sensors and possibly from the game itself into a database. This data has to than be shown on a frontend website. This was the bare minimum required for the project. 
 
 One of my first ideas was to make some sort of motion controller. This idea seemed like a fun project as I could easily introduce new games and functionalities to the controller later on. This controller primarily revolves around a trigger/button that could invoke a reaction on screen and a gyroscope to handle the movement of a digital cursor on screen. The basic idea of having a controllers gyroscopic angles being able to control a cursor on screen is a very expandable idea and made for a perfect route to take my project. The game that fits this gameplay the best is Duck Hunt.
 
 
-### 2 Research question
+## 2. Research question
 To start out with I wanted to look into some concepts for my game console project. I needed to think of an idea that could be reasonably made in 10 weeks time.
 I started looking at some known items on the market. I wanted to make a game console with no need of connecting it to a computer. Unless it was for statistics on a website. My initial thought was that I wanted to make a game inspired by Duck Hunt.
 
@@ -18,11 +26,11 @@ Additionally some sub questions:
 - What are techniques that can be used to communicate between the controller and the console?
 - What are some design choices that would make the controller more accessible to all audiences? 
 
-### 3 Research method
+## 3 Research method
 
 
-### 4 Implementations and results
-#### 4.1 Existing motion controllers on the market.
+## 4. Implementations and results
+### 4.1 Existing motion controllers on the market.
 In hopes to answer the sub question "What are some existing motion controller designs on the market?" I looked into some products that already exists.
 <div style="display: flex; align-items: center;">
     <div style="flex: 1;">
@@ -54,26 +62,26 @@ In hopes to answer the sub question "What are some existing motion controller de
 
 After looking into some techniques for desiging a motion controlled game console. A decision was made to use the MPU6050 which allows for both gyroscopic and accelerometer angles. This allows the controller to be able to control a digital cursor by rotating on the vertical and horizontal axis.
 
-#### 4.2 What are some displays that can be used to create a game console screen?
+### 4.2 What are some displays that can be used to create a game console screen?
 
-#### 4.3 What are techniques that can be used to communicate between the controller and the console?
+### 4.3 What are techniques that can be used to communicate between the controller and the console?
 
-#### 4.4 Existing motion controllers on the market.
+### 4.4 Existing motion controllers on the market.
 
-#### What are some design choices that would make the controller more accessible to all audiences? 
-
-
-
-### 5 Conclusion
+### 4.5 What are some design choices that would make the controller more accessible to all audiences? 
 
 
 
-
-### 6 Reccomendations
-
+## 5. Conclusion
 
 
-### 7 References
+
+
+## 6. Reccomendations
+
+
+
+## 7. References
 1. Simon Whistler. *How the Gun on the Original Duck Hunt Worked*. Channel: Today I Found Out, Year. [Link](https://www.youtube.com/watch?v=cu83tZIAzlA&t=72s&ab_channel=TodayIFoundOut).
 2. TheChiptide. *How did the Wii Remote Actually Work?*. Channel: TheChipTide. [Link](https://www.youtube.com/watch?v=WZUibjOXMqI&ab_channel=TheChiptide).
 3. Wikipedia contributors. *Duck Hunt*. Wikipedia, [Link](https://en.wikipedia.org/wiki/Duck_Hunt).

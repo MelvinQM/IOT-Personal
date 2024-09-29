@@ -1,7 +1,20 @@
 # Concept & Design
 
+## Contents
+- **[1. Concept](#1-concept)**
+  - **[1.1 User Needs](#11-user-needs)**
+  - **[1.2 Product Requirements](#12-product-requirements)**
+  - **[1.3 Console Concepts](#13-console-concepts)**
+  - **[1.4 Controller Concepts](#14-controller-concepts)**
+- **[2. Design](#2-design)**
+  - **[2.1 Software Decisions](#21-software-decisions)**
+    - **[2.1.1 Fusion360](#211-fusion360)**
+    - **[2.1.2 Fritzing](#212-fritzing)**
+    - **[2.1.3 Aseprite](#213-aseprite)**
+  - **[2.2 Prototypes](#22-prototypes)**
+    - **[2.2.1 First Prototype Model/Print](#221-first-prototype-modelprint)**
 
-# Concept
+## 1. Concept
 The concept for my project is to make a game similair to Duck Hunt. Where the player will be provided a controller and a display. Instead of using the traditional way I will be trying to put my own spin on it. The traditional way is by using an optical sensor in the gun/controller that when pressed will see if it is pointing at a portion of the screen that's white. Also the moment the controller is pressed the whole screen goes black except for the target/duck. The moment the screen flickers and the sensor sees a white spot on the screen it has hit a duck. 
 <div align="center">
   <img src="/../assets/images/cursor_concept.png" alt="cursorconcept">
@@ -12,7 +25,7 @@ I wanted to put my own spin on it. The controller will have a gyroscope in it al
 
 Additionally the controller will be wireless and communicate with the display through a bluetooth connection. This will allow the controller to tell the display where to move the cursor.
 
-## User Needs
+### 1.1 User Needs
 - **Inclusive Age Range**: The system should cater to users of all ages, from retro game enjoyers of old to young kids.
 - **Ease of Use**: The system must be simple to operate for users of different experience levels.
 - **Fun Factor**: The primary goal is to ensure that the gaming experience is enjoyable for everyone.
@@ -20,7 +33,7 @@ Additionally the controller will be wireless and communicate with the display th
 - **Comfortable Grip**: The handle of the controller must be appropriately sized to accommodate users of all ages and hand sizes.
 
 
-## Product requirements
+### 1.2 Product requirements
 1. Setup Time
     - **Specific**: Users must be able to set up the game console with clear, step-by-step instructions.
     - **Measurable**: Setup should take no longer than 10 minutes from off to operational state.
@@ -50,8 +63,9 @@ Additionally the controller will be wireless and communicate with the display th
     - **Time-bound**: Connection stability testing should be completed by the end of the development within 10 weeks.
 
 
+### 1.3 Console concepts
 
-## Controller concepts
+### 1.4 Controller concepts
 The controller is one of the most important elements of this entire projects. Having a solid concept is essential for the project to feel complete.
 Below some concepts can be seen.
 <p align="center">
@@ -66,26 +80,27 @@ An additional idea is to allow the controller to be plugged into an attachment t
 <p align="center">
   <img src="/../assets/images/controller-concepts-attachment.png" alt="cursorconcept" width="75%">
 </p>
-
 <br>
 
-## Design
 
-### Software decisions
+## 2. Design
 
-#### Fusion360
+### 2.1 Software decisions
+
+#### 2.1.1 Fusion360
 - **Purpose:** Fusion360 is a cloud-based 3D CAD, CAM, and CAE tool for product design and manufacturing, enabling users to create and simulate complex models.
 - **Decision for Choosing:** Chosen for its vast amount of features and prior experiences with this program.
 
-#### Fritzing
+#### 2.1.2 Fritzing
 - **Purpose:** an open-source software that allows users to design and document electronic circuits, providing a platform for creating schematic diagrams and PCB layouts.
 - **Decision for Choosing:** Selected for its user-friendly interface and accessibility for beginners in electronics. This software might be replaced to Fusion Electronics if designing a PCB is in the future plans as I've used Fusion for this in the past.
 
-#### Aseprite
+#### 2.1.3 Aseprite
 - **Purpose:** Aseprite is a pixel art program that allows users to create 2D graphics and animations, focusing on pixel art.
 - **Decision for Choosing:** A program was required to make low pixel count graphics that low memory for storing on an embedded device.
 
-### First Prototype 3D Model
+### 2.2 Prototypes
+#### 2.2.1 First prototype model/print
 This model was to create a basic shape for the controller. 
 <div align="center">
   <img src="/../assets/images/fusion-controller-prototype1.png" alt="fusion-controller-prototype">
