@@ -86,36 +86,3 @@ This processor runs so called fusion algorithms internally allowing the ESP to r
 ### 3.3 ESP32-2432S024
 #### 3.3.1 Wiring Diagram
 ##### 3.3.2 Understanding the ESP32-2432S024
-
-<!-- Should this be moved to another file? -->
-## 4. Bluetooth (BLE)
-To communicate between the controller and display a bluetooth connection is needed. For this project we use BLE (Bluetooth low energy). Beware of using Bluetooth classic as these are not compatible with each other. 
-
-BLE is suited for data transfers that are more bursty and don't require high bandwith. The range of Bluetooth varies on the configuration used. From a few meters to over a kilometer. Using the FEC (Forward Error Correction) the range of a kilometer is made possible. Something to keep in mind is that range and data throughput are not mutually exclusive. For example if you go for a higher range you are reducing the max data throughput.
-
-### 4.1 Peripherals and Centrals
-A peripheral is the device that sents out "advertisement" data to other devices to discover it. Central is the device that discovers "advertisements" and if the advertisement allows it connects to it.
-
-### 4.2 Advertisements and Scanning
-When a peripheral sends data called advertisement packets for other devices to discover it. This could lead to discovery or simply just to let the other device read the advertisement data. The central is continously scanning advertisement channels for new advertisement packets from other devices. Some advertisement packets allow connections some are only meant to send out advertisement data.
-
-You can expect to receive the following data from an advertisement packet (Not in all cases):
-- Device name
-- TX Power level (Transmit power standard BLE: 0dBm)
-- Service supported by device
-- Appearance ID (Identifies the type of device)
-
-### 4.3 Connection
-To connect a device to a BLE device a few things need to happen:
-- Peripheral starts advertising
-- Central scanning for advertisements
-- Central needs to send a connection request
-- Peripheral responds
-- Connection established!
-
-### 4.4 Services and Characteristics (Attributes)
-How a BLE device organizes and structures the data that it exposes to other devices to discover it. A characteristic represents a piece of information or data that a BLE device wants to expose to other devices. An example of this is sensor data. Another example is a characteristic for allowing another device to control the behaviour of the BLE device.
-
-A service is a grouping of one or more characteristics. Example of this having environmental data like air quality humidity and temperature all represented by a characteristic but grouped into one service called "Environmental Service".
-
-[Source](https://www.youtube.com/watch?v=JSQhRyTKnW4&ab_channel=NovelBits)
