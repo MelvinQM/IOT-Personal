@@ -3,9 +3,7 @@
 
 #include "utilities.h"
 #include "Gyroscope.h"
-
-#include "Wifi.h"
-#include "WiFiUdp.h"
+#include "UdpConnection.h"
 
 class MotionController {
     public:
@@ -14,10 +12,8 @@ class MotionController {
         void Init();
         void Run();
     private:
+        UdpConnection udpConnection;
         Gyroscope gyro;
-        const char *ssid = "DuckHuntConsoleAP";
-        const char *password = "duckhuntaccess";
-
 };
 
 
