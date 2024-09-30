@@ -1,15 +1,15 @@
 #include "utilities.h"
-#include "game.h"
+#include "MotionController.h"
 
-Game game;
+MotionController controller;
 
 void setup() 
 {
   Serial.begin(115200);
-  game.Init();
+  controller.Init();
 }
 
 void loop() 
 {
-  game.Run(); 
+  controller.Run(); 
 }
