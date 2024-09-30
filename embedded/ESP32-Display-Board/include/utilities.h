@@ -9,6 +9,6 @@ struct GyroData {
     // float z; Z is redundant for moving a cursor on a 2d surface
 };
 
-#define BUTTON_PIN 21
+#define BUTTON_PIN 22
 
 #endif

@@ -103,7 +103,6 @@ void GameController::Play()
     bool isRunning = true;
     while(isRunning)
     {
-        Serial.println("Testing");
         background.pushImage(0, 0, screenWidth, screenHeight, backgroundSprite);
         gyroText.setTextColor(TFT_WHITE,TFT_BLACK);
         gyroText.fillSprite(TFT_BLACK);

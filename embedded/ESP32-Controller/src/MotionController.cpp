@@ -43,7 +43,7 @@ void MotionController::Run()
     uint8_t buffer[50] = "hello world";
     //send hello world to server
     udp.beginPacket(udpAddress, udpPort);
-    udp.write(buffer, 11);
+    udp.write(buffer, 12);
     udp.endPacket();
     memset(buffer, 0, 50);
     //processing incoming packet, must be called before reading the buffer

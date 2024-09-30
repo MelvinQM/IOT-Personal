@@ -18,6 +18,7 @@ void Api::Init()
     // wm.resetSettings(); // To reset the saved wifi connections
     
     // Enable SoftAP
+    WiFi.mode(WIFI_AP_STA);  // Enable both AP and STA modes simultaneously
     WiFi.softAPConfig(AP_LOCAL_IP, AP_GATEWAY_IP, AP_NETWORK_MASK);
     WiFi.softAPsetHostname("DuckHuntHost");
 
@@ -69,8 +70,7 @@ void Api::Loop()
     }
     Serial.println("\n");
     delay(500);
-    Serial.print("[Server Connected] ");
-    Serial.println (WiFi.localIP());
+    Serial.printf("[Server Connected]: %s", AP_LOCAL_IP.toString().c_str());
 }
 void Api::CreatePlayer(String name)
 {
