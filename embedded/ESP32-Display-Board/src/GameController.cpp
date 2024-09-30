@@ -3,28 +3,43 @@
 /**
  * DONT FORGET TO CHANGE THE USER_SETUP.H IN THE TFT_eSPI lib inside .pio/libdeps
  */
-GameController::GameController(){}
+GameController::GameController() {}
 GameController::~GameController()
 {
     // Delete the tasks on game exit to free up resources
-    if (BluetoothTaskHandle != NULL) vTaskDelete(BluetoothTaskHandle);
+    // if (BluetoothTaskHandle != NULL) vTaskDelete(BluetoothTaskHandle);
+    if (WiFiTaskHandle != NULL) vTaskDelete(WiFiTaskHandle);
 }
 
 void GameController::Init()
 {
+    api.Init();
+    xTaskCreatePinnedToCore(
+        WiFiTask,             // Function that implements the task
+        "WiFiTask",           // Name of the task
+        5000,                // Stack size (in words) for the task
+        &api,                 // Parameter passed to the task
+        1,                    // Priority of the task
+        &WiFiTaskHandle,      // Task handle for WiFi
+        0                     // Run on core 1
+    );
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+    // btServer.Init();
     // xTaskCreatePinnedToCore(
     //     BluetoothTask,        // Function that implements the task
     //     "BluetoothTask",      // Name of the task
-    //     2048,                 // Stack size (in words) for the task
-    //     &btServer,            // Parameter passed to the task (Game object)
+    //     2048,                // Stack size (in words) for the task
+    //     &btServer,            // Parameter passed to the task
     //     1,                    // Priority of the task
     //     &BluetoothTaskHandle, // Task handle for Bluetooth
-    //     0                     // Run on core 0 (for dual-core devices like ESP32)
+    //     0                     // Run on core 0
     // );
-
+    // vTaskDelay(1000 / portTICK_PERIOD_MS);
 
     Serial.print("Init: Executing on core ");
     Serial.println(xPortGetCoreID());
+
     // Start the tft display and set it to black
     tft.init();
     tft.setRotation(1); //This is the display in landscape
@@ -45,7 +60,6 @@ void GameController::Init()
 
 void GameController::Loop()
 {
-
     switch(state)
     {
         case Intro:
@@ -89,6 +103,7 @@ void GameController::Play()
     bool isRunning = true;
     while(isRunning)
     {
+        Serial.println("Testing");
         background.pushImage(0, 0, screenWidth, screenHeight, backgroundSprite);
         gyroText.setTextColor(TFT_WHITE,TFT_BLACK);
         gyroText.fillSprite(TFT_BLACK);
@@ -108,7 +123,7 @@ void GameController::Play()
         if (y > screenHeight) {
             y = 0;    
         }
-        delay(1000);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
 
         // If end game is triggered set running to false
         // TODO: Think of a reason to end the game
