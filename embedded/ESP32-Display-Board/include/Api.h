@@ -4,6 +4,7 @@
 #include "utilities.h"
 #include "WiFiManager.h"
 #include <WiFi.h>
+#include <WiFiUdp.h>
 #include <HTTPClient.h>
 
 class Api {
@@ -14,11 +15,15 @@ class Api {
         bool IsConnected();
         void CreatePlayer(String name);
         void FetchPlayers();
-        void Connect();
+        bool Connect();
+        void Loop();
     private:
         void GetMacAddress();
         WiFiManager wm;
         String hostName = "145.92.189.173";
+        WiFiUDP udp;
+        char packetBuffer[255];
+        unsigned int localPort = 44444;
 };
 
 #endif

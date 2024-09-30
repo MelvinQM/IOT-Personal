@@ -3,7 +3,9 @@
 
 #include "utilities.h"
 #include "Gyroscope.h"
-#include "BluetoothClient.h"
+
+#include "Wifi.h"
+#include "WiFiUdp.h"
 
 class MotionController {
     public:
@@ -13,19 +15,9 @@ class MotionController {
         void Run();
     private:
         Gyroscope gyro;
-        BluetoothClient btClient;
+        const char *ssid = "DuckHuntConsoleAP";
+        const char *password = "duckhuntaccess";
 
-        TaskHandle_t BluetoothTaskHandle = NULL;
-        static void BluetoothTask(void *pvParameters)
-        {
-            BluetoothClient* btClient = static_cast<BluetoothClient*>(pvParameters);
-            btClient->Init();
-            for (;;)
-            {
-                btClient->Loop();
-                vTaskDelay(1000 / portTICK_PERIOD_MS);
-            }
-        }
 };
 
 

@@ -49,7 +49,7 @@ class GameController
             // api->Init();
             for (;;)
             {
-                api->Connect();
+                api->Loop();
                 if (digitalRead(BUTTON_PIN))
                 {
                     Serial.println("Button pressed");

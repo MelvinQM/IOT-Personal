@@ -1,33 +1,59 @@
 #include "MotionController.h"
 
-MotionController::MotionController() : btClient(&gyro)
+MotionController::MotionController()
 {
-    // Create the tasks for Bluetooth and WiFi handling
-    xTaskCreatePinnedToCore(
-        BluetoothTask,        // Function that implements the task
-        "BluetoothTask",      // Name of the task
-        10000,                // Stack size (in words) for the task
-        &btClient,                 // Parameter passed to the task (Game object)
-        1,                    // Priority of the task
-        &BluetoothTaskHandle, // Task handle for Bluetooth
-        0                     // Run on core 0 (for dual-core devices like ESP32)
-    );
+
 }
 
 MotionController::~MotionController()
 {
-    // Delete the tasks on game exit to free up resources
-    if (BluetoothTaskHandle != NULL) vTaskDelete(BluetoothTaskHandle);
-}
 
+}
+const char *udpAddress = "192.168.1.1";
+const int udpPort = 44444;
+
+//create UDP instance
+WiFiUDP udp;
 void MotionController::Init()
 {
     Serial.println("\n------------[Initializing Game]------------");
-    gyro.Init();
+    //gyro.Init();
+
+    //Connect to the WiFi network
+    WiFi.begin(ssid, password);
+    Serial.println("");
+
+    // Wait for connection
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    Serial.printf("\nConnected to: %s\n", ssid);
+    Serial.printf("IP address: %s", WiFi.localIP().toString().c_str());
+    
+    //This initializes udp and transfer buffer
+    udp.begin(udpPort);
 }
 
 void MotionController::Run() 
 {
-    gyro.Loop();
+    //gyro.Loop();
+
+    //data will be sent to server
+    uint8_t buffer[50] = "hello world";
+    //send hello world to server
+    udp.beginPacket(udpAddress, udpPort);
+    udp.write(buffer, 11);
+    udp.endPacket();
+    memset(buffer, 0, 50);
+    //processing incoming packet, must be called before reading the buffer
+    udp.parsePacket();
+    //receive response from server, it will be HELLO WORLD
+    if(udp.read(buffer, 50) > 0){
+        Serial.print("Server to client: ");
+        Serial.println((char *)buffer);
+    }
+    //Wait for 1 second
+    delay(1000);
 }
 

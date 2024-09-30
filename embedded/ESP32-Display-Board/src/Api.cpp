@@ -2,7 +2,13 @@
 
 Api::Api() {}
 Api::~Api() {}
+const char *ssid = "DuckHuntConsoleAP";
+const char *password = "duckhuntaccess";
 
+// Manual IP Configuration for Soft AP
+IPAddress AP_LOCAL_IP(192, 168, 1, 1);
+IPAddress AP_GATEWAY_IP(192, 168, 1, 254);
+IPAddress AP_NETWORK_MASK(255, 255, 255, 0);
 void Api::Init()
 {
     Serial.println("------------[Wifi & Api]------------");
@@ -11,12 +17,27 @@ void Api::Init()
     wm.setDarkMode(true);
     // wm.resetSettings(); // To reset the saved wifi connections
     
+    // Enable SoftAP
+    WiFi.softAPConfig(AP_LOCAL_IP, AP_GATEWAY_IP, AP_NETWORK_MASK);
+    WiFi.softAPsetHostname("DuckHuntHost");
+
+    // To initiate the Soft AP, pause the program if the initialization process encounters an error.
+    if (!WiFi.softAP(ssid, password))
+    {
+        Serial.println("Soft AP creation failed.");
+        while (1);
+    }
+
+    udp.begin(localPort);
+    Serial.printf("UDP server : %s:%i \n", WiFi.localIP().toString().c_str(), localPort);
+
     Connect();
 }
 
-void Api::Connect()
+
+bool Api::Connect()
 {
-    if(WiFi.status() == WL_CONNECTED) return;
+    if(WiFi.status() == WL_CONNECTED) return true;
 
     // Password protected ap
     bool res = wm.autoConnect("DuckHuntAP","password"); 
@@ -27,9 +48,30 @@ void Api::Connect()
     } else { 
         Serial.println("**WiFi Connected**");
     }
+
+    return res;
 }
 
+void Api::Loop()
+{
+    if(!Connect()) return;
 
+    int packetSize = udp.parsePacket();
+    Serial.print(" Received packet from : "); Serial.println(udp.remoteIP());
+    Serial.print(" Size : "); Serial.println(packetSize);
+    if (packetSize) {
+        int len = udp.read(packetBuffer, 255);
+        if (len > 0) packetBuffer[len - 1] = 0;
+        Serial.printf("Data : %s\n", packetBuffer);
+        udp.beginPacket(udp.remoteIP(), udp.remotePort());
+        udp.printf("UDP packet was received OK\r\n");
+        udp.endPacket();
+    }
+    Serial.println("\n");
+    delay(500);
+    Serial.print("[Server Connected] ");
+    Serial.println (WiFi.localIP());
+}
 void Api::CreatePlayer(String name)
 {
     WiFiClient wifiClient;
