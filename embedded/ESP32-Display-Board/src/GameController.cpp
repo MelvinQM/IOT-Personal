@@ -36,7 +36,7 @@ void GameController::Init()
     // Clear the screen before writing to it
     tft.fillScreen(TFT_BLACK);
     
-    cursor.setColorDepth(8);
+    cursor.setColorDepth(16);
     cursor.createSprite(cursorSpriteRatio, cursorSpriteRatio);
 
     gyroText.createSprite(240,40);
@@ -102,15 +102,13 @@ void GameController::Play()
         
         background.pushSprite(0,0);
 
-        // x++;
-        // y++;
-        // if (x > screenWidth) {
-        // x = 0;
-        // }
-        // if (y > screenHeight) {
-        //     y = 0;    
-        // }
-        vTaskDelay(10 / portTICK_PERIOD_MS);
+        // vTaskDelay(100 / portTICK_PERIOD_MS);
+
+        // cursor.pushImage(0, 0, cursorSpriteRatio, cursorSpriteRatio, cursorSpriteRed);
+        // cursor.pushToSprite(&background, conn.gyroData.x, conn.gyroData.y, TFT_BLACK); 
+        // background.pushSprite(0,0);
+
+        vTaskDelay(100 / portTICK_PERIOD_MS);
 
         // If end game is triggered set running to false
         // TODO: Think of a reason to end the game
