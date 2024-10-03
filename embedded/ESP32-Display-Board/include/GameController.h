@@ -5,7 +5,7 @@
 #include <TFT_eSPI.h>
 #include "sprites/cursor.h"
 #include "sprites/background.h"
-#include "Api.h"
+#include "Connections.h"
 
 class GameController 
 {
@@ -15,7 +15,7 @@ class GameController
         void Init();
         void Loop();
     private:
-        Api api;
+        Connections conn;
 
         TFT_eSPI tft = TFT_eSPI();
         TFT_eSprite cursor = TFT_eSprite(&tft);
@@ -27,18 +27,18 @@ class GameController
         TaskHandle_t WiFiTaskHandle = NULL;
         static void WiFiTask(void *pvParameters)
         {
-            Api* api = static_cast<Api*>(pvParameters);
+            Connections* conn = static_cast<Connections*>(pvParameters);
             pinMode(BUTTON_PIN, INPUT); // Test button
-            // api->Init();
+            conn->Init();
             for (;;)
             {
-                api->Loop();
-                if (digitalRead(BUTTON_PIN))
-                {
-                    Serial.println("Button pressed");
-                    api->CreatePlayer("Lucas");
-                    api->FetchPlayers();
-                }
+                conn->Loop();
+                // if (digitalRead(BUTTON_PIN))
+                // {
+                //     Serial.println("Button pressed");
+                //     conn->CreatePlayer("Lucas");
+                //     conn->FetchPlayers();
+                // }
 
                 // Check the amount of stack remaining (high watermark)
                 // UBaseType_t stackHighWaterMark = uxTaskGetStackHighWaterMark(NULL);

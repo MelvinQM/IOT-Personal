@@ -1,7 +1,7 @@
-#include "Api.h"
+#include "Connections.h"
 
-Api::Api() {}
-Api::~Api() {}
+Connections::Connections() {}
+Connections::~Connections() {}
 const char *ssid = "DuckHuntConsoleAP";
 const char *password = "duckhuntaccess";
 
@@ -9,7 +9,7 @@ const char *password = "duckhuntaccess";
 IPAddress AP_LOCAL_IP(192, 168, 1, 1);
 IPAddress AP_GATEWAY_IP(192, 168, 1, 254);
 IPAddress AP_NETWORK_MASK(255, 255, 255, 0);
-void Api::Init()
+void Connections::Init()
 {
     Serial.println("------------[Wifi & Api]------------");
     GetMacAddress();
@@ -36,7 +36,7 @@ void Api::Init()
 }
 
 
-bool Api::Connect()
+bool Connections::Connect()
 {
     if(WiFi.status() == WL_CONNECTED) return true;
 
@@ -53,26 +53,46 @@ bool Api::Connect()
     return res;
 }
 
-void Api::Loop()
+void Connections::Loop()
 {
     if(!Connect()) return;
 
+    UdpListen();
+
+
+}
+
+void Connections::UdpListen()
+{
     int packetSize = udp.parsePacket();
-    Serial.print(" Received packet from : "); Serial.println(udp.remoteIP());
-    Serial.print(" Size : "); Serial.println(packetSize);
     if (packetSize) {
+        Serial.printf("\nReceived packet from : %s\n", udp.remoteIP().toString());
+        Serial.printf("Size : %d", packetSize);
+        Serial.printf("[Server Connected]: %s", AP_LOCAL_IP.toString().c_str());
         int len = udp.read(packetBuffer, 255);
         if (len > 0) packetBuffer[len - 1] = 0;
-        Serial.printf("Data : %s\n", packetBuffer);
-        udp.beginPacket(udp.remoteIP(), udp.remotePort());
-        udp.printf("UDP packet was received OK\r\n");
-        udp.endPacket();
+        // udp.beginPacket(udp.remoteIP(), udp.remotePort());
+        // udp.printf("UDP packet was received OK\r\n");
+        // udp.endPacket();
+        Serial.println("\n");
+        
+        JsonDocument jsonDoc;
+        DeserializationError error = deserializeJson(jsonDoc, packetBuffer);
+
+        // Test if parsing succeeds.
+        if (error) {
+            Serial.print(F("deserializeJson() failed: "));
+            Serial.println(error.f_str());
+            return;
+        }
+        serializeJson(jsonDoc, Serial);
+    } else
+    {
+        Serial.print(".");
     }
-    Serial.println("\n");
-    delay(500);
-    Serial.printf("[Server Connected]: %s", AP_LOCAL_IP.toString().c_str());
 }
-void Api::CreatePlayer(String name)
+
+void Connections::CreatePlayer(String name)
 {
     WiFiClient wifiClient;
     HTTPClient http;
@@ -99,7 +119,7 @@ void Api::CreatePlayer(String name)
     http.end();
 }
 
-void Api::FetchPlayers()
+void Connections::FetchPlayers()
 {
     WiFiClient wifiClient;
     HTTPClient http;
@@ -120,7 +140,7 @@ void Api::FetchPlayers()
     http.end();
 }
 
-void Api::GetMacAddress()
+void Connections::GetMacAddress()
 {
     // Variable to store the MAC address
     uint8_t baseMac[6];

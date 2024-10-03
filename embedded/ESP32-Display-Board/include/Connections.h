@@ -1,19 +1,21 @@
-#ifndef API_H
-#define API_H
+#ifndef CONNECTIONS_H
+#define CONNECTIONS_H
 
 #include "utilities.h"
 #include "WiFiManager.h"
 #include <WiFi.h>
 #include <WiFiUdp.h>
 #include <HTTPClient.h>
+#include <ArduinoJson.h>
 
-class Api {
+class Connections {
     public:
-        Api();
-        ~Api();
+        Connections();
+        ~Connections();
         void Init();
         bool IsConnected();
         void CreatePlayer(String name);
+        void UdpListen();
         void FetchPlayers();
         bool Connect();
         void Loop();

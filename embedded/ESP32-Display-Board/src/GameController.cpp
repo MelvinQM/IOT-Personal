@@ -13,12 +13,12 @@ GameController::~GameController()
 
 void GameController::Init()
 {
-    api.Init();
+    conn.Init();
     xTaskCreatePinnedToCore(
         WiFiTask,             // Function that implements the task
         "WiFiTask",           // Name of the task
         5000,                // Stack size (in words) for the task
-        &api,                 // Parameter passed to the task
+        &conn,                 // Parameter passed to the task
         1,                    // Priority of the task
         &WiFiTaskHandle,      // Task handle for WiFi
         0                     // Run on core 1
