@@ -83,8 +83,8 @@ void GameController::ShowIntro()
     state = Playing;
 }
 
-float x = 50;
-float y = 50;
+// float x = 50;
+// float y = 50;
 void GameController::Play()
 {
     Serial.println("------Start Gameplay------");
@@ -94,22 +94,22 @@ void GameController::Play()
         background.pushImage(0, 0, screenWidth, screenHeight, backgroundSprite);
         gyroText.setTextColor(TFT_WHITE,TFT_BLACK);
         gyroText.fillSprite(TFT_BLACK);
-        gyroText.drawString("X: " + String(x) + ", Y: " + String(y),0,0,4);
+        gyroText.drawString("X: " + String(conn.gyroData.x) + ", Y: " + String(conn.gyroData.y),0,0,4);
         gyroText.pushToSprite(&background,10,10,TFT_BLACK);
 
         cursor.pushImage(0, 0, 16, 16, cursorSprite);
-        cursor.pushToSprite(&background, x, y, TFT_BLACK); 
+        cursor.pushToSprite(&background, conn.gyroData.x, conn.gyroData.y, TFT_BLACK); 
         
         background.pushSprite(0,0);
 
-        x++;
-        y++;
-        if (x > screenWidth) {
-        x = 0;
-        }
-        if (y > screenHeight) {
-            y = 0;    
-        }
+        // x++;
+        // y++;
+        // if (x > screenWidth) {
+        // x = 0;
+        // }
+        // if (y > screenHeight) {
+        //     y = 0;    
+        // }
         vTaskDelay(1000 / portTICK_PERIOD_MS);
 
         // If end game is triggered set running to false

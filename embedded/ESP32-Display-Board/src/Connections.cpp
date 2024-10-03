@@ -66,15 +66,15 @@ void Connections::UdpListen()
 {
     int packetSize = udp.parsePacket();
     if (packetSize) {
-        Serial.printf("\nReceived packet from : %s\n", udp.remoteIP().toString());
-        Serial.printf("Size : %d", packetSize);
-        Serial.printf("[Server Connected]: %s", AP_LOCAL_IP.toString().c_str());
+        // Serial.printf("\nReceived packet from : %s\n", udp.remoteIP().toString());
+        // Serial.printf("Size : %d", packetSize);
+        // Serial.printf("[Server Connected]: %s", AP_LOCAL_IP.toString().c_str());
         int len = udp.read(packetBuffer, 255);
         if (len > 0) packetBuffer[len - 1] = 0;
         // udp.beginPacket(udp.remoteIP(), udp.remotePort());
         // udp.printf("UDP packet was received OK\r\n");
         // udp.endPacket();
-        Serial.println("\n");
+        // Serial.println("\n");
         
         JsonDocument jsonDoc;
         DeserializationError error = deserializeJson(jsonDoc, packetBuffer);
@@ -85,7 +85,19 @@ void Connections::UdpListen()
             Serial.println(error.f_str());
             return;
         }
-        serializeJson(jsonDoc, Serial);
+        // serializeJson(jsonDoc, Serial);
+        // Serial.println();
+        String method = jsonDoc["method"].as<String>();
+        if(method == "gyro") {
+            Serial.println("Gyrodata received");
+            gyroData.x = jsonDoc["data"]["x"];
+            gyroData.y = jsonDoc["data"]["y"];
+            Serial.printf("X: %f Y: %f\n", gyroData.x, gyroData.y);
+        } else if(method == "trigger") {
+            Serial.println("Trigger pressed");
+        } else {    
+            Serial.println("Error: Method not recognized!");
+        }
     } else
     {
         Serial.print(".");

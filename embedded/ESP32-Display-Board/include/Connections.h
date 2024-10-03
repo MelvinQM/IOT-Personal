@@ -19,6 +19,7 @@ class Connections {
         void FetchPlayers();
         bool Connect();
         void Loop();
+        GyroData gyroData = {0, 0};
     private:
         void GetMacAddress();
         WiFiManager wm;

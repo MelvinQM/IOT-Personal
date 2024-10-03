@@ -23,7 +23,7 @@ void MotionController::Run()
 {
     gyro.Loop();
     //Wait for 1 second
-    // udpConnection.SendGyroData();
+    udpConnection.SendGyroData();
     if(digitalRead(BUTTON_PIN))
     {
         Serial.println("Trigger pressed!");

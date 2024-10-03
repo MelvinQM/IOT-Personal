@@ -41,6 +41,7 @@ void UdpConnection::SendGyroData()
     Serial.print(F(" on port "));
     Serial.println(udpPort);
     serializeJson(jsonDoc, Serial);
+    Serial.println();
 
     // Send the JSON string to the server
     udp.beginPacket(udpAddress, udpPort);
@@ -75,6 +76,7 @@ void UdpConnection::SendTriggerInput()
     Serial.print(F(" on port "));
     Serial.println(udpPort);
     serializeJson(jsonDoc, Serial);
+    Serial.println();
 
     // Send the JSON string to the server
     udp.beginPacket(udpAddress, udpPort);
