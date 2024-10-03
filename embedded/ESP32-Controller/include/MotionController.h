@@ -14,6 +14,16 @@ class MotionController {
     private:
         UdpConnection udpConnection;
         Gyroscope gyro;
+        TaskHandle_t GyroTaskHandle = NULL;
+        static void GyroTask(void *pvParameters)
+        {
+            Gyroscope* gyro = static_cast<Gyroscope*>(pvParameters);
+            for (;;)
+            {
+                gyro->Loop();
+                vTaskDelay(200 / portTICK_PERIOD_MS);
+            }
+        }
 };
 
 

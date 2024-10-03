@@ -110,7 +110,7 @@ void GameController::Play()
         // if (y > screenHeight) {
         //     y = 0;    
         // }
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        vTaskDelay(10 / portTICK_PERIOD_MS);
 
         // If end game is triggered set running to false
         // TODO: Think of a reason to end the game

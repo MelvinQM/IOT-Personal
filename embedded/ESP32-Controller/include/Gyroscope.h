@@ -52,8 +52,6 @@ class Gyroscope {
         // is present in this case). Could be quite handy in some cases.
         //#define OUTPUT_READABLE_WORLDACCEL
 
-        #define INTERRUPT_PIN 15  // use pin 2 on Arduino Uno & most boards
-
         // MPU control/status vars
         bool dmpReady = false;  // set true if DMP init was successful
         uint8_t mpuIntStatus;   // holds actual interrupt status byte from MPU
@@ -70,5 +68,11 @@ class Gyroscope {
         VectorFloat gravity;    // [x, y, z]            gravity vector
         float euler[3];         // [psi, theta, phi]    Euler angle container
         float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gravity vector
+
+        static float clamp(float value, float min, float max) {
+            if (value < min) return min;   // If value is less than min, return min
+            if (value > max) return max;   // If value is greater than max, return max
+            return value;                  // Otherwise, return the original value
+        }
 };
 #endif

@@ -22,7 +22,7 @@ void Gyroscope::Init()
     // initialize device
     Serial.println(F("Initializing I2C devices..."));
     mpu.initialize();
-    pinMode(INTERRUPT_PIN, INPUT);
+    pinMode(GYRO_INTERRUPT_PIN, INPUT);
 
     // verify connection
     Serial.println(F("Testing device connections..."));
@@ -74,7 +74,6 @@ void Gyroscope::Init()
 
 void Gyroscope::Loop()
 {
-    delay(500);
     // if programming failed, don't try to do anything
     if (!dmpReady) return;
     // read a packet from FIFO
@@ -148,11 +147,23 @@ void Gyroscope::Loop()
         #endif
     }
 }
-
+float screenWidth = 320;
+float screenHeight = 240;
+float sensitivity = 150;
 GyroData Gyroscope::GetXYZ() 
 {    
-    // Yaw = Z, Pitch = Y, Roll = X
-    // Rotating on Yaw is moving on X
-    // Rotating on Pitch is moving on Y
-    return {ypr[0], ypr[1]};;
+    // Calculate offsets
+    float offsetX = ypr[2] * sensitivity;
+    float offsetY = ypr[0] * sensitivity;
+
+    // Center cursor coordinate and then apply offset
+    float screenX = (screenWidth / 2) - offsetX;
+    float screenY = (screenHeight / 2) - offsetY;
+    
+    // Clamp value between 0 and width/height
+    screenX = clamp(screenX, 0.0f, 320.0f);
+    screenY = clamp(screenY, 0.0f, 240.0f);
+
+    
+    return {static_cast<int>(screenX), static_cast<int>(screenY)};;
 }

@@ -44,7 +44,7 @@ class GameController
                 // UBaseType_t stackHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
                 // Serial.print("Stack high water mark (API): ");
                 // Serial.println(stackHighWaterMark);
-                vTaskDelay(1000 / portTICK_PERIOD_MS);
+                vTaskDelay(100 / portTICK_PERIOD_MS);
             }
         }
 

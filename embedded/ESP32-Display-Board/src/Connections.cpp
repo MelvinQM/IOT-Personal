@@ -89,10 +89,10 @@ void Connections::UdpListen()
         // Serial.println();
         String method = jsonDoc["method"].as<String>();
         if(method == "gyro") {
-            Serial.println("Gyrodata received");
+            Serial.println("\nGyrodata received");
             gyroData.x = jsonDoc["data"]["x"];
             gyroData.y = jsonDoc["data"]["y"];
-            Serial.printf("X: %f Y: %f\n", gyroData.x, gyroData.y);
+            Serial.printf("X: %d Y: %d\n", gyroData.x, gyroData.y);
         } else if(method == "trigger") {
             Serial.println("Trigger pressed");
         } else {    

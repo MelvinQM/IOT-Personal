@@ -4,11 +4,12 @@
 #include <Arduino.h>
 
 #define BUTTON_PIN 21
+#define GYRO_INTERRUPT_PIN 15
 
 struct GyroData {
-    float x;
-    float y;
-    // float z; Z is redundant for moving a cursor on a 2d surface
+    int x;
+    int y;
+    // int z; Z is redundant for moving a cursor on a 2d surface
 };
 
 #endif
