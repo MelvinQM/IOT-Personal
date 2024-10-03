@@ -20,7 +20,7 @@ void MotionController::Init()
 
     xTaskCreatePinnedToCore(
         GyroTask,             // Function that implements the task
-        "WiFiTask",           // Name of the task
+        "GyroTask",           // Name of the task
         5000,                 // Stack size (in words) for the task
         &gyro,                // Parameter passed to the task
         1,                    // Priority of the task
