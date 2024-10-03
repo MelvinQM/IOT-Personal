@@ -13,8 +13,8 @@ MotionController::~MotionController()
 void MotionController::Init()
 {
     Serial.println("\n------------[Initializing Game]------------");
-    gyro.Init();
     udpConnection.Init();
+    gyro.Init();
     pinMode(BUTTON_PIN, INPUT);
 
 

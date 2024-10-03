@@ -37,7 +37,7 @@ void GameController::Init()
     tft.fillScreen(TFT_BLACK);
     
     cursor.setColorDepth(8);
-    cursor.createSprite(16,16);
+    cursor.createSprite(cursorSpriteRatio, cursorSpriteRatio);
 
     gyroText.createSprite(240,40);
 
@@ -97,7 +97,7 @@ void GameController::Play()
         gyroText.drawString("X: " + String(conn.gyroData.x) + ", Y: " + String(conn.gyroData.y),0,0,4);
         gyroText.pushToSprite(&background,10,10,TFT_BLACK);
 
-        cursor.pushImage(0, 0, 16, 16, cursorSprite);
+        cursor.pushImage(0, 0, cursorSpriteRatio, cursorSpriteRatio, cursorSprite);
         cursor.pushToSprite(&background, conn.gyroData.x, conn.gyroData.y, TFT_BLACK); 
         
         background.pushSprite(0,0);

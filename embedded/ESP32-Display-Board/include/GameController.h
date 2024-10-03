@@ -23,6 +23,7 @@ class GameController
         TFT_eSprite gyroText = TFT_eSprite(&tft);
         float screenWidth = 320;
         float screenHeight = 240;
+        int cursorSpriteRatio = 40;
         
         TaskHandle_t WiFiTaskHandle = NULL;
         static void WiFiTask(void *pvParameters)

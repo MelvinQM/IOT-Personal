@@ -2,7 +2,7 @@
 
 Connections::Connections() {}
 Connections::~Connections() {}
-const char *ssid = "DuckHuntConsoleAP";
+const char *ssid = "GameConsoleAP";
 const char *password = "duckhuntaccess";
 
 // Manual IP Configuration for Soft AP
@@ -58,8 +58,6 @@ void Connections::Loop()
     if(!Connect()) return;
 
     UdpListen();
-
-
 }
 
 void Connections::UdpListen()
