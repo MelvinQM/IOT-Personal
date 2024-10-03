@@ -5,7 +5,6 @@
 #include <TFT_eSPI.h>
 #include "sprites/cursor.h"
 #include "sprites/background.h"
-#include "BluetoothServer.h"
 #include "Api.h"
 
 class GameController 
@@ -16,7 +15,6 @@ class GameController
         void Init();
         void Loop();
     private:
-        BluetoothServer btServer;
         Api api;
 
         TFT_eSPI tft = TFT_eSPI();
@@ -26,21 +24,6 @@ class GameController
         float screenWidth = 320;
         float screenHeight = 240;
         
-        TaskHandle_t BluetoothTaskHandle = NULL;
-        static void BluetoothTask(void *pvParameters)
-        {
-            BluetoothServer* btServer = static_cast<BluetoothServer*>(pvParameters);
-            // btServer->Init();
-            for (;;)
-            {
-                btServer->Loop();
-                // Check the amount of stack remaining (high watermark)
-                // UBaseType_t stackHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
-                // Serial.print("Stack high water mark (Bluetooth): ");
-                // Serial.println(stackHighWaterMark);
-                vTaskDelay(1000 / portTICK_PERIOD_MS);
-            }
-        }
         TaskHandle_t WiFiTaskHandle = NULL;
         static void WiFiTask(void *pvParameters)
         {

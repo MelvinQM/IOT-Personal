@@ -25,18 +25,6 @@ void GameController::Init()
     );
     vTaskDelay(1000 / portTICK_PERIOD_MS);
 
-    // btServer.Init();
-    // xTaskCreatePinnedToCore(
-    //     BluetoothTask,        // Function that implements the task
-    //     "BluetoothTask",      // Name of the task
-    //     2048,                // Stack size (in words) for the task
-    //     &btServer,            // Parameter passed to the task
-    //     1,                    // Priority of the task
-    //     &BluetoothTaskHandle, // Task handle for Bluetooth
-    //     0                     // Run on core 0
-    // );
-    // vTaskDelay(1000 / portTICK_PERIOD_MS);
-
     Serial.print("Init: Executing on core ");
     Serial.println(xPortGetCoreID());
 
