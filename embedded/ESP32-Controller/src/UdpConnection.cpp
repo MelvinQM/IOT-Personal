@@ -1,5 +1,12 @@
 #include "UdpConnection.h"
 
+UdpConnection::UdpConnection(Gyroscope *gyro)
+{
+    this->gyro = gyro;
+}
+
+UdpConnection::~UdpConnection(){}
+
 void UdpConnection::Init()
 {
     //Connect to the WiFi network
@@ -18,20 +25,60 @@ void UdpConnection::Init()
     udp.begin(udpPort);
 }
 
-void UdpConnection::ReceivePackets()
+void UdpConnection::SendGyroData()
 {
-    //data will be sent to server
-    uint8_t buffer[50] = "hello world";
-    //send hello world to server
+    // Get data from gyroscope
+    GyroData data = gyro->GetXYZ();
+
+    // Create a JSON document
+    JsonDocument jsonDoc;
+    jsonDoc["method"] = "gyro";
+    jsonDoc["data"]["x"] = data.x;
+    jsonDoc["data"]["y"] = data.y;
+
+    Serial.print(F("Sending to "));
+    Serial.print(udpAddress);
+    Serial.print(F(" on port "));
+    Serial.println(udpPort);
+    serializeJson(jsonDoc, Serial);
+
+    // Send the JSON string to the server
     udp.beginPacket(udpAddress, udpPort);
-    udp.write(buffer, 12);
+    serializeJson(jsonDoc, udp);
+    udp.println();
     udp.endPacket();
-    memset(buffer, 0, 50);
-    //processing incoming packet, must be called before reading the buffer
-    udp.parsePacket();
-    //receive response from server, it will be HELLO WORLD
-    if(udp.read(buffer, 50) > 0){
-        Serial.print("Server to client: ");
-        Serial.println((char *)buffer);
-    }
+
+    // // Initialize a buffer to receive the server's response
+    // uint8_t buffer[50] = {0};
+
+    // // Clear buffer
+    // memset(buffer, 0, 50);
+
+    // // Processing incoming packet, must be called before reading the buffer
+    // udp.parsePacket();
+
+    // // Receive response from the server, it will be HELLO WORLD
+    // if (udp.read(buffer, 50) > 0) {
+    //     Serial.print("Server to client: ");
+    //     Serial.println((char*)buffer);
+    // }
+}
+
+void UdpConnection::SendTriggerInput()
+{
+    // Create a JSON document
+    JsonDocument jsonDoc;
+    jsonDoc["method"] = "trigger";
+
+    Serial.print(F("Sending to "));
+    Serial.print(udpAddress);
+    Serial.print(F(" on port "));
+    Serial.println(udpPort);
+    serializeJson(jsonDoc, Serial);
+
+    // Send the JSON string to the server
+    udp.beginPacket(udpAddress, udpPort);
+    serializeJson(jsonDoc, udp);
+    udp.println();
+    udp.endPacket();
 }

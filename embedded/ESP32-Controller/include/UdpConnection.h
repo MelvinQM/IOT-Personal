@@ -4,18 +4,24 @@
 #include "utilities.h"
 #include "Wifi.h"
 #include "WiFiUdp.h"
+#include "Gyroscope.h"
+#include <ArduinoJson.h>
 
 class UdpConnection
 {
     public:
-        void ReceivePackets();
+        UdpConnection(Gyroscope *gyro);
+        ~UdpConnection();
+        void SendTriggerInput();
         void Init();
+        void SendGyroData();
     private:
         const char *udpAddress = "192.168.1.1";
         const int udpPort = 44444;
         const char *ssid = "DuckHuntConsoleAP";
         const char *password = "duckhuntaccess";
         WiFiUDP udp;
+        Gyroscope *gyro;
 
 };
 
