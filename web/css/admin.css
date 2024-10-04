@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'ArcadeClassic';
+    src: url('../assets/fonts/ARCADECLASSIC.TTF') format('truetype');
+}
+  
+
+body {
+    background-color: black;
+    font-family: 'ArcadeClassic', sans-serif;
+
+    color: white;
+}
+
+.datatable {
+    height: 500px; /* Fixed height */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #fff #343a40;
+}
+
+
+.table {
+    margin-bottom: 0; /* Prevent bottom margin issues */
+}
+
+
