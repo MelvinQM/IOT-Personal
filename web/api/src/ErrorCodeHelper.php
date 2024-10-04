@@ -30,7 +30,7 @@ class ErrorCodeHelper {
             header($header);
         }
         echo json_encode([
-            "code" => 400,
+            "code" => $code,
             "message" => $msg
         ]);
 
