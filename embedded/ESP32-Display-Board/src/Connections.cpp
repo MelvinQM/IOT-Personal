@@ -2,8 +2,8 @@
 
 Connections::Connections() {}
 Connections::~Connections() {}
-const char *ssid = "GameConsoleAP";
-const char *password = "duckhuntaccess";
+const char *ssid = "HootPursuitConsoleAP";
+const char *password = "hootpursuitaccess";
 
 // Manual IP Configuration for Soft AP
 IPAddress AP_LOCAL_IP(192, 168, 1, 1);
@@ -20,7 +20,7 @@ void Connections::Init()
     // Enable SoftAP
     WiFi.mode(WIFI_AP_STA);  // Enable both AP and STA modes simultaneously
     WiFi.softAPConfig(AP_LOCAL_IP, AP_GATEWAY_IP, AP_NETWORK_MASK);
-    WiFi.softAPsetHostname("DuckHuntHost");
+    WiFi.softAPsetHostname("HootPursuitHost");
 
     // To initiate the Soft AP, pause the program if the initialization process encounters an error.
     if (!WiFi.softAP(ssid, password))
@@ -41,7 +41,7 @@ bool Connections::Connect()
     if(WiFi.status() == WL_CONNECTED) return true;
 
     // Password protected ap
-    bool res = wm.autoConnect("DuckHuntAP","password"); 
+    bool res = wm.autoConnect("HootPursuitAP","password"); 
 
     if(!res) {
         Serial.println("Failed to connect");        

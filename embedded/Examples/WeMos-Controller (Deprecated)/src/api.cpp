@@ -20,7 +20,7 @@ void Api::Init()
     // wm.resetSettings(); // To reset the saved wifi connections
 
     // Password protected ap
-    bool res = wm.autoConnect("DuckHuntAP","password"); 
+    bool res = wm.autoConnect("HootPursuitAP","password"); 
 
     if(!res) {
         Serial.println("Failed to connect");        // ESP.restart();

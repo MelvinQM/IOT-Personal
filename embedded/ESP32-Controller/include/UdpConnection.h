@@ -18,8 +18,8 @@ class UdpConnection
     private:
         const char *udpAddress = "192.168.1.1";
         const int udpPort = 44444;
-        const char *ssid = "DuckHuntConsoleAP";
-        const char *password = "duckhuntaccess";
+        const char *ssid = "HootPursuitConsoleAP";
+        const char *password = "hootpursuitaccess";
         WiFiUDP udp;
         Gyroscope *gyro;
 
