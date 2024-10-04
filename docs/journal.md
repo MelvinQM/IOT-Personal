@@ -314,3 +314,8 @@ After having bluetooth and wifi running on the display I noticed that the screen
 After establishing the UDP connection and parsing the data accordingly. I started working on translating the yaw, pitch and roll data from the gyroscope to logical values to move a cursor on screen. I was able to establish a satisfactory result allowing the user to now use the controller as a remote. Further improvements can be done as the gyroscope still seems to deviate slightly here and now. 
 
 Additionally I added new sprites for the cursor to allow the user to see the sprite more easily and to allow the cursor to change to red. 
+
+### Frontend Restyling
+I worked on making a username input page. This will serve as the gateway for starting the game. A player will input their name into the page and this will be sent to the embedded devide to start the game. This allow the score to be stored with the provided name.
+
+Also the admin page has been restyled to have a more retro game feel to it.
