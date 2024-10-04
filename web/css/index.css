@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'ArcadeClassic';
+  src: url('../assets/fonts/ARCADECLASSIC.TTF') format('truetype');
+}
+
+
+body {
+    background-image: url("../assets/background.png");
+    background-color: #cccccc;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    image-rendering: pixelated;
+
+    font-family: 'ArcadeClassic', sans-serif;
+}
+
+.inputscreen {
+    background-color: rgba(0, 0, 0, 0.5); /* 50% transparent black */
+    width: 300px;
+    height: 300px;
+}
