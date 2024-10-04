@@ -1,11 +1,7 @@
 <?php
 
 class Database {
-    public function __construct(
-        private string $servername, 
-        private string $databaseName, 
-        private string $user, 
-        private string $password) {}
+    public function __construct() {}
 
     /**
      * Establishes a MySQL database connection using mysqli.
@@ -17,7 +13,13 @@ class Database {
      */
     public function getConnection(): mysqli 
     {
-        $dbConnection = new mysqli($this->servername, $this->user, $this->password, $this->databaseName);
+        $servername = getenv("MYSQL_SERVER_NAME"); 
+        $username = getenv("MYSQL_USER");
+        $password = getenv("MYSQL_ROOT_PASSWORD");
+        $database = getenv("MYSQL_DATABASE");
+        $port = getenv("MYSQL_PORT");
+        
+        $dbConnection = new mysqli($servername, $username, $password, $database);
 
         if ($dbConnection->connect_error) {
             echo json_encode(array("success" => false, "error" => $dbConnection->connect_error));
