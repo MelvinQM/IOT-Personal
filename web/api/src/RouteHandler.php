@@ -12,11 +12,15 @@ class RouteHandler {
         return self::$instances[$cls];
     }
 
-    public function getAllRoutes(): array
-    {
-        return ["player", "scores", "difficulty", "session"];
-    }
-
+    /**
+     * Get the controller based on the provided API route.
+     *
+     * @param string $route The received API route
+     * @return object The controller corresponding to the given API route.
+     * 
+     * @output 501 If the functionality for the requested route is not implemented.
+     * @output 404 If an invalid route is requested.
+     */
     public function getController($route): object
     {
         $db = new Database();

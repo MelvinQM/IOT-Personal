@@ -18,6 +18,10 @@ body {
 
 .inputscreen {
     background-color: rgba(0, 0, 0, 0.5); /* 50% transparent black */
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
+}
+
+.error-message {
+  height: 20px;
 }
