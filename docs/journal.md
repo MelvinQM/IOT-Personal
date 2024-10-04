@@ -301,3 +301,16 @@ And a cursor:
 </div>
 
 The cursor is way too small on screen right now. I'm looking into currently if I can just resize the image in code otherwise I will just make my sprites bigger from now on.
+
+## Week 5
+
+### Reorganize embedded projects
+Since the display arrived last week I still hadn't gotten around to moving all the code to the correct device. The WIFI/API connection was still in the controller project as this was done for testing purposes. I moved all the classes including Bluetooth and Wifi classes to the correct project.
+
+### Removing bluetooth from project in favor for UDP
+After having bluetooth and wifi running on the display I noticed that the screen wouldn't turn on anymore. I wasn't able to figure out the cause of this, but I think it's due to power consumption. Knowing this I had to make a decision since I didn't want to spend anymore time debugging this problem. I ended up ditching Bluetooth entirely in favor of using an UDP stream. The display now acts as a STA and AP which means it can connect to a wifi network but also host it's own access point. The controller connects to that access points and sends JSON formatted UDP packets which deliver any communication needed between the controller and display.
+
+### Cursor moving
+After establishing the UDP connection and parsing the data accordingly. I started working on translating the yaw, pitch and roll data from the gyroscope to logical values to move a cursor on screen. I was able to establish a satisfactory result allowing the user to now use the controller as a remote. Further improvements can be done as the gyroscope still seems to deviate slightly here and now. 
+
+Additionally I added new sprites for the cursor to allow the user to see the sprite more easily and to allow the cursor to change to red. 
