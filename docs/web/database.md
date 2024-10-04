@@ -15,11 +15,14 @@
 ## 1. Database overview
 ### 1.1 Entity-Relationship Diagram Diagram (ERD)
 Below the ERD is shown. This concept allows the system to be able to store player data. Using this data a table to see all the highscores is made possible. This allows an easy way of storing all the highscores with their 
+
 <div align="center">
-  <img src="/../assets/images/ERD.drawio.png" alt="ERD">
+  <img src="../assets/images/ERD2.drawio.png" alt="ERD">
 </div>
 
-### 1.2 EER Diagram
+The player starts the embedded device then is prompted with a session id. The player then goes to the website and fills in their name and session id. This creates the player if the name didnt already exist and binds the session to this player. The device is polling until a player is added to the current session. Only then can the game start
+
+### 1.2 EER Diagram (OUTDATED NEEDS UPDATING)
 To realise the previous established ERD this EER diagram was generated from the made tables this shows the different types of data that will be stored and the relation between the tables.
 <div align="center">
   <img src="/../assets/images/EER.png" alt="EER">
