@@ -47,14 +47,14 @@ class SessionGateway
 
         $stmt = $this->conn->prepare($sql);
 
-        $completed = isset($data['completed']) ? $data['completed'] : null;     // Boolean
-        $start_time = isset($data['start_time']) ? $data['start_time'] : null;  // DATETIME
-        $end_time = isset($data['end_time']) ? $data['end_time'] : null;        // DATETIME
-        $player_id = isset($data['player_id']) ? $data['player_id'] : null;     // int
-        $difficulty_id = $data['difficulty_id'];                                // int
+        $completed = isset($data['completed']) ? $data['completed'] : false;        // Boolean default value 0
+        $start_time = isset($data['start_time']) ? $data['start_time'] : null;      // DATETIME
+        $end_time = isset($data['end_time']) ? $data['end_time'] : null;            // DATETIME
+        $player_id = isset($data['player_id']) ? $data['player_id'] : null;         // int
+        $difficulty_id = $data['difficulty_id'];                                    // int
 
         // Bind parameters: "b" for boolean, "s" for string (DATETIME), and "i" for ints
-        $stmt->bind_param("bssis", $completed, $start_time, $end_time, $player_id, $difficulty_id);
+        $stmt->bind_param("issis", $completed, $start_time, $end_time, $player_id, $difficulty_id);
 
         $stmt->execute();
 
@@ -94,20 +94,20 @@ class SessionGateway
     }
 
     /**
-     * Executes an UPDATE query to modify a player.
+     * Executes an UPDATE query to modify a session.
      *
-     * @param string $id The ID of the player to update.
+     * @param string $id The ID of the session to update.
      * @param array $data The data to change/update.
      *
      * @return int The number of rows affected by the update.
      */
     // public function update(string $id, array $data) : string
     // {
-    //     $sql = "UPDATE session SET score = ? WHERE id = ?";
+    //     $sql = "UPDATE session SET session = ? WHERE id = ?";
 
     //     $stmt = $this->conn->prepare($sql);
 
-    //     $stmt->bind_param("ss", $data["score"], $id);
+    //     $stmt->bind_param("ss", $data["session"], $id);
 
     //     $stmt->execute();
 
@@ -115,15 +115,15 @@ class SessionGateway
     // }
 
     /**
-     * Executes a DELETE query to remove a score from the database.
+     * Executes a DELETE query to remove a session from the database.
      *
-     * @param string $id The ID of the score to delete.
+     * @param string $id The ID of the session to delete.
      *
      * @return int The number of rows affected by the update.
      */
     public function delete(string $id) : bool
     {
-        $sql = "DELETE FROM score WHERE id = ?";
+        $sql = "DELETE FROM session WHERE id = ?";
 
         $stmt = $this->conn->prepare($sql);
 

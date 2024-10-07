@@ -4,39 +4,39 @@ class ScoreController {
     public function __construct(private ScoreGateway $gateway) {}
 
     /**
-     * Handles HTTP requests for either a single player or a collection of players based on the provided ID.
+     * Handles HTTP requests for either a single score or a collection of score based on the provided ID.
      *
-     * If an ID is provided, it routes the request to handle a single player resource; otherwise,
-     * it handles requests for a collection of player resources.
+     * If an ID is provided, it routes the request to handle a single score resource; otherwise,
+     * it handles requests for a collection of score resources.
      *
      * @param string $method The HTTP request method.
-     * @param string|null $id The ID of the player. Null for collection requests.
+     * @param string|null $id The ID of the score. Null for collection requests.
      */
     public function handleRequest(string $method, ?string $id) : void
     {
         if($id) {
             // Single resource
-            $this->handlePlayerRequest($method, $id);
+            $this->handleScoreRequest($method, $id);
         } else {
             // Collection of resources
-            $this->handlePlayerCollectionRequest($method, $id);
+            $this->handleScoreCollectionRequest($method, $id);
         }
     }
 
     /**
-     * Handles requests for a single player.
+     * Handles requests for a single score.
      *
-     * This function processes requests for a specific player, identified by the ID.
+     * This function processes requests for a specific score, identified by the ID.
      * It supports GET, PATCH, and DELETE methods, responding with appropriate data or errors.
      *
      * @param string $method The HTTP request method.
-     * @param string|null $id The ID of the player.
+     * @param string|null $id The ID of the score.
      */
-    public function handlePlayerRequest(string $method, ?string $id): void 
+    public function handleScoreRequest(string $method, ?string $id): void 
     {
         $product = $this->gateway->get($id);
         if(!$product) {
-            ErrorCodeHelper::getInstance()->handleErrorCode(404, "Player not found");
+            ErrorCodeHelper::getInstance()->handleErrorCode(404, "Score not found");
         }
         switch($method) {
             case "GET":
@@ -55,7 +55,7 @@ class ScoreController {
                 $rows = $this->gateway->update($id, $data);
 
                 echo json_encode([
-                    "message" => "Player updated",
+                    "message" => "Score updated",
                     "rows" => $rows
                 ]);
                 break;
@@ -63,7 +63,7 @@ class ScoreController {
                 $rows = $this->gateway->delete($id);
 
                 echo json_encode([
-                    "message" => "Player deleted",
+                    "message" => "Score deleted",
                     "rows" => $rows
                 ]);
                 break;
@@ -75,15 +75,15 @@ class ScoreController {
     }
     
     /**
-     * Handles requests for a collection of player resources.
+     * Handles requests for a collection of score resources.
      *
-     * This function processes requests for a collection of players, supporting GET and POST methods.
-     * It responds with the list of players or creates a new player based on the provided data.
+     * This function processes requests for a collection of scores, supporting GET and POST methods.
+     * It responds with the list of score or creates a new score based on the provided data.
      *
      * @param string $method The HTTP request method.
-     * @param string|null $id The ID of the player.
+     * @param string|null $id The ID of the score.
      */
-    public function handlePlayerCollectionRequest(string $method, ?string $id): void 
+    public function handleScoreCollectionRequest(string $method, ?string $id): void 
     {
         switch($method) {
             case "GET":
@@ -114,12 +114,12 @@ class ScoreController {
     }
 
     /**
-     * Validates player data for required fields.
+     * Validates score data for required fields.
      *
      * This function checks the provided data for validation errors, such as missing required fields
      *
-     * @param array $data The player data to validate.
-     * @param bool $isNew Whether the validation is for a new player or an existing player.
+     * @param array $data The score data to validate.
+     * @param bool $isNew Whether the validation is for a new score or an existing score.
      *
      * @return array Returns an array of validation errors.
      */
