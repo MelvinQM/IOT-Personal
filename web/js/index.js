@@ -31,3 +31,7 @@ userForm.addEventListener("submit", (e) => {
         //TODO: check if name already exists in database
     }
 })
+
+function redirectToAdmin() {
+    window.location.href = "/admin";
+}

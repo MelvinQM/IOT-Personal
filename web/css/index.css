@@ -5,6 +5,8 @@
 
 
 body {
+    cursor: url('../assets/cursor-2.png'), auto;
+
     background-image: url("../assets/background.png");
     background-color: #cccccc;
     background-size: cover;

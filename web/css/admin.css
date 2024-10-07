@@ -21,6 +21,9 @@ body {
     scrollbar-color: #fff #343a40;
 }
 
+.nav-link:hover {
+    text-decoration: underline; /* Optionally add underline on hover */
+}
 
 .table {
     margin-bottom: 0;
