@@ -28,9 +28,9 @@ class RouteHandler {
             case "player":
                 $gateway = new PlayerGateway($db);
                 return new PlayerController($gateway);
-            case "scores":
-                ErrorCodeHelper::getInstance()->handleErrorCode(501, "Scores functionality not implemented yet");
-                exit;
+            case "score":
+                $gateway = new ScoreGateway($db);
+                return new ScoreController($gateway);
             case "session":
                 ErrorCodeHelper::getInstance()->handleErrorCode(501, "Session functionality not implemented yet");
                 exit;
