@@ -319,3 +319,17 @@ Additionally I added new sprites for the cursor to allow the user to see the spr
 I worked on making a username input page. This will serve as the gateway for starting the game. A player will input their name into the page and this will be sent to the embedded devide to start the game. This allow the score to be stored with the provided name.
 
 Also the admin page has been restyled to have a more retro game feel to it.
+
+### 3D printing controller
+I made some new adjustments to the base of the wii controller allowing the controller to hold the trigger button and be able to move it around a fixed access.
+
+### API modifications
+I worked on improving my API to allow future additions in new gateways to go smoothly. I added a routehandler that handles which controller should be created based on which route is being called.
+
+### Database remodeling
+I also remodeled the database so use a session based communication flow to allow a player to play more than one game in a session and to allow a game to be started from the frontend webpage
+
+## Week 6
+
+### API New Endpoints
+I added endpoints for the new tables including the score, session and difficulty table. These can now all be viewed in the admin page located at localhost/admin. This allows for easier debugging of the database. It is also now possible to perform CRUD operations on these tables.
