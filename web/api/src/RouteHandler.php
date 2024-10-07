@@ -32,8 +32,8 @@ class RouteHandler {
                 $gateway = new ScoreGateway($db);
                 return new ScoreController($gateway);
             case "session":
-                ErrorCodeHelper::getInstance()->handleErrorCode(501, "Session functionality not implemented yet");
-                exit;
+                $gateway = new SessionGateway($db);
+                return new SessionController($gateway);
             case "difficulty":
                 ErrorCodeHelper::getInstance()->handleErrorCode(501, "Difficulty functionality not implemented yet");
                 exit;
