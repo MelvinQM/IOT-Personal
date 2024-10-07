@@ -90,21 +90,21 @@ class ScoreController {
                 echo json_encode($this->gateway->getAll());
                 break;
             case "POST":
-                // $data = json_decode(file_get_contents('php://input'), true);
-                // if (json_last_error() !== JSON_ERROR_NONE) {
-                //     ErrorCodeHelper::getInstance()->handleErrorCode(400,'Invalid JSON format');
-                // }
-                // $errors = $this->getValidationErrors($data);
-                // if(!empty($errors)) {
-                //     ErrorCodeHelper::getInstance()->handleErrorCode(422, json_encode(["errors" => $errors]));
-                //     break;
-                // }
-                // $id = $this->gateway->create($data);
+                $data = json_decode(file_get_contents('php://input'), true);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    ErrorCodeHelper::getInstance()->handleErrorCode(400,'Invalid JSON format');
+                }
+                $errors = $this->getValidationErrors($data);
+                if(!empty($errors)) {
+                    ErrorCodeHelper::getInstance()->handleErrorCode(422, json_encode(["errors" => $errors]));
+                    break;
+                }
+                $id = $this->gateway->create($data);
 
-                // echo json_encode([
-                //     "message" => "Player created",
-                //     "id" => $id
-                // ]);
+                echo json_encode([
+                    "message" => "Score created",
+                    "id" => $id
+                ]);
                 break;
             default:
                 ErrorCodeHelper::getInstance()->handleErrorCode(405, "Method not allowed", "Allow: GET, POST");
@@ -126,9 +126,14 @@ class ScoreController {
     private function getValidationErrors(array $data, bool $isNew = true) : array
     {
         $errors = [];
-        if($isNew && empty($data["name"])) 
+        if($isNew && empty($data["score"])) 
         {
-            $errors[] = "Name is required";
+            $errors[] = "score is required";
+        }
+
+        if($isNew && empty($data["session_id"]))
+        {
+            $errors[] = "session_id is required";
         }
 
         return $errors;

@@ -15,9 +15,9 @@ class ScoreGateway
     }
 
     /**
-     * Executes a SELECT query to fetch all rows from the player table.
+     * Executes a SELECT query to fetch all rows from the score table.
      *
-     * @return array An array of player records.
+     * @return array An array of score records.
      */
     public function getAll(): array
     {
@@ -35,11 +35,11 @@ class ScoreGateway
     }
 
     /**
-     * Executes an INSERT query to add a new player.
+     * Executes an INSERT query to add a new score.
      *
-     * @param array $data The player data to insert.
+     * @param array $data The score and session_id to insert.
      *
-     * @return string The ID of the newly created player.
+     * @return string The ID of the newly created score.
      */
     public function create(array $data) : string
     {
@@ -59,11 +59,11 @@ class ScoreGateway
     }
 
     /**
-     * Executes a SELECT query to fetch a player based on the provided ID.
+     * Executes a SELECT query to fetch a score based on the provided ID.
      *
-     * @param string $id The ID of the player to retrieve.
+     * @param string $id The ID of the score to retrieve.
      *
-     * @return array|false An array of player data or false if not found.
+     * @return array|false An array of score data or false if not found.
      */
     public function get(string $id) : array | false
     {
@@ -100,7 +100,7 @@ class ScoreGateway
 
         $stmt = $this->conn->prepare($sql);
 
-        $stmt->bind_param("ss", $data["name"], $id);
+        $stmt->bind_param("ss", $data["score"], $id);
 
         $stmt->execute();
 
@@ -108,11 +108,11 @@ class ScoreGateway
     }
 
     /**
-     * Executes a DELETE query to remove a player from the database.
+     * Executes a DELETE query to remove a score from the database.
      *
-     * @param string $id The ID of the player to delete.
+     * @param string $id The ID of the score to delete.
      *
-     * @return bool True if a row was deleted, false otherwise.
+     * @return int The number of rows affected by the update.
      */
     public function delete(string $id) : bool
     {
