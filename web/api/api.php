@@ -1,10 +1,29 @@
 <?php
 declare(strict_types= 1);
 
-// Load classes from folder src automatically
-spl_autoload_register(function ($class){
-    require __DIR__ . "/src/$class.php";
+spl_autoload_register(function ($class) {
+    // Replace namespace separators with directory separators
+    $classPath = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+
+    // Define the directories to search
+    $directories = [
+        __DIR__ . '/src/',
+        __DIR__ . '/src/player/',
+        __DIR__ . '/src/score/',
+        __DIR__ . '/src/session/',
+        __DIR__ . '/src/difficulty/'
+    ];
+
+    // Search for the file in the specified directories
+    foreach ($directories as $directory) {
+        $file = $directory . "{$classPath}.php";
+        if (file_exists($file)) {
+            require $file;
+            break;
+        }
+    }
 });
+
 
 set_error_handler("ErrorHandler::handleError");
 set_exception_handler("ErrorHandler::handleException");
@@ -14,10 +33,8 @@ $uri = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 $parts = explode("/", trim($uri, "/"));
 // print_r($parts);
 
+
 $controller = RouteHandler::getInstance()->getController(strtolower($parts[1]));
 
 $id = $parts[2] ?? null;
 $controller->handleRequest($_SERVER["REQUEST_METHOD"], $id);
-
-
-
