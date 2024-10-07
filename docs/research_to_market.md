@@ -21,8 +21,9 @@ I started looking at some known items on the market. I wanted to make a game con
 This led to the creation of some questions to be researched with the main question being:
 **What is a realistic design for a game console that makes use of a motion controller that can move a digital cursor on an embedded device screen**
 Additionally some sub questions:
+
 - What are some existing motion controller designs on the market?
-- What are some displays that can be used to create a game console screen?
+<!-- - What are some displays that can be used to create a game console screen? -->
 - What are techniques that can be used to communicate between the controller and the console?
 - What are some design choices that would make the controller more accessible to all audiences? 
 
