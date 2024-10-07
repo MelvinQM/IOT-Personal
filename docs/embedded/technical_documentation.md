@@ -53,6 +53,8 @@ Below is the table that outlines the necessary parts for this project:
 |-|-|-|-|-|-|-|
 |MPU6050|Invensense|6 Axis gyroscope & Accelerometer|1|€8,50|€8,50| [Tinytronics](https://www.tinytronics.nl/nl/sensoren/acceleratie-rotatie/mpu-6050-accelerometer-en-gyroscope-3-axis-module-3.3v-5v)|
 |ESP32-2432S024 Display |Guition |ESP32 Lvgl/Tft Lcd Display Development Board 240*320 2.4Inch|1|€17,99|€17,99| [Aliexpress](https://nl.aliexpress.com/item/1005005865107357.html?spm=a2g0o.order_list.order_list_main.60.7df579d2ajZa7L&gatewayAdapt=glo2nld)|
+|ESP32-S3|Espressif|ESP32-S3 Development Kit Module|1|€6,39|€6,39| [Aliexpress](https://nl.aliexpress.com/item/1005007310769585.html?src=google&pdp_npi=4%40dis%21EUR%217.22%212.32%21%21%21%21%210.9282%40%2112000040197381496%21ppc%21%21%21&src=google&albch=shopping&acnt=708-803-3821&isdl=y&slnk=&plac=&mtctp=&albbt=Google_7_shopping&aff_platform=google&aff_short_key=UneMJZVf&gclsrc=aw.ds&&albagn=888888&&ds_e_adid=&ds_e_matchtype=&ds_e_device=c&ds_e_network=x&ds_e_product_group_id=&ds_e_product_id=nl1005007310769585&ds_e_product_merchant_id=5321504273&ds_e_product_country=NL&ds_e_product_language=nl&ds_e_product_channel=online&ds_e_product_store_id=&ds_url_v=2&albcp=19207327905&albag=&isSmbAutoCall=false&needSmbHouyi=false&gad_source=1&gclid=Cj0KCQjwpP63BhDYARIsAOQkATbpjDElRXK1qK98sC1XfxLuWsL4ofrS9Beu_nlAQvX9LkUJKmlZxioaAhaxEALw_wcB#nav-specification)|
+|PWM Vibration Motor|DIY Victor|Pwm Vibration Motor, Dc Motor|1|€1,28|€1,28|[Aliexpress](https://nl.aliexpress.com/item/1005006296840332.html?spm=a2g0o.order_list.order_list_main.41.ad5779d2DKfbb1&gatewayAdapt=glo2nld#nav-store)|
 
 
 ## 3. Components
