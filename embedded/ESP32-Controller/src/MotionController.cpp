@@ -13,9 +13,10 @@ MotionController::~MotionController()
 void MotionController::Init()
 {
     Serial.println("\n------------[Initializing Game]------------");
-    udpConnection.Init();
+    // udpConnection.Init();
     gyro.Init();
     pinMode(BUTTON_PIN, INPUT);
+    pinMode(VIBRATION_MOTOR_PIN, OUTPUT);
 
 
     xTaskCreatePinnedToCore(
@@ -31,12 +32,16 @@ void MotionController::Init()
 
 void MotionController::Run() 
 {
-    udpConnection.SendGyroData();
+    // udpConnection.SendGyroData();
     if(digitalRead(BUTTON_PIN))
     {
         Serial.println("Trigger pressed!");
-        udpConnection.SendTriggerInput();
+        // udpConnection.SendTriggerInput();
+        analogWrite(VIBRATION_MOTOR_PIN, 1000);
+    } else {
+        analogWrite(VIBRATION_MOTOR_PIN, 255);
     }
+    
     delay(50);
 }
 

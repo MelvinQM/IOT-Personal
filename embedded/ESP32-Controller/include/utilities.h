@@ -5,6 +5,7 @@
 
 #define BUTTON_PIN 21
 #define GYRO_INTERRUPT_PIN 15
+#define VIBRATION_MOTOR_PIN 47
 
 struct GyroData {
     int x;
