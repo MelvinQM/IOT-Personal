@@ -14,7 +14,8 @@ body {
 }
 
 .datatable {
-    height: 500px;
+    max-height: 500px;
+    margin-bottom: 2em;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #fff #343a40;
