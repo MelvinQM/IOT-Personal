@@ -333,3 +333,16 @@ I also remodeled the database so use a session based communication flow to allow
 
 ### API New Endpoints
 I added endpoints for the new tables including the score, session and difficulty table. These can now all be viewed in the admin page located at localhost/admin. This allows for easier debugging of the database. It is also now possible to perform CRUD operations on these tables.
+
+### 3D printing iterations
+I worked on many iterations of the battery lid I added a clip at the front which can be used to open the battery lid. I also added 2 "nubs" on the other side. I also worked on designing the mechanisms for both the joystick and the trigger button press.
+<div align="center">
+  <img src="/assets/images/controller-fusion-09.png" alt="prints" style="width:100%;">
+  <img src="/assets/images/Prints-09.jpg" alt="prints" style="width:30%;">
+  <img src="/assets/images/Prints-09-2.jpg" alt="prints" style="width:30%;">
+  <img src="/assets/images/Prints-09-3.jpg" alt="prints"style="width:30%;" >
+</div>
+
+Some notes:
+
+- PLA doesnt like bending so in a proffesional prototype the batterylid should be made from something else. It's prone to snapping right now.
