@@ -86,18 +86,19 @@ void Connections::UdpListen()
         // serializeJson(jsonDoc, Serial);
         // Serial.println();
         String method = jsonDoc["method"].as<String>();
-        if(method == "gyro") {
-            Serial.println("\nGyrodata received");
-            gyroData.x = jsonDoc["data"]["x"];
-            gyroData.y = jsonDoc["data"]["y"];
+        if(method == "axisData") {
+            Serial.println("\nAxis Data received");
+            gyroData.x = jsonDoc["data"]["gX"];
+            gyroData.y = jsonDoc["data"]["gY"];
             Serial.printf("X: %d Y: %d\n", gyroData.x, gyroData.y);
         } else if(method == "trigger") {
             Serial.println("Trigger pressed");
+        } else if(method == "joystickClick") {
+            Serial.println("Joystick clicked");
         } else {    
             Serial.println("Error: Method not recognized!");
         }
-    } else
-    {
+    } else {
         Serial.print(".");
     }
 }

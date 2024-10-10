@@ -4,6 +4,7 @@
 #include "utilities.h"
 #include "Gyroscope.h"
 #include "UdpConnection.h"
+#include "Joystick.h"
 
 class MotionController {
     public:
@@ -14,6 +15,7 @@ class MotionController {
     private:
         UdpConnection udpConnection;
         Gyroscope gyro;
+        Joystick joystick;
         TaskHandle_t GyroTaskHandle = NULL;
         static void GyroTask(void *pvParameters)
         {

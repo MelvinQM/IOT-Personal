@@ -9,12 +9,12 @@ class Joystick {
         ~Joystick();
         void Init();
         void Loop();
+        bool ReadJoystickClick();
+        JoystickData GetAxis();
     private:
         JoystickData data = {0.0f, 0.0f};
-        void ReadJoystickClick();
         void ReadJoystickAxis();
         void NormalizeAxis(int x, int y);
-        JoystickData GetAxis();
 
         #define RANGE_IN_MIN 0
         #define RANGE_IN_MAX 4095

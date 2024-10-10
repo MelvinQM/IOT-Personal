@@ -5,16 +5,18 @@
 #include "Wifi.h"
 #include "WiFiUdp.h"
 #include "Gyroscope.h"
+#include "Joystick.h"
 #include <ArduinoJson.h>
 
 class UdpConnection
 {
     public:
-        UdpConnection(Gyroscope *gyro);
+        UdpConnection(Gyroscope *gyro, Joystick *joystick);
         ~UdpConnection();
         void SendTriggerInput();
+        void SendJoystickClick();
         void Init();
-        void SendGyroData();
+        void SendControllerData();
     private:
         const char *udpAddress = "192.168.1.1";
         const int udpPort = 44444;
@@ -22,6 +24,7 @@ class UdpConnection
         const char *password = "hootpursuitaccess";
         WiFiUDP udp;
         Gyroscope *gyro;
+        Joystick *joystick;
 
 };
 

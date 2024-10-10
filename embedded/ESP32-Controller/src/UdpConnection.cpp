@@ -1,8 +1,9 @@
 #include "UdpConnection.h"
 
-UdpConnection::UdpConnection(Gyroscope *gyro)
+UdpConnection::UdpConnection(Gyroscope *gyro, Joystick *joystick)
 {
     this->gyro = gyro;
+    this->joystick = joystick;
 }
 
 UdpConnection::~UdpConnection(){}
@@ -25,16 +26,19 @@ void UdpConnection::Init()
     udp.begin(udpPort);
 }
 
-void UdpConnection::SendGyroData()
+void UdpConnection::SendControllerData()
 {
     // Get data from gyroscope
-    GyroData data = gyro->GetXYZ();
+    GyroData gData = gyro->GetXYZ();
+    JoystickData jData = joystick->GetAxis();
 
     // Create a JSON document
     JsonDocument jsonDoc;
-    jsonDoc["method"] = "gyro";
-    jsonDoc["data"]["x"] = data.x;
-    jsonDoc["data"]["y"] = data.y;
+    jsonDoc["method"] = "axisData";
+    jsonDoc["data"]["gX"] = gData.x;
+    jsonDoc["data"]["gY"] = gData.y;
+    jsonDoc["data"]["jX"] = jData.x;
+    jsonDoc["data"]["jY"] = jData.y;
 
     Serial.print(F("Sending to "));
     Serial.print(udpAddress);
@@ -70,6 +74,26 @@ void UdpConnection::SendTriggerInput()
     // Create a JSON document
     JsonDocument jsonDoc;
     jsonDoc["method"] = "trigger";
+
+    Serial.print(F("Sending to "));
+    Serial.print(udpAddress);
+    Serial.print(F(" on port "));
+    Serial.println(udpPort);
+    serializeJson(jsonDoc, Serial);
+    Serial.println();
+
+    // Send the JSON string to the server
+    udp.beginPacket(udpAddress, udpPort);
+    serializeJson(jsonDoc, udp);
+    udp.println();
+    udp.endPacket();
+}
+
+void UdpConnection::SendJoystickClick()
+{
+    // Create a JSON document
+    JsonDocument jsonDoc;
+    jsonDoc["method"] = "joystickClick";
 
     Serial.print(F("Sending to "));
     Serial.print(udpAddress);

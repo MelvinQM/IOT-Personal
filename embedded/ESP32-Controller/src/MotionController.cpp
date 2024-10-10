@@ -1,6 +1,6 @@
 #include "MotionController.h"
 
-MotionController::MotionController() : udpConnection(&gyro)
+MotionController::MotionController() : udpConnection(&gyro, &joystick)
 {
 
 }
@@ -41,6 +41,12 @@ void MotionController::Run()
         analogWrite(VIBRATION_MOTOR_PIN, 255);
     } else {
         analogWrite(VIBRATION_MOTOR_PIN, 0);
+    }
+
+    if(joystick.ReadJoystickClick())
+    {
+        // udpConnection.SendJoystickClick();
+        Serial.println("Joystick Clicked!");
     }
     
     joystick.Loop();
