@@ -361,3 +361,8 @@ Only missing features now:
 - Reliable way to store vibration motor.
 - A way to convert 9v to 5v that can fit inside the controller.
 - A reliable way to fasten the top of the controller to the bottom.
+
+### Joystick code
+After working on the print I started work on the joystick. The joystick consists of 2 potentiometers I worked on reading these values through the ADC pins. I then mapped the values received to a normalized range of -1.0 to 1.0 meaning top right is (1.0, 1.0) and top left is (-1.0, -1.0).
+
+Then new code for the UDP connection was needed to send this data. I ended up just adding this data to the packet of the Gyro data this is the easiest way to do it for now as the console has no communication to the controller itself so telling the controller to send either the gyro or joystick is not possible yet. This is a possible improvement for the future.
