@@ -346,3 +346,18 @@ I worked on many iterations of the battery lid I added a clip at the front which
 Some notes:
 
 - PLA doesnt like bending so in a proffesional prototype the batterylid should be made from something else. It's prone to snapping right now.
+
+After many.. MANY iterations a useable prototype was created that could hold the joystick, have a working trigger button, a batterylid and allows for the battery wires to go through to the inner part of the controller. There is also still room left to place the vibration motor and esp inside the controller.
+<div align="center">
+  <img src="/assets/images/Prints-10-1.jpg" alt="prints" style="width:30%; height:100%;">
+  <img src="/assets/images/Prints-10-2.jpg" alt="prints" style="width:30%;">
+  <img src="/assets/images/Prints-10-3.jpg" alt="prints" style="width:30%;">
+
+</div>
+
+Only missing features now:
+
+- Reliable way to store esp.
+- Reliable way to store vibration motor.
+- A way to convert 9v to 5v that can fit inside the controller.
+- A reliable way to fasten the top of the controller to the bottom.
