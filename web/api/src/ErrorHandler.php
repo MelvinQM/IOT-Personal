@@ -1,6 +1,6 @@
 <?php
 /*
- * Author: Melvin
+ * Author: Melvin Moes
  * Date: October 14, 2024
  * Description: A custom error handler class which catches exceptions and returns these as json encoded responses.
  * License: This project is licensed under the MIT License.

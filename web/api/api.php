@@ -1,6 +1,6 @@
 <?php
 /*
- * Author: Melvin
+ * Author: Melvin Moes
  * Date: October 14, 2024
  * Description: An api entrance file. "explodes" a url to correctly pass the api request to the correct controller class and handle the request accordingly or return a json error.
  * License: This project is licensed under the MIT License.

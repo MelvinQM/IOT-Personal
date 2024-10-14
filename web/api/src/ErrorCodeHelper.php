@@ -1,6 +1,6 @@
 <?php
 /*
- * Author: Melvin
+ * Author: Melvin Moes
  * Date: October 14, 2024
  * Description: An Errorcodehelper class to handle error codes when manually thrown to allow custom json response messages in these cases.
  * License: This project is licensed under the MIT License.

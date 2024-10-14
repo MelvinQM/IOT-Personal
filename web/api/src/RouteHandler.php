@@ -1,6 +1,6 @@
 <?php
 /*
- * Author: Melvin
+ * Author: Melvin Moes
  * Date: October 14, 2024
  * Description: A custom route handler class which looks through the provided endpoint and created the corresponding controller and gateway to communicate with the correct SQL table.
  * License: This project is licensed under the MIT License.

@@ -1,6 +1,6 @@
 <?php
 /*
- * Author: Melvin
+ * Author: Melvin Moes
  * Date: October 14, 2024
  * Description: A database class handling the connection to the database using environment variabels to establish a connection.
  * License: This project is licensed under the MIT License.

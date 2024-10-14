@@ -1,6 +1,6 @@
 <?php
 /*
- * Author: Melvin
+ * Author: Melvin Moes
  * Date: October 14, 2024
  * Description: A gateway class managing the sql queries made to the Player table.
  * License: This project is licensed under the MIT License.

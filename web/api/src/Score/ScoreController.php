@@ -1,6 +1,6 @@
 <?php
 /*
- * Author: Melvin
+ * Author: Melvin Moes
  * Date: October 14, 2024
  * Description: A controller managing the connection to the Score table of a database. This controller needs a gateway to handle it's sql calls.
  * License: This project is licensed under the MIT License.

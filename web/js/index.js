@@ -1,5 +1,5 @@
 /*
- * Author: Melvin
+ * Author: Melvin Moes
  * Date: October 14, 2024
  * Description: This script handles the form submission for a player. The input is validated based on name and session ID. 
  * Additionally, the script includes a function to redirect users to the admin page.
