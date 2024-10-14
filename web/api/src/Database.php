@@ -2,11 +2,8 @@
 /*
  * Author: Melvin
  * Date: October 14, 2024
- * 
- * A database class handling the connection to the database using environment variabels to establish a connection.
- * 
- * License:
- * This project is licensed under the MIT License - see the LICENSE file for details.
+ * Description: A database class handling the connection to the database using environment variabels to establish a connection.
+ * License: This project is licensed under the MIT License.
  */
 class Database {
     public function __construct() {}

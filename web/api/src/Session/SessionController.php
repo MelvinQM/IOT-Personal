@@ -2,11 +2,8 @@
 /*
  * Author: Melvin
  * Date: October 14, 2024
- * 
- * A controller managing the connection to the Session table of a database. This controller needs a gateway to handle it's sql calls.
- * 
- * License:
- * This project is licensed under the MIT License - see the LICENSE file for details.
+ * Description: A controller managing the connection to the Session table of a database. This controller needs a gateway to handle it's sql calls.
+ * License: This project is licensed under the MIT License.
  */
 class SessionController {
     public function __construct(private SessionGateway $gateway) {}

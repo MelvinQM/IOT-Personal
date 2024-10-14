@@ -2,11 +2,8 @@
 /*
  * Author: Melvin
  * Date: October 14, 2024
- * 
- * An Errorcodehelper class to handle error codes when manually thrown to allow custom json response messages in these cases.
- * 
- * License:
- * This project is licensed under the MIT License - see the LICENSE file for details.
+ * Description: An Errorcodehelper class to handle error codes when manually thrown to allow custom json response messages in these cases.
+ * License: This project is licensed under the MIT License.
  */
 class ErrorCodeHelper {
     private static $instances = [];

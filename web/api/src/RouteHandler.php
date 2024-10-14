@@ -2,11 +2,8 @@
 /*
  * Author: Melvin
  * Date: October 14, 2024
- * 
- * A custom route handler class which looks through the provided endpoint and created the corresponding controller and gateway to communicate with the correct SQL table.
- * 
- * License:
- * This project is licensed under the MIT License - see the LICENSE file for details.
+ * Description: A custom route handler class which looks through the provided endpoint and created the corresponding controller and gateway to communicate with the correct SQL table.
+ * License: This project is licensed under the MIT License.
  */
 class RouteHandler {
     private static $instances = [];

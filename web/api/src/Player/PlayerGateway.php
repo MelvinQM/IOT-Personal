@@ -2,11 +2,8 @@
 /*
  * Author: Melvin
  * Date: October 14, 2024
- * 
- * A gateway class managing the sql queries made to the Player table.
- * 
- * License:
- * This project is licensed under the MIT License - see the LICENSE file for details.
+ * Description: A gateway class managing the sql queries made to the Player table.
+ * License: This project is licensed under the MIT License.
  */
 class PlayerGateway 
 {

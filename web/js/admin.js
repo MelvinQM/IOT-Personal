@@ -1,3 +1,11 @@
+/*
+ * Author: Melvin
+ * Date: October 14, 2024
+ * Description: This script populates HTML tables by fetching data from the api/endpoints. It creates table rows and cells for each data record and appends them 
+ * to their respective table bodies: Players, Scores, Sessions, and Difficulties.
+ * License: This project is licensed under the MIT License.
+ */
+
 document.addEventListener('DOMContentLoaded', function () {
     fetch('/api/player')
         .then(response => response.json())
