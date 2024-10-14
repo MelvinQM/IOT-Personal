@@ -7,11 +7,12 @@
  * License: This project is licensed under the MIT License.
  */
 
-
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
 #include <Arduino.h>
+#include <ArduinoJson.h>
+
 #define BUTTON_PIN 21
 #define GYRO_INTERRUPT_PIN 15
 #define VIBRATION_MOTOR_PIN 47
@@ -32,5 +33,10 @@ struct JoystickData {
     float y;
 };
 
+
+// Defining the JSON method names
+#define TRIGGER_METHOD "trigger"
+#define JOYSTICK_CLICK_METHOD "joystickClick"
+#define CONTROLLER_AXIS_DATA_METHOD "axisData"
 
 #endif

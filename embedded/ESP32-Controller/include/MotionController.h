@@ -25,6 +25,11 @@ class MotionController {
         UdpConnection udpConnection;
         Gyroscope gyro;
         Joystick joystick;
+
+        void SendTriggerInput();
+        void SendJoystickClick();
+        void SendControllerData();
+
         TaskHandle_t GyroTaskHandle = NULL;
         static void GyroTask(void *pvParameters)
         {

@@ -7,8 +7,6 @@
  * License: This project is licensed under the MIT License.
  */
 
-
-#include "utilities.h"
 #include "GameController.h"
 
 GameController game;

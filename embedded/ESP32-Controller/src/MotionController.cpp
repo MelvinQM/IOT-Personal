@@ -13,7 +13,7 @@
 
 
 
-MotionController::MotionController() : udpConnection(&gyro, &joystick)
+MotionController::MotionController()
 {
     Serial.begin(BAUD_RATE);
 }
@@ -47,11 +47,11 @@ void MotionController::Init()
 void MotionController::Run() 
 {
     joystick.ReadJoystickAxis();
-    udpConnection.SendControllerData();
+    SendControllerData();
     if(digitalRead(BUTTON_PIN))
     {
         Serial.println("Trigger pressed!");
-        udpConnection.SendTriggerInput();
+        SendTriggerInput();
         analogWrite(VIBRATION_MOTOR_PIN, 255);
     } else {
         analogWrite(VIBRATION_MOTOR_PIN, 0);
@@ -59,10 +59,46 @@ void MotionController::Run()
 
     if(joystick.ReadJoystickClick())
     {
-        udpConnection.SendJoystickClick();
+        SendJoystickClick();
         Serial.println("Joystick Clicked!");
     }
     
     // delay(1);
 }
 
+void MotionController::SendControllerData()
+{
+    // Get data from gyroscope
+    GyroData gData = gyro.GetXYZ();
+    JoystickData jData = joystick.GetAxis();
+
+    // Create a JSON document
+    JsonDocument jsonDoc;
+    jsonDoc["method"] = CONTROLLER_AXIS_DATA_METHOD;
+    jsonDoc["data"]["gX"] = gData.x;
+    jsonDoc["data"]["gY"] = gData.y;
+    jsonDoc["data"]["jX"] = jData.x;
+    jsonDoc["data"]["jY"] = jData.y;
+
+
+
+    udpConnection.SendJsonData(jsonDoc);
+}
+
+void MotionController::SendTriggerInput()
+{
+    // Create a JSON document
+    JsonDocument jsonDoc;
+    jsonDoc["method"] = TRIGGER_METHOD;
+
+    udpConnection.SendJsonData(jsonDoc);
+}
+
+void MotionController::SendJoystickClick()
+{
+    // Create a JSON document
+    JsonDocument jsonDoc;
+    jsonDoc["method"] = JOYSTICK_CLICK_METHOD;
+    
+    udpConnection.SendJsonData(jsonDoc);
+}
