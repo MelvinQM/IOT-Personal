@@ -366,3 +366,6 @@ Only missing features now:
 After working on the print I started work on the joystick. The joystick consists of 2 potentiometers I worked on reading these values through the ADC pins. I then mapped the values received to a normalized range of -1.0 to 1.0 meaning top right is (1.0, 1.0) and top left is (-1.0, -1.0).
 
 Then new code for the UDP connection was needed to send this data. I ended up just adding this data to the packet of the Gyro data this is the easiest way to do it for now as the console has no communication to the controller itself so telling the controller to send either the gyro or joystick is not possible yet. This is a possible improvement for the future.
+
+## Week 7
+I started of week 7 by finishing up some additions to the joystick code and in the weekend before week 7 I worked on a lot of iterations of 3d prints. A suitable prototype has been created that can hold all components. It's not perfect but using some tape or glue can make it perfect. Since the time is running out on the project this will suffice. 
