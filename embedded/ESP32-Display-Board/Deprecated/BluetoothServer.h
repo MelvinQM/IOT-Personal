@@ -1,3 +1,14 @@
+/*
+ * Author: Melvin Moes
+ * Date: October 14, 2024
+ * Description: This header file defines the BluetoothServer class, which implements a Bluetooth Low Energy (BLE)
+ * server. The header defines methods for the initialization of the BLE server, advertising, and
+ * connection management with Bluetooth clients. It defines characteristics and provides 
+ * a callback mechanism for handling incoming data written to the server. The gyro data is extracted from
+ * incoming JSON messages, allowing for communication between the server and connected devices. 
+ * License: This project is licensed under the MIT License.
+ */
+
 #ifndef BLUETOOTH_HANDLER_H
 #define BLUETOOTH_HANDLER_H
 

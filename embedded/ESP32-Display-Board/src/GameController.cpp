@@ -3,7 +3,10 @@
 /**
  * DONT FORGET TO CHANGE THE USER_SETUP.H IN THE TFT_eSPI lib inside .pio/libdeps
  */
-GameController::GameController() {}
+GameController::GameController() 
+{
+    Serial.begin(BAUD_RATE);
+}
 GameController::~GameController()
 {
     // Delete the tasks on game exit to free up resources

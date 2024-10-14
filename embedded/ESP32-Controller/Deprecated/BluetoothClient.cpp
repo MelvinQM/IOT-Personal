@@ -1,5 +1,5 @@
 /*
- * Author: Melvin
+ * Author: Melvin Moes Moes Moes Moes
  * Date: October 14, 2024
  * Description: An implementation of the Bluetoothclient header. This Bluetooth client handles communication with a remote BLE server, receiving data from a gyroscope 
  * and sending it to the server. The client connects to the BLE server, subscribes to notifications, and sends gyroscope  data in JSON format through a Bluetooth characteristic.

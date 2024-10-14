@@ -1,5 +1,5 @@
 /*
- * Author: Melvin
+ * Author: Melvin Moes
  * Date: October 14, 2024
  * Description: The main program file for the motion controller project. It initializes the 
  * Serial communication and the MotionController instance. The loop function continuously runs the 

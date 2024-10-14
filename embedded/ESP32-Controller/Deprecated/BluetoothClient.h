@@ -1,5 +1,5 @@
 /*
- * Author: Melvin
+ * Author: Melvin Moes
  * Date: October 14, 2024
  * Description: This header defines the BluetoothClient class, which handles BLE communication between a gyroscope 
  * and a remote BLE server. It provides methods to initialize the BLE connection, manage the communication loop and send gyroscope data in JSON format.

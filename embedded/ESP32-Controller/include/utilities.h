@@ -1,6 +1,6 @@
 
 /*
- * Author: Melvin
+ * Author: Melvin Moes
  * Date: October 14, 2024
  * Description: This header defines various utility constants, pin assignments, and data structures used in the 
  * motion controller project. It includes definitions for button and joystick pins and data structures for joystick and gyro data.
@@ -18,6 +18,8 @@
 #define JOYSTICK_VRX_PIN 1
 #define JOYSTICK_VRY_PIN 2
 #define JOYSTICK_SW_PIN 48
+
+#define BAUD_RATE 115200
 
 struct GyroData {
     int x;

@@ -1,6 +1,16 @@
 
-#include "BluetoothServer.h"
+/*
+ * Author: Melvin Moes
+ * Date: October 14, 2024
+ * Description: An implementation of the BluetoothServer header using the BLE. It initializes the BLE 
+ * device, creates a service and characteristic for communication, and handles connections from 
+ * Bluetooth clients. The server can send and receive data, allowing interaction with connected devices. 
+ * It also manages advertising to make the device discoverable to potential clients. The Loop function 
+ * monitors the connection state and notifies connected devices of any updates.
+ * License: This project is licensed under the MIT License.
+ */
 
+#include "BluetoothServer.h"
 
 BluetoothServer::BluetoothServer(){};
 BluetoothServer::~BluetoothServer(){};

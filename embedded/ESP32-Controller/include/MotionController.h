@@ -1,5 +1,5 @@
 /*
- * Author: Melvin
+ * Author: Melvin Moes
  * Date: October 14, 2024
  * Description: This header defines the MotionController class, which integrates the gyroscope, joystick, and UDP 
  * connection for managing a motion controller's inputs and communications. It initializes the components then  

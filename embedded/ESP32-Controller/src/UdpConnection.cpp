@@ -1,7 +1,7 @@
 #include "UdpConnection.h"
 
 /*
- * Author: Melvin
+ * Author: Melvin Moes
  * Date: October 14, 2024
  * Description: An implementation of the UdpConnection header. It manages the 
  * connection to a WiFi access point and allows the sending of controller data, trigger inputs, and joystick 
