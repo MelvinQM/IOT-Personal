@@ -127,8 +127,8 @@ One of the most important elements of the design was the trigger button. I opene
 This joint allows the button to move up and down to press a button. I worked on making a system similair to this. I changed the button to have a sharper edge to allow for easier shooting. The wii controller has a softer edge which could lead to your finger sliding off easier when rapid firing.
 
 <div style="display: flex; justify-content: center; align-items: center;">
-  <img src="/../assets/images/trigger-design.png" alt="trigger-design" style="width:50%">
-  <img src="/../assets/images/trigger-fusion-model.png" alt="trigger-fusion-model" style="width:50%">
+  <img src="/../assets/images/trigger-design.png" alt="trigger-design" width="50%">
+  <img src="/../assets/images/trigger-fusion-model.png" alt="trigger-fusion-model" width="50%">
 </div>
 
 To test this design the trigger was printed with a seperate holder:
@@ -143,10 +143,64 @@ After the result of this test was satisfying the next step was to look at how th
 </div>
 
 #### 2.2.3 Joystick Holder
+The controller will also have a joystick on the top. To fasten this component a very simple push fit mechanism was used.
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="/../assets/images/joystickholder-1.png" alt="joystickholder-1" width="50%">
+  <img src="/../assets/images/joystickholder-2.png" alt="joystickholder-2" width="50%">
+</div>
+
 #### 2.2.4 Vibration Motor Holder
+The vibration motor had an interesting requirement. The vibrating part had to be against a wall of the print to allow the vibrations to better travel through the plastic and to the player holding it. For that reason the motor was placed at the back facing a wall. The motor is fastened using a slide push fit mechanism.
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="/../assets/images/vibrationmotorholder-1.png" alt="vibrationmotorholder-1.png" width="50%">
+  <img src="/../assets/images/vibrationmotorholder-2.png" alt="vibrationmotorholder-2.png" width="50%">
+</div>
+
 #### 2.2.5 MPU6050 Holder
+The holder for the MPU6050 was fixed to the top half of the controller and is fairly simple. The MPU has 2 holes meant for screwing it into constructions since the design did not allow for screws unless the print would be made significantly larger. This is why simple push fit "nubs" were used.
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="/../assets/images/mpuholder-1.png" alt="mpuholder-1" width="50%">
+  <img src="/../assets/images/mpuholder-2.png" alt="mpuholder-2" width="50%">
+</div>
+
+
 #### 2.2.6 DC-DC Converter Holder
+The dc-dc converter is fastened the same way the MPU is. This similarily is fastened to the top half of the controller
+<div style="display: flex; justify-content: center;">
+  <img src="/../assets/images/dc-dc-holder2.png" alt="dc-dc-holder2" width="50%">
+</div>
+
 #### 2.2.6 Battery Holder
+To hold in the battery in the battery compartment a batter lid mechanism was designed. 
+<img src="/../assets/images/batteryholder-1.png" alt="batteryholder-1" >
 
-### 2.3 "Final" Design
+By looking at the Wii controller as inspiration a similair mechanism was designed. This mechanism is also used in many television remotes. It allows for a small latch that can be openend with the use of a finger nail or a flat head screw driver or something similair. (The plastic used PLA was quite tough and doesn't bend like the traditional remote material. Using a screwdriver is reccomended because of this.)
+<div style="display: flex; justify-content: center;">
+  <img src="/../assets/images/batteryholder-2.png" alt="batteryholder-2" >
+</div>
 
+The battery holder is fit into place using three mechanisms the latch in the front specified earlier. 2 nubs on the back to fit the lid into position.
+
+<div style="display: flex; justify-content: center;">
+  <img src="/../assets/images/batteryholder-4.png" alt="batteryholder-4">
+</div>
+
+And a railing on the side to make sure the battery lid is positioned correctly and doesn't shift.
+<img src="/../assets/images/batteryholder-3.png" alt="batteryholder-3" >
+
+
+### 2.3 Current Design
+<div style="display: flex; flex-direction: column;justify-content: center; align-items: center;">
+  <img src="/../assets/images/currentdesign-1.png" alt="currentdesign-1">
+  <img src="/../assets/images/currentdesign-2.png" alt="currentdesign-2">
+</div>
+
+### 2.3.1 Current Prints
+
+<div style="display: flex; flex-direction: column;justify-content: center; align-items: center;">
+  <img src="/../assets/images/currentprint-1.jpg" alt="currentprint-1">
+  <br>
+  <img src="/../assets/images/currentprint-2.jpg" alt="currentprint-2">
+  <br>
+  <img src="/../assets/images/currentprint-3.jpg" alt="currentprint-3">
+</div>

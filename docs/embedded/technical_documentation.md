@@ -79,12 +79,14 @@ The angles are defined as the following:
 
 The MPU6050 will return a series of raw data if you communicate with it like so:
 <div align="center">
-  <img src="/../assets/images/rawmpudata.png" alt="rawmpudata">
+  <img src="/../assets/images/rawmpudata.png" alt="rawmpudata" style="width:50%;">
 </div>
 
 This data is fluctuating a lot and not very precise. The MPU has a built in way of dealing with this called the DMP "Digital Motion Processor".
 This processor runs so called fusion algorithms internally allowing the ESP to receive clean and reliable "fused" motion information. More about this can be read in [this article](https://techexplorations.com/guides/arduino/peripherals/mpu6050/)
 
-### 3.3 ESP32-2432S024
-#### 3.3.1 Wiring Diagram
-##### 3.3.2 Understanding the ESP32-2432S024
+### 3.3 ESP32-2432S024 (ESP Display)
+The ESP32-2432S024 or how it will be called for ease of reading the ESP Display is a 2.4 inch display with a resolution of 320x240. This display allows for full color display and touchscreen support. This display has an ESP32 onboard which allows the user to not have to wire anythinig to communicate from the esp to the display. This board also exposes some extra GPIO pins.
+<div align="center">
+  <img src="/../assets/images/components/display-dimensions.png" alt="rawmpudata" style="width:100%;">
+</div>
