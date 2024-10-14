@@ -85,8 +85,6 @@ void GameController::ShowIntro()
     state = Playing;
 }
 
-// float x = 50;
-// float y = 50;
 void GameController::Play()
 {
     Serial.println("------Start Gameplay------");

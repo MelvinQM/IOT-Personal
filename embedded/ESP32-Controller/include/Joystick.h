@@ -26,7 +26,7 @@ class Joystick {
         #define RANGE_IN_MIN JOYSTICK_RANGE_IN_MIN
         #define RANGE_IN_MAX JOYSTICK_RANGE_IN_MAX
         #define RANGE_OUT_MIN JOYSTICK_RANGE_OUT_MIN
-        #define RANGE_OUT_MAX JOYSTICK_RANGE_OUT_MIN
+        #define RANGE_OUT_MAX JOYSTICK_RANGE_OUT_MAX
 };
 
 

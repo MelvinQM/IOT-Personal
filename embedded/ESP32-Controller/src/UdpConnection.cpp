@@ -1,5 +1,3 @@
-#include "UdpConnection.h"
-
 /*
  * Author: Melvin Moes
  * Date: October 14, 2024
@@ -9,6 +7,8 @@
  * the UDP protocol. An option is also present to construct JSON documents containing relevant data and send them over the UDP connection. 
  * License: This project is licensed under the MIT License.
  */
+
+#include "UdpConnection.h"
 
 UdpConnection::UdpConnection() {}
 
@@ -47,12 +47,10 @@ void UdpConnection::SendJsonData(JsonDocument jsonDoc)
     serializeJson(jsonDoc, udp);
     udp.println();
     int err = udp.endPacket();
-    if(err == EHOSTUNREACH)
-    {
+    if(err == EHOSTUNREACH) {
         vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
         Serial.println("Host unreachable");
-    } else if(err == ENOMEM)
-    {
+    } else if(err == ENOMEM) {
         Serial.println("Not enough memory");
     }
 

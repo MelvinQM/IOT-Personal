@@ -26,8 +26,9 @@ bool Joystick::ReadJoystickClick()
 
 void Joystick::ReadJoystickAxis()
 {
+    // Serial.println("X: " + String(analogRead(JOYSTICK_VRX_PIN)) + " Y: " + String(analogRead(JOYSTICK_VRY_PIN)));
     NormalizeAxis(analogRead(JOYSTICK_VRX_PIN), analogRead(JOYSTICK_VRY_PIN));
-    // Serial.println("X: " + String(data.x) + " Y: " + String(data.y));
+    //Serial.println("X: " + String(data.x) + " Y: " + String(data.y));
 }
 
 void Joystick::NormalizeAxis(int x, int y)
