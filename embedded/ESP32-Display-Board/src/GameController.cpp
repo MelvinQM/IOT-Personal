@@ -89,6 +89,9 @@ void GameController::Play()
 {
     Serial.println("------Start Gameplay------");
     bool isRunning = true;
+    int x = screenWidth / 2;
+    int y = screenHeight / 2;
+    int cursorSpeed = 10;
     while(isRunning)
     {
         background.pushImage(0, 0, screenWidth, screenHeight, backgroundSprite);
@@ -98,7 +101,13 @@ void GameController::Play()
         gyroText.pushToSprite(&background,10,10,TFT_BLACK);
 
         cursor.pushImage(0, 0, cursorSpriteRatio, cursorSpriteRatio, cursorSprite);
-        cursor.pushToSprite(&background, conn.gyroData.x, conn.gyroData.y, TFT_BLACK); 
+        if(USE_GYRO) {
+            cursor.pushToSprite(&background, conn.gyroData.x, conn.gyroData.y, TFT_BLACK); 
+        } else {
+            x += conn.joystickData.x * cursorSpeed;
+            y += conn.joystickData.y * cursorSpeed;
+            cursor.pushToSprite(&background, x, y, TFT_BLACK); 
+        }
         
         background.pushSprite(0,0);
 
@@ -108,7 +117,7 @@ void GameController::Play()
         // cursor.pushToSprite(&background, conn.gyroData.x, conn.gyroData.y, TFT_BLACK); 
         // background.pushSprite(0,0);
 
-        vTaskDelay(100 / portTICK_PERIOD_MS);
+        vTaskDelay(10 / portTICK_PERIOD_MS);
 
         // If end game is triggered set running to false
         // TODO: Think of a reason to end the game

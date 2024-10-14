@@ -9,6 +9,12 @@ struct GyroData {
     // int z; Z is redundant for moving a cursor on a 2d surface
 };
 
+struct JoystickData {
+    float x;
+    float y;
+};
+
+#define USE_GYRO false
 #define BUTTON_PIN 22
 
 #endif

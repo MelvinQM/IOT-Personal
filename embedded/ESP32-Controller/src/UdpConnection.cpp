@@ -40,18 +40,24 @@ void UdpConnection::SendControllerData()
     jsonDoc["data"]["jX"] = jData.x;
     jsonDoc["data"]["jY"] = jData.y;
 
-    Serial.print(F("Sending to "));
-    Serial.print(udpAddress);
-    Serial.print(F(" on port "));
-    Serial.println(udpPort);
-    serializeJson(jsonDoc, Serial);
-    Serial.println();
+    // Serial.print(F("Sending to "));
+    // Serial.print(udpAddress);
+    // Serial.print(F(" on port "));
+    // Serial.println(udpPort);
+    // serializeJson(jsonDoc, Serial);
+    // Serial.println();
 
     // Send the JSON string to the server
     udp.beginPacket(udpAddress, udpPort);
     serializeJson(jsonDoc, udp);
     udp.println();
-    udp.endPacket();
+    int err = udp.endPacket();
+    if(err == 118)
+    {
+        delay(1000);
+        Serial.println(".");
+    }
+    
 
     // // Initialize a buffer to receive the server's response
     // uint8_t buffer[50] = {0};
@@ -75,12 +81,12 @@ void UdpConnection::SendTriggerInput()
     JsonDocument jsonDoc;
     jsonDoc["method"] = "trigger";
 
-    Serial.print(F("Sending to "));
-    Serial.print(udpAddress);
-    Serial.print(F(" on port "));
-    Serial.println(udpPort);
-    serializeJson(jsonDoc, Serial);
-    Serial.println();
+    // Serial.print(F("Sending to "));
+    // Serial.print(udpAddress);
+    // Serial.print(F(" on port "));
+    // Serial.println(udpPort);
+    // serializeJson(jsonDoc, Serial);
+    // Serial.println();
 
     // Send the JSON string to the server
     udp.beginPacket(udpAddress, udpPort);

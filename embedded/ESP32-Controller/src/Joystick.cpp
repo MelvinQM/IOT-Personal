@@ -12,7 +12,7 @@ void Joystick::Init()
 
 void Joystick::Loop()
 {
-    // ReadJoystickAxis();
+    ReadJoystickAxis();
     ReadJoystickClick();
 }
 
@@ -23,9 +23,8 @@ bool Joystick::ReadJoystickClick()
 
 void Joystick::ReadJoystickAxis()
 {
-    //Serial.println("X: " + String(analogRead(JOYSTICK_VRX_PIN)) + " Y: " + String(analogRead(JOYSTICK_VRY_PIN)));
     NormalizeAxis(analogRead(JOYSTICK_VRX_PIN), analogRead(JOYSTICK_VRY_PIN));
-    Serial.println("X: " + String(data.x) + " Y: " + String(data.y));
+    // Serial.println("X: " + String(data.x) + " Y: " + String(data.y));
 
 }
 
@@ -33,7 +32,15 @@ void Joystick::NormalizeAxis(int x, int y)
 {
     float nX = (x - RANGE_IN_MIN) * (RANGE_OUT_MAX - RANGE_OUT_MIN) / (RANGE_IN_MAX - RANGE_IN_MIN) + (RANGE_OUT_MIN);
     float nY = (y - RANGE_IN_MIN) * (RANGE_OUT_MAX - RANGE_OUT_MIN) / (RANGE_IN_MAX - RANGE_IN_MIN) + (RANGE_OUT_MIN);
-    data = {nX, nY};
+    
+    // Cut off the decimals
+    nX = static_cast<int>(nX * 10) / 10.0;
+    nY = static_cast<int>(nY * 10) / 10.0;
+
+    // * -1 because to prevent inverse vertical controls
+    data = {nX, nY * -1};
+
+
 }
 
 JoystickData Joystick::GetAxis()

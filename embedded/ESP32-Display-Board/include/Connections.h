@@ -20,6 +20,7 @@ class Connections {
         bool Connect();
         void Loop();
         GyroData gyroData = {0, 0};
+        JoystickData joystickData {0, 0};
     private:
         void GetMacAddress();
         WiFiManager wm;

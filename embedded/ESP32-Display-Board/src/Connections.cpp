@@ -16,7 +16,8 @@ void Connections::Init()
     WiFi.mode(WIFI_STA);
     wm.setDarkMode(true);
     // wm.resetSettings(); // To reset the saved wifi connections
-    
+    wm.autoConnect("HootPursuitAP", "password");
+
     // Enable SoftAP
     WiFi.mode(WIFI_AP_STA);  // Enable both AP and STA modes simultaneously
     WiFi.softAPConfig(AP_LOCAL_IP, AP_GATEWAY_IP, AP_NETWORK_MASK);
@@ -26,11 +27,12 @@ void Connections::Init()
     if (!WiFi.softAP(ssid, password))
     {
         Serial.println("Soft AP creation failed.");
-        while (1);
+        while(1);
     }
 
     udp.begin(localPort);
     Serial.printf("UDP server : %s:%i \n", WiFi.localIP().toString().c_str(), localPort);
+
 
     Connect();
 }
@@ -50,19 +52,27 @@ bool Connections::Connect()
         Serial.println("**WiFi Connected**");
     }
 
+
     return res;
 }
 
 void Connections::Loop()
 {
     if(!Connect()) return;
-
     UdpListen();
+    delay(10);
 }
 
 void Connections::UdpListen()
 {
     int packetSize = udp.parsePacket();
+
+    // If no packet is received, avoid printing or spamming output
+    if (packetSize <= 0) {
+        delay(1000);  
+        return;      
+    }
+
     if (packetSize) {
         // Serial.printf("\nReceived packet from : %s\n", udp.remoteIP().toString());
         // Serial.printf("Size : %d", packetSize);
@@ -87,10 +97,13 @@ void Connections::UdpListen()
         // Serial.println();
         String method = jsonDoc["method"].as<String>();
         if(method == "axisData") {
-            Serial.println("\nAxis Data received");
+            // Serial.println("\nAxis Data received");
             gyroData.x = jsonDoc["data"]["gX"];
             gyroData.y = jsonDoc["data"]["gY"];
-            Serial.printf("X: %d Y: %d\n", gyroData.x, gyroData.y);
+            joystickData.x = jsonDoc["data"]["jX"];
+            joystickData.y = jsonDoc["data"]["jY"];
+            Serial.printf("gX: %d gY: %d", gyroData.x, gyroData.y);
+            Serial.printf(" | jX: %.1f jY: %.1f\n", joystickData.x, joystickData.y);
         } else if(method == "trigger") {
             Serial.println("Trigger pressed");
         } else if(method == "joystickClick") {

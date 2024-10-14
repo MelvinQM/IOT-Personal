@@ -13,7 +13,7 @@ MotionController::~MotionController()
 void MotionController::Init()
 {
     Serial.println("\n------------[Initializing Game]------------");
-    // udpConnection.Init();
+    udpConnection.Init();
     joystick.Init();
     gyro.Init();
     pinMode(BUTTON_PIN, INPUT);
@@ -33,11 +33,11 @@ void MotionController::Init()
 
 void MotionController::Run() 
 {
-    // udpConnection.SendGyroData();
+    udpConnection.SendControllerData();
     if(digitalRead(BUTTON_PIN))
     {
         Serial.println("Trigger pressed!");
-        // udpConnection.SendTriggerInput();
+        udpConnection.SendTriggerInput();
         analogWrite(VIBRATION_MOTOR_PIN, 255);
     } else {
         analogWrite(VIBRATION_MOTOR_PIN, 0);
@@ -45,11 +45,11 @@ void MotionController::Run()
 
     if(joystick.ReadJoystickClick())
     {
-        // udpConnection.SendJoystickClick();
+        udpConnection.SendJoystickClick();
         Serial.println("Joystick Clicked!");
     }
     
     joystick.Loop();
-    delay(50);
+    // delay(1);
 }
 

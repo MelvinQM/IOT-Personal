@@ -34,18 +34,6 @@ class GameController
             for (;;)
             {
                 conn->Loop();
-                // if (digitalRead(BUTTON_PIN))
-                // {
-                //     Serial.println("Button pressed");
-                //     conn->CreatePlayer("Lucas");
-                //     conn->FetchPlayers();
-                // }
-
-                // Check the amount of stack remaining (high watermark)
-                // UBaseType_t stackHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
-                // Serial.print("Stack high water mark (API): ");
-                // Serial.println(stackHighWaterMark);
-                vTaskDelay(100 / portTICK_PERIOD_MS);
             }
         }
 
