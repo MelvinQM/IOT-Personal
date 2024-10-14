@@ -106,12 +106,15 @@ void GameController::Play()
         } else {
             x += conn.joystickData.x * cursorSpeed;
             y += conn.joystickData.y * cursorSpeed;
+
+            if(x > screenWidth) x = screenWidth;
+            if(y > screenHeight) y = screenHeight;
+            if(x < 0) y = 0;
+            if(y < 0) y = 0;
             cursor.pushToSprite(&background, x, y, TFT_BLACK); 
         }
         
         background.pushSprite(0,0);
-
-        // vTaskDelay(100 / portTICK_PERIOD_MS);
 
         // cursor.pushImage(0, 0, cursorSpriteRatio, cursorSpriteRatio, cursorSpriteRed);
         // cursor.pushToSprite(&background, conn.gyroData.x, conn.gyroData.y, TFT_BLACK); 
