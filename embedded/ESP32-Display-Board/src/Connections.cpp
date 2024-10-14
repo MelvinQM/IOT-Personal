@@ -13,13 +13,12 @@
 
 Connections::Connections() {}
 Connections::~Connections() {}
-const char *ssid = "HootPursuitConsoleAP";
-const char *password = "hootpursuitaccess";
 
 // Manual IP Configuration for Soft AP
 IPAddress AP_LOCAL_IP(192, 168, 1, 1);
 IPAddress AP_GATEWAY_IP(192, 168, 1, 254);
 IPAddress AP_NETWORK_MASK(255, 255, 255, 0);
+
 void Connections::Init()
 {
     Serial.println("------------[Wifi & Api]------------");
@@ -71,7 +70,7 @@ void Connections::Loop()
 {
     if(!Connect()) return;
     UdpListen();
-    delay(10);
+    vTaskDelay(UDP_DELAY / portTICK_PERIOD_MS);
 }
 
 void Connections::UdpListen()
@@ -80,7 +79,7 @@ void Connections::UdpListen()
 
     // If no packet is received, avoid printing or spamming output
     if (packetSize <= 0) {
-        delay(1000);  
+        vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
         return;      
     }
 
@@ -107,7 +106,7 @@ void Connections::UdpListen()
         // serializeJson(jsonDoc, Serial);
         // Serial.println();
         String method = jsonDoc["method"].as<String>();
-        if(method == "axisData") {
+        if(method == CONTROLLER_AXIS_DATA_METHOD) {
             // Serial.println("\nAxis Data received");
             gyroData.x = jsonDoc["data"]["gX"];
             gyroData.y = jsonDoc["data"]["gY"];
@@ -115,9 +114,9 @@ void Connections::UdpListen()
             joystickData.y = jsonDoc["data"]["jY"];
             Serial.printf("gX: %d gY: %d", gyroData.x, gyroData.y);
             Serial.printf(" | jX: %.1f jY: %.1f\n", joystickData.x, joystickData.y);
-        } else if(method == "trigger") {
+        } else if(method == TRIGGER_METHOD) {
             Serial.println("Trigger pressed");
-        } else if(method == "joystickClick") {
+        } else if(method == JOYSTICK_CLICK_METHOD) {
             Serial.println("Joystick clicked");
         } else {    
             Serial.println("Error: Method not recognized!");
@@ -131,7 +130,7 @@ void Connections::CreatePlayer(String name)
 {
     WiFiClient wifiClient;
     HTTPClient http;
-    wifiClient.setTimeout(10000);
+    wifiClient.setTimeout(WIFI_TIMEOUT);
 
     String url = "http://"+ hostName +"/api/player";
     Serial.println("API Call to: " + url);
@@ -158,7 +157,7 @@ void Connections::FetchPlayers()
 {
     WiFiClient wifiClient;
     HTTPClient http;
-    wifiClient.setTimeout(10000);
+    wifiClient.setTimeout(WIFI_TIMEOUT);
 
     String url = "http://"+ hostName +"/api/player";
     Serial.println("API Call to: " + url);

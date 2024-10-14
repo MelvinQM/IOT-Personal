@@ -54,13 +54,13 @@ void BluetoothServer::Loop() {
   if (deviceConnected) {
     pCharacteristic->notify();
     isAdvertising = false;
-    delay(500);
+    vTaskDelay(500 / portTICK_PERIOD_MS);
   }
   
   if(!isAdvertising && !deviceConnected){
     pServer->startAdvertising();
     Serial.println("Device disconnected - Start advertising");
     isAdvertising = true;
-    delay(500);
+    vTaskDelay(500 / portTICK_PERIOD_MS);
   }
 }

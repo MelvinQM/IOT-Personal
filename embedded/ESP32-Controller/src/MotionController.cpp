@@ -29,13 +29,13 @@ void MotionController::Init()
 
 
     xTaskCreatePinnedToCore(
-        GyroTask,             // Function that implements the task
-        GYRO_TASK_NAME,           // Name of the task
-        GYRO_TASK_STACK_SIZE, // Stack size (in words) for the task
-        &gyro,                // Parameter passed to the task
-        GYRO_TASK_PRIORITY,   // Priority of the task
-        &GyroTaskHandle,      // Task handle for WiFi
-        GYRO_TASK_CORE        // Run on core 0
+        GyroTask,
+        GYRO_TASK_NAME,
+        GYRO_TASK_STACK_SIZE,
+        &gyro,
+        GYRO_TASK_PRIORITY,
+        &GyroTaskHandle,
+        GYRO_TASK_CORE
     );
 }
 

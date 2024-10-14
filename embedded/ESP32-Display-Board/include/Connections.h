@@ -36,8 +36,11 @@ class Connections {
     private:
         void GetMacAddress();
         WiFiManager wm;
-        String hostName = "145.92.189.173";
         WiFiUDP udp;
+        
+        String hostName = "145.92.189.173";
+        const char *ssid = "HootPursuitConsoleAP";
+        const char *password = "hootpursuitaccess";
         char packetBuffer[255];
         unsigned int localPort = 44444;
 };

@@ -35,15 +35,26 @@ class GameController
         TFT_eSprite cursor = TFT_eSprite(&tft);
         TFT_eSprite background = TFT_eSprite(&tft);
         TFT_eSprite gyroText = TFT_eSprite(&tft);
-        float screenWidth = 320;
-        float screenHeight = 240;
-        int cursorSpriteRatio = 40;
-        
+
+        // Cursor configs
+        int cursorSpriteRatio = 40; // 40x40
+        int cursorColorDepth = 16;
+
+        // Background configs
+        int backgroundColorDepth = 8;
+
+        // Axis Text configs
+        int axisTextWidth = 240;
+        int axisTextHeight = 40;
+
         TaskHandle_t WiFiTaskHandle = NULL;
+        #define WIFI_TASK_STACK_SIZE    5000
+        #define WIFI_TASK_PRIORITY      1
+        #define WIFI_TASK_CORE          0
+        #define WIFI_TASK_NAME          "WiFiTask"
         static void WiFiTask(void *pvParameters)
         {
             Connections* conn = static_cast<Connections*>(pvParameters);
-            pinMode(BUTTON_PIN, INPUT); // Test button
             conn->Init();
             for (;;)
             {
