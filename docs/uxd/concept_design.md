@@ -116,7 +116,9 @@ This print was mostly to get a feeling of the size of the controller to see if e
 </div>
 Some adjustments that were quite obvious right away was the thickness of the model. 1mm was quite thin and fragile. Increasing the shell of the model to 2mm makes it a lot more robust. This does take some space away from the components inside the model.
 
-Next I worked on the design for the trigger button. I opened up a wii controller to see how this was done here. I noticed that the button was loose and was connected using a T join see picture below.
+
+#### 2.2.2 Trigger mechanism
+One of the most important elements of the design was the trigger button. I opened up a wii controller to see how this was handled. I noticed that the button was loose and was connected using a T join see picture below.
 <div align="center">
   <img src="/../assets/images/wiicontrollerinside.jpg" alt="wiicontrollerinside">
 </div>
@@ -128,3 +130,23 @@ This joint allows the button to move up and down to press a button. I worked on 
   <img src="/../assets/images/trigger-design.png" alt="trigger-design" style="width:50%">
   <img src="/../assets/images/trigger-fusion-model.png" alt="trigger-fusion-model" style="width:50%">
 </div>
+
+To test this design the trigger was printed with a seperate holder:
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="/../assets/images/trigger-testprint.jpg" alt="trigger-testprint">
+</div>
+
+After the result of this test was satisfying the next step was to look at how this trigger would press a button.
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="/../assets/images/trigger-mechanism.png" alt="trigger-mechanism">
+</div>
+
+#### 2.2.3 Joystick Holder
+#### 2.2.4 Vibration Motor Holder
+#### 2.2.5 MPU6050 Holder
+#### 2.2.6 DC-DC Converter Holder
+#### 2.2.6 Battery Holder
+
+### 2.3 "Final" Design
+
