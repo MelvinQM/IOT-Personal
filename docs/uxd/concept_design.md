@@ -90,6 +90,9 @@ An additional idea is to allow the controller to be plugged into an attachment t
 </p>
 <br>
 
+### 1.5 Materials
+For the purpose of designing and manufacturing a controller and console. The most important factor was being able to make a creative and functional product. This is why a 3d printed design was the most logical option. The controller can be made to have any kind of shape using 3d printing while techniques such as laser cutting would be a lot harder to make work for this purpose. 
+
 
 ## 2. Design
 
