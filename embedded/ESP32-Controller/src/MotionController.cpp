@@ -11,17 +11,12 @@
 
 #include "MotionController.h"
 
-
-
 MotionController::MotionController()
 {
     Serial.begin(BAUD_RATE);
 }
 
-MotionController::~MotionController()
-{
-
-}
+MotionController::~MotionController() {}
 
 void MotionController::Init()
 {
@@ -35,12 +30,12 @@ void MotionController::Init()
 
     xTaskCreatePinnedToCore(
         GyroTask,             // Function that implements the task
-        "GyroTask",           // Name of the task
-        5000,                 // Stack size (in words) for the task
+        GYRO_TASK_NAME,           // Name of the task
+        GYRO_TASK_STACK_SIZE, // Stack size (in words) for the task
         &gyro,                // Parameter passed to the task
-        1,                    // Priority of the task
+        GYRO_TASK_PRIORITY,   // Priority of the task
         &GyroTaskHandle,      // Task handle for WiFi
-        0                     // Run on core 0
+        GYRO_TASK_CORE        // Run on core 0
     );
 }
 
@@ -52,9 +47,9 @@ void MotionController::Run()
     {
         Serial.println("Trigger pressed!");
         SendTriggerInput();
-        analogWrite(VIBRATION_MOTOR_PIN, 255);
+        analogWrite(VIBRATION_MOTOR_PIN, VIBRATION_MOTOR_MAX);
     } else {
-        analogWrite(VIBRATION_MOTOR_PIN, 0);
+        analogWrite(VIBRATION_MOTOR_PIN, VIBRATION_MOTOR_MIN);
     }
 
     if(joystick.ReadJoystickClick())
@@ -63,7 +58,7 @@ void MotionController::Run()
         Serial.println("Joystick Clicked!");
     }
     
-    // delay(1);
+    // vTaskDelay(1 / portTICK_PERIOD_MS);
 }
 
 void MotionController::SendControllerData()
@@ -79,8 +74,6 @@ void MotionController::SendControllerData()
     jsonDoc["data"]["gY"] = gData.y;
     jsonDoc["data"]["jX"] = jData.x;
     jsonDoc["data"]["jY"] = jData.y;
-
-
 
     udpConnection.SendJsonData(jsonDoc);
 }

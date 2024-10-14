@@ -36,13 +36,11 @@ void Joystick::NormalizeAxis(int x, int y)
     float nY = (y - RANGE_IN_MIN) * (RANGE_OUT_MAX - RANGE_OUT_MIN) / (RANGE_IN_MAX - RANGE_IN_MIN) + (RANGE_OUT_MIN);
     
     // Cut off the decimals
-    nX = static_cast<int>(nX * 10) / 10.0;
-    nY = static_cast<int>(nY * 10) / 10.0;
+    nX = static_cast<int>(nX * NORMALIZE_FACTOR_JOYSTICK) / NORMALIZE_FACTOR_JOYSTICK;
+    nY = static_cast<int>(nY * NORMALIZE_FACTOR_JOYSTICK) / NORMALIZE_FACTOR_JOYSTICK;
 
-    // * -1 because to prevent inverse vertical controls
-    data = {nX, nY * -1};
-
-
+    //"-" to prevent inverse vertical controls
+    data = {nX, -nY};
 }
 
 JoystickData Joystick::GetAxis()

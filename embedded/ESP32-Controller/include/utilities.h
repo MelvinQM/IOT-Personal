@@ -13,6 +13,7 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
 
+// Pin definitions
 #define BUTTON_PIN 21
 #define GYRO_INTERRUPT_PIN 15
 #define VIBRATION_MOTOR_PIN 47
@@ -20,8 +21,31 @@
 #define JOYSTICK_VRY_PIN 2
 #define JOYSTICK_SW_PIN 48
 
+// General settings
 #define BAUD_RATE 115200
+#define TIMEOUT_DELAY 1000
 
+// Vibration motor settings
+#define VIBRATION_MOTOR_MAX 255
+#define VIBRATION_MOTOR_MIN 0
+
+// Joystick settings
+#define NORMALIZE_FACTOR_JOYSTICK 10 // 10 = 1 decimal
+#define JOYSTICK_RANGE_IN_MIN 0
+#define JOYSTICK_RANGE_IN_MAX 4095
+#define JOYSTICK_RANGE_OUT_MIN -1.0
+#define JOYSTICK_RANGE_OUT_MAX 1.0
+
+// Gyroscope settings
+#define GYRO_DELAY 50
+
+// Defining the JSON method names
+#define TRIGGER_METHOD "trigger"
+#define JOYSTICK_CLICK_METHOD "joystickClick"
+#define CONTROLLER_AXIS_DATA_METHOD "axisData"
+
+
+// Data structures
 struct GyroData {
     int x;
     int y;
@@ -33,10 +57,5 @@ struct JoystickData {
     float y;
 };
 
-
-// Defining the JSON method names
-#define TRIGGER_METHOD "trigger"
-#define JOYSTICK_CLICK_METHOD "joystickClick"
-#define CONTROLLER_AXIS_DATA_METHOD "axisData"
 
 #endif

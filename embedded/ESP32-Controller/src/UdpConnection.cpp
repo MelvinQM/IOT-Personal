@@ -22,7 +22,7 @@ void UdpConnection::Init()
 
     // Wait for connection
     while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
+        vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
         Serial.print(".");
     }
     Serial.printf("\nConnected to: %s\n", ssid);
@@ -49,7 +49,7 @@ void UdpConnection::SendJsonData(JsonDocument jsonDoc)
     int err = udp.endPacket();
     if(err == EHOSTUNREACH)
     {
-        delay(1000);
+        vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
         Serial.println("Host unreachable");
     } else if(err == ENOMEM)
     {

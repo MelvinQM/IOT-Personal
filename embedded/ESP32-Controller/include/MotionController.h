@@ -31,13 +31,17 @@ class MotionController {
         void SendControllerData();
 
         TaskHandle_t GyroTaskHandle = NULL;
+        #define GYRO_TASK_STACK_SIZE    5000
+        #define GYRO_TASK_PRIORITY      1
+        #define GYRO_TASK_CORE          0
+        #define GYRO_TASK_NAME          "GyroTask"
         static void GyroTask(void *pvParameters)
         {
             Gyroscope* gyro = static_cast<Gyroscope*>(pvParameters);
             for (;;)
             {
                 gyro->Loop();
-                vTaskDelay(50 / portTICK_PERIOD_MS);
+                vTaskDelay(GYRO_DELAY / portTICK_PERIOD_MS);
             }
         }
 };
