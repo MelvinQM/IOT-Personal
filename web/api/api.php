@@ -1,4 +1,14 @@
 <?php
+/*
+ * Author: Melvin
+ * Date: October 14, 2024
+ * 
+ * An api entrance file. "explodes" a url to correctly pass the api request to the correct controller class and handle the request accordingly or return a json error.
+ * 
+ * License:
+ * This project is licensed under the MIT License - see the LICENSE file for details.
+ */
+
 declare(strict_types= 1);
 
 spl_autoload_register(function ($class) {

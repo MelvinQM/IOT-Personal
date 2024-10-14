@@ -1,5 +1,13 @@
 <?php
-
+/*
+ * Author: Melvin
+ * Date: October 14, 2024
+ * 
+ * A custom error handler class which catches exceptions and returns these as json encoded responses.
+ * 
+ * License:
+ * This project is licensed under the MIT License - see the LICENSE file for details.
+ */
 class ErrorHandler 
 {
     /**

@@ -1,5 +1,13 @@
 <?php
-
+/*
+ * Author: Melvin
+ * Date: October 14, 2024
+ * 
+ * A controller managing the connection to the Score table of a database. This controller needs a gateway to handle it's sql calls.
+ * 
+ * License:
+ * This project is licensed under the MIT License - see the LICENSE file for details.
+ */
 class ScoreController {
     public function __construct(private ScoreGateway $gateway) {}
 
