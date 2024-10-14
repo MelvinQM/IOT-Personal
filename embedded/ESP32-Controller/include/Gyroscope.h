@@ -1,3 +1,12 @@
+/*
+ * Author: Melvin
+ * Date: October 14, 2024
+ * Description: This header defines the Gyroscope class, which manages communication with the MPU6050 sensor. 
+ * The class provides methods for initializing the sensor, reading gyroscope data, and calibrating the gyro. It also handles 
+ * the calculation of yaw, pitch, and roll values.
+ * License: This project is licensed under the MIT License.
+ */
+
 #ifndef GYROSCOPE_H
 #define GYROSCOPE_H
 

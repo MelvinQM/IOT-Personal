@@ -1,3 +1,12 @@
+/*
+ * Author: Melvin
+ * Date: October 14, 2024
+ * Description: This header defines the UdpConnection class, which manages UDP communication for sending data 
+ * from the gyroscope and joystick. It provides methods to initialize the connection, send joystick input, and 
+ * transmit controller data over the network.
+ * License: This project is licensed under the MIT License.
+ */
+
 #ifndef UDP_CONNECTION_H
 #define UDP_CONNECTION_H
 

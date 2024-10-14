@@ -1,8 +1,17 @@
+
+/*
+ * Author: Melvin
+ * Date: October 14, 2024
+ * Description: This header defines various utility constants, pin assignments, and data structures used in the 
+ * motion controller project. It includes definitions for button and joystick pins and data structures for joystick and gyro data.
+ * License: This project is licensed under the MIT License.
+ */
+
+
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
 #include <Arduino.h>
-
 #define BUTTON_PIN 21
 #define GYRO_INTERRUPT_PIN 15
 #define VIBRATION_MOTOR_PIN 47

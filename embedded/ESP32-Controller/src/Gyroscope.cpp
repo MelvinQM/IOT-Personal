@@ -1,3 +1,11 @@
+/*
+ * Author: Melvin
+ * Date: October 14, 2024
+ * Description: An implementation of the Gyroscope header which handles the initialization, data
+ * collecting, and processing of gyroscope data from the MPU6050 sensor.
+ * License: This project is licensed under the MIT License.
+ */
+
 #include "Gyroscope.h"
 
 Gyroscope::Gyroscope() {}

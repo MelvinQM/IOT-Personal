@@ -1,3 +1,12 @@
+/*
+ * Author: Melvin
+ * Date: October 14, 2024
+ * Description: An implementation of the Joystick class, which handles the initialization and 
+ * reading of joystick input. It includes methods for initializing joystick pins, reading the joystick 
+ * button state, and normalizing joystick axis values to a specific range.
+ * License: This project is licensed under the MIT License.
+ */
+
 #include "Joystick.h"
 
 Joystick::Joystick(){}

@@ -1,3 +1,11 @@
+/*
+ * Author: Melvin
+ * Date: October 14, 2024
+ * Description: This header defines the Joystick class, which handles reading the joystick's x and y axis and click input. 
+ * It provides methods to initialize the joystick, read its click state, and normalize the axis values for better control over motion or input.
+ * License: This project is licensed under the MIT License.
+ */
+
 #ifndef JOYSTICK_H
 #define JOYSTICK_H
 

@@ -1,8 +1,21 @@
+/*
+ * Author: Melvin
+ * Date: October 14, 2024
+ * Description: This class implements the MotionController header. It initializes the 
+ * joystick and gyroscope, manages the UDP connection for sending data to the console and handles 
+ * input from a button. The Init function sets up the necessary components, while 
+ * the Run function processes joystick movements, button presses, and activates a vibration motor 
+ * based on input. A separate task is created for handling gyroscope data.
+ * License: This project is licensed under the MIT License.
+ */
+
 #include "MotionController.h"
+
+
 
 MotionController::MotionController() : udpConnection(&gyro, &joystick)
 {
-
+    Serial.begin(115200);
 }
 
 MotionController::~MotionController()

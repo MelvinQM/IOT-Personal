@@ -1,5 +1,15 @@
 #include "UdpConnection.h"
 
+/*
+ * Author: Melvin
+ * Date: October 14, 2024
+ * Description: An implementation of the UdpConnection header. It manages the 
+ * connection to a WiFi access point and allows the sending of controller data, trigger inputs, and joystick 
+ * click events to a specified UDP server. The Init function establishes the WiFi connection and initializes 
+ * the UDP protocol. An option is also present to construct JSON documents containing relevant data and send them over the UDP connection. 
+ * License: This project is licensed under the MIT License.
+ */
+
 UdpConnection::UdpConnection(Gyroscope *gyro, Joystick *joystick)
 {
     this->gyro = gyro;
