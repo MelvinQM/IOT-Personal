@@ -23,7 +23,7 @@ class MotionController {
             for (;;)
             {
                 gyro->Loop();
-                vTaskDelay(200 / portTICK_PERIOD_MS);
+                vTaskDelay(50 / portTICK_PERIOD_MS);
             }
         }
 };

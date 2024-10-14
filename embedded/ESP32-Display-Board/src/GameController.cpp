@@ -97,12 +97,13 @@ void GameController::Play()
         background.pushImage(0, 0, screenWidth, screenHeight, backgroundSprite);
         gyroText.setTextColor(TFT_WHITE,TFT_BLACK);
         gyroText.fillSprite(TFT_BLACK);
-        gyroText.drawString("X: " + String(conn.gyroData.x) + ", Y: " + String(conn.gyroData.y),0,0,4);
+        gyroText.drawString("X: " + String(x) + ", Y: " + String(y),0,0,4);
         gyroText.pushToSprite(&background,10,10,TFT_BLACK);
 
         cursor.pushImage(0, 0, cursorSpriteRatio, cursorSpriteRatio, cursorSprite);
         if(USE_GYRO) {
-            cursor.pushToSprite(&background, conn.gyroData.x, conn.gyroData.y, TFT_BLACK); 
+            x = conn.gyroData.x;
+            y = conn.gyroData.y;
         } else {
             x += conn.joystickData.x * cursorSpeed;
             y += conn.joystickData.y * cursorSpeed;
@@ -111,8 +112,8 @@ void GameController::Play()
             if(y > screenHeight) y = screenHeight;
             if(x < 0) y = 0;
             if(y < 0) y = 0;
-            cursor.pushToSprite(&background, x, y, TFT_BLACK); 
         }
+        cursor.pushToSprite(&background, x, y, TFT_BLACK); 
         
         background.pushSprite(0,0);
 

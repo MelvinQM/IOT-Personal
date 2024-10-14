@@ -10,12 +10,6 @@ void Joystick::Init()
     pinMode(JOYSTICK_SW_PIN, INPUT_PULLUP);
 }
 
-void Joystick::Loop()
-{
-    ReadJoystickAxis();
-    ReadJoystickClick();
-}
-
 bool Joystick::ReadJoystickClick()
 {
     return !digitalRead(JOYSTICK_SW_PIN);
@@ -25,7 +19,6 @@ void Joystick::ReadJoystickAxis()
 {
     NormalizeAxis(analogRead(JOYSTICK_VRX_PIN), analogRead(JOYSTICK_VRY_PIN));
     // Serial.println("X: " + String(data.x) + " Y: " + String(data.y));
-
 }
 
 void Joystick::NormalizeAxis(int x, int y)

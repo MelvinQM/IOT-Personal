@@ -52,10 +52,13 @@ void UdpConnection::SendControllerData()
     serializeJson(jsonDoc, udp);
     udp.println();
     int err = udp.endPacket();
-    if(err == 118)
+    if(err == EHOSTUNREACH)
     {
         delay(1000);
-        Serial.println(".");
+        Serial.println("Host unreachable");
+    } else if(err == ENOMEM)
+    {
+        Serial.println("Not enough memory");
     }
     
 

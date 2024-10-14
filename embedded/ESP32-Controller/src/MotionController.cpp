@@ -33,6 +33,7 @@ void MotionController::Init()
 
 void MotionController::Run() 
 {
+    joystick.ReadJoystickAxis();
     udpConnection.SendControllerData();
     if(digitalRead(BUTTON_PIN))
     {
@@ -49,7 +50,6 @@ void MotionController::Run()
         Serial.println("Joystick Clicked!");
     }
     
-    joystick.Loop();
     // delay(1);
 }
 
