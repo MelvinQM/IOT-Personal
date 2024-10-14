@@ -13,6 +13,14 @@
     - **[2.1.3 Aseprite](#213-aseprite)**
   - **[2.2 Prototypes](#22-prototypes)**
     - **[2.2.1 First Prototype Model/Print](#221-first-prototype-modelprint)**
+    - **[2.2.2 Trigger Mechanism](#222-trigger-mechanism)**
+    - **[2.2.3 Joystick Holder](#223-joystick-holder)**
+    - **[2.2.4 Vibration Motor Holder](#224-vibration-motor-holder)**
+    - **[2.2.5 MPU6050 Holder](#225-mpu6050-holder)**
+    - **[2.2.6 DC-DC Converter Holder](#226-dc-dc-converter-holder)**
+    - **[2.2.7 Battery Holder](#227-battery-holder)**
+  - **[2.3 Current Controller Design](#23-current-controller-design)**
+    - **[2.3.1 Current Prints](#231-current-prints)**
 
 ## 1. Concept
 The concept for my project is to make a game similair to Duck Hunt. Where the player will be provided a controller and a display. Instead of using the traditional way I will be trying to put my own spin on it. The traditional way is by using an optical sensor in the gun/controller that when pressed will see if it is pointing at a portion of the screen that's white. Also the moment the controller is pressed the whole screen goes black except for the target/duck. The moment the screen flickers and the sensor sees a white spot on the screen it has hit a duck. 
@@ -189,7 +197,7 @@ And a railing on the side to make sure the battery lid is positioned correctly a
 <img src="/../assets/images/batteryholder-3.png" alt="batteryholder-3" >
 
 
-### 2.3 Current Design
+### 2.3 Current Controller Design
 <div style="display: flex; flex-direction: column;justify-content: center; align-items: center;">
   <img src="/../assets/images/currentdesign-1.png" alt="currentdesign-1">
   <img src="/../assets/images/currentdesign-2.png" alt="currentdesign-2">
