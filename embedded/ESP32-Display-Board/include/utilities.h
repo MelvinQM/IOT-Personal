@@ -51,4 +51,10 @@ struct JoystickData {
     float y;
 };
 
+enum Difficulty {
+    EASY,
+    NORMAL,
+    HARD
+};
+
 #endif

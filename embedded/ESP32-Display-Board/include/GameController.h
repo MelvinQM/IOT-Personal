@@ -16,10 +16,8 @@
 #define GAME_H
 
 #include "utilities.h"
-#include <TFT_eSPI.h>
-#include "sprites/cursor.h"
-#include "sprites/background.h"
 #include "Connections.h"
+#include "SpriteRenderer.h"
 
 class GameController 
 {
@@ -30,29 +28,14 @@ class GameController
         void Loop();
     private:
         Connections conn;
+        SpriteRenderer sRender;
 
-        TFT_eSPI tft = TFT_eSPI();
-        TFT_eSprite cursor = TFT_eSprite(&tft);
-        TFT_eSprite background = TFT_eSprite(&tft);
-        TFT_eSprite gyroText = TFT_eSprite(&tft);
-
-        // Cursor configs
-        int cursorSpriteRatio = 40; // 40x40
-        int cursorColorDepth = 16;
-
-        // Background configs
-        int backgroundColorDepth = 8;
-
-        // Axis Text configs
-        int axisTextWidth = 240;
-        int axisTextHeight = 40;
-
-        TaskHandle_t WiFiTaskHandle = NULL;
-        #define WIFI_TASK_STACK_SIZE    5000
-        #define WIFI_TASK_PRIORITY      1
-        #define WIFI_TASK_CORE          0
-        #define WIFI_TASK_NAME          "WiFiTask"
-        static void WiFiTask(void *pvParameters)
+        TaskHandle_t ConnTaskHandle = NULL;
+        #define CONN_TASK_STACK_SIZE    5000
+        #define CONN_TASK_PRIORITY      1
+        #define CONN_TASK_CORE          0
+        #define CONN_TASK_NAME          "ConnectionsTask"
+        static void ConnectionsTask(void *pvParameters)
         {
             Connections* conn = static_cast<Connections*>(pvParameters);
             conn->Init();
