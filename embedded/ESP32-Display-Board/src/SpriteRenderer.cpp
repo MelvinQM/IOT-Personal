@@ -1,3 +1,9 @@
+/*
+ * Author: Melvin Moes
+ * Date: October 17, 2024
+ * Description: 
+ */
+
 #include "SpriteRenderer.h"
 
 SpriteRenderer::SpriteRenderer(){}
@@ -33,7 +39,9 @@ void SpriteRenderer::SetAxisData(GyroData *gData, JoystickData *jData)
     this->jData = jData;
 }
 
-unsigned long startTime;
+unsigned long startMovementTime;
+unsigned long startAnimationTime;
+unsigned long startCursorTime;
 unsigned long elapsedTime;
 void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
 {
@@ -41,7 +49,7 @@ void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
     int x = SCREEN_WIDTH / 2;
     int y = SCREEN_HEIGHT / 2;
 
-    startTime = millis();
+    startMovementTime, startAnimationTime, startCursorTime = millis();
     while(isRunning)
     {
         // Background and UI
@@ -52,40 +60,72 @@ void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
         gyroText.pushToSprite(&background, 10, 10, TFT_BLACK);
 
 
-        // Cursor logic
-        cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, cursorSpriteRatio, cursorSpriteRatio, cursorSprite);
-        if(USE_GYRO) {
-            x = gData->x;
-            y = gData->y;
-        } else {
-            x += jData->x * CURSOR_SPEED;
-            y += jData->y * CURSOR_SPEED;
-
-            if(x > SCREEN_WIDTH) x = SCREEN_WIDTH;
-            if(y > SCREEN_HEIGHT) y = SCREEN_HEIGHT;
-            if(x < SCREEN_ORIGIN_X) y = SCREEN_ORIGIN_X;
-            if(y < SCREEN_ORIGIN_Y) y = SCREEN_ORIGIN_Y;
-        }
-        cursor.pushToSprite(&background, x, y, TFT_BLACK); 
-        // cursor.pushImage(0, 0, cursorSpriteRatio, cursorSpriteRatio, cursorSpriteRed);
-        // cursor.pushToSprite(&background, conn.gyroData.x, conn.gyroData.y, TFT_BLACK); 
-
         // Owl logic
-        if((millis() - startTime) > animationDelay)   // Calculate elapsed time in microseconds)
+        elapsedTime = millis() - startAnimationTime;
+        if(elapsedTime > animationDelay)   // Calculate elapsed time in microseconds)
         {
             animationIndex++;
             if(animationIndex == 4) animationIndex = 0;
             owl.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, owlSpriteRatio, owlSpriteRatio, (const unsigned short*) pgm_read_ptr(&spriteArray[animationIndex]));
+            startAnimationTime = millis();
         }
-        owl.pushToSprite(&background, 100, 100, TFT_BLACK);
+
+        elapsedTime = millis() - startMovementTime;
+        if(elapsedTime > movementDelay)
+        {
+            owlX += movementStepSize;
+            owl.pushToSprite(&background, owlX, owlY, TFT_BLACK);
+            startMovementTime = millis();
+        }
+        
+
+
+
+
+        // Cursor logic
+        
+        // Collision detection
+        if (CheckCollision(x, y, cursorSpriteRatio - 10, owlX, owlY, owlSpriteRatio - 10)) {
+            cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, cursorSpriteRatio, cursorSpriteRatio, cursorSpriteRed);
+        } else {
+            cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, cursorSpriteRatio, cursorSpriteRatio, cursorSprite);
+        }
+
+        elapsedTime = millis() - startMovementTime;
+        if(elapsedTime > cursorMovementDelay)
+        {
+            if(USE_GYRO) {
+                x = gData->x;
+                y = gData->y;
+            } else {
+                x += jData->x * CURSOR_SPEED;
+                y += jData->y * CURSOR_SPEED;
+
+                if(x > SCREEN_WIDTH) x = SCREEN_WIDTH;
+                if(y > SCREEN_HEIGHT) y = SCREEN_HEIGHT;
+                if(x < SCREEN_ORIGIN_X) y = SCREEN_ORIGIN_X;
+                if(y < SCREEN_ORIGIN_Y) y = SCREEN_ORIGIN_Y;
+            }
+            cursor.pushToSprite(&background, x, y, TFT_BLACK); 
+            startMovementTime = millis();
+        }
+
 
 
 
 
         // Update screen
         background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
-        vTaskDelay(REFRESH_RATE / portTICK_PERIOD_MS);
+        //vTaskDelay(REFRESH_RATE / portTICK_PERIOD_MS);
     }
     // If end game is triggered set running to false
     // TODO: Think of a reason to end the game
+}
+
+bool SpriteRenderer::CheckCollision(int cursorX, int cursorY, int cursorHitBoxSize, int owlX, int owlY, int owlHitBoxSize) {
+    // Check if the bounding boxes overlap
+    return (cursorX < owlX + owlHitBoxSize && 
+            cursorX + cursorHitBoxSize > owlX && 
+            cursorY < owlY + owlHitBoxSize && 
+            cursorY + cursorHitBoxSize > owlY);
 }

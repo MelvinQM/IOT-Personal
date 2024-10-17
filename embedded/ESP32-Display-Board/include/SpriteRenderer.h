@@ -1,6 +1,6 @@
 /*
  * Author: Melvin Moes
- * Date: October 14, 2024
+ * Date: October 17, 2024
  * Description: 
  */
 
@@ -29,9 +29,12 @@ class SpriteRenderer {
         TFT_eSprite gyroText = TFT_eSprite(&tft);
         TFT_eSprite owl = TFT_eSprite(&tft);
 
+        bool CheckCollision(int cursorX, int cursorY, int cursorHitBoxSize, int owlX, int owlY, int owlHitBoxSize);
+
         // Cursor configs
-        int cursorSpriteRatio = 40; // 40x40
+        int cursorSpriteRatio = 40;     // 40x40
         int cursorColorDepth = 16;
+        int cursorMovementDelay = 10;   // in millis
 
         // Background configs
         int backgroundColorDepth = 8;
@@ -44,12 +47,16 @@ class SpriteRenderer {
         int owlColorDepth = 16;
         int owlSpriteRatio = 64; // 64x64
         int animationIndex = 0;
+        int owlX = -64;
+        int owlY = 100;
 
         GyroData *gData;
         JoystickData *jData;
 
-        int animationDelay = 1000; // in milis
-        // Array of pointers to the sprite data
+        int animationDelay = 250;   // in milis
+        int movementDelay = 10;     // in milis
+        int movementStepSize = 5;   // in pixels
+
         const unsigned short* const spriteArray[4] PROGMEM = {
             owlNeutralSprite,
             owlUpSprite,
