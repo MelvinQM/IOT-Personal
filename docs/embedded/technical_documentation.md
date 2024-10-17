@@ -67,7 +67,8 @@ The diagram for connecting the entire project:
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
     <div>
-      This data is fluctuating a lot and not very precise. The MPU has a built in way of dealing with this called the DMP "Digital Motion Processor".
+      The MPU is a 6 axis gyroscope and accelerometer. It retrieves data from rotating and moving the component.
+      This data can be quite fluctuating and not very precise. The MPU has a built in way of dealing with this called the DMP "Digital Motion Processor".
       This processor runs so called fusion algorithms internally allowing the ESP to receive clean and reliable "fused" motion information. More about this can be read in <a href="https://techexplorations.com/guides/arduino/peripherals/mpu6050/">this article</a>
     </div>
     <br>
@@ -84,9 +85,8 @@ The diagram for connecting the entire project:
 
 
 
-
-
-### 4.3 ESP32-2432S024 (ESP Display)
+### 4.3 ESP32-2432S024
+### 4.3.1 ESP32-2432S024 (ESP Display)
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
     The ESP32-2432S024 or how it will be called for ease of reading the ESP Display is a 2.4 inch display with a resolution of 320x240. This display allows for full color display and touchscreen support. This display has an ESP32 onboard which allows the user to not have to wire anything to communicate from the esp to the display. This board also exposes some extra GPIO pins.
@@ -96,5 +96,43 @@ The diagram for connecting the entire project:
   </div>
 </div>
 
+
+#### 4.3.2 RGB LED
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/components/rgbled.png" alt="rawmpudata" style="width: 75%; height: auto;">
+  </div>
+</div>
+
 ### 4.4 Joystick
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/components/joystick.png" alt="rawmpudata" style="width: 75%; height: auto;">
+  </div>
+</div>
+
 ### 4.5 Button
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/components/button.png" alt="rawmpudata" style="width: 75%; height: auto;">
+  </div>
+</div>
+
+### 4.5 DC-DC Converter
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/components/dc-dc.png" alt="rawmpudata" style="width: 75%; height: auto;">
+  </div>
+</div>
