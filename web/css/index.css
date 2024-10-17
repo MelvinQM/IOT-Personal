@@ -50,19 +50,28 @@ body {
 
 /* https://www.youtube.com/watch?v=pzHRDsOcUBg */
 .duck {
-  background: transparent url('../assets/Idle.png') 0 0 no-repeat;
-  width: 110px;
-  height: 110px;
+  background: transparent url('../assets/owl-Sheet.png') 0 0 no-repeat;
+  width: 32px;
+  height: 32px;
   position: relative;
   animation: fly 1s steps(2) infinite, move 10s linear infinite;
 }
+
+.duckContainer {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
 
 @keyframes fly {
   0% {
     background-position: 0;
   }
   25% {
-    background-position: -220px;
+    background-position: -64px;
   }
   100% {
     background-position: 0;
