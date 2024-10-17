@@ -380,3 +380,8 @@ I started of week 7 by finishing up some additions to the joystick code and in t
 **Feedback:** Maybe it is nice to add the tutorial you used in the beginning so others can follow that one is as well. I really like the prints and it looks pretty professional! Looks like you learned a lot. I would also explain a bit more why a user needs the things in the 'user needs' text.
 
 **Takeaway:** I added a link to the tutorial used for the wii controller and updated my user needs. 
+
+### Owl sprites and logic
+I worked on adding the enemies to the game. For this I first had to add the sprites to the game. I did this by using aseprite to create a owl with 3 different animation sprites allowing for a good looking movement cycle.
+
+Next I worked on the logic behind the owl allowing the sprite to cycle through the animation sprites and moving across the screen. I also worked on hit detection. The hit detection works but no firing has been implemented yet.
