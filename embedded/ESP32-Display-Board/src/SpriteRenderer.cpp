@@ -21,6 +21,10 @@ void SpriteRenderer::InitializeDisplay(int rotation, bool swapBytes, int fillCol
     background.setColorDepth(backgroundColorDepth);
     background.createSprite(SCREEN_WIDTH, SCREEN_HEIGHT);
     background.setSwapBytes(true); // Correct color
+
+    owl.setColorDepth(owlColorDepth);
+    owl.createSprite(owlSpriteRatio, owlSpriteRatio);
+    owl.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, owlSpriteRatio, owlSpriteRatio, owlNeutralSprite); // Initial sprite
 }
 
 void SpriteRenderer::SetAxisData(GyroData *gData, JoystickData *jData)
@@ -29,11 +33,15 @@ void SpriteRenderer::SetAxisData(GyroData *gData, JoystickData *jData)
     this->jData = jData;
 }
 
+unsigned long startTime;
+unsigned long elapsedTime;
 void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
 {
     bool isRunning = true;
     int x = SCREEN_WIDTH / 2;
     int y = SCREEN_HEIGHT / 2;
+
+    startTime = millis();
     while(isRunning)
     {
         // Background and UI
@@ -62,8 +70,14 @@ void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
         // cursor.pushImage(0, 0, cursorSpriteRatio, cursorSpriteRatio, cursorSpriteRed);
         // cursor.pushToSprite(&background, conn.gyroData.x, conn.gyroData.y, TFT_BLACK); 
 
-        // Enemy logic
-        
+        // Owl logic
+        if((millis() - startTime) > animationDelay)   // Calculate elapsed time in microseconds)
+        {
+            animationIndex++;
+            if(animationIndex == 4) animationIndex = 0;
+            owl.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, owlSpriteRatio, owlSpriteRatio, (const unsigned short*) pgm_read_ptr(&spriteArray[animationIndex]));
+        }
+        owl.pushToSprite(&background, 100, 100, TFT_BLACK);
 
 
 

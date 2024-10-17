@@ -12,6 +12,7 @@
 
 #include "sprites/cursor.h"
 #include "sprites/background.h"
+#include "sprites/owl.h"
 
 class SpriteRenderer {
     public:
@@ -26,7 +27,7 @@ class SpriteRenderer {
         TFT_eSprite cursor = TFT_eSprite(&tft);
         TFT_eSprite background = TFT_eSprite(&tft);
         TFT_eSprite gyroText = TFT_eSprite(&tft);
-        TFT_eSprite enemy = TFT_eSprite(&tft);
+        TFT_eSprite owl = TFT_eSprite(&tft);
 
         // Cursor configs
         int cursorSpriteRatio = 40; // 40x40
@@ -39,8 +40,22 @@ class SpriteRenderer {
         int axisTextWidth = 240;
         int axisTextHeight = 40;
 
+        // Owl configs
+        int owlColorDepth = 16;
+        int owlSpriteRatio = 64; // 64x64
+        int animationIndex = 0;
+
         GyroData *gData;
         JoystickData *jData;
+
+        int animationDelay = 1000; // in milis
+        // Array of pointers to the sprite data
+        const unsigned short* const spriteArray[4] PROGMEM = {
+            owlNeutralSprite,
+            owlUpSprite,
+            owlNeutralSprite,
+            owlDownSprite,
+        };
 
 };
 
