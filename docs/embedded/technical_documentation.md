@@ -27,14 +27,13 @@ This project will be a Embedded system take on the game Duck Hunt. This project 
 Additionally some components could be used if there is enough time.
 - A joystick for additional game control or as a backup if the gyro doesn't produce good results.
 - An external power source for both the console and the controller.
-- Ultrasound sensor for extra gyro calibrations (Distance between screen and player might be usefull information)
 
 ### 1.4 Component list
 - Console
     - External power source (Optional)
         - Power switch
     - Display
-    - Speaker / Buzzer
+    - Speaker / Buzzer (Extra)
 
 - Controller (Gun)
     - External power source
@@ -100,7 +99,9 @@ The diagram for connecting the entire project:
 #### 4.3.2 RGB LED
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
+  	The ESP32-2432S024 besides a display also has a RGB led allowing a broad range of colored light to be displayed. This allows the system to display a certain condition through a color indication.
 
+    This Led is used to show certain conditions of the system.
   </div>
   <div style="flex: 1; text-align: right;">
     <img src="/../assets/images/components/rgbled.png" alt="rawmpudata" style="width: 75%; height: auto;">
@@ -110,7 +111,7 @@ The diagram for connecting the entire project:
 ### 4.4 Joystick
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-
+    The joystick consists of 2 potentiometers one for the x axis and one for the y axis. This allows for 2d coordinate to be determined which in turn can be used for the cursor on screen. The joystick serves as an alternative to using gyro data. The joystick also has a click function so it also serves as a button.
   </div>
   <div style="flex: 1; text-align: right;">
     <img src="/../assets/images/components/joystick.png" alt="rawmpudata" style="width: 75%; height: auto;">
@@ -120,17 +121,17 @@ The diagram for connecting the entire project:
 ### 4.5 Button
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-
+    A simple button is also used to be used as the "fire" button and as a general action button. This button simply gives a signal to a connected GPIO pin.
   </div>
   <div style="flex: 1; text-align: right;">
     <img src="/../assets/images/components/button.png" alt="rawmpudata" style="width: 75%; height: auto;">
   </div>
 </div>
 
-### 4.5 DC-DC Converter
+### 4.5 DC-DC Multi-Output Buck-converter (3.3V/5V/9V/12V)
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-
+    This DC-DC stepdown converter serves as the power management for the controller. This component allows the controller to be powered through the use of a 9v battery. The 9 volts is brought down to 5 volts which is able to power an ESP32-S3.
   </div>
   <div style="flex: 1; text-align: right;">
     <img src="/../assets/images/components/dc-dc.png" alt="rawmpudata" style="width: 75%; height: auto;">
