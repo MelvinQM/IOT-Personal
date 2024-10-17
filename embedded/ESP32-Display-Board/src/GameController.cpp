@@ -1,3 +1,15 @@
+/*
+ * Author: Melvin Moes
+ * Date: October 17, 2024
+ * Description: An implementation of the GameController class, which manages 
+ * the game statemachine. It includes methods for initializing the game, handling the main game loop, 
+ * and managing the game state. This class created a SpriteRenderer class for handling the display and sprites. 
+ * It also integrates the Connections class for managing network connectivity 
+ * and communications. A separate task is created to manage Wi-Fi connections 
+ * concurrently. 
+ * License: This project is licensed under the MIT License.
+ */
+
 #include "GameController.h"
 
 /**
