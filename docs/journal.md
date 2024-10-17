@@ -369,3 +369,14 @@ Then new code for the UDP connection was needed to send this data. I ended up ju
 
 ## Week 7
 I started of week 7 by finishing up some additions to the joystick code and in the weekend before week 7 I worked on a lot of iterations of 3d prints. A suitable prototype has been created that can hold all components. It's not perfect but using some tape or glue can make it perfect. Since the time is running out on the project this will suffice. 
+
+
+### Feedback
+
+**👩‍🎨 Concept and Design.**
+
+**Reviewer: Lucas Hilgevoord**
+
+**Feedback:** Maybe it is nice to add the tutorial you used in the beginning so others can follow that one is as well. I really like the prints and it looks pretty professional! Looks like you learned a lot. I would also explain a bit more why a user needs the things in the 'user needs' text.
+
+**Takeaway:** I added a link to the tutorial used for the wii controller and updated my user needs. 

@@ -34,11 +34,11 @@ I wanted to put my own spin on it. The controller will have a gyroscope in it al
 Additionally the controller will be wireless and communicate with the display through a bluetooth connection. This will allow the controller to tell the display where to move the cursor.
 
 ### 1.1 User Needs
-- **Inclusive Age Range**: The system should cater to users of all ages, from retro game enjoyers of old to young kids.
-- **Ease of Use**: The system must be simple to operate for users of different experience levels.
-- **Fun Factor**: The primary goal is to ensure that the gaming experience is enjoyable for everyone.
-- **Non-Violent Design**: The controller design should avoid looking violent. It must not resemble a traditional gun.
-- **Comfortable Grip**: The handle of the controller must be appropriately sized to accommodate users of all ages and hand sizes.
+- **Inclusive Age Range**: The system should cater to users of all ages, from retro game enjoyers of old to young kids. This allows more people to enjoy the product and increase the amount of possible users.
+- **Ease of Use**: The system must be simple to operate for users of different experience levels. Allowing an ease of access will allow more people to have fun playing the game which is the most important goal.
+- **Fun Factor**: The primary goal is to ensure that the gaming experience is enjoyable for everyone. If the game is fun to play more people will be interested in attempting to play the game.
+- **Non-Violent Design**: The controller design should avoid looking violent. It must not resemble a traditional gun. Since guns have a negative conotation it is essential to keep away from these kind of topics.
+- **Comfortable Grip**: The handle of the controller must be appropriately sized to accommodate users of all ages and hand sizes. Allowing more people to be able to hold the controller allows for more possible players.
 
 
 ### 1.2 Product requirements
@@ -112,6 +112,8 @@ For the purpose of designing and manufacturing a controller and console. The mos
 
 ### 2.2 Prototypes
 #### 2.2.1 First prototype model/print
+To create the basic shape of the controller a fusion360 tutorial was used. Although this tutorial was in spanish I muted the audio and was still able to follow along quite nicely using the automatically generated subtitles. [Wii controller fusion tutorial](https://www.youtube.com/watch?v=6r9C27qcxtE&ab_channel=LuisAmaya)
+
 This model was to create a basic shape for the controller. 
 <div align="center">
   <img src="/../assets/images/fusion-controller-prototype1.png" alt="fusion-controller-prototype">
