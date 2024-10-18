@@ -42,8 +42,7 @@ void MotionController::Init()
 void MotionController::Run() 
 {
     joystick.ReadJoystickAxis();
-    //SendControllerData();
-
+    SendControllerData();
     HandleButtonPress();
     HandleJoystickClick();
 
@@ -86,12 +85,6 @@ void MotionController::SendJoystickClick()
     udpConnection.SendJsonData(jsonDoc);
 }
 
-unsigned long lastButtonPressTime = 0;
-unsigned long buttonCooldown = 100;
-unsigned long vibrationDuration = 250;
-bool isVibrating = false;
-bool previousButtonState = LOW;
-
 void MotionController::HandleButtonPress()
 {
     unsigned long currentTime = millis();
@@ -102,9 +95,9 @@ void MotionController::HandleButtonPress()
     // Prevent holding down button
     if (currentButtonState && !previousButtonState)
     {
-        Serial.println("Button pressed");
         if (elapsedTime > buttonCooldown)
         {
+            Serial.println("Button pressed");
             SendTriggerInput();
             lastButtonPressTime = currentTime;
             isVibrating = true;
@@ -125,10 +118,21 @@ void MotionController::HandleButtonPress()
 
 void MotionController::HandleJoystickClick()
 {
-    if (joystick.ReadJoystickClick())
+    unsigned long currentTime = millis();
+    unsigned long elapsedTime = currentTime - lastButtonPressTime;
+    bool currentButtonState = joystick.ReadJoystickClick();
+
+    // Prevent holding down button
+    if (currentButtonState && !previousJoystickClickState)
     {
-        SendJoystickClick();
-        Serial.println("Joystick Clicked!");
+        if (elapsedTime > buttonCooldown)
+        {
+            Serial.println("Joystick Clicked!");
+            SendJoystickClick();
+            lastJoystickClickTime = currentTime;
+        }
+        
     }
 
+    previousJoystickClickState = currentButtonState; 
 }

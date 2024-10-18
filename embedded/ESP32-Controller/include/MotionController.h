@@ -32,6 +32,18 @@ class MotionController {
         void HandleButtonPress();
         void HandleJoystickClick();
 
+        // Trigger configs
+        unsigned long lastButtonPressTime = 0;
+        unsigned long buttonCooldown = 100;
+        unsigned long vibrationDuration = 200;
+        bool isVibrating = false;
+        bool previousButtonState = LOW;
+
+        // Joystick click configs
+        bool previousJoystickClickState = LOW;
+        unsigned long joystickClickCooldown = 100;
+        unsigned long lastJoystickClickTime = 0;
+        
         TaskHandle_t GyroTaskHandle = NULL;
         #define GYRO_TASK_STACK_SIZE    5000
         #define GYRO_TASK_PRIORITY      1
