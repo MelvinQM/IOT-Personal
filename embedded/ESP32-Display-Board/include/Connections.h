@@ -1,6 +1,6 @@
 /*
  * Author: Melvin Moes
- * Date: October 14, 2024
+ * Date: October 18, 2024
  * Description: This header file defines the Connections class, which manages 
  * network connections for the project. It includes functionalities for initializing 
  * Wi-Fi connections, creating player entities through an API connection, and handling UDP communications. 

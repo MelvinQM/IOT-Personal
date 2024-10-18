@@ -1,7 +1,12 @@
 /*
  * Author: Melvin Moes
- * Date: October 17, 2024
- * Description: 
+ * Date: October 18, 2024
+ * Description: This header defines a class that handles the rendering of sprites using the TFT_eSPI library. 
+ * This class defines functions for the initialization of the display, handling rendering of the cursor, background, and owl/enemy sprites,
+ * and their positions and logic such as collision. 
+ * Based on given parameters the gameloop can be altered based on control schemes and difficulty
+ * Additionally certain sprite configurations are defined here.
+ * License: This project is licensed under the MIT License.
  */
 
 #ifndef SPRITE_RENDERER_H

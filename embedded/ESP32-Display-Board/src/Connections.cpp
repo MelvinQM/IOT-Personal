@@ -1,6 +1,6 @@
 /*
  * Author: Melvin Moes
- * Date: October 14, 2024
+ * Date: October 18, 2024
  * Description: This source file implements the Connections class, which manages Wi-Fi connections and UDP 
  * communication for the game application. The class provides methods for initializing a Wi-Fi connection for communicating with a remote API
  * and setting up a soft access point for handling UDP packet reception. It includes functionality for creating players and fetching player data 

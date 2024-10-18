@@ -1,6 +1,6 @@
 /*
  * Author: Melvin Moes
- * Date: October 17, 2024
+ * Date: October 18, 2024
  * Description: This header file defines the GameController class, which manages 
  * the game statemachine. It includes methods for initializing 
  * the game, handling the main game loop, and managing different game states. 

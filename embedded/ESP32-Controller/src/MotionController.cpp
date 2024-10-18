@@ -1,6 +1,6 @@
 /*
  * Author: Melvin Moes
- * Date: October 14, 2024
+ * Date: October 18, 2024
  * Description: This class implements the MotionController header. It initializes the 
  * joystick and gyroscope, manages the UDP connection for sending data to the console and handles 
  * input from a button. The Init function sets up the necessary components, while 

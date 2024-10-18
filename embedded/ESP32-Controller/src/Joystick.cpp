@@ -1,6 +1,6 @@
 /*
  * Author: Melvin Moes
- * Date: October 14, 2024
+ * Date: October 18, 2024
  * Description: An implementation of the Joystick class, which handles the initialization and 
  * reading of joystick input. It includes methods for initializing joystick pins, reading the joystick 
  * button state, and normalizing joystick axis values to a specific range.

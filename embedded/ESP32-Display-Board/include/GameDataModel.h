@@ -1,3 +1,12 @@
+/*
+ * Author: Melvin Moes
+ * Date: October 18, 2024
+ * Description: This class, GameDataModel, implements a singleton pattern to store game data.
+ * It captures joystick and gyroscope data along with button states from the controller. The class provides
+ * getter and setter methods to access and update these values.
+ * License: This project is licensed under the MIT License.
+ */
+
 #ifndef GAME_DATA_MODEL_H
 #define GAME_DATA_MODEL_H
 

@@ -1,6 +1,6 @@
 /*
  * Author: Melvin Moes
- * Date: October 14, 2024
+ * Date: October 18, 2024
  * Description: This header defines the MotionController class, which integrates the gyroscope, joystick, and UDP 
  * connection for managing a motion controller's inputs and communications. It initializes the components then  
  * runs a main control loop and handles defines a task for reading gyroscope data asynchronously.
@@ -34,14 +34,11 @@ class MotionController {
 
         // Trigger configs
         unsigned long lastButtonPressTime = 0;
-        unsigned long buttonCooldown = 100;
-        unsigned long vibrationDuration = 200;
         bool isVibrating = false;
         bool previousButtonState = LOW;
 
         // Joystick click configs
         bool previousJoystickClickState = LOW;
-        unsigned long joystickClickCooldown = 100;
         unsigned long lastJoystickClickTime = 0;
         
         TaskHandle_t GyroTaskHandle = NULL;
