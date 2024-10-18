@@ -28,7 +28,7 @@ void Joystick::ReadJoystickAxis()
 {
     // Serial.println("X: " + String(analogRead(JOYSTICK_VRX_PIN)) + " Y: " + String(analogRead(JOYSTICK_VRY_PIN)));
     NormalizeAxis(analogRead(JOYSTICK_VRX_PIN), analogRead(JOYSTICK_VRY_PIN));
-    //Serial.println("X: " + String(data.x) + " Y: " + String(data.y));
+    Serial.println("X: " + String(data.x) + " Y: " + String(data.y));
 }
 
 void Joystick::NormalizeAxis(int x, int y)
@@ -37,11 +37,18 @@ void Joystick::NormalizeAxis(int x, int y)
     float nY = (y - RANGE_IN_MIN) * (RANGE_OUT_MAX - RANGE_OUT_MIN) / (RANGE_IN_MAX - RANGE_IN_MIN) + (RANGE_OUT_MIN);
     
     // Cut off the decimals
-    nX = static_cast<int>(nX * NORMALIZE_FACTOR_JOYSTICK) / NORMALIZE_FACTOR_JOYSTICK;
-    nY = static_cast<int>(nY * NORMALIZE_FACTOR_JOYSTICK) / NORMALIZE_FACTOR_JOYSTICK;
+    nX = round(nX * NORMALIZE_FACTOR_JOYSTICK) / NORMALIZE_FACTOR_JOYSTICK;
+    nY = round(nY * NORMALIZE_FACTOR_JOYSTICK) / NORMALIZE_FACTOR_JOYSTICK;
+    
+    if (fabs(nX) < JOYSTICK_DEAD_ZONE) {
+        nX = 0.0;
+    }
+    if (fabs(nY) < JOYSTICK_DEAD_ZONE) {
+        nY = 0.0;
+    }
 
-    //"-" to prevent inverse vertical controls
-    data = {nX, -nY};
+    //"-" to prevent inverse vertical controls, storing x as y and y as x to have correct movement
+    data = {nY, -nX};
 }
 
 JoystickData Joystick::GetAxis()

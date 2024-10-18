@@ -30,11 +30,12 @@
 #define VIBRATION_MOTOR_MIN 0
 
 // Joystick settings
-#define NORMALIZE_FACTOR_JOYSTICK 10 // 10 = 1 decimal
+#define NORMALIZE_FACTOR_JOYSTICK 100 // 10 = 1 decimal
 #define JOYSTICK_RANGE_IN_MIN 0
 #define JOYSTICK_RANGE_IN_MAX 4095
 #define JOYSTICK_RANGE_OUT_MIN -1.0
 #define JOYSTICK_RANGE_OUT_MAX 1.0
+#define JOYSTICK_DEAD_ZONE 0.1
 
 // Gyroscope settings
 #define GYRO_DELAY 50
