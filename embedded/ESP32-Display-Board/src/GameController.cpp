@@ -89,7 +89,7 @@ void GameController::Play()
     Serial.println("------Start Gameplay------");
     
     //TODO: Add settings received from session
-    sRender.GameLoop(EASY, true);
+    sRender.GameLoop(EASY, false);
 
     // If game ended setState to End
     state = EndGame;

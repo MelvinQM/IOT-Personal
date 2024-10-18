@@ -34,7 +34,7 @@ class SpriteRenderer {
         // Cursor configs
         int cursorSpriteRatio = 40;     // 40x40
         int cursorColorDepth = 16;
-        int cursorMovementDelay = 10;   // in millis
+        int cursorMovementDelay = 1;   // in millis
 
         // Background configs
         int backgroundColorDepth = 8;
@@ -53,7 +53,7 @@ class SpriteRenderer {
         GyroData *gData;
         JoystickData *jData;
 
-        int animationDelay = 250;   // in milis
+        int animationDelay = 150;   // in milis
         int movementDelay = 10;     // in milis
         int movementStepSize = 5;   // in pixels
 

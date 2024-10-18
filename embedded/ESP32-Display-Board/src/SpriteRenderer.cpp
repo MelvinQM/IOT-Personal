@@ -46,8 +46,8 @@ unsigned long elapsedTime;
 void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
 {
     bool isRunning = true;
-    int x = SCREEN_WIDTH / 2;
-    int y = SCREEN_HEIGHT / 2;
+    int x = SCREEN_WIDTH / 2 -  cursorSpriteRatio / 2;
+    int y = SCREEN_HEIGHT / 2 - cursorSpriteRatio / 2;
 
     startMovementTime, startAnimationTime, startCursorTime = millis();
     while(isRunning)
@@ -74,6 +74,7 @@ void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
         if(elapsedTime > movementDelay)
         {
             owlX += movementStepSize;
+            if(owlX > SCREEN_WIDTH + owlSpriteRatio) owlX = -owlSpriteRatio;
             owl.pushToSprite(&background, owlX, owlY, TFT_BLACK);
             startMovementTime = millis();
         }
@@ -91,23 +92,28 @@ void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
             cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, cursorSpriteRatio, cursorSpriteRatio, cursorSprite);
         }
 
-        elapsedTime = millis() - startMovementTime;
+        elapsedTime = millis() - startCursorTime;
         if(elapsedTime > cursorMovementDelay)
         {
-            if(USE_GYRO) {
+            if(useGyro) {
                 x = gData->x;
                 y = gData->y;
             } else {
-                x += jData->x * CURSOR_SPEED;
-                y += jData->y * CURSOR_SPEED;
+                float magnitude = sqrt((jData->x * jData->x) + (jData->y * jData->y)); // Calculate the magnitude
+                if (magnitude > 0) {
+                    float normalizedX = jData->x / magnitude;
+                    float normalizedY = jData->y / magnitude;
 
-                if(x > SCREEN_WIDTH) x = SCREEN_WIDTH;
-                if(y > SCREEN_HEIGHT) y = SCREEN_HEIGHT;
-                if(x < SCREEN_ORIGIN_X) y = SCREEN_ORIGIN_X;
-                if(y < SCREEN_ORIGIN_Y) y = SCREEN_ORIGIN_Y;
+                    x += normalizedX * CURSOR_SPEED;
+                    y += normalizedY * CURSOR_SPEED;
+                }
             }
+            if(x > SCREEN_WIDTH - cursorSpriteRatio) x = SCREEN_WIDTH - cursorSpriteRatio;
+            if(y > SCREEN_HEIGHT - cursorSpriteRatio) y = SCREEN_HEIGHT - cursorSpriteRatio;
+            if(x < SCREEN_ORIGIN_X) x = SCREEN_ORIGIN_X;
+            if(y < SCREEN_ORIGIN_Y) y = SCREEN_ORIGIN_Y;
             cursor.pushToSprite(&background, x, y, TFT_BLACK); 
-            startMovementTime = millis();
+            startCursorTime = millis();
         }
 
 

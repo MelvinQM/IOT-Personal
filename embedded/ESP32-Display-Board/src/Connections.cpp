@@ -112,8 +112,8 @@ void Connections::UdpListen()
             gyroData.y = jsonDoc["data"]["gY"];
             joystickData.x = jsonDoc["data"]["jX"];
             joystickData.y = jsonDoc["data"]["jY"];
-            Serial.printf("gX: %d gY: %d", gyroData.x, gyroData.y);
-            Serial.printf(" | jX: %.1f jY: %.1f\n", joystickData.x, joystickData.y);
+            // Serial.printf("gX: %d gY: %d", gyroData.x, gyroData.y);
+            // Serial.printf(" | jX: %.1f jY: %.1f\n", joystickData.x, joystickData.y);
         } else if(method == TRIGGER_METHOD) {
             Serial.println("Trigger pressed");
         } else if(method == JOYSTICK_CLICK_METHOD) {
