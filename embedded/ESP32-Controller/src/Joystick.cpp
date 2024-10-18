@@ -28,7 +28,7 @@ void Joystick::ReadJoystickAxis()
 {
     // Serial.println("X: " + String(analogRead(JOYSTICK_VRX_PIN)) + " Y: " + String(analogRead(JOYSTICK_VRY_PIN)));
     NormalizeAxis(analogRead(JOYSTICK_VRX_PIN), analogRead(JOYSTICK_VRY_PIN));
-    Serial.println("X: " + String(data.x) + " Y: " + String(data.y));
+    // Serial.println("X: " + String(data.x) + " Y: " + String(data.y));
 }
 
 void Joystick::NormalizeAxis(int x, int y)
@@ -39,7 +39,7 @@ void Joystick::NormalizeAxis(int x, int y)
     // Cut off the decimals
     nX = round(nX * NORMALIZE_FACTOR_JOYSTICK) / NORMALIZE_FACTOR_JOYSTICK;
     nY = round(nY * NORMALIZE_FACTOR_JOYSTICK) / NORMALIZE_FACTOR_JOYSTICK;
-    
+
     if (fabs(nX) < JOYSTICK_DEAD_ZONE) {
         nX = 0.0;
     }

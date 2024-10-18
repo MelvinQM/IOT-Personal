@@ -42,22 +42,12 @@ void MotionController::Init()
 void MotionController::Run() 
 {
     joystick.ReadJoystickAxis();
-    SendControllerData();
-    if(digitalRead(BUTTON_PIN))
-    {
-        Serial.println("Trigger pressed!");
-        SendTriggerInput();
-        analogWrite(VIBRATION_MOTOR_PIN, VIBRATION_MOTOR_MAX);
-    } else {
-        analogWrite(VIBRATION_MOTOR_PIN, VIBRATION_MOTOR_MIN);
-    }
+    //SendControllerData();
 
-    if(joystick.ReadJoystickClick())
-    {
-        SendJoystickClick();
-        Serial.println("Joystick Clicked!");
-    }
-    
+    HandleButtonPress();
+    HandleJoystickClick();
+
+
     // vTaskDelay(1 / portTICK_PERIOD_MS);
 }
 
@@ -94,4 +84,51 @@ void MotionController::SendJoystickClick()
     jsonDoc["method"] = JOYSTICK_CLICK_METHOD;
     
     udpConnection.SendJsonData(jsonDoc);
+}
+
+unsigned long lastButtonPressTime = 0;
+unsigned long buttonCooldown = 100;
+unsigned long vibrationDuration = 250;
+bool isVibrating = false;
+bool previousButtonState = LOW;
+
+void MotionController::HandleButtonPress()
+{
+    unsigned long currentTime = millis();
+    unsigned long elapsedTime = currentTime - lastButtonPressTime;
+
+    bool currentButtonState = digitalRead(BUTTON_PIN);
+
+    // Prevent holding down button
+    if (currentButtonState && !previousButtonState)
+    {
+        Serial.println("Button pressed");
+        if (elapsedTime > buttonCooldown)
+        {
+            SendTriggerInput();
+            lastButtonPressTime = currentTime;
+            isVibrating = true;
+            analogWrite(VIBRATION_MOTOR_PIN, VIBRATION_MOTOR_MAX);
+        }
+    }
+
+    // Handle vibration duration
+    if (isVibrating && (currentTime - lastButtonPressTime > vibrationDuration))
+    {
+        // Stop vibrating
+        analogWrite(VIBRATION_MOTOR_PIN, VIBRATION_MOTOR_MIN);
+        isVibrating = false;  // Reset vibration state
+    }
+
+    previousButtonState = currentButtonState; 
+}
+
+void MotionController::HandleJoystickClick()
+{
+    if (joystick.ReadJoystickClick())
+    {
+        SendJoystickClick();
+        Serial.println("Joystick Clicked!");
+    }
+
 }

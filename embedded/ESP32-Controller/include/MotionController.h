@@ -29,6 +29,8 @@ class MotionController {
         void SendTriggerInput();
         void SendJoystickClick();
         void SendControllerData();
+        void HandleButtonPress();
+        void HandleJoystickClick();
 
         TaskHandle_t GyroTaskHandle = NULL;
         #define GYRO_TASK_STACK_SIZE    5000
