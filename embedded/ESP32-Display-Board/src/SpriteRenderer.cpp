@@ -26,7 +26,8 @@ void SpriteRenderer::InitializeDisplay(int rotation, bool swapBytes, int fillCol
     cursor.setColorDepth(cursorColorDepth);
     cursor.createSprite(cursorSpriteRatio, cursorSpriteRatio);
 
-    gyroText.createSprite(axisTextWidth, axisTextHeight);
+    axisText.createSprite(axisTextWidth, axisTextHeight);
+    scoreText.createSprite(scoreTextWidth, scoreTextHeight);
 
     background.setColorDepth(backgroundColorDepth);
     background.createSprite(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -44,6 +45,7 @@ unsigned long elapsedTime;
 void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
 {
     bool isRunning = true;
+    int score = 0;
     int x = SCREEN_WIDTH / 2 -  cursorSpriteRatio / 2;
     int y = SCREEN_HEIGHT / 2 - cursorSpriteRatio / 2;
 
@@ -51,49 +53,23 @@ void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
     while(isRunning)
     {
         // Background and UI
-        background.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, SCREEN_WIDTH, SCREEN_HEIGHT, backgroundSprite);
-        gyroText.setTextColor(TFT_WHITE,TFT_BLACK);
-        gyroText.fillSprite(TFT_BLACK);
-        gyroText.drawString("X: " + String(x) + ", Y: " + String(y), SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, 4);
-        gyroText.pushToSprite(&background, 10, 10, TFT_BLACK);
+        UpdateUI(x, y, score);
 
 
         // Owl logic
-        elapsedTime = millis() - startAnimationTime;
-        if(elapsedTime > animationDelay)   // Calculate elapsed time in microseconds)
-        {
-            animationIndex++;
-            if(animationIndex == 4) animationIndex = 0;
-            owl.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, owlSpriteRatio, owlSpriteRatio, (const unsigned short*) pgm_read_ptr(&spriteArray[animationIndex]));
-            startAnimationTime = millis();
-        }
-
-        elapsedTime = millis() - startMovementTime;
-        if(elapsedTime > movementDelay)
-        {
-            owlX += movementStepSize;
-            if(owlX > SCREEN_WIDTH + owlSpriteRatio) owlX = -owlSpriteRatio;
-            owl.pushToSprite(&background, owlX, owlY, TFT_BLACK);
-            startMovementTime = millis();
-        }
+        MoveOwl();
         
-
-
-
-
         // Cursor logic
+        UpdateCursorPosition(x, y, useGyro);
+        HandleCursorCollision(x, y);
 
-        // Collision detection
-        if (CheckCollision(x, y, cursorSpriteRatio - 10, owlX, owlY, owlSpriteRatio - 10)) {
-            cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, cursorSpriteRatio, cursorSpriteRatio, cursorSpriteRed);
-            if (g.GetTriggerPress()) {
-                owlAlive = false; // "Kill" the owl
-                Serial.println("Owl killed!");
-            }
-        } else {
-            cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, cursorSpriteRatio, cursorSpriteRatio, cursorSprite);
-        }
+        // Update screen
+        background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
+        //vTaskDelay(REFRESH_RATE / portTICK_PERIOD_MS);
+    }
+}
 
+void SpriteRenderer::UpdateCursorPosition(int& x, int& y, bool useGyro) {
         elapsedTime = millis() - startCursorTime;
         if(elapsedTime > cursorMovementDelay)
         {
@@ -117,17 +93,20 @@ void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
             cursor.pushToSprite(&background, x, y, TFT_BLACK); 
             startCursorTime = millis();
         }
+}
 
-
-
-
-
-        // Update screen
-        background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
-        //vTaskDelay(REFRESH_RATE / portTICK_PERIOD_MS);
+void SpriteRenderer::HandleCursorCollision(int& x, int& y)
+{
+    // Collision detection
+    if (CheckCollision(x, y, cursorSpriteRatio - 10, owlX, owlY, owlSpriteRatio - 10)) {
+        cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, cursorSpriteRatio, cursorSpriteRatio, cursorSpriteRed);
+        if (g.GetTriggerPress()) {
+            owlAlive = false; // "Kill" the owl
+            Serial.println("Owl killed!");
+        }
+    } else {
+        cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, cursorSpriteRatio, cursorSpriteRatio, cursorSprite);
     }
-    // If end game is triggered set running to false
-    // TODO: Think of a reason to end the game
 }
 
 bool SpriteRenderer::CheckCollision(int cursorX, int cursorY, int cursorHitBoxSize, int owlX, int owlY, int owlHitBoxSize) {
@@ -136,4 +115,47 @@ bool SpriteRenderer::CheckCollision(int cursorX, int cursorY, int cursorHitBoxSi
             cursorX + cursorHitBoxSize > owlX && 
             cursorY < owlY + owlHitBoxSize && 
             cursorY + cursorHitBoxSize > owlY);
+}
+
+void SpriteRenderer::MoveOwl()
+{
+    elapsedTime = millis() - startAnimationTime;
+    if(elapsedTime > animationDelay)   // Calculate elapsed time in microseconds)
+    {
+        animationIndex++;
+        if(animationIndex == 4) animationIndex = 0;
+        owl.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, owlSpriteRatio, owlSpriteRatio, (const unsigned short*) pgm_read_ptr(&spriteArray[animationIndex]));
+        startAnimationTime = millis();
+    }
+
+    elapsedTime = millis() - startMovementTime;
+    if(elapsedTime > movementDelay)
+    {
+        owlX += movementStepSize;
+        if(owlX > SCREEN_WIDTH + owlSpriteRatio) owlX = -owlSpriteRatio;
+        owl.pushToSprite(&background, owlX, owlY, TFT_BLACK);
+        startMovementTime = millis();
+    }
+}
+
+void SpriteRenderer::UpdateUI(int& x, int& y, int& score)
+{
+    background.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, SCREEN_WIDTH, SCREEN_HEIGHT, backgroundSprite);
+    axisText.setTextColor(TFT_WHITE,TFT_BLACK);
+    axisText.fillSprite(TFT_BLACK);
+    axisText.drawString("X: " + String(x) + ", Y: " + String(y), SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, axisTextFontSize);
+    axisText.pushToSprite(&background, axisPosX, axisPosY, TFT_BLACK);
+
+
+    //TODO: Add a score text element
+    scoreText.setTextColor(TFT_WHITE,TFT_BLACK);
+    scoreText.fillSprite(TFT_BLACK);
+    scoreText.drawString("SCORE: " + String(score) , SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, scoreTextFontSize);
+    scoreText.pushToSprite(&background, scorePosX, scorePosY, TFT_BLACK);
+
+
+    //TODO: Add a bullets left text element
+
+
+    //TODO: Add a owls hit element
 }
