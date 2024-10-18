@@ -14,6 +14,8 @@
 #include "sprites/background.h"
 #include "sprites/owl.h"
 
+#include "GameDataModel.h"
+
 class SpriteRenderer {
     public:
         SpriteRenderer();
@@ -21,7 +23,6 @@ class SpriteRenderer {
         void InitializeDisplay(int rotation, bool swapBytes, int fillColor);
         void GameLoop(Difficulty diff, bool useGyro);
 
-        void SetAxisData(GyroData *gData, JoystickData *jData);
     private:
         TFT_eSPI tft = TFT_eSPI();
         TFT_eSprite cursor = TFT_eSprite(&tft);
@@ -29,6 +30,7 @@ class SpriteRenderer {
         TFT_eSprite gyroText = TFT_eSprite(&tft);
         TFT_eSprite owl = TFT_eSprite(&tft);
 
+        GameDataModel& g = GameDataModel::getInstance();
         bool CheckCollision(int cursorX, int cursorY, int cursorHitBoxSize, int owlX, int owlY, int owlHitBoxSize);
 
         // Cursor configs
@@ -49,9 +51,7 @@ class SpriteRenderer {
         int animationIndex = 0;
         int owlX = -64;
         int owlY = 100;
-
-        GyroData *gData;
-        JoystickData *jData;
+        bool owlAlive = true;
 
         int animationDelay = 150;   // in milis
         int movementDelay = 10;     // in milis

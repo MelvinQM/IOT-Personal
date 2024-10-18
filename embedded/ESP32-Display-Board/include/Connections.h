@@ -19,6 +19,7 @@
 #include <WiFiUdp.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
+#include "GameDataModel.h"
 
 class Connections {
     public:
@@ -31,12 +32,11 @@ class Connections {
         void FetchPlayers();
         bool Connect();
         void Loop();
-        GyroData gyroData = {0, 0};
-        JoystickData joystickData {0, 0};
     private:
         void GetMacAddress();
         WiFiManager wm;
         WiFiUDP udp;
+        GameDataModel& g = GameDataModel::getInstance();
         
         String hostName = "145.92.189.173";
         const char *ssid = "HootPursuitConsoleAP";

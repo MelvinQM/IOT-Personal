@@ -39,18 +39,6 @@
 #define JOYSTICK_CLICK_METHOD       "joystickClick"
 #define CONTROLLER_AXIS_DATA_METHOD "axisData"
 
-// Defining data structures
-struct GyroData {
-    int x;
-    int y;
-    // int z; Z is redundant for moving a cursor on a 2d surface
-};
-
-struct JoystickData {
-    float x;
-    float y;
-};
-
 enum Difficulty {
     EASY,
     NORMAL,

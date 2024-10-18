@@ -33,12 +33,6 @@ void SpriteRenderer::InitializeDisplay(int rotation, bool swapBytes, int fillCol
     owl.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, owlSpriteRatio, owlSpriteRatio, owlNeutralSprite); // Initial sprite
 }
 
-void SpriteRenderer::SetAxisData(GyroData *gData, JoystickData *jData)
-{
-    this->gData = gData;
-    this->jData = jData;
-}
-
 unsigned long startMovementTime;
 unsigned long startAnimationTime;
 unsigned long startCursorTime;
@@ -84,10 +78,14 @@ void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
 
 
         // Cursor logic
-        
+
         // Collision detection
         if (CheckCollision(x, y, cursorSpriteRatio - 10, owlX, owlY, owlSpriteRatio - 10)) {
             cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, cursorSpriteRatio, cursorSpriteRatio, cursorSpriteRed);
+            if (g.GetTriggerPress()) {
+                owlAlive = false; // "Kill" the owl
+                Serial.println("Owl killed!");
+            }
         } else {
             cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, cursorSpriteRatio, cursorSpriteRatio, cursorSprite);
         }
@@ -96,16 +94,16 @@ void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
         if(elapsedTime > cursorMovementDelay)
         {
             if(useGyro) {
-                x = gData->x;
-                y = gData->y;
+                x = g.GetGyroX();
+                y = g.GetGyroY();
             } else {
-                float magnitude = sqrt((jData->x * jData->x) + (jData->y * jData->y)); // Calculate the magnitude
+                float jX = g.GetJoystickX();
+                float jY = g.GetJoystickY();
+                // Serial.printf("Cursor joystick dir jX: %f jY: %f\n", jX, jY);
+                float magnitude = sqrt((jX * jX) + (jY * jY));
                 if (magnitude > 0) {
-                    float normalizedX = jData->x / magnitude;
-                    float normalizedY = jData->y / magnitude;
-
-                    x += normalizedX * CURSOR_SPEED;
-                    y += normalizedY * CURSOR_SPEED;
+                    x += jX / magnitude * CURSOR_SPEED;
+                    y += jY / magnitude * CURSOR_SPEED;
                 }
             }
             if(x > SCREEN_WIDTH - cursorSpriteRatio) x = SCREEN_WIDTH - cursorSpriteRatio;

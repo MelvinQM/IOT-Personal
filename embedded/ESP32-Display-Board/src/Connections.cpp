@@ -103,21 +103,24 @@ void Connections::UdpListen()
             Serial.println(error.f_str());
             return;
         }
-        // serializeJson(jsonDoc, Serial);
-        // Serial.println();
+            
         String method = jsonDoc["method"].as<String>();
         if(method == CONTROLLER_AXIS_DATA_METHOD) {
-            // Serial.println("\nAxis Data received");
-            gyroData.x = jsonDoc["data"]["gX"];
-            gyroData.y = jsonDoc["data"]["gY"];
-            joystickData.x = jsonDoc["data"]["jX"];
-            joystickData.y = jsonDoc["data"]["jY"];
-            // Serial.printf("gX: %d gY: %d", gyroData.x, gyroData.y);
-            // Serial.printf(" | jX: %.1f jY: %.1f\n", joystickData.x, joystickData.y);
+            int gX = jsonDoc["data"]["gX"];
+            int gY = jsonDoc["data"]["gY"];
+            float jX = jsonDoc["data"]["jX"];
+            float jY = jsonDoc["data"]["jY"];
+            g.SetGyroData({gX, gY});
+            g.SetJoystickData({jX, jY});
+            //Serial.printf("From UDP: jX: %f jY: %f\n",jX ,jY );
+            //Serial.printf("From Model: jX: %f jY: %f\n",g.GetJoystickX() ,g.GetJoystickY());
+
         } else if(method == TRIGGER_METHOD) {
             Serial.println("Trigger pressed");
+            g.SetTriggerPressed(true);
         } else if(method == JOYSTICK_CLICK_METHOD) {
             Serial.println("Joystick clicked");
+            g.SetJoystickClicked(true);
         } else {    
             Serial.println("Error: Method not recognized!");
         }

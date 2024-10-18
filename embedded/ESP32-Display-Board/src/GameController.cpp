@@ -44,7 +44,6 @@ void GameController::Init()
 
 
     sRender.InitializeDisplay(SCREEN_ROTATION, true, TFT_BLACK);
-    sRender.SetAxisData(&conn.gyroData, &conn.joystickData);
 }
 
 void GameController::Loop()
