@@ -37,11 +37,17 @@ void GameController::Init()
         CONN_TASK_CORE
     );
     vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
-
     Serial.print("Init: Executing on core ");
     Serial.println(xPortGetCoreID());
 
-
+    InitLed();
+    SetLedRGB(blue);
+    while(!conn.Connect())
+    {
+        vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
+        Serial.print(".");
+    }
+    SetLedRGB(green);
     sRender.InitializeDisplay(SCREEN_ROTATION, true, TFT_BLACK);
 }
 
@@ -79,9 +85,13 @@ void GameController::Loop()
 void GameController::ShowIntro()
 {
     Serial.println("------Showing Intro Sequence------");
-
-    sRender.ShowIntro();
-
+    JsonDocument res = conn.MakeAPICall("POST", "session");
+    
+    String message = res["message"];
+    int sessionId = res["id"];
+    Serial.println(message);
+    
+    sRender.ShowIntro(sessionId);
     state = Playing;
 }
 
@@ -109,4 +119,29 @@ void GameController::End()
 void GameController::Restarting()
 {
     Serial.println("------Restart Sequence------");
+}
+
+void GameController::InitLed()
+{
+    // Initialize GPIO pins for RGB LED
+    pinMode(LED_PIN_R, OUTPUT);
+    pinMode(LED_PIN_G, OUTPUT);
+    pinMode(LED_PIN_B, OUTPUT);
+
+    // Initialize LED control channels
+    ledcSetup(LED_R_CHANNEL, freq, resolution);
+    ledcSetup(LED_G_CHANNEL, freq, resolution);
+    ledcSetup(LED_B_CHANNEL, freq, resolution);
+    
+    // Attach channels to pins
+    ledcAttachPin(LED_PIN_R, LED_R_CHANNEL);
+    ledcAttachPin(LED_PIN_G, LED_G_CHANNEL);
+    ledcAttachPin(LED_PIN_B, LED_B_CHANNEL);
+}
+
+void GameController::SetLedRGB(RGBColor color, float brightness)
+{
+    ledcWrite(LED_R_CHANNEL, 255 - color.r * brightness);
+    ledcWrite(LED_G_CHANNEL, 255 - color.g * brightness);
+    ledcWrite(LED_B_CHANNEL, 255 - color.b * brightness);
 }

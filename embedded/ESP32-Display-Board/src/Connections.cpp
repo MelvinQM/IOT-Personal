@@ -129,6 +129,59 @@ void Connections::UdpListen()
     }
 }
 
+JsonDocument Connections::MakeAPICall(String method, String endpoint, JsonDocument* jsonDoc)
+{
+    WiFiClient wifiClient;
+    HTTPClient http;
+    JsonDocument jsonResponse;
+    wifiClient.setTimeout(WIFI_TIMEOUT);
+
+    String url = "http://" + hostName + "/api/" + endpoint;
+    Serial.println("API Call to: " + url);
+    http.begin(wifiClient, url);
+
+    int httpResponseCode = -1;
+    
+    // If a JsonDocument is provided, serialize it to a string
+    String payload;
+    if (jsonDoc != nullptr) {
+        serializeJson(*jsonDoc, payload);
+    }
+
+    if (method == "GET") {
+        httpResponseCode = http.GET();
+    } else if (method == "POST") {
+        http.addHeader("Content-Type", "application/json");
+        httpResponseCode = http.POST(payload);
+    } else {
+        Serial.println("Unsupported HTTP method: " + method);
+        http.end();
+        return JsonDocument(0);
+    }
+
+    Serial.println("HTTP Response code: " + String(httpResponseCode));
+    
+    if (httpResponseCode > 0) {
+        
+        String response = http.getString();
+        Serial.println("Response: " + response);
+        
+        DeserializationError error = deserializeJson(jsonResponse, response);
+        
+        if (error) {
+            Serial.print("Failed to parse JSON: ");
+            Serial.println(error.f_str());
+            return JsonDocument(0);
+        }
+    } else {
+        Serial.println("Error on sending " + method + " request");
+    }
+
+    http.end();
+
+    return jsonResponse;
+}
+
 void Connections::CreatePlayer(String name)
 {
     WiFiClient wifiClient;
@@ -139,8 +192,13 @@ void Connections::CreatePlayer(String name)
     Serial.println("API Call to: " + url);
     http.begin(wifiClient, url);
     http.addHeader("Content-Type", "application/json");
+    
+    JsonDocument doc;
+    //String httpRequestData = "{\"name\":\"" + name + "\"}";
+    doc["name"] = name;  // Adds the "name" key with the value of the 'name' variable
+    String httpRequestData;
+    serializeJson(doc, httpRequestData);  // Converts JSON object to a string
 
-    String httpRequestData = "{\"name\":\"" + name + "\"}";
 
     // Send the HTTP POST request with the JSON data
     int httpResponseCode = http.POST(httpRequestData);

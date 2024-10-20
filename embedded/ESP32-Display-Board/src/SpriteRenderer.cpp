@@ -185,7 +185,7 @@ void SpriteRenderer::ResetOwl()
     bullets = 3;
 }
 
-void SpriteRenderer::ShowIntro()
+void SpriteRenderer::ShowIntro(int sessionId)
 {
     // Intro screen initialization
     introText.createSprite(introTextSettings.width, introTextSettings.height);
@@ -198,10 +198,10 @@ void SpriteRenderer::ShowIntro()
     bool isRunning = true;
     while(isRunning)
     {   
-        background.fillSprite(TFT_GREEN);
+        background.fillSprite(TFT_PURPLE);
 
 
-        UpdateTextElement(introText, introTextSettings, "HOOT SHOOTER SESSION-ID:");
+        UpdateTextElement(introText, introTextSettings, "HOOT SHOOTER SESSION-ID:" + String(sessionId));
 
         // Update screen
         background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);

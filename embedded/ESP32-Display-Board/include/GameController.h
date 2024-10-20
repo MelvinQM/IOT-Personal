@@ -59,6 +59,25 @@ class GameController
         void End();
         void ShowHighScores();
         void Restarting();
+
+
+        struct RGBColor {
+            int r;
+            int g;
+            int b;
+        };
+        
+        int freq = 2000;
+        int resolution = 8; 
+        void InitLed();
+        void SetLedRGB(RGBColor color, float brightness = LED_DEFAULT_BRIGHTNESS);
+        RGBColor red {255, 0, 0};
+        RGBColor green {0, 255, 0};
+        RGBColor blue {0, 0, 255};
+        RGBColor white {255, 255, 255};
+        RGBColor yellow {255, 255, 0};
+        RGBColor orange {255, 165, 0};
+        RGBColor off {0, 0, 0};
 };
 
 #endif
