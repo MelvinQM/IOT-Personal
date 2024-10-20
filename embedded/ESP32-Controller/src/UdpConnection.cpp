@@ -42,17 +42,15 @@ void UdpConnection::SendJsonData(JsonDocument jsonDoc)
     // serializeJson(jsonDoc, Serial);
     // Serial.println();
 
+    // Clear previous UDP buffer
+    udp.flush();
+    
     // Send the JSON string to the server
     udp.beginPacket(udpAddress, udpPort);
     serializeJson(jsonDoc, udp);
     udp.println();
-    int err = udp.endPacket();
-    if(err == EHOSTUNREACH) {
-        vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
-        Serial.println("Host unreachable");
-    } else if(err == ENOMEM) {
-        Serial.println("Not enough memory");
-    }
+    udp.endPacket();
+
 
 
     // Incase the response needs to viewed

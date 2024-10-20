@@ -22,7 +22,6 @@ GameController::GameController()
 GameController::~GameController()
 {
     // Delete the tasks on game exit to free up resources
-    // if (BluetoothTaskHandle != NULL) vTaskDelete(BluetoothTaskHandle);
     if (ConnTaskHandle != NULL) vTaskDelete(ConnTaskHandle);
 }
 
@@ -80,6 +79,9 @@ void GameController::Loop()
 void GameController::ShowIntro()
 {
     Serial.println("------Showing Intro Sequence------");
+
+    sRender.ShowIntro();
+
     state = Playing;
 }
 
@@ -94,13 +96,15 @@ void GameController::Play()
     state = EndGame;
 }
 
-void GameController::End()
-{
-    Serial.println("------Ending Game------");
-}
 void GameController::ShowHighScores()
 {
     Serial.println("------Showing Highscores------");
+    sRender.ShowHighscores();
+}
+
+void GameController::End()
+{
+    Serial.println("------Ending Game------");
 }
 void GameController::Restarting()
 {

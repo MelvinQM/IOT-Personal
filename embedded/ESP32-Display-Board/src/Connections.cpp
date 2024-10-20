@@ -23,13 +23,13 @@ void Connections::Init()
 {
     Serial.println("------------[Wifi & Api]------------");
     GetMacAddress();
-    WiFi.mode(WIFI_STA);
+    WiFi.mode(WIFI_AP_STA);
     wm.setDarkMode(true);
     // wm.resetSettings(); // To reset the saved wifi connections
     wm.autoConnect("HootPursuitAP", "password");
 
     // Enable SoftAP
-    WiFi.mode(WIFI_AP_STA);  // Enable both AP and STA modes simultaneously
+    //WiFi.mode(WIFI_AP_STA);  // Enable both AP and STA modes simultaneously
     WiFi.softAPConfig(AP_LOCAL_IP, AP_GATEWAY_IP, AP_NETWORK_MASK);
     WiFi.softAPsetHostname("HootPursuitHost");
 
@@ -78,10 +78,10 @@ void Connections::UdpListen()
     int packetSize = udp.parsePacket();
 
     // If no packet is received, avoid printing or spamming output
-    if (packetSize <= 0) {
-        vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
-        return;      
-    }
+    // if (packetSize <= 0) {
+    //     vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
+    //     return;      
+    // }
 
     if (packetSize) {
         // Serial.printf("\nReceived packet from : %s\n", udp.remoteIP().toString());
