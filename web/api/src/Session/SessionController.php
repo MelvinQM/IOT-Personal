@@ -49,22 +49,7 @@ class SessionController {
                 break;
             case "PATCH":
                 ErrorCodeHelper::getInstance()->handleErrorCode(501, "PATCH not implemented");
-                // $data = json_decode(file_get_contents('php://input'), true);
-                // if (json_last_error() !== JSON_ERROR_NONE) {
-                //     ErrorCodeHelper::getInstance()->handleErrorCode(400,'Invalid JSON format');
-                // }
-                // $errors = $this->getValidationErrors($data, false);
-                // if(!empty($errors)) {
-                //     ErrorCodeHelper::getInstance()->handleErrorCode(422, json_encode(["errors" => $errors]));
-                //     break;
-                // }
-                // $rows = $this->gateway->update($id, $data);
 
-                // echo json_encode([
-                //     "message" => "Session updated",
-                //     "rows" => $rows
-                // ]);
-                // break;
             case "DELETE":
                 $rows = $this->gateway->delete($id);
 
@@ -100,7 +85,7 @@ class SessionController {
                 if (json_last_error() !== JSON_ERROR_NONE) {
                     ErrorCodeHelper::getInstance()->handleErrorCode(400,'Invalid JSON format');
                 }
-                $errors = $this->getValidationErrors($data);
+                //$errors = $this->getValidationErrors($data);
                 if(!empty($errors)) {
                     ErrorCodeHelper::getInstance()->handleErrorCode(422, json_encode(["errors" => $errors]));
                     break;
@@ -119,24 +104,24 @@ class SessionController {
         }
     }
 
-    /**
-     * Validates session data for required fields.
-     *
-     * This function checks the provided data for validation errors, such as missing required fields
-     *
-     * @param array $data The session data to validate.
-     * @param bool $isNew Whether the validation is for a new session or an existing session.
-     *
-     * @return array Returns an array of validation errors.
-     */
-    private function getValidationErrors(array $data, bool $isNew = true) : array
-    {
-        $errors = [];
-        if($isNew && empty($data["difficulty_id"])) 
-        {
-            $errors[] = "difficulty_id is required";
-        }
+    // /**
+    //  * Validates session data for required fields.
+    //  *
+    //  * This function checks the provided data for validation errors, such as missing required fields
+    //  *
+    //  * @param array $data The session data to validate.
+    //  * @param bool $isNew Whether the validation is for a new session or an existing session.
+    //  *
+    //  * @return array Returns an array of validation errors.
+    //  */
+    // private function getValidationErrors(array $data, bool $isNew = true) : array
+    // {
+    //     $errors = [];
+    //     if($isNew && empty($data["difficulty_id"])) 
+    //     {
+    //         $errors[] = "";
+    //     }
 
-        return $errors;
-    }
+    //     return $errors;
+    // }
 }

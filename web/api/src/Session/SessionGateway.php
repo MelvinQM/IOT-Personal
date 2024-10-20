@@ -52,12 +52,12 @@ class SessionGateway
 
         $stmt = $this->conn->prepare($sql);
 
-        $completed = isset($data['completed']) ? $data['completed'] : false;        // Boolean default value 0
-        $start_time = isset($data['start_time']) ? $data['start_time'] : null;      // DATETIME
-        $end_time = isset($data['end_time']) ? $data['end_time'] : null;            // DATETIME
-        $player_id = isset($data['player_id']) ? $data['player_id'] : null;         // int
-        $difficulty_id = $data['difficulty_id'];                                    // int
-
+        $completed = isset($data['completed']) ? $data['completed'] : null;            // Boolean default value 0
+        $start_time = isset($data['start_time']) ? $data['start_time'] : null;          // DATETIME
+        $end_time = isset($data['end_time']) ? $data['end_time'] : null;                // DATETIME
+        $player_id = isset($data['player_id']) ? $data['player_id'] : null;             // int
+        $difficulty_id = isset($data['difficulty_id']) ? $data['difficulty_id'] : 1;    // int
+        
         // Bind parameters: "b" for boolean, "s" for string (DATETIME), and "i" for ints
         $stmt->bind_param("issis", $completed, $start_time, $end_time, $player_id, $difficulty_id);
 
