@@ -125,7 +125,7 @@ void Connections::UdpListen()
             Serial.println("Error: Method not recognized!");
         }
     } else {
-        Serial.print(".");
+        //Serial.print(".");
     }
 }
 

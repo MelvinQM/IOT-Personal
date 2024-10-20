@@ -22,6 +22,15 @@
 #include "GameDataModel.h"
 
 class SpriteRenderer {
+    private:
+        struct TextSpriteSettings {
+            int width;
+            int height;
+            int fontSize;
+            int posX;
+            int posY;
+        };
+
     public:
         SpriteRenderer();
         ~SpriteRenderer();
@@ -41,6 +50,8 @@ class SpriteRenderer {
         TFT_eSprite scoreText = TFT_eSprite(&tft);
         TFT_eSprite bulletsText = TFT_eSprite(&tft);
         TFT_eSprite owlsText = TFT_eSprite(&tft);
+
+        TFT_eSprite introText = TFT_eSprite(&tft);
         
 
         GameDataModel& g = GameDataModel::getInstance();
@@ -51,6 +62,7 @@ class SpriteRenderer {
         void MoveOwl();
         void ResetOwl();
         void UpdateUI(int& x, int& y, int& score);
+        void UpdateTextElement(TFT_eSprite &text, TextSpriteSettings &settings, String content);
 
         // Gameloop configs
         int score = 0;
@@ -60,6 +72,10 @@ class SpriteRenderer {
         int x = SCREEN_WIDTH / 2 -  cursorSpriteRatio / 2;
         int y = SCREEN_HEIGHT / 2 - cursorSpriteRatio / 2;
         int bullets = 3;
+        unsigned long startMovementTime;
+        unsigned long startAnimationTime;
+        unsigned long startCursorTime;
+        unsigned long elapsedTime;
 
         // Cursor configs
         int cursorSpriteRatio = 40;     // 40x40
@@ -68,31 +84,6 @@ class SpriteRenderer {
 
         // Background configs
         int backgroundColorDepth = 8;
-
-        // UI configs
-        int axisTextWidth = 120;
-        int axisTextHeight = 40;
-        int axisTextFontSize = 2;
-        int axisPosX = 10;
-        int axisPosY = 10;
-
-        int scoreTextWidth = 120;
-        int scoreTextHeight = 20;
-        int scoreTextFontSize = 2;
-        int scorePosX = 95;
-        int scorePosY = 207;
-
-        int bulletsTextWidth = 60;
-        int bulletsTextHeight = 20;
-        int bulletsTextFontSize = 2;
-        int bulletsTextPosX = 28;
-        int bulletsTextPosY = 208;
-
-        int owlsTextWidth = 60;
-        int owlsTextHeight = 20;
-        int owlsTextFontSize = 2;
-        int owlsTextPosX = 255;
-        int owlsTextPosY = 208;
 
         // Owl configs
         int owlColorDepth = 16;
@@ -105,16 +96,54 @@ class SpriteRenderer {
         int movementDelay = 10;     // in milis
         int movementStepSize = 5;   // in pixels
 
-        unsigned long startMovementTime;
-        unsigned long startAnimationTime;
-        unsigned long startCursorTime;
-        unsigned long elapsedTime;
-
         const unsigned short* const spriteArray[4] PROGMEM = {
             owlNeutralSprite,
             owlUpSprite,
             owlNeutralSprite,
             owlDownSprite,
+        };
+
+
+        // Gameplay text
+        TextSpriteSettings axisTextSettings = {
+            .width = 120,
+            .height = 40,
+            .fontSize = 2,
+            .posX = 10,
+            .posY = 10
+        };
+
+        TextSpriteSettings scoreTextSettings = {
+            .width = 120,
+            .height = 20,
+            .fontSize = 2,
+            .posX = 95,
+            .posY = 207
+        };
+
+        TextSpriteSettings bulletsTextSettings = {
+            .width = 60,
+            .height = 20,
+            .fontSize = 2,
+            .posX = 28,
+            .posY = 208
+        };
+
+        TextSpriteSettings owlsTextSettings = {
+            .width = 60,
+            .height = 20,
+            .fontSize = 2,
+            .posX = 255,
+            .posY = 208
+        };
+
+        // Intro text
+        TextSpriteSettings introTextSettings = {
+            .width = 200,
+            .height = 20,
+            .fontSize = 2,
+            .posX = 80,
+            .posY = 120
         };
 
 };

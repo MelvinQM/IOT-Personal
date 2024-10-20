@@ -22,14 +22,19 @@ void SpriteRenderer::InitializeDisplay(int rotation, bool swapBytes, int fillCol
 
     // Clear the screen before writing to it
     tft.fillScreen(fillColor);
+}
 
+
+void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
+{
+    // Game loop initialization
     cursor.setColorDepth(cursorColorDepth);
     cursor.createSprite(cursorSpriteRatio, cursorSpriteRatio);
 
-    axisText.createSprite(axisTextWidth, axisTextHeight);
-    scoreText.createSprite(scoreTextWidth, scoreTextHeight);
-    bulletsText.createSprite(bulletsTextWidth, bulletsTextHeight);
-    owlsText.createSprite(owlsTextWidth, owlsTextHeight);
+    axisText.createSprite(axisTextSettings.width, axisTextSettings.height);
+    scoreText.createSprite(scoreTextSettings.width, scoreTextSettings.height);
+    bulletsText.createSprite(bulletsTextSettings.width, bulletsTextSettings.height);
+    owlsText.createSprite(owlsTextSettings.width, owlsTextSettings.height);
 
     background.setColorDepth(backgroundColorDepth);
     background.createSprite(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -38,11 +43,8 @@ void SpriteRenderer::InitializeDisplay(int rotation, bool swapBytes, int fillCol
     owl.setColorDepth(owlColorDepth);
     owl.createSprite(owlSpriteRatio, owlSpriteRatio);
     owl.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, owlSpriteRatio, owlSpriteRatio, owlNeutralSprite); // Initial sprite
-}
 
-
-void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
-{
+    // Gameloop
     startMovementTime, startAnimationTime, startCursorTime = millis();
     bool isRunning = true;
     while(isRunning)
@@ -67,6 +69,13 @@ void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
             isRunning = false;
         }
     }
+
+    // Gameloop cleanup
+    axisText.deleteSprite();
+    scoreText.deleteSprite();
+    bulletsText.deleteSprite();
+    owlsText.deleteSprite();
+    background.deleteSprite();
 }
 
 void SpriteRenderer::UpdateCursorPosition(int& x, int& y, bool useGyro) {
@@ -103,7 +112,8 @@ void SpriteRenderer::HandleCursorCollision(int& x, int& y)
             owlAlive = false;
             owlsKilled++;
             Serial.println("Owl killed!");
-            score += 100;
+            
+            score += (100 + ((SCREEN_WIDTH - owlX) / EXTRA_SCORE_DIVISION_FACTOR)); // Extra points if killed really fast
             owl.fillSprite(TFT_BLACK);
             g.SetTriggerPressed(false);
         }
@@ -123,26 +133,10 @@ bool SpriteRenderer::CheckCollision(int cursorX, int cursorY, int cursorHitBoxSi
 void SpriteRenderer::UpdateUI(int& x, int& y, int& score)
 {
     background.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, SCREEN_WIDTH, SCREEN_HEIGHT, backgroundSprite);
-    
-    axisText.setTextColor(TFT_WHITE,TFT_BLACK);
-    axisText.fillSprite(TFT_BLACK);
-    axisText.drawString("X: " + String(x) + ", Y: " + String(y), SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, axisTextFontSize);
-    axisText.pushToSprite(&background, axisPosX, axisPosY, TFT_BLACK);
-
-    scoreText.setTextColor(TFT_WHITE,TFT_BLACK);
-    scoreText.fillSprite(TFT_BLACK);
-    scoreText.drawString("SCORE: " + String(score) , SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, scoreTextFontSize);
-    scoreText.pushToSprite(&background, scorePosX, scorePosY, TFT_BLACK);
-
-    bulletsText.setTextColor(TFT_WHITE,TFT_BLACK);
-    bulletsText.fillSprite(TFT_BLACK);
-    bulletsText.drawString(String(bullets) + "/" + String(bullets) , SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, bulletsTextFontSize);
-    bulletsText.pushToSprite(&background, bulletsTextPosX, bulletsTextPosY, TFT_BLACK);
-
-    owlsText.setTextColor(TFT_WHITE,TFT_BLACK);
-    owlsText.fillSprite(TFT_BLACK);
-    owlsText.drawString(String(owlsKilled + owlsMissed) + "/" + String(totalOwls) , SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, owlsTextFontSize);
-    owlsText.pushToSprite(&background, owlsTextPosX, owlsTextPosY, TFT_BLACK);
+    UpdateTextElement(axisText, axisTextSettings, "X: " + String(x) + ", Y: " + String(y));
+    UpdateTextElement(scoreText, scoreTextSettings, "SCORE: " + String(score));
+    UpdateTextElement(bulletsText, bulletsTextSettings, String(bullets) + "/" + String(bullets));
+    UpdateTextElement(owlsText, owlsTextSettings, String(owlsKilled + owlsMissed) + "/" + String(totalOwls));
 }
 
 void SpriteRenderer::MoveOwl()
@@ -191,13 +185,48 @@ void SpriteRenderer::ResetOwl()
     bullets = 3;
 }
 
+void SpriteRenderer::ShowIntro()
+{
+    // Intro screen initialization
+    introText.createSprite(introTextSettings.width, introTextSettings.height);
+    background.setColorDepth(backgroundColorDepth);
+    background.createSprite(SCREEN_WIDTH, SCREEN_HEIGHT);
+    background.setSwapBytes(true); // Correct color
+    
+    // Intro screen
+    unsigned long startIntroScreenTime = millis();
+    bool isRunning = true;
+    while(isRunning)
+    {   
+        background.fillSprite(TFT_GREEN);
+
+
+        UpdateTextElement(introText, introTextSettings, "HOOT SHOOTER SESSION-ID:");
+
+        // Update screen
+        background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
+
+        unsigned long elapsedTime = millis() - startIntroScreenTime;
+        if(elapsedTime > 10000)
+        {
+            isRunning = false;
+        }
+    }
+
+    // Intro screen cleanup
+    introText.deleteSprite();
+    background.deleteSprite();
+}
+
 void SpriteRenderer::ShowHighscores()
 {
 
 }
 
-void SpriteRenderer::ShowIntro()
+void SpriteRenderer::UpdateTextElement(TFT_eSprite &text, TextSpriteSettings &settings, String content)
 {
-
+    text.setTextColor(TFT_WHITE,TFT_BLACK);
+    text.fillSprite(TFT_BLACK);
+    text.drawString(content, SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, settings.fontSize);
+    text.pushToSprite(&background, settings.posX, settings.posY, TFT_BLACK);
 }
-
