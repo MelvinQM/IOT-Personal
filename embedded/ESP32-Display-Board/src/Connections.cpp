@@ -74,7 +74,7 @@ void Connections::Loop()
 {
     isConnected = Connect();
     if(!isConnected) return;
-    
+
     UdpListen();
     vTaskDelay(UDP_DELAY / portTICK_PERIOD_MS);
 }
@@ -148,10 +148,12 @@ JsonDocument Connections::MakeAPICall(String method, String endpoint, JsonDocume
 
     int httpResponseCode = -1;
     
-    // If a JsonDocument is provided, serialize it to a string
     String payload;
     if (jsonDoc != nullptr) {
+        Serial.println("Serializing JSON payload...");
         serializeJson(*jsonDoc, payload);
+    } else {
+        payload = "{}";
     }
 
     if (method == "GET") {
@@ -200,10 +202,9 @@ void Connections::CreatePlayer(String name)
     http.addHeader("Content-Type", "application/json");
     
     JsonDocument doc;
-    //String httpRequestData = "{\"name\":\"" + name + "\"}";
-    doc["name"] = name;  // Adds the "name" key with the value of the 'name' variable
+    doc["name"] = name;
     String httpRequestData;
-    serializeJson(doc, httpRequestData);  // Converts JSON object to a string
+    serializeJson(doc, httpRequestData);
 
 
     // Send the HTTP POST request with the JSON data
