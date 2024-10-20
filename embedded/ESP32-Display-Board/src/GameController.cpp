@@ -42,7 +42,7 @@ void GameController::Init()
 
     InitLed();
     SetLedRGB(blue);
-    while(!conn.Connect())
+    while(!conn.GetConnection())
     {
         vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
         Serial.print(".");

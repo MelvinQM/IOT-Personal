@@ -44,9 +44,13 @@ void Connections::Init()
     Serial.printf("UDP server : %s:%i \n", WiFi.localIP().toString().c_str(), localPort);
 
 
-    Connect();
+    isConnected = Connect();
 }
 
+bool Connections::GetConnection()
+{
+    return isConnected;
+}
 
 bool Connections::Connect()
 {
@@ -68,7 +72,9 @@ bool Connections::Connect()
 
 void Connections::Loop()
 {
-    if(!Connect()) return;
+    isConnected = Connect();
+    if(!isConnected) return;
+    
     UdpListen();
     vTaskDelay(UDP_DELAY / portTICK_PERIOD_MS);
 }

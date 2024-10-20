@@ -26,7 +26,7 @@ class Connections {
         Connections();
         ~Connections();
         void Init();
-        bool IsConnected();
+        bool GetConnection();
         void CreatePlayer(String name);
         void UdpListen();
         void FetchPlayers();
@@ -38,7 +38,7 @@ class Connections {
         WiFiManager wm;
         WiFiUDP udp;
         GameDataModel& g = GameDataModel::getInstance();
-        
+        bool isConnected = false;
         String hostName = "192.168.0.239";
         //String hostname = "145.92.189.173";
         const char *ssid = "HootPursuitConsoleAP";
