@@ -17,14 +17,14 @@ class PlayerController {
      * @param string $method The HTTP request method.
      * @param string|null $id The ID of the player. Null for collection requests.
      */
-    public function handleRequest(string $method, ?string $id) : void
+    public function handleRequest(string $method, ?string $id, ?array $filters) : void
     {
         if($id) {
             // Single resource
             $this->handlePlayerRequest($method, $id);
         } else {
             // Collection of resources
-            $this->handlePlayerCollectionRequest($method, $id);
+            $this->handlePlayerCollectionRequest($method, $id, $filters);
         }
     }
 
@@ -88,11 +88,11 @@ class PlayerController {
      * @param string $method The HTTP request method.
      * @param string|null $id The ID of the player.
      */
-    public function handlePlayerCollectionRequest(string $method, ?string $id): void 
+    public function handlePlayerCollectionRequest(string $method, ?string $id, ?array $filters): void 
     {
         switch($method) {
             case "GET":
-                echo json_encode($this->gateway->getAll());
+                echo json_encode($this->gateway->getAll($filters));
                 break;
             case "POST":
                 $data = json_decode(file_get_contents('php://input'), true);

@@ -17,7 +17,7 @@ class DifficultyController {
      * @param string $method The HTTP request method.
      * @param string|null $id The ID of the difficulty. Null for collection requests.
      */
-    public function handleRequest(string $method, ?string $id) : void
+    public function handleRequest(string $method, ?string $id, ?array $filters = []) : void
     {
         if($id) {
             // Single resource

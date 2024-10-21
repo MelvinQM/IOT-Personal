@@ -38,10 +38,20 @@ header("Content-type: application/json; charset=UTF-8");
 
 $uri = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 $parts = explode("/", trim($uri, "/"));
-// print_r($parts);
+//print_r($parts);
 
 
 $controller = RouteHandler::getInstance()->getController(strtolower($parts[1]));
 
 $id = $parts[2] ?? null;
-$controller->handleRequest($_SERVER["REQUEST_METHOD"], $id);
+
+// Get query parameters (filters)
+$filters = $_GET;
+//echo json_encode($filters);
+
+if($filters)
+{
+    $controller->handleRequest($_SERVER["REQUEST_METHOD"], $id, $filters);
+} else {
+    $controller->handleRequest($_SERVER["REQUEST_METHOD"], $id);
+}

@@ -20,24 +20,44 @@ class PlayerGateway
     }
 
     /**
-     * Executes a SELECT query to fetch all rows from the player table.
+     * Executes a SELECT query to fetch all rows from the player table. 
+     * Additionally an option add filters is possible for this table
      *
      * @return array An array of player records.
      */
-    public function getAll(): array
+    public function getAll(?array $filters): array
     {
         $sql = "SELECT * FROM player";
         
-        $stmt = $this->conn->query($sql);
-    
-        $data = [];
-        
-        while ($row = $stmt->fetch_assoc()) {
-            $data[] = $row;
+        // If there are filters add them to the sql statement
+        if (!empty($filters)) {
+            $conditions = [];
+            foreach ($filters as $key => $value) {
+                $conditions[] = "$key = ?";
+            }
+            $sql .= " WHERE " . implode(" AND ", $conditions);
         }
     
+        $stmt = $this->conn->prepare($sql);
+    
+        if (!empty($filters)) {
+            $types = str_repeat('s', count($filters)); // Assuming all filters are strings, adjust accordingly
+            $values = array_values($filters);
+            $stmt->bind_param($types, ...$values); // Bind the values safely
+        }
+    
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $data = [];
+        
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+        
         return $data;
     }
+
 
     /**
      * Executes an INSERT query to add a new player.
