@@ -32,8 +32,6 @@ class SpriteRenderer {
         };
 
     public:
-        SpriteRenderer();
-        ~SpriteRenderer();
         void InitializeDisplay(int rotation, bool swapBytes, int fillColor);
         void GameLoop(Difficulty diff, bool useGyro);
         void ShowIntro(int sessionId);

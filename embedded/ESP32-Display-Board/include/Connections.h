@@ -23,8 +23,6 @@
 
 class Connections {
     public:
-        Connections();
-        ~Connections();
         void Init();
         bool GetConnection();
         void CreatePlayer(String name);
@@ -32,15 +30,17 @@ class Connections {
         void FetchPlayers();
         bool Connect();
         void Loop();
-        JsonDocument MakeAPICall(String method, String endpoint, JsonDocument* jsonDoc = nullptr);
+        int CreateSession();
+        JsonDocument GetSessionById(int id);
     private:
+        JsonDocument MakeAPICall(String method, String endpoint, JsonDocument* jsonDoc = nullptr);
         void GetMacAddress();
         WiFiManager wm;
         WiFiUDP udp;
         GameDataModel& g = GameDataModel::getInstance();
         bool isConnected = false;
-        String hostName = "192.168.0.239";
-        //String hostname = "145.92.189.173";
+        // String hostName = "192.168.0.239";
+        String hostName = "145.92.189.173";
         const char *ssid = "HootPursuitConsoleAP";
         const char *password = "hootpursuitaccess";
         char packetBuffer[255];

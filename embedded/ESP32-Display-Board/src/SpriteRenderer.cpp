@@ -10,9 +10,6 @@
 
 #include "SpriteRenderer.h"
 
-SpriteRenderer::SpriteRenderer(){}
-SpriteRenderer::~SpriteRenderer(){}
-
 void SpriteRenderer::InitializeDisplay(int rotation, bool swapBytes, int fillColor)
 {
     // Start the tft display
@@ -78,7 +75,8 @@ void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
     background.deleteSprite();
 }
 
-void SpriteRenderer::UpdateCursorPosition(int& x, int& y, bool useGyro) {
+void SpriteRenderer::UpdateCursorPosition(int& x, int& y, bool useGyro) 
+{
         elapsedTime = millis() - startCursorTime;
         if(elapsedTime > cursorMovementDelay)
         {
@@ -194,24 +192,11 @@ void SpriteRenderer::ShowIntro(int sessionId)
     background.setSwapBytes(true); // Correct color
     
     // Intro screen
-    unsigned long startIntroScreenTime = millis();
-    bool isRunning = true;
-    while(isRunning)
-    {   
-        background.fillSprite(TFT_PURPLE);
-
-
-        UpdateTextElement(introText, introTextSettings, "HOOT SHOOTER SESSION-ID:" + String(sessionId));
-
-        // Update screen
-        background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
-
-        unsigned long elapsedTime = millis() - startIntroScreenTime;
-        if(elapsedTime > 10000)
-        {
-            isRunning = false;
-        }
-    }
+    background.fillSprite(TFT_PURPLE);
+    UpdateTextElement(introText, introTextSettings, "HOOT SHOOTER SESSION-ID:" + String(sessionId));
+    
+    // Update screen
+    background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
 
     // Intro screen cleanup
     introText.deleteSprite();

@@ -85,13 +85,28 @@ void GameController::Loop()
 void GameController::ShowIntro()
 {
     Serial.println("------Showing Intro Sequence------");
-    JsonDocument res = conn.MakeAPICall("POST", "session");
-    
-    String message = res["message"];
-    int sessionId = res["id"];
-    Serial.println(message);
-    
+
+    // Create session and show its id on screen
+    int sessionId = conn.CreateSession();
     sRender.ShowIntro(sessionId);
+
+    // Start polling until a player id is found
+    Serial.print("Start polling.");
+    JsonDocument response;
+    int playerId = 0;
+    while(playerId == 0)
+    {
+        response = conn.GetSessionById(sessionId);
+        if(response["player_id"]) {
+            Serial.println("Player connected to session!");
+        } else {
+            Serial.print(".");
+        }
+
+        vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
+    }
+    Serial.println();
+
     state = Playing;
 }
 
