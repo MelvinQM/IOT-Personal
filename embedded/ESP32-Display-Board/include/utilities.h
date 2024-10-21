@@ -12,8 +12,9 @@
 #include <Arduino.h>
 
 // General settings
-#define BAUD_RATE       115200
-#define TIMEOUT_DELAY   1000
+#define BAUD_RATE           115200
+#define TIMEOUT_DELAY       1000
+#define BIG_TIMEOUT_DELAY   5000
 
 // Game settings
 #define CURSOR_SPEED    10

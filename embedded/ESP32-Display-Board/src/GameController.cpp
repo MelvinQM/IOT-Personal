@@ -47,7 +47,7 @@ void GameController::Init()
         vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
         Serial.print(".");
     }
-    SetLedRGB(green);
+    
     sRender.InitializeDisplay(SCREEN_ROTATION, true, TFT_BLACK);
 }
 
@@ -94,6 +94,7 @@ void GameController::ShowIntro()
     Serial.print("Start polling.");
     JsonDocument response;
     int playerId = 0;
+    SetLedRGB(yellow);
     while(playerId == 0)
     {
         response = conn.GetSessionById(sessionId);
@@ -103,10 +104,12 @@ void GameController::ShowIntro()
             Serial.print(".");
         }
 
-        vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
+        vTaskDelay(BIG_TIMEOUT_DELAY / portTICK_PERIOD_MS);
     }
     Serial.println();
 
+
+    SetLedRGB(green);
     state = Playing;
 }
 
