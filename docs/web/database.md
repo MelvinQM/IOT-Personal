@@ -49,7 +49,7 @@ To interface with the SQL Database MYSQLWorkbench was used. To connect to the da
 The player table consists of 2 columns:
 
 - *ID*: the identifier
-- name: the players name
+- name: the players name (Unique)
 
 <img src="/../assets/images/player-table.png" alt="player-table">
 
