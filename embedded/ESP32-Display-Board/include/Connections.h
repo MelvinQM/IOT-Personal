@@ -24,14 +24,17 @@
 class Connections {
     public:
         void Init();
-        bool GetConnection();
-        void CreatePlayer(String name);
-        void UdpListen();
-        void FetchPlayers();
-        bool Connect();
         void Loop();
+        void UdpListen();
+        bool Connect();
+        bool GetConnection();
+
+        void CreatePlayer(String name);
+        void FetchPlayers();
         int CreateSession();
         JsonDocument GetSessionById(int id);
+        void UpdateSession(GameSettings &settings);
+        void CreateScore(int sessionId, int score);
     private:
         JsonDocument MakeAPICall(String method, String endpoint, JsonDocument* jsonDoc = nullptr);
         void GetMacAddress();

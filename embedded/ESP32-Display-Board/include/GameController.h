@@ -27,7 +27,7 @@ class GameController
     private:
         Connections conn;
         SpriteRenderer sRender;
-
+        GameSettings settings;
         TaskHandle_t ConnTaskHandle = NULL;
         #define CONN_TASK_STACK_SIZE    5000
         #define CONN_TASK_PRIORITY      1
@@ -49,7 +49,6 @@ class GameController
             Playing,
             EndGame,
             ShowingHighScores,
-            Restart,
         };
 
         GameState state = Intro;
@@ -58,7 +57,6 @@ class GameController
         void Play();
         void End();
         void ShowHighScores();
-        void Restarting();
 
 
         struct RGBColor {

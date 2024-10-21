@@ -22,7 +22,7 @@ void SpriteRenderer::InitializeDisplay(int rotation, bool swapBytes, int fillCol
 }
 
 
-void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
+void SpriteRenderer::GameLoop(GameSettings &settings)
 {
     // Game loop initialization
     cursor.setColorDepth(cursorColorDepth);
@@ -43,6 +43,8 @@ void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
 
     // Gameloop
     startMovementTime, startAnimationTime, startCursorTime = millis();
+    owlsKilled = 0;
+    owlsMissed = 0;
     bool isRunning = true;
     while(isRunning)
     {
@@ -53,7 +55,7 @@ void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
         MoveOwl();
         
         // Cursor logic
-        UpdateCursorPosition(x, y, useGyro);
+        UpdateCursorPosition(x, y, settings.useGyro);
         HandleCursorCollision(x, y);
 
         // Update screen
@@ -73,6 +75,9 @@ void SpriteRenderer::GameLoop(Difficulty diff, bool useGyro)
     bulletsText.deleteSprite();
     owlsText.deleteSprite();
     background.deleteSprite();
+
+
+    settings.score = score + 23;
 }
 
 void SpriteRenderer::UpdateCursorPosition(int& x, int& y, bool useGyro) 

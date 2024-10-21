@@ -199,10 +199,10 @@ void Connections::CreatePlayer(String name)
 
     // Check for the response
     if (!response.isNull()) {
-        Serial.println("Player created successfully.");
+        Serial.println("CreatePlayer: Player created successfully.");
         //serializeJsonPretty(response, Serial);  // Print the formatted response for debugging
     } else {
-        Serial.println("Failed to create player.");
+        Serial.println("CreatePlayer: Failed to create player.");
     }
 }
 
@@ -212,10 +212,10 @@ void Connections::FetchPlayers()
 
     // Check for the response
     if (!response.isNull()) {
-        Serial.println("Fetched players");
+        Serial.println("FetchPlayers: Fetched players");
         //serializeJsonPretty(response, Serial);  // Print the formatted response for debugging
     } else {
-        Serial.println("Failed to fetch players");
+        Serial.println("FetchPlayers: Failed to fetch players");
     }
 }
 
@@ -224,7 +224,7 @@ int Connections::CreateSession()
     JsonDocument res = MakeAPICall("POST", "session");
     String message = res["message"];
     int sessionId = res["id"];
-    Serial.println(message);
+    Serial.println("Create session: " + message);
 
     return sessionId;
 }
@@ -244,6 +244,41 @@ JsonDocument Connections::GetSessionById(int id)
     }
 
     
+}
+
+void Connections::UpdateSession(GameSettings &settings)
+{
+    JsonDocument doc;
+    if(settings.completed) doc["completed"] = true;
+    if(settings.startTime) doc["start_time"] = settings.startTime;
+    if(settings.endTime) doc["end_time"] = settings.endTime;
+
+    JsonDocument response = MakeAPICall("PATCH", "session/" + String(settings.sessionId), &doc);
+
+    // Check for the response
+    if (!response.isNull()) {
+        Serial.println("UpdateSession: ");
+        serializeJsonPretty(response, Serial);
+    } else {
+        Serial.println("UpdateSession: Failed to update session.");
+    }
+
+}
+
+void Connections::CreateScore(int sessionId, int score)
+{
+    JsonDocument doc;
+    doc["session_id"] = sessionId;
+    doc["score"] = score;
+
+    JsonDocument response = MakeAPICall("POST", "score", &doc);
+
+    if (!response.isNull()) {
+        Serial.println("CreateScore: ");
+        serializeJsonPretty(response, Serial);
+    } else {
+        Serial.println("CreateScore: Failed to create score.");
+    }
 }
 
 void Connections::GetMacAddress()

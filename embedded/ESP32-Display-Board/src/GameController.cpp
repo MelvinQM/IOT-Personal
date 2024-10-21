@@ -71,10 +71,6 @@ void GameController::Loop()
             // Show highscores from database
             ShowHighScores();
             break;
-        case Restart:
-            // Restart? Button
-            Restarting();
-            break;
         default:
             Serial.println("State Error Unrecognized state: " + state);
             break;    
@@ -85,10 +81,13 @@ void GameController::Loop()
 void GameController::ShowIntro()
 {
     Serial.println("------Showing Intro Sequence------");
+    
+    // Reset settings
+    settings = {};
 
     // Create session and show its id on screen
-    int sessionId = conn.CreateSession();
-    sRender.ShowIntro(sessionId);
+    settings.sessionId = conn.CreateSession();
+    sRender.ShowIntro(settings.sessionId);
 
     // Start polling until a player id is found
     Serial.print("Start polling.");
@@ -98,7 +97,7 @@ void GameController::ShowIntro()
 
     // unsigned long startTime;
     // unsigned long timeoutDuration = 10000;
-    while(playerId == 0)
+    while(settings.playerId  == 0)
     {
         // // Check if 10 seconds have passed
         // if (millis() - startTime >= timeoutDuration) {
@@ -106,10 +105,13 @@ void GameController::ShowIntro()
         //     break; // Exit the loop after 10 seconds
         // }
 
-        response = conn.GetSessionById(sessionId);
+        response = conn.GetSessionById(settings.sessionId);
         if(response["player_id"]) {
-            playerId = response["player_id"];
+            settings.playerId = response["player_id"];
+            settings.difficultyId = response["difficulty_id"];
+            settings.useGyro = response["use_gyro"];
             Serial.println("Player connected to session!");
+            Serial.printf("Difficulty: %d\nPlayerId: %d\nUse gyro: %d\n" , settings.difficultyId, settings.playerId, settings.useGyro);
         } else {
             Serial.print(".");
         }
@@ -117,9 +119,10 @@ void GameController::ShowIntro()
         vTaskDelay(BIG_TIMEOUT_DELAY / portTICK_PERIOD_MS);
     }
     Serial.println();
-
-
     SetLedRGB(green);
+
+    settings.startTime = millis();
+
     state = Playing;
 }
 
@@ -128,25 +131,32 @@ void GameController::Play()
     Serial.println("------Start Gameplay------");
     
     //TODO: Add settings received from session
-    sRender.GameLoop(EASY, false);
+    sRender.GameLoop(settings);
 
-    // If game ended setState to End
-    state = EndGame;
+    // Upload score
+    conn.CreateScore(settings.sessionId, settings.score);
+
+    // If game ended setState to Highscores
+    state = ShowingHighScores;
 }
 
 void GameController::ShowHighScores()
 {
     Serial.println("------Showing Highscores------");
+    
+    //TODO: Fetch highscores
+    
     sRender.ShowHighscores();
+
+    // After some time go to end screen
+    state = EndGame;
 }
 
 void GameController::End()
 {
     Serial.println("------Ending Game------");
-}
-void GameController::Restarting()
-{
-    Serial.println("------Restart Sequence------");
+    //TODO: Either quit or restart based on user input
+    state = Playing;
 }
 
 void GameController::InitLed()

@@ -33,7 +33,7 @@ class SpriteRenderer {
 
     public:
         void InitializeDisplay(int rotation, bool swapBytes, int fillColor);
-        void GameLoop(Difficulty diff, bool useGyro);
+        void GameLoop(GameSettings &settings);
         void ShowIntro(int sessionId);
         void ShowHighscores();
 

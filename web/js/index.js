@@ -113,7 +113,7 @@ userForm.addEventListener("submit", async (e) => {
       console.log("Player already exists, adding to session....");
     }
 
-    await addToSession(sessionId, playerId, true, true);
+    await addToSession(sessionId, playerId, false, true);
   }
 });
 

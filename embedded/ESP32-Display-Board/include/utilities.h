@@ -50,9 +50,20 @@
 #define CONTROLLER_AXIS_DATA_METHOD "axisData"
 
 enum Difficulty {
-    EASY,
-    NORMAL,
-    HARD
+    EASY = 1,
+    NORMAL = 2,
+    HARD = 3
+};
+
+struct GameSettings {
+    unsigned int sessionId;
+    unsigned int playerId;
+    Difficulty difficultyId;
+    unsigned int score;
+    unsigned long startTime;
+    unsigned long endTime;
+    boolean useGyro;
+    boolean completed;
 };
 
 #endif
