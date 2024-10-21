@@ -48,7 +48,19 @@ class SessionController {
                 echo json_encode($product);
                 break;
             case "PATCH":
-                ErrorCodeHelper::getInstance()->handleErrorCode(501, "PATCH not implemented");
+                $data = json_decode(file_get_contents('php://input'), true);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    ErrorCodeHelper::getInstance()->handleErrorCode(400,'Invalid JSON format');
+                }
+                $rows = $this->gateway->update($id, $data);
+                
+                if($rows == 0) break;
+                
+                echo json_encode([
+                    "message" => "Session updated",
+                    "rows" => $rows
+                ]);
+                break;
 
             case "DELETE":
                 $rows = $this->gateway->delete($id);

@@ -106,18 +106,46 @@ class SessionGateway
      *
      * @return int The number of rows affected by the update.
      */
-    // public function update(string $id, array $data) : string
-    // {
-    //     $sql = "UPDATE session SET session = ? WHERE id = ?";
+    public function update(string $id, array $data) : string
+    {
+        // Check if player_id is being updated
+        $currentSessionData = $this->get($id);
 
-    //     $stmt = $this->conn->prepare($sql);
+        // If session is completed can't be updated
+        if ($currentSessionData["completed"]) {
+            ErrorCodeHelper::getInstance()->handleErrorCode(400,"Can't update a completed session");
+        }
 
-    //     $stmt->bind_param("ss", $data["session"], $id);
-
-    //     $stmt->execute();
-
-    //     return $stmt->affected_rows;
-    // }
+        //Prevent updating value when value is null
+        $sql = "UPDATE session SET 
+                    difficulty_id = COALESCE(?, difficulty_id), 
+                    use_gyro = COALESCE(?, use_gyro), 
+                    player_id = COALESCE(?, player_id), 
+                    completed = COALESCE(?, completed), 
+                    start_time = COALESCE(?, start_time), 
+                    end_time = COALESCE(?, end_time) 
+                WHERE id = ?";
+    
+        $stmt = $this->conn->prepare($sql);
+    
+        // Use null coalescing to set default values or null
+        $completed = isset($data['completed']) ? $data['completed'] : null; // Keep null if not set
+        $start_time = isset($data['start_time']) ? $data['start_time'] : null; // Keep null if not set
+        $end_time = isset($data['end_time']) ? $data['end_time'] : null; // Keep null if not set
+        $player_id = isset($data['player_id']) ? $data['player_id'] : null; // Keep null if not set
+        $difficulty_id = isset($data['difficulty_id']) ? $data['difficulty_id'] : null; // Default to 1 if not set
+        $use_gyro = isset($data['use_gyro']) ? $data['use_gyro'] : null; // Default to 0 if not set
+    
+        $stmt->bind_param("iisissi", $difficulty_id, $use_gyro, $player_id, $completed, $start_time, $end_time, $id);
+    
+        // Execute the statement
+        $stmt->execute();
+    
+        // Return the number of affected rows
+        return $stmt->affected_rows;
+    }
+    
+    
 
     /**
      * Executes a DELETE query to remove a session from the database.
