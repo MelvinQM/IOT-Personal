@@ -95,10 +95,20 @@ void GameController::ShowIntro()
     JsonDocument response;
     int playerId = 0;
     SetLedRGB(yellow);
+
+    // unsigned long startTime;
+    // unsigned long timeoutDuration = 10000;
     while(playerId == 0)
     {
+        // // Check if 10 seconds have passed
+        // if (millis() - startTime >= timeoutDuration) {
+        //     Serial.println("Timeout! No player connected.");
+        //     break; // Exit the loop after 10 seconds
+        // }
+
         response = conn.GetSessionById(sessionId);
         if(response["player_id"]) {
+            playerId = response["player_id"];
             Serial.println("Player connected to session!");
         } else {
             Serial.print(".");

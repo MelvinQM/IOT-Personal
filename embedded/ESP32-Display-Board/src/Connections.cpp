@@ -212,10 +212,10 @@ void Connections::FetchPlayers()
 
     // Check for the response
     if (!response.isNull()) {
-        Serial.println("Player created successfully.");
+        Serial.println("Fetched players");
         //serializeJsonPretty(response, Serial);  // Print the formatted response for debugging
     } else {
-        Serial.println("Failed to create player.");
+        Serial.println("Failed to fetch players");
     }
 }
 
@@ -235,7 +235,7 @@ JsonDocument Connections::GetSessionById(int id)
 
     // Check for the response
     if (!response.isNull()) {
-        Serial.println("Player created successfully.");
+        Serial.println("Session retrieved");
         serializeJsonPretty(response, Serial);  // Print the formatted response for debugging
         return response;
     } else {
