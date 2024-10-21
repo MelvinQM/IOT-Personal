@@ -2,12 +2,20 @@
 
 ## Contents
 1. **[Basic Concept](#1-basic-concept)**
+   - **[1.1 Outputs](#11-outputs)**
+   - **[1.2 Inputs](#12-inputs)**
+   - **[1.3 Extra Components](#13-extra-components)**
+   - **[1.4 Component List](#14-component-list)**
 2. **[Bill of Materials](#2-bill-of-materials)**
-3. **[Components](#3-components)**
-    - **[3.1 Project Wiring Diagram](#31-project-wiring-diagram)**
-    - **[3.2 MPU6050](#32-mpu6050)**
-    - **[3.3 ESP32-2432S024](#33-esp32-2432s024)**
-4. **[Bluetooth (BLE)](#4-bluetooth-ble)**
+3. **[Project Wiring Diagram](#3-project-wiring-diagram)**
+4. **[Components](#4-components)**
+   - **[4.1 MPU6050](#41-mpu6050)**
+   - **[4.2 ESP32-2432S024](#42-esp32-2432s024)**
+     - **[4.2.1 RGB LED](#421-rgb-led)**
+   - **[4.3 Joystick](#43-joystick)**
+   - **[4.4 Button](#44-button)**
+   - **[4.5 DC-DC Multi-Output Buck-converter](#45-dc-dc-multi-output-buck-converter-33v5v9v12v)**
+
 
 
 ## 1. Basic Concept
