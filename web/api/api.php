@@ -18,7 +18,8 @@ spl_autoload_register(function ($class) {
         __DIR__ . '/src/player/',
         __DIR__ . '/src/score/',
         __DIR__ . '/src/session/',
-        __DIR__ . '/src/difficulty/'
+        __DIR__ . '/src/difficulty/',
+        __DIR__ . '/src/actions/'
     ];
 
     // Search for the file in the specified directories
@@ -43,15 +44,15 @@ $parts = explode("/", trim($uri, "/"));
 
 $controller = RouteHandler::getInstance()->getController(strtolower($parts[1]));
 
-$id = $parts[2] ?? null;
+// This can be eiter an id incase of CRUD operations or a functionname incase its an action
+$arg = $parts[2] ?? null;
 
 // Get query parameters (filters)
 $filters = $_GET;
-//echo json_encode($filters);
 
 if($filters)
 {
-    $controller->handleRequest($_SERVER["REQUEST_METHOD"], $id, $filters);
+    $controller->handleRequest($_SERVER["REQUEST_METHOD"], $arg, $filters);
 } else {
-    $controller->handleRequest($_SERVER["REQUEST_METHOD"], $id);
+    $controller->handleRequest($_SERVER["REQUEST_METHOD"], $arg);
 }

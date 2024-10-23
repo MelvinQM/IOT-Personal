@@ -42,6 +42,9 @@ class RouteHandler {
             case "difficulty":
                 $gateway = new DifficultyGateway($db);
                 return new DifficultyController($gateway);
+            case "actions":
+                $gateway = new ActionsGateway($db);
+                return new ActionsController($gateway);
             default:
                 ErrorCodeHelper::getInstance()->handleErrorCode(404, "Invalid route requested");
                 exit;

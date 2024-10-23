@@ -29,23 +29,15 @@ class PlayerGateway
     {
         $sql = "SELECT * FROM player";
         
-        // If there are filters add them to the sql statement
-        if (!empty($filters)) {
-            $conditions = [];
-            foreach ($filters as $key => $value) {
-                $conditions[] = "$key = ?";
-            }
-            $sql .= " WHERE " . implode(" AND ", $conditions);
+        if (isset($filters["name"])) {
+            $sql .= " WHERE name = ?";
         }
     
         $stmt = $this->conn->prepare($sql);
     
-        if (!empty($filters)) {
-            $types = str_repeat('s', count($filters)); // Assuming all filters are strings, adjust accordingly
-            $values = array_values($filters);
-            $stmt->bind_param($types, ...$values); // Bind the values safely
+        if (isset($filters["name"])) {
+            $stmt->bind_param("s", $filters["name"]);
         }
-    
         $stmt->execute();
         $result = $stmt->get_result();
         
