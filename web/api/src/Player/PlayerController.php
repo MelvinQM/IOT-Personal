@@ -24,7 +24,7 @@ class PlayerController {
             $this->handlePlayerRequest($method, $id);
         } else {
             // Collection of resources
-            $this->handlePlayerCollectionRequest($method, $id, $filters);
+            $this->handlePlayerCollectionRequest($method, $filters);
         }
     }
 
@@ -88,7 +88,7 @@ class PlayerController {
      * @param string $method The HTTP request method.
      * @param string|null $id The ID of the player.
      */
-    public function handlePlayerCollectionRequest(string $method, ?string $id, ?array $filters): void 
+    public function handlePlayerCollectionRequest(string $method, ?array $filters): void 
     {
         switch($method) {
             case "GET":

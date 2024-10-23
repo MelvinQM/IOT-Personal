@@ -24,7 +24,7 @@ class DifficultyController {
             $this->handleDifficultyRequest($method, $id);
         } else {
             // Collection of resources
-            $this->handleDifficultyCollectionRequest($method, $id);
+            $this->handleDifficultyCollectionRequest($method);
         }
     }
 
@@ -63,7 +63,7 @@ class DifficultyController {
      * @param string $method The HTTP request method.
      * @param string|null $id The ID of the difficulty.
      */
-    public function handleDifficultyCollectionRequest(string $method, ?string $id): void 
+    public function handleDifficultyCollectionRequest(string $method): void 
     {
         switch($method) {
             case "GET":

@@ -385,3 +385,21 @@ I started of week 7 by finishing up some additions to the joystick code and in t
 I worked on adding the enemies to the game. For this I first had to add the sprites to the game. I did this by using aseprite to create a owl with 3 different animation sprites allowing for a good looking movement cycle.
 
 Next I worked on the logic behind the owl allowing the sprite to cycle through the animation sprites and moving across the screen. I also worked on hit detection. The hit detection works but no firing has been implemented yet.
+
+### Gameloop
+As I'm nearing the end of my time I focused mostly on finishing up some loose ends like getting user input from frontend to insert into a session and fetching this data from the embedded device. This allows my embedded device to know the selected settings, player and the start time thats provided from javascript.
+
+### Feedback
+
+**🌐 Application Code.**
+
+**Reviewer: Raymond Bookelman**
+
+**Feedback:** This looks very good. You used REST methods, separated db from your logic.
+small thingy for errors you added a single method/function add this also for your happy flow.
+and I'm not sure why you add the $id id it's empty/null see comment in file.
+
+**Takeaway:** I updated my api code to no longer use an id in the collection function. This was redundant code so this was good feedback to receive.
+
+
+## Week 8

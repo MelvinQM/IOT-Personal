@@ -24,7 +24,7 @@ class SessionController {
             $this->handleSessionRequest($method, $id);
         } else {
             // Collection of resources
-            $this->handleSessionCollectionRequest($method, $id);
+            $this->handleSessionCollectionRequest($method);
         }
     }
 
@@ -86,7 +86,7 @@ class SessionController {
      * @param string $method The HTTP request method.
      * @param string|null $id The ID of the session.
      */
-    public function handleSessionCollectionRequest(string $method, ?string $id): void 
+    public function handleSessionCollectionRequest(string $method): void 
     {
         switch($method) {
             case "GET":

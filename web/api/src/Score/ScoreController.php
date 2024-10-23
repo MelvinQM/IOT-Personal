@@ -24,7 +24,7 @@ class ScoreController {
             $this->handleScoreRequest($method, $id);
         } else {
             // Collection of resources
-            $this->handleScoreCollectionRequest($method, $id);
+            $this->handleScoreCollectionRequest($method);
         }
     }
 
@@ -88,7 +88,7 @@ class ScoreController {
      * @param string $method The HTTP request method.
      * @param string|null $id The ID of the score.
      */
-    public function handleScoreCollectionRequest(string $method, ?string $id): void 
+    public function handleScoreCollectionRequest(string $method): void 
     {
         switch($method) {
             case "GET":
