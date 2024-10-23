@@ -79,8 +79,7 @@ const addToSession = (sessionId, playerId, useGyro, difficultyId) => {
     });
 };
 
-const openPlayingScreen = (sessionId) =>
-  {
+const openPlayingScreen = (sessionId) => {
     console.log("----Opening playing screen-----");
 
     // Switch views
@@ -88,17 +87,56 @@ const openPlayingScreen = (sessionId) =>
   
   
     // Make initial call to fetch session data
+    let playerId;
+    let playerName;
+    let useGyro;
+    let startTime;
+    let endTime;
+    let completed;
+    let difficultyId;
     fetch("/api/session/" + sessionId)
       .then((response) => response.json())
       .then((data) => {
-        console.log("Updated session: ", data);
+        console.log("Fetched session: ", data);
+        playerId = data.player_id;
+        useGyro = data.use_gyro;
+        startTime = data.startTime;
+        endTime = data.endTime;
+        completed = data.completed;
+        difficultyId = data.difficulty_id
       })
       .catch((error) => {
         console.error("Error:", error);
         return null;
       });
-  
-      // Insert data into table
+
+    // Fetch name from id
+    fetch("/api/player/" + playerId)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Fetched session: ", data);
+        playerName = data.name;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        return null;
+      });
+
+
+    // Insert data into table
+    const nameElement = document.getElementById("infoPlayerName");
+    const sessionIdElement = document.getElementById("infoSessionId");
+    const difficulty_idElement = document.getElementById("difficultyId");
+    const controlMethodElement = document.getElementById("infoControlMethod");
+    const startTimeElement = document.getElementById("infoStartTime");
+    const endTimeElement = document.getElementById("infoEndTime");
+
+    nameElement.textContent = playerName;
+    sessionIdElement.textContent = sessionId;
+    difficulty_idElement.textContent = difficultyId;
+    controlMethodElement.textContent = useGyro ? "Gyro" : "Joystick";
+    startTimeElement.textContent = startTime;
+    endTimeElement.textContent = endTime ? endTime : "Ongoing";
   
     // Start fetching every 10 seconds for scores connected to session id
   
@@ -178,7 +216,7 @@ userForm.addEventListener("submit", async (e) => {
     }
 
     await addToSession(sessionId, playerId, enableGyro, difficulty_id);
-    openPlayingScreen();
+    openPlayingScreen(sessionId);
   }
 });
 
