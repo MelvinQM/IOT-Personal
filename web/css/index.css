@@ -18,10 +18,16 @@ body {
     font-family: 'ArcadeClassic', sans-serif;
 }
 
-.inputscreen {
+.styledContainer {
     background-color: rgba(0, 0, 0, 0.5); /* 50% transparent black */
     width: 350px;
-    height: 400px;
+    height: 450px;
+}
+
+.styledSmallContainer {
+  background-color: rgba(0, 0, 0, 0.5); /* 50% transparent black */
+  width: 200px;
+  height: 450px;
 }
 
 .error-message {
@@ -37,6 +43,18 @@ body {
   background-color: rgb(22, 22, 22);
   color: white;
   border-color: white;
+}
+
+.customTable {
+  background-color: transparent !important;
+}
+
+.customTable th,
+.customTable td {
+  color: white;
+  background-color: transparent !important; /* Ensures the header and cells also have no background */
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 

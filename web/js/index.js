@@ -1,10 +1,44 @@
 /*
  * Author: Melvin Moes
- * Date: October 14, 2024
- * Description: This script handles the form submission for a player. The input is validated based on name and session ID.
- * Additionally, the script includes a function to redirect users to the admin page.
+ * Date: October 17, 2024
+ * Description: 
  * License: This project is licensed under the MIT License.
  */
+
+
+function redirectToAdmin() {
+  window.location.href = "/admin";
+}
+
+function toggleDivs() {
+  var inputScreen = document.getElementById("inputScreen");
+  var playingScreen = document.getElementById("playingScreen");
+  var scoreScreen = document.getElementById("scoreScreen");
+
+
+
+  inputScreen.classList.toggle("d-none");
+  inputScreen.classList.toggle("d-block");
+
+  playingScreen.classList.toggle("d-none");
+  playingScreen.classList.toggle("d-block");
+  scoreScreen.classList.toggle("d-none");
+  scoreScreen.classList.toggle("d-block");
+}
+
+function getCurrentDateTime() {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
 
 const getPlayerIdFromName = (name) => {
   return fetch(`/api/player?name=${name}`)
@@ -32,7 +66,7 @@ const addToSession = (sessionId, playerId, useGyro, difficultyId) => {
       use_gyro: useGyro,
       difficulty_id: difficultyId,
       completed: false,
-      start_time: new Date(),
+      start_time: getCurrentDateTime(),
     }),
   })
     .then((response) => response.json())
@@ -44,6 +78,32 @@ const addToSession = (sessionId, playerId, useGyro, difficultyId) => {
       return null;
     });
 };
+
+const openPlayingScreen = (sessionId) =>
+  {
+    console.log("----Opening playing screen-----");
+
+    // Switch views
+    toggleDivs();
+  
+  
+    // Make initial call to fetch session data
+    fetch("/api/session/" + sessionId)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Updated session: ", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        return null;
+      });
+  
+      // Insert data into table
+  
+    // Start fetching every 10 seconds for scores connected to session id
+  
+  
+  }
 
 const createPlayer = (name) => {
   return fetch("/api/player", {
@@ -118,9 +178,8 @@ userForm.addEventListener("submit", async (e) => {
     }
 
     await addToSession(sessionId, playerId, enableGyro, difficulty_id);
+    openPlayingScreen();
   }
 });
 
-function redirectToAdmin() {
-  window.location.href = "/admin";
-}
+

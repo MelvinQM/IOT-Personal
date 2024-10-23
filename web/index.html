@@ -20,47 +20,113 @@
       class="d-flex flex-column align-items-center justify-content-center vh-100"
     >
       <h1>Hoot Pursuit</h1>
-      <div
-        class="inputscreen align-items-center d-flex justify-content-center border border-4 border-success rounded"
+      <div class="d-flex">
+        <div
+        class="styledContainer align-items-start d-flex justify-content-center border border-4 border-success rounded"
       >
-        <!-- TODO: -->
-        <form id="userForm">
-          <div class="d-flex flex-column">
-            <div class="text-white">Enter Name</div>
-            <input
-              class="form-control mt-2"
-              placeholder="Name"
-              type="text"
-              id="name"
-            />
-            <span class="text-danger error-message" id="nameError"></span>
-            <div class="text-white mt-2">Enter Session ID</div>
-            <input
-              class="form-control mt-2"
-              placeholder="Session ID"
-              type="number"
-              id="sessionId"
-            />
-            <div class="d-flex mt-4">
-              <div class="me-2">
-                <div class="text-white">Difficulty</div>
-                <select class="form-select" aria-label="Default select example">
-                  <option value="1">EASY</option>
-                  <option value="2">NORMAL</option>
-                  <option value="3">HARD</option>
-                </select>
+         <div id="inputScreen" class="h-100 d-flex justify-content-center align-items-center">
+          <form id="userForm">
+            <div class="d-flex flex-column">
+              <div class="text-white">Enter Name</div>
+              <input
+                class="form-control mt-2"
+                placeholder="Name"
+                type="text"
+                id="name"
+              />
+              <span class="text-danger error-message" id="nameError"></span>
+              <div class="text-white mt-2">Enter Session ID</div>
+              <input
+                class="form-control mt-2"
+                placeholder="Session ID"
+                type="number"
+                id="sessionId"
+              />
+              <div class="d-flex mt-4">
+                <div class="me-2">
+                  <div class="text-white">Difficulty</div>
+                  <select id="difficultyId" class="form-select" aria-label="Default select example">
+                    <option value="1">EASY</option>
+                    <option value="2">NORMAL</option>
+                    <option value="3">HARD</option>
+                  </select>
+                </div>
+  
+                <div class="d-flex flex-column align-items-center">
+                  <div class="text-white">Enable Gyro</div>
+                  <input class="form-check-input mt-2 p-2" type="checkbox" id="enableGyro" />
+                </div>
               </div>
+              <span class="text-danger error-message" id="sessionIdError"></span>
+              <button class="btn btn-light mt-4" type="submit">Play!</button>
+            </div>
+          </form>
+         </div>
 
-              <div class="d-flex flex-column align-items-center">
-                <div class="text-white">Enable Gyro</div>
-                <input class="form-check-input mt-2 p-2" type="checkbox" id="enableGyro" />
+         <div id="playingScreen" class="d-none h-100 ">
+          <div class="d-flex flex-column align-items-start h-100 text-white mt-2">
+            <h2>Session info</h2>
+            <div class="d-flex justify-content-center align-items-start h-100 mt-2">
+              <table class="table table-bordered customTable">
+                <thead>
+                  <tr>
+                    <th>Setting</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+              <tbody>
+                <tr>
+                  <td>Session ID</td>
+                  <td>NULL</td>
+                </tr>
+                <tr>
+                  <td>Player</td>
+                  <td>NULL</td>
+                </tr>
+                <tr>
+                  <td>Difficulty</td>
+                  <td>NULL</td>
+                </tr>
+                <tr>
+                  <td>Control method</td>
+                  <td>NULL</td>
+                </tr>
+                <tr>
+                  <td>Start time</td>
+                  <td>NULL</td>
+                </tr>
+                <tr>
+                  <td>End time</td>
+                  <td>NULL</td>
+                </tr>
+              </table>
+            </div>
+            <div class="text-center w-100 mb-4 text-danger">Game status: &nbsp;<span id="status">NULL</span></div>
+          </div>
+         </div>
+        </div>
+        <div id="scoreScreen" class="d-none ms-2">
+          <div class="styledSmallContainer align-items-start d-flex justify-content-center border border-4 border-success rounded">
+            <div class="d-flex flex-column align-items-start h-100 text-white mt-2">
+              <h2>Scores</h2>
+              <div class="d-flex justify-content-center align-items-start h-100 mt-2 w-100">
+                <table class="table table-bordered customTable text-center">
+                  <tr>
+                    <th>Scores</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>NULL</td>
+                  </tr>
+                </table>
               </div>
             </div>
-            <span class="text-danger error-message" id="sessionIdError"></span>
-            <button class="btn btn-light mt-4" type="submit">Play!</button>
           </div>
-        </form>
+        </div>
       </div>
+
+      <button class="btn btn-primary mt-2" onclick="toggleDivs()">Switch &nbsp; View</button>
     </div>
     <script src="./js/index.js"></script>
   </body>
