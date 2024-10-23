@@ -126,5 +126,29 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => {
             console.error('Error:', error);
         });
+
+    fetch('/api/actions/gethighscores')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(element => {
+                //Create columns
+                const name = document.createElement('td');
+                name.textContent = element.name;
+                
+                const score = document.createElement('td');
+                score.textContent = element.score;
+                
+                // Create a row
+                const row = document.createElement('tr');
+                row.appendChild(name);
+                row.appendChild(score);
+                
+                // Append id and name to table body
+                document.getElementById("highscores").appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
         
 });

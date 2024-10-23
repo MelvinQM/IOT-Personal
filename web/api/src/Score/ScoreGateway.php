@@ -24,20 +24,35 @@ class ScoreGateway
      *
      * @return array An array of score records.
      */
-    public function getAll(): array
+    public function getAll(?array $filters): array
     {
         $sql = "SELECT * FROM score";
         
-        $stmt = $this->conn->query($sql);
+        // Add condition if filter exists
+        if (isset($filters["session_id"])) {
+            $sql .= " WHERE session_id = ?";
+        }
+    
+
+        $stmt = $this->conn->prepare($sql);
+    
+        // Bind the session_id if it exists
+        if (isset($filters["session_id"])) {
+            $stmt->bind_param("i", $filters["session_id"]);
+        }
+        $stmt->execute();
+    
+
+        $result = $stmt->get_result();
     
         $data = [];
-        
-        while ($row = $stmt->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
             $data[] = $row;
         }
     
         return $data;
     }
+    
 
     /**
      * Executes an INSERT query to add a new score.

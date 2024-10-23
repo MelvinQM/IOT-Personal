@@ -24,7 +24,7 @@ class ScoreController {
             $this->handleScoreRequest($method, $id);
         } else {
             // Collection of resources
-            $this->handleScoreCollectionRequest($method);
+            $this->handleScoreCollectionRequest($method, $filters);
         }
     }
 
@@ -88,11 +88,11 @@ class ScoreController {
      * @param string $method The HTTP request method.
      * @param string|null $id The ID of the score.
      */
-    public function handleScoreCollectionRequest(string $method): void 
+    public function handleScoreCollectionRequest(string $method, ?array $filters): void 
     {
         switch($method) {
             case "GET":
-                echo json_encode($this->gateway->getAll());
+                echo json_encode($this->gateway->getAll($filters));
                 break;
             case "POST":
                 $data = json_decode(file_get_contents('php://input'), true);

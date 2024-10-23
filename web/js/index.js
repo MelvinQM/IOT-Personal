@@ -1,10 +1,9 @@
 /*
  * Author: Melvin Moes
  * Date: October 17, 2024
- * Description: 
+ * Description:
  * License: This project is licensed under the MIT License.
  */
-
 
 function redirectToAdmin() {
   window.location.href = "/admin";
@@ -14,8 +13,6 @@ function toggleDivs() {
   var inputScreen = document.getElementById("inputScreen");
   var playingScreen = document.getElementById("playingScreen");
   var scoreScreen = document.getElementById("scoreScreen");
-
-
 
   inputScreen.classList.toggle("d-none");
   inputScreen.classList.toggle("d-block");
@@ -30,15 +27,14 @@ function getCurrentDateTime() {
   const now = new Date();
 
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-  const day = String(now.getDate()).padStart(2, '0');
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  const seconds = String(now.getSeconds()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+  const day = String(now.getDate()).padStart(2, "0");
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
-
 
 const getPlayerIdFromName = (name) => {
   return fetch(`/api/player?name=${name}`)
@@ -79,69 +75,95 @@ const addToSession = (sessionId, playerId, useGyro, difficultyId) => {
     });
 };
 
-const openPlayingScreen = (sessionId) => {
-    console.log("----Opening playing screen-----");
+const fetchSessionData = (sessionId) => {
+  return fetch("/api/session/" + sessionId)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Fetched session: ", data);
+      return data;
+    })
+    .catch((error) => {
+      console.error("Error fetching session:", error);
+      return null;
+    });
+};
 
-    // Switch views
-    toggleDivs();
-  
-  
-    // Make initial call to fetch session data
-    let playerId;
-    let playerName;
-    let useGyro;
-    let startTime;
-    let endTime;
-    let completed;
-    let difficultyId;
-    fetch("/api/session/" + sessionId)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Fetched session: ", data);
-        playerId = data.player_id;
-        useGyro = data.use_gyro;
-        startTime = data.startTime;
-        endTime = data.endTime;
-        completed = data.completed;
-        difficultyId = data.difficulty_id
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        return null;
+const fetchScoreBySessionId = (sessionId) => {
+  return fetch(`/api/score?session_id=${sessionId}`)
+    .then((response) => response.json())
+    .then((scores) => {
+      console.log("Fetched scores: ", scores);
+      return scores
+    })
+    .catch((error) => {
+      console.error("Error fetching scores:", error);
+    });
+};
+const openPlayingScreen = async (sessionId, name) => {
+  console.log("----Opening playing screen-----");
+
+  // Switch views
+  toggleDivs();
+
+  // Make initial call to fetch session data
+  let sessionData = await fetchSessionData(sessionId);
+
+  // Insert data into table
+  const nameElement = document.getElementById("infoPlayerName");
+  const sessionIdElement = document.getElementById("infoSessionId");
+  const difficultyIdElement = document.getElementById("infoDifficulty");
+  const controlMethodElement = document.getElementById("infoControlMethod");
+  const startTimeElement = document.getElementById("infoStartTime");
+  const endTimeElement = document.getElementById("infoEndTime");
+  const statusElement = document.getElementById("infoStatus");
+
+
+  nameElement.textContent = name;
+  sessionIdElement.textContent = sessionId;
+  difficultyIdElement.textContent = sessionData.difficulty_id;
+  controlMethodElement.textContent = sessionData.use_gyro ? "Gyro" : "Joystick";
+  startTimeElement.textContent = sessionData.start_time;
+  endTimeElement.textContent = sessionData.end_time
+    ? sessionData.end_time
+    : "Ongoing";
+
+
+  const scoreElement = document.getElementById("infoScores");
+  // Start fetching every 10 seconds for scores connected to session id
+  setInterval(async () => {
+    let scoreData = await fetchScoreBySessionId(sessionId);
+    if(scoreData.length > 0) {
+      scoreElement.innerHTML = ''; // Clear previous data
+      scoreData.forEach(data => {
+        let td = document.createElement('td');
+        td.textContent = data.score;
+        scoreElement.appendChild(td);
       });
-
-    // Fetch name from id
-    fetch("/api/player/" + playerId)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Fetched session: ", data);
-        playerName = data.name;
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        return null;
-      });
+    } else {
+      console.log("No score data found")
+    }
 
 
-    // Insert data into table
-    const nameElement = document.getElementById("infoPlayerName");
-    const sessionIdElement = document.getElementById("infoSessionId");
-    const difficulty_idElement = document.getElementById("difficultyId");
-    const controlMethodElement = document.getElementById("infoControlMethod");
-    const startTimeElement = document.getElementById("infoStartTime");
-    const endTimeElement = document.getElementById("infoEndTime");
 
-    nameElement.textContent = playerName;
-    sessionIdElement.textContent = sessionId;
-    difficulty_idElement.textContent = difficultyId;
-    controlMethodElement.textContent = useGyro ? "Gyro" : "Joystick";
-    startTimeElement.textContent = startTime;
-    endTimeElement.textContent = endTime ? endTime : "Ongoing";
-  
-    // Start fetching every 10 seconds for scores connected to session id
-  
-  
-  }
+
+    let sessionData = await fetchSessionData(sessionId);
+    if(sessionData) {
+      if(sessionData.end_time) {
+
+      }
+      if(sessionData.completed) {
+        statusElement.textContent = "Completed"
+        statusElement.parentElement.classList.toggle("text-danger")
+        statusElement.parentElement.classList.toggle("text-success")
+      }
+    } else {
+      console.error("No session data found")
+    }
+
+
+
+  }, 10000);
+};
 
 const createPlayer = (name) => {
   return fetch("/api/player", {
@@ -191,7 +213,6 @@ userForm.addEventListener("submit", async (e) => {
     isValid = false;
   }
 
-
   if (isValid) {
     console.log("Name:", name);
     console.log("Session ID:", sessionId);
@@ -216,8 +237,6 @@ userForm.addEventListener("submit", async (e) => {
     }
 
     await addToSession(sessionId, playerId, enableGyro, difficulty_id);
-    openPlayingScreen(sessionId);
+    await openPlayingScreen(sessionId, name);
   }
 });
-
-
