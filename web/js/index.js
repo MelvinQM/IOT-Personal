@@ -31,7 +31,8 @@ const addToSession = (sessionId, playerId, useGyro, difficultyId) => {
       player_id: playerId,
       use_gyro: useGyro,
       difficulty_id: difficultyId,
-      completed: true
+      completed: false,
+      start_time: new Date(),
     }),
   })
     .then((response) => response.json())
@@ -73,6 +74,8 @@ userForm.addEventListener("submit", async (e) => {
   // Get values from the form
   const name = document.getElementById("name").value;
   const sessionId = document.getElementById("sessionId").value;
+  const difficulty_id = document.getElementById("difficultyId").value;
+  const enableGyro = document.getElementById("enableGyro").value;
 
   let isValid = true;
 
@@ -89,6 +92,7 @@ userForm.addEventListener("submit", async (e) => {
       "ID must be positive";
     isValid = false;
   }
+
 
   if (isValid) {
     console.log("Name:", name);
@@ -113,7 +117,7 @@ userForm.addEventListener("submit", async (e) => {
       console.log("Player already exists, adding to session....");
     }
 
-    await addToSession(sessionId, playerId, false, true);
+    await addToSession(sessionId, playerId, enableGyro, difficulty_id);
   }
 });
 

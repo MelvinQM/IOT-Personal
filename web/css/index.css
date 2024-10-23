@@ -5,7 +5,7 @@
 
 
 body {
-    cursor: url('../assets/cursor-2.png'), auto;
+    /*cursor: url('../assets/cursor-2.png'), auto;*/
 
     background-image: url("../assets/background.png");
     background-color: #cccccc;
@@ -21,7 +21,7 @@ body {
 .inputscreen {
     background-color: rgba(0, 0, 0, 0.5); /* 50% transparent black */
     width: 350px;
-    height: 350px;
+    height: 400px;
 }
 
 .error-message {
