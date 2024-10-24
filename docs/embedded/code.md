@@ -1,219 +1,70 @@
 # Embedded code
 
-This is not a place to put your code, but to describe the code that you have written. You can describe the code in a general way, but also go into detail on specific parts of the code. You can also refer to the code in your repository. So just add a link to the code in your repository.
-
 ## Contents
-1. **[Game State Machine](#1-game-statemachine)**
-2. **[Bluetooth](#2-bluetooth)**
-   1. **[Server](#21-server)**
-   2. **[Client](#22-client)**
-3. **[WiFi](#3-wifimanager)**
+- **[1. Project Structure](#1-project-structure)**
+    - **[1.1 Code conventions](#11-code-conventions)**
+    - **[1.2 Platform.io](#12-platformio)**
+    - **[1.3 Used Libraries](#13-used-libraries)**
+- **[2. Features](#2-features)**
+    - **[2.1 Game State Machine](#21-game-statemachine)**
+    - **[2.2 Communication](#22-communication)**
+    - **[2.3 Gyroscope](#22-gyroscope)**
+    - **[2.4 Joystick](#24-joystick)**
+    - **[2.5 Sprite Rendering](#25-sprite-rendering)**
 
-## 1. Game statemachine
+## 1. Project Structure
+### 1.1 Code conventions
+The project is written in C++ and to format this code the use of the [Google C++ code conventions](https://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs) were used. These conventions were used to ensure the readability and maintainability of the code.
+These conventions consist of most importantly but not exlusively:
+
+- Classes and Functions are written in `Camelcase`.
+- The use of **guards** in header files is **mandatory** to prevent multiple inclusions.
+- Variable names are written using `snake_case`.
+- Filenames should be `lowercase` and can include `dashes` or `underscores`.
+- Variables declared as a const, and whose value is fixed for the duration of the program, are named with a leading "k" followed by mixed case `kUpdateSpeed`
+
+### 1.2 Platform.io
+The development environment for this project will be PlatformIO, a platform for embedded systems development. Integrated into Visual Studio Code, it simplifies building, uploading, and monitoring/debugging microcontrollers. PlatformIO supports various board types, including for example the ESP32-S3 and standard ESP32, and provides package management for libraries. The most important benefit of using Platform.io is that I found it easier to work in Object oriented program which arduino doesn't support by default.
+
+### 1.3 Used libraries
+|**Library**    | **Description**                                       | **Version** |**Environment**|**Creator**    | **Link**                                            |
+|---------------|-------------------------------------------------------|-------------|---------------|---------------|-----------------------------------------------------|
+|**Arduino**    |The Core framework for Arduino projects.               |arduino-esp32|All            |Arduino        |[GitHub](https://github.com/espressif/arduino-esp32) |
+|**ArduinoJSON**|Library allowing for easy JSON parsing and creation.   |7.2.0        |All            |blanchon       |[GitHub](https://github.com/bblanchon/ArduinoJson)   |
+|**WiFiManager**|WiFi Configuration manager with a configuration portal.|2.0.17       |Display        |tzapu          |[GitHub](https://github.com/tzapu/WiFiManager)       |
+|**XPT2046**    |*Optional* library to use touchscreen functionalities. |0.0.0        |Display        |paulstoffregen |[GitHub](https://github.com/PaulStoffregen/XPT2046_Touchscreen)|
+|**MPU6050**    |MPU-6050 6-axis accelerometer/gyroscope Library.       |1.3.1        |Controller     |Electronic Cats|[GitHub](https://github.com/ElectronicCats/mpu6050)  |
+|**I2Cdev**     |I2C device library used in MPU6050 lib                 |0.0.0        |Controller     |jrowberg       |[GitHub](https://github.com/jrowberg/i2cdevlib)      |
+
+
+## 2. Features
+Features means the diverse capabilities of the system some topics will go over the implementation on both the console and controller while other topics are device specific. This is specified at the start of each topic.
+
+
+### 2.1. Game statemachine
+***--Display logic--***
+
 The game that will be run on the game console. Makes use of the following state diagram as a reference for the code structure:
 <div align="center">
   <img src="/../assets/images/game-statemachine.drawio.png" alt="game-statemachine.drawio">
 </div>
 As seen in the diagram the game can only go the next state and no differing routes are possible according to this design.
 
-## 2. Bluetooth (BLE)
-To use Bluetooth on a ESP32/ESP32-S3 the Arduino core library BLE was used. The header can be included through the arduino core.
 
-### 2.1 BLE Server
-For more information about the workings of see the [Technical documentation](./technical_documentation.md##4-bluetooth-ble).
+### 2.2 Communication
+***--Display and controller logic--***
 
-For the creation of a BLE server the following headers must be included.
-```c++
-#include <BLEDevice.h>
-#include <BLEUtils.h>
-#include <BLEServer.h>
-```
+#### 2.2.1 API Connection through WiFiManager
 
-**Initialization**:
-
-To initialize the BLE server and to set up the service and characteristic.
-```c++
-BLEDevice::init("ESP32 Bluetooth server");
-pServer = BLEDevice::createServer();
-BLEService *pService = pServer->createService(SERVICE_UUID);
-
-// Allow read and write
-pCharacteristic = pService->createCharacteristic(
-                                CHARACTERISTIC_UUID, BLECharacteristic::PROPERTY_READ | 
-                                BLECharacteristic::PROPERTY_WRITE
-                            );
-```
-<br>
-
-**Callbacks**
-
-To handle any incoming messages from clients a Characteristic callback must be assigned to the server.
-```c++
-class WriteCallback : public BLECharacteristicCallbacks {
-    /**
-     * Rest of code ...
-    **/
-
-    void onWrite(BLECharacteristic *pCharacteristic) {
-        // Get the characteristic value from the client
-        std::string value = pCharacteristic->getValue();
-
-        // Deserialize the JSON data
-        JsonDocument doc;
-        DeserializationError error = deserializeJson(doc, value);
-
-        if (error) {
-            Serial.print("Failed to parse JSON: ");
-            Serial.println(error.c_str());
-            return;
-        }
-        
-        // Store data in servers gyrodata
-        server->gyroData = {doc["x"], doc["y"]};
-    }
-};  
-```
-To then assign this callback to the server
-```c++
-pCharacteristic->setCallbacks(new WriteCallback(this));    
-```
-<br>
-
-The server callbacks notify the user of connections and disconnections. It also stores if a device is currently connected.
-```c++
-class ServerCallbacks : public BLEServerCallbacks {
-    // Called when a device connects.
-    void onConnect(BLEServer *pServer) {
-        Serial.println("BLE: Device connected");
-        deviceConnected = true;
-    };
-
-    // Called when a device disconnects.
-    void onDisconnect(BLEServer *pServer) {
-        Serial.println("BLE: Device disconnected");
-        deviceConnected = false;
-    }
-};
-```
-To then assign this callback to the server
-```c++
-pServer->setCallbacks(new ServerCallbacks());
-```
-<br>
-
-**Starting service and advertising**:
-
-Finally, starting the service through the use of the start() function and enabling advertising to allow the client to connect and send data to the server.
-```c++
-pService->start();
-
-BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
-pAdvertising->addServiceUUID(SERVICE_UUID);
-pAdvertising->setScanResponse(true);
-
-BLEDevice::startAdvertising();
-```
-<br>
-
-### 2.2 BLE Client
-To create a BLE client the following headers must be included.
-```c++
-#include <BLEDevice.h>
-```
-**Initialization**:
-
-The device is initialized to use BLE and a scan is done to find all bluetooth devices in the area
-```c++
-  BLEDevice::init("Client Name");
-  BLEScan *pBLEScan = BLEDevice::getScan();
-
-  pBLEScan->setAdvertisedDeviceCallbacks(new MyAdvertisedDeviceCallbacks());
-  pBLEScan->setInterval(1349);
-  pBLEScan->setWindow(449);
-  pBLEScan->setActiveScan(true);
-  pBLEScan->start(5, false);
-```
-
-**Connecting**:
-
-To connect to the server first a client must be created. This client can then look for specific service/chracteristic UUID's to see if the correct server was found.
-```c++
-BLEClient *pClient = BLEDevice::createClient();
-pClient->setClientCallbacks(new MyClientCallback());
-
-// Connect to the BLE Server.
-pClient->connect(myDevice);
-
-// Set client to request maximum MTU from server
-pClient->setMTU(517);  
-```
-
-**Obtaining reference to service**:
-
-```c++
-// Obtain a reference to the service we are after in the remote BLE server.
-BLERemoteService *pRemoteService = pClient->getService(serviceUUID);
-```
-
-**Obtaining reference to characteristic**:
-
-```c++
-// Obtain a reference to the characteristic in the service of the remote BLE server.
-pRemoteCharacteristic = pRemoteService->getCharacteristic(charUUID);
-```
-
-**Callbacks**:
-
-A callback can be made to activate on every BLEServer found by looking at the serviceUUID of the current looked at server thats advertising. We can determine if we found the Server we are looking for.
-```c++
-class MyAdvertisedDeviceCallbacks : public BLEAdvertisedDeviceCallbacks {
-  //Called for each advertising BLE server.
-  void onResult(BLEAdvertisedDevice advertisedDevice) {
-    if (advertisedDevice.haveServiceUUID() && advertisedDevice.isAdvertisingService(serviceUUID)) {
-      BLEDevice::getScan()->stop();
-      myDevice = new BLEAdvertisedDevice(advertisedDevice);
-      doConnect = true;
-      doScan = true;
-    }
-  }
-};
-```
-
-**Main loop**:
-
-When the client is properly initialized the client will attempt to connect to the server once and if a connection is established will start periodically sending gyroscopic data.
-```c++
-// Try to connect once
-if (doConnect == true) 
-{
-    if (connectToServer()) {
-        Serial.println("We are now connected to the BLE Server.");
-    } else {
-        Serial.println("We have failed to connect to the server; there is nothing more we will do.");
-    }
-    doConnect = false;
-}
-
-// When connection is established send data
-if (connected) 
-{
-    String data = SendGyroData();
-    Serial.println("Setting new characteristic value to \"" + data + "\"");
-    pRemoteCharacteristic->writeValue(data.c_str(), data.length());
-} else if (doScan) 
-{
-    BLEDevice::getScan()->start(0);
-}
-```
+#### 2.2.1 UDP Connection through SoftAccessPoint
 
 
-## 3. WifiManager
-
-
-## 4. Components
-
-
-### 4.1 MPU6050
+### 2.3 Gyroscope
+***--Controller logic--***
 To work with the MPU6050 first see the [wiring diagram](../technical_documentation/#321-wiring-diagram)
 
-### 4.2 ESP32-2432S024
+### 2.4 Joystick
+***--Controller logic--***
+
+### 2.5 Sprite Rendering
+***--Display logic--***

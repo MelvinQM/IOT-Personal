@@ -62,6 +62,7 @@ Below is the table that outlines the necessary parts for this project:
 |Vibration Motor|DIY Victor|Pwm Vibration Motor, Dc Motor|1|€1,28|€1,28|[Aliexpress](https://nl.aliexpress.com/item/1005006296840332.html?spm=a2g0o.order_list.order_list_main.41.ad5779d2DKfbb1&gatewayAdapt=glo2nld#nav-store)|
 |DC-DC Converter 9v-5v |DFRobot|DFRobot DC-DC Multi-uitgang Buck-converter (3.3V/5V/9V/12V)|1|€5,99|€5,99|[Robotshop](https://eu.robotshop.com/nl/products/dfrobot-dc-dc-multi-uitgang-buck-converter-33v-5v-9v-12v)|
 |Joystick Module|DIY TZT|Dual-Axis X/Y Joystick Module|1|€3,65|€3,65|[Aliexpress](https://nl.aliexpress.com/item/1005005985509291.html?spm=a2g0o.order_list.order_list_main.65.7df579d2X1lPCn&gatewayAdapt=glo2nld)|
+|9V Battery|Varta|Long life max power 9V battery Alkaline|1|€3,79|€3,79|[Amazon](https://www.amazon.nl/Varta-4722-Batterijenideaal-brandmelder-stemapparaat/dp/B004WYN62O/ref=sr_1_7?__mk_nl_NL=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1NYFQ5IK92CUI&dib=eyJ2IjoiMSJ9.s1hD60Ugo8pFFMPi4fvoNZ59OwH-o_S1I4o9JsPUSHyDJ4NbpOYfVZnNHxP1QVZqb02I-TrhUwM3D6Y7oElVe95_1rdtP96RLEHU7P_MPrtS64pPSoUp1ggzHNXBL_nAN95F4rNVTyWkDFQUmAKZUOXgrZo8OsK0837OatbVtaMupwxCpH2rJNnSAo1bOxpgtx3GtcPe0Fmf4thD5WZfPcVRbbDy0F_2p2I9TO9kPbDHQAnhaOe5zitPXqGgBbqFZmmwTYJCuYCDscReUmFzQXssVf4He2TrEqaO8Dvx3uY.jeb0MqclxsMAGyEBeiUkCezzQBYqjW2fsNd-cYCOJWc&dib_tag=se&keywords=9v+battery&qid=1729798531&sprefix=9v+battery%2Caps%2C76&sr=8-7)|
 
 
 ## 3 Project wiring diagram
