@@ -9,7 +9,7 @@
  * License: This project is licensed under the MIT License.
  */
 
-#include "MotionController.h"
+#include "motion_controller.h"
 
 MotionController::MotionController()
 {
@@ -34,7 +34,7 @@ void MotionController::Init()
         GYRO_TASK_STACK_SIZE,
         &gyro,
         GYRO_TASK_PRIORITY,
-        &GyroTaskHandle,
+        &gyroTaskHandle,
         GYRO_TASK_CORE
     );
 }
@@ -47,7 +47,7 @@ void MotionController::Run()
     HandleJoystickClick();
 
 
-    // vTaskDelay(1 / portTICK_PERIOD_MS);
+    vTaskDelay(SMALL_COOLDOWN / portTICK_PERIOD_MS);
 }
 
 void MotionController::SendControllerData()
@@ -95,7 +95,7 @@ void MotionController::HandleButtonPress()
     // Prevent holding down button
     if (currentButtonState && !previousButtonState)
     {
-        if (elapsedTime > buttonCooldown)
+        if (elapsedTime > kButtonCooldown)
         {
             Serial.println("Button pressed");
             SendTriggerInput();
@@ -106,7 +106,7 @@ void MotionController::HandleButtonPress()
     }
 
     // Handle vibration duration
-    if (isVibrating && (currentTime - lastButtonPressTime > vibrationDuration))
+    if (isVibrating && (currentTime - lastButtonPressTime > kVibrationDuration))
     {
         // Stop vibrating
         analogWrite(VIBRATION_MOTOR_PIN, VIBRATION_MOTOR_MIN);
@@ -125,7 +125,7 @@ void MotionController::HandleJoystickClick()
     // Prevent holding down button
     if (currentButtonState && !previousJoystickClickState)
     {
-        if (elapsedTime > buttonCooldown)
+        if (elapsedTime > kButtonCooldown)
         {
             Serial.println("Joystick Clicked!");
             SendJoystickClick();

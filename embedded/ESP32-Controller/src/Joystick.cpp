@@ -7,10 +7,7 @@
  * License: This project is licensed under the MIT License.
  */
 
-#include "Joystick.h"
-
-Joystick::Joystick(){}
-Joystick::~Joystick(){}
+#include "joystick.h"
 
 void Joystick::Init()
 {

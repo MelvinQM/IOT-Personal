@@ -12,7 +12,7 @@
 #include <BLEDevice.h>
 #include <ArduinoJson.h>
 #include "utilities.h"
-#include "Gyroscope.h"
+#include "gyroscope.h"
 
 class BluetoothClient
 {

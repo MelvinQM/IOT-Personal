@@ -11,9 +11,9 @@
 #define MOTION_CONTROLLER_H
 
 #include "utilities.h"
-#include "Gyroscope.h"
-#include "UdpConnection.h"
-#include "Joystick.h"
+#include "gyroscope.h"
+#include "udp_connection.h"
+#include "joystick.h"
 
 class MotionController {
     public:
@@ -36,15 +36,15 @@ class MotionController {
         unsigned long lastButtonPressTime = 0;
         bool isVibrating = false;
         bool previousButtonState = LOW;
-        unsigned long buttonCooldown = 100;
-        unsigned long vibrationDuration = 200;
+        const unsigned long kButtonCooldown = 100;
+        const unsigned long kVibrationDuration = 200;
 
         // Joystick click configs
         bool previousJoystickClickState = LOW;
         unsigned long lastJoystickClickTime = 0;
-        unsigned long joystickClickCooldown = 100;
+        const unsigned long kJoystickClickCooldown = 100;
         
-        TaskHandle_t GyroTaskHandle = NULL;
+        TaskHandle_t gyroTaskHandle = NULL;
         #define GYRO_TASK_STACK_SIZE    5000
         #define GYRO_TASK_PRIORITY      1
         #define GYRO_TASK_CORE          0

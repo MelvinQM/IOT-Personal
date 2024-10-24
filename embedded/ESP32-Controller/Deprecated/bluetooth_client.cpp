@@ -7,7 +7,7 @@
  */
 
 #include "utilities.h"
-#include "BluetoothClient.h"
+#include "bluetooth_client.h"
 
 BluetoothClient::BluetoothClient(Gyroscope *gyro) : gyro(gyro) {}
 BluetoothClient::~BluetoothClient() {}
@@ -35,9 +35,9 @@ static void notifyCallback(BLERemoteCharacteristic *pBLERemoteCharacteristic, ui
 }
 
 class MyClientCallback : public BLEClientCallbacks {
-  void onConnect(BLEClient *pclient) {}
+  void onConnect(BLEClient *pClient) {}
 
-  void onDisconnect(BLEClient *pclient) {
+  void onDisconnect(BLEClient *pClient) {
     connected = false;
     Serial.println("onDisconnect");
   }
@@ -93,10 +93,10 @@ bool connectToServer() {
 
 class MyAdvertisedDeviceCallbacks : public BLEAdvertisedDeviceCallbacks {
   //Called for each advertising BLE server.
-  void onResult(BLEAdvertisedDevice advertisedDevice) {
-    if (advertisedDevice.haveServiceUUID() && advertisedDevice.isAdvertisingService(serviceUUID)) {
+  void onResult(BLEAdvertisedDevice advertised_device) {
+    if (advertised_device.haveServiceUUID() && advertised_device.isAdvertisingService(serviceUUID)) {
       BLEDevice::getScan()->stop();
-      myDevice = new BLEAdvertisedDevice(advertisedDevice);
+      myDevice = new BLEAdvertisedDevice(advertised_device);
       doConnect = true;
       doScan = true;
     }
@@ -134,7 +134,7 @@ void BluetoothClient::Loop()
     Serial.println("Setting new characteristic value to \"" + data + "\"");
     pRemoteCharacteristic->writeValue(data.c_str(), data.length());
   } else if (doScan) {
-    BLEDevice::getScan()->start(0);  // this is just example to start scan after disconnect, most likely there is better way to do it in arduino
+    BLEDevice::getScan()->start(0);
   }
 }
 
@@ -144,7 +144,7 @@ String BluetoothClient::SendGyroData()
   GyroData data = gyro->GetXYZ();
 
   // Create a JSON document
-  StaticJsonDocument<256> jsonDoc;
+  JsonDocument jsonDoc;
   jsonDoc["x"] = data.x;
   jsonDoc["y"] = data.y;
 

@@ -25,6 +25,7 @@
 #define BAUD_RATE           115200
 #define TIMEOUT_DELAY       1000
 #define TRIGGER_COOLDOWN    100
+#define SMALL_COOLDOWN      1
 
 // Vibration motor settings
 #define VIBRATION_MOTOR_MAX     255
@@ -53,7 +54,6 @@
 struct GyroData {
     int x;
     int y;
-    // int z; Z is redundant for moving a cursor on a 2d surface
 };
 
 struct JoystickData {

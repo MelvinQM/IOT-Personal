@@ -13,8 +13,6 @@
 
 class Joystick {
     public:
-        Joystick();
-        ~Joystick();
         void Init();
         bool ReadJoystickClick();
         void ReadJoystickAxis();

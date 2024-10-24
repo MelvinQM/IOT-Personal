@@ -8,7 +8,7 @@
  * License: This project is licensed under the MIT License.
  */
 
-#include "UdpConnection.h"
+#include "udp_connection.h"
 
 UdpConnection::UdpConnection() {}
 
@@ -17,7 +17,7 @@ UdpConnection::~UdpConnection() {}
 void UdpConnection::Init()
 {
     //Connect to the WiFi network
-    WiFi.begin(ssid, password);
+    WiFi.begin(kSSID, kPassword);
     Serial.println("");
 
     // Wait for connection
@@ -25,47 +25,39 @@ void UdpConnection::Init()
         vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
         Serial.print(".");
     }
-    Serial.printf("\nConnected to: %s\n", ssid);
+    Serial.printf("\nConnected to: %s\n", kSSID);
     Serial.printf("IP address: %s", WiFi.localIP().toString().c_str());
     
     //This initializes udp and transfer buffer
-    udp.begin(udpPort);
+    udp.begin(kUDPPort);
 }
 
-void UdpConnection::SendJsonData(JsonDocument jsonDoc)
+void UdpConnection::SendJsonData(JsonDocument jsonDoc, bool response)
 {
-    // For debugging purposes
-    // Serial.print(F("Sending to "));
-    // Serial.print(udpAddress);
-    // Serial.print(F(" on port "));
-    // Serial.println(udpPort);
-    // serializeJson(jsonDoc, Serial);
-    // Serial.println();
-
     // Clear previous UDP buffer
     udp.flush();
     
     // Send the JSON string to the server
-    udp.beginPacket(udpAddress, udpPort);
+    udp.beginPacket(kUDPAddress, kUDPPort);
     serializeJson(jsonDoc, udp);
     udp.println();
     udp.endPacket();
 
 
 
-    // Incase the response needs to viewed
-    // // Initialize a buffer to receive the server's response
-    // uint8_t buffer[50] = {0};
-
-    // // Clear buffer
-    // memset(buffer, 0, 50);
-
-    // // Processing incoming packet, must be called before reading the buffer
-    // udp.parsePacket();
-
-    // // Receive response from the server, it will be HELLO WORLD
-    // if (udp.read(buffer, 50) > 0) {
-    //     Serial.print("Server to client: ");
-    //     Serial.println((char*)buffer);
-    // }
+    // If a response needs to be viewed
+    if (response) {
+        // Initialize a buffer to receive the server's response
+        char buffer[50] = {0};
+    
+        if (udp.parsePacket()) {
+            int len = udp.read(buffer, sizeof(buffer) - 1);  // Reserve space for null-terminator
+            if (len > 0) {
+                buffer[len] = '\0';  // Null-terminate the string
+                Serial.print("Server to client: ");
+                Serial.println(buffer);
+            }
+        }
+    }
+    
 }

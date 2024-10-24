@@ -8,9 +8,6 @@
 
 #include "Gyroscope.h"
 
-Gyroscope::Gyroscope() {}
-Gyroscope::~Gyroscope(){}
-
 // INTERRUPT DETECTION ROUTINE
 volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
 void IRAM_ATTR dmpDataReady() {
@@ -19,13 +16,10 @@ void IRAM_ATTR dmpDataReady() {
 
 void Gyroscope::Init() 
 {
-    // join I2C bus (I2Cdev library doesn't do this automatically)
-    #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
-        Wire.begin();
-        Wire.setClock(400000); // 400kHz I2C clock. Comment this line if having compilation difficulties
-    #elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
-        Fastwire::setup(400, true);
-    #endif
+    // Initialize I2C
+    Wire.begin();
+    Wire.setClock(400000);
+
 
     // initialize device
     Serial.println(F("Initializing I2C devices..."));

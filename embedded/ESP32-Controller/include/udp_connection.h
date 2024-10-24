@@ -20,12 +20,12 @@ class UdpConnection
         UdpConnection();
         ~UdpConnection();
         void Init();
-        void SendJsonData(JsonDocument doc);
+        void SendJsonData(JsonDocument doc, bool response = false);
     private:
-        const char *udpAddress = "192.168.1.1";
-        const int udpPort = 44444;
-        const char *ssid = "HootPursuitConsoleAP";
-        const char *password = "hootpursuitaccess";
+        const char *kUDPAddress = "192.168.1.1";
+        const int kUDPPort = 44444;
+        const char *kSSID = "HootPursuitConsoleAP";
+        const char *kPassword = "hootpursuitaccess";
         WiFiUDP udp;
 
 };
