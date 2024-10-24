@@ -1,54 +1,52 @@
 # Technical documentation
 
 ## Contents
-1. **[Basic Concept](#1-basic-concept)**
-   - **[1.1 Outputs](#11-outputs)**
-   - **[1.2 Inputs](#12-inputs)**
-   - **[1.3 Extra Components](#13-extra-components)**
-   - **[1.4 Component List](#14-component-list)**
-2. **[Bill of Materials](#2-bill-of-materials)**
-3. **[Project Wiring Diagram](#3-project-wiring-diagram)**
-4. **[Components](#4-components)**
-   - **[4.1 MPU6050](#41-mpu6050)**
-   - **[4.2 ESP32-2432S024](#42-esp32-2432s024)**
-     - **[4.2.1 RGB LED](#421-rgb-led)**
-   - **[4.3 Joystick](#43-joystick)**
-   - **[4.4 Button](#44-button)**
-   - **[4.5 DC-DC Multi-Output Buck-converter](#45-dc-dc-multi-output-buck-converter-33v5v9v12v)**
+- **[1. Basic Concept](#1-basic-concept)**
+    - **[1.1 Outputs](#11-outputs)**
+    - **[1.2 Inputs](#12-inputs)**
+    - **[1.3 Extra Components](#13-extra-components)**
+    - **[1.4 Component List](#14-component-list)**
+- **[2. Bill of Materials](#2-bill-of-materials)**
+- **[3. Project Wiring Diagram](#3-project-wiring-diagram)**
+- **[4. Components](#4-components)**
+    - **[4.1 MPU6050](#41-mpu6050)**
+    - **[4.2 ESP32-2432S024 (Display & Led)](#42-esp32-2432s024)**
+    - **[4.3 Joystick](#43-joystick)**
+    - **[4.4 Button](#44-button)**
+    - **[4.5 DC-DC Multi-Output Buck-converter](#45-dc-dc-multi-output-buck-converter-33v5v9v12v)**
 
 
 
 ## 1. Basic Concept
-This project will be a Embedded system take on the game Duck Hunt. This project has as requirement 3 outputs and 3 inputs.
+This project will be an Embedded system take on the game Duck Hunt. This project has as requirement 3 outputs and 3 inputs. The goal is to make a wireless controller capable of moving a digital cursor on a screen.
 
 ### 1.1 Outputs
-- Display that will be either a monitor or a small LED display.
+- A ESP32 powered Display
+- RGB Led which will display the status through color.
 - A Rumble pack in the controller for extra satisfying game feedback.
-- Buzzer/Speaker that will be used to generate various sound effects and music.
 
 ### 1.2 Inputs
 - Gyroscope that will serve as the means of calculating where the cursor on screen should be pointing
 - Fire button (This will be a button on the controller which will trigger the fire function of the game).
-- On/Off Switch (This will allow the controller to be turned on and off).
+- Joystick to function as a secondary input for controlling the cursor on screen.
 
-### 1.3 Extra components
-Additionally some components could be used if there is enough time.
-- A joystick for additional game control or as a backup if the gyro doesn't produce good results.
-- An external power source for both the console and the controller.
+### 1.3 Component list
+Below all components are specified for both the console and the controller. The components marked extra are only added if enough time is presented as they are not as important.
 
-### 1.4 Component list
 - Console
     - External power source (Optional)
         - Power switch
     - Display
+        - Onboard RGB Led
     - Speaker / Buzzer (Extra)
 
-- Controller (Gun)
-    - External power source
-        - Power Switch
+- Controller
+    - External power source / 9v Battery
+        - Power Switch (Extra)
+        - DC - DC Converter
     - Gyroscope
     - Trigger button
-    - Rumble Pack
+    - Vibration Motor
 
 ## 2. Bill of materials
 
@@ -66,11 +64,11 @@ Below is the table that outlines the necessary parts for this project:
 |Joystick Module|DIY TZT|Dual-Axis X/Y Joystick Module|1|€3,65|€3,65|[Aliexpress](https://nl.aliexpress.com/item/1005005985509291.html?spm=a2g0o.order_list.order_list_main.65.7df579d2X1lPCn&gatewayAdapt=glo2nld)|
 
 
-### 3 Project wiring diagram
-## 4. Components
+## 3 Project wiring diagram
 The diagram for connecting the entire project:
 
 
+## 4. Components
 ### 4.2 MPU6050 
 
 <div style="display: flex; align-items: center;">
@@ -85,17 +83,18 @@ The diagram for connecting the entire project:
       The angles of the MPU can be defined using YAW PITCH and ROLL. A visual respresentation of this can be seen in the image shown.
     </div>
   </div>
-  <div style="flex: 1; text-align: right; height: 25%;">
-    <img src="/../assets/images/components/mpu6050.jpg" alt="MPU6050" >
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/components/mpu6050.jpg" alt="MPU6050" width="50%">
+    <img src="/../assets/images/yawpitchroll.png" alt="MPU6050" width="50%">
   </div>
 </div>
 
-<img src="/../assets/images/yawpitchroll.png" alt="MPU6050" >
+
 
 
 
 ### 4.3 ESP32-2432S024
-### 4.3.1 ESP32-2432S024 (ESP Display)
+#### 4.3.1 ESP32-2432S024 (ESP Display)
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
     The ESP32-2432S024 or how it will be called for ease of reading the ESP Display is a 2.4 inch display with a resolution of 320x240. This display allows for full color display and touchscreen support. This display has an ESP32 onboard which allows the user to not have to wire anything to communicate from the esp to the display. This board also exposes some extra GPIO pins.
@@ -138,7 +137,18 @@ The diagram for connecting the entire project:
   </div>
 </div>
 
-### 4.5 DC-DC Multi-Output Buck-converter (3.3V/5V/9V/12V)
+### 4.5 Vibration Motor
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    The vibration motor serves as a way to provide a feedback to the player when pressing the trigger button. This motor is controlled through the use of a PWM signal. This allows differing levels of vibration to be achieved. The motor must be placed in a way where it is against a wall of the controller to allow for more vibrations to pass through.
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/components/vibration-motor.png" alt="rawmpudata" style="width: 75%; height: auto;">
+  </div>
+</div>
+
+
+### 4.6 DC-DC Multi-Output Buck-converter (3.3V/5V/9V/12V)
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
     This DC-DC stepdown converter serves as the power management for the controller. This component allows the controller to be powered through the use of a 9v battery. The 9 volts is brought down to 5 volts which is able to power an ESP32-S3.

@@ -93,12 +93,13 @@ const fetchScoreBySessionId = (sessionId) => {
     .then((response) => response.json())
     .then((scores) => {
       console.log("Fetched scores: ", scores);
-      return scores
+      return scores;
     })
     .catch((error) => {
       console.error("Error fetching scores:", error);
     });
 };
+
 const openPlayingScreen = async (sessionId, name) => {
   console.log("----Opening playing screen-----");
 
@@ -117,7 +118,6 @@ const openPlayingScreen = async (sessionId, name) => {
   const endTimeElement = document.getElementById("infoEndTime");
   const statusElement = document.getElementById("infoStatus");
 
-
   nameElement.textContent = name;
   sessionIdElement.textContent = sessionId;
   difficultyIdElement.textContent = sessionData.difficulty_id;
@@ -127,41 +127,33 @@ const openPlayingScreen = async (sessionId, name) => {
     ? sessionData.end_time
     : "Ongoing";
 
-
   const scoreElement = document.getElementById("infoScores");
   // Start fetching every 10 seconds for scores connected to session id
   setInterval(async () => {
     let scoreData = await fetchScoreBySessionId(sessionId);
-    if(scoreData.length > 0) {
-      scoreElement.innerHTML = ''; // Clear previous data
-      scoreData.forEach(data => {
-        let td = document.createElement('td');
+    if (scoreData.length > 0) {
+      scoreElement.innerHTML = ""; // Clear previous data
+      scoreData.forEach((data) => {
+        let td = document.createElement("td");
         td.textContent = data.score;
         scoreElement.appendChild(td);
       });
     } else {
-      console.log("No score data found")
+      console.log("No score data found");
     }
-
-
-
 
     let sessionData = await fetchSessionData(sessionId);
-    if(sessionData) {
-      if(sessionData.end_time) {
-
+    if (sessionData) {
+      if (sessionData.end_time) {
       }
-      if(sessionData.completed) {
-        statusElement.textContent = "Completed"
-        statusElement.parentElement.classList.toggle("text-danger")
-        statusElement.parentElement.classList.toggle("text-success")
+      if (sessionData.completed) {
+        statusElement.textContent = "Completed";
+        statusElement.parentElement.classList.toggle("text-danger");
+        statusElement.parentElement.classList.toggle("text-success");
       }
     } else {
-      console.error("No session data found")
+      console.error("No session data found");
     }
-
-
-
   }, 10000);
 };
 
