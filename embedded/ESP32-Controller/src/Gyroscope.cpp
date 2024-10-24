@@ -14,12 +14,11 @@ void IRAM_ATTR dmpDataReady() {
     mpuInterrupt = true;
 }
 
-void Gyroscope::Init() 
+void Gyroscope::init() 
 {
     // Initialize I2C
     Wire.begin();
     Wire.setClock(400000);
-
 
     // initialize device
     Serial.println(F("Initializing I2C devices..."));
@@ -74,7 +73,7 @@ void Gyroscope::Init()
     }
 }
 
-void Gyroscope::Loop()
+void Gyroscope::loop()
 {
     // if programming failed, don't try to do anything
     if (!dmpReady) return;
@@ -152,7 +151,7 @@ void Gyroscope::Loop()
 float screenWidth = 320;
 float screenHeight = 240;
 float sensitivity = 150;
-GyroData Gyroscope::GetXYZ() 
+GyroData Gyroscope::getXYZ() 
 {    
     // Calculate offsets
     float offsetX = ypr[0] * sensitivity;

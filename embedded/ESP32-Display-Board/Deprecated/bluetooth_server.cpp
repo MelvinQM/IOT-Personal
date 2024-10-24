@@ -12,11 +12,8 @@
 
 #include "bluetooth_server.h"
 
-BluetoothServer::BluetoothServer(){};
-BluetoothServer::~BluetoothServer(){};
-
 bool BluetoothServer::deviceConnected = false;
-void BluetoothServer::Init()
+void BluetoothServer::init()
 {
     Serial.println("Starting BLE work!");
 
@@ -50,7 +47,7 @@ void BluetoothServer::Init()
     Serial.println("Characteristic defined! Now you can read it in your phone!");
 }
 
-void BluetoothServer::Loop() {
+void BluetoothServer::loop() {
   if (deviceConnected) {
     pCharacteristic->notify();
     isAdvertising = false;

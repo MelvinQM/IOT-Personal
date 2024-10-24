@@ -18,18 +18,18 @@ MotionController::MotionController()
 
 MotionController::~MotionController() {}
 
-void MotionController::Init()
+void MotionController::init()
 {
     Serial.println("\n------------[Initializing Game]------------");
-    udpConnection.Init();
-    joystick.Init();
-    gyro.Init();
+    udpConnection.init();
+    joystick.init();
+    gyro.init();
     pinMode(BUTTON_PIN, INPUT);
     pinMode(VIBRATION_MOTOR_PIN, OUTPUT);
 
 
     xTaskCreatePinnedToCore(
-        GyroTask,
+        gyroTask,
         GYRO_TASK_NAME,
         GYRO_TASK_STACK_SIZE,
         &gyro,
@@ -39,22 +39,22 @@ void MotionController::Init()
     );
 }
 
-void MotionController::Run() 
+void MotionController::loop() 
 {
-    joystick.ReadJoystickAxis();
-    SendControllerData();
-    HandleButtonPress();
-    HandleJoystickClick();
+    joystick.readJoystickAxis();
+    sendControllerData();
+    handleButtonPress();
+    handleJoystickClick();
 
 
     vTaskDelay(SMALL_COOLDOWN / portTICK_PERIOD_MS);
 }
 
-void MotionController::SendControllerData()
+void MotionController::sendControllerData()
 {
     // Get data from gyroscope
-    GyroData gData = gyro.GetXYZ();
-    JoystickData jData = joystick.GetAxis();
+    GyroData gData = gyro.getXYZ();
+    JoystickData jData = joystick.getAxis();
 
     // Create a JSON document
     JsonDocument jsonDoc;
@@ -64,28 +64,28 @@ void MotionController::SendControllerData()
     jsonDoc["data"]["jX"] = jData.x;
     jsonDoc["data"]["jY"] = jData.y;
 
-    udpConnection.SendJsonData(jsonDoc);
+    udpConnection.sendJsonData(jsonDoc);
 }
 
-void MotionController::SendTriggerInput()
+void MotionController::sendTriggerInput()
 {
     // Create a JSON document
     JsonDocument jsonDoc;
     jsonDoc["method"] = TRIGGER_METHOD;
 
-    udpConnection.SendJsonData(jsonDoc);
+    udpConnection.sendJsonData(jsonDoc);
 }
 
-void MotionController::SendJoystickClick()
+void MotionController::sendJoystickClick()
 {
     // Create a JSON document
     JsonDocument jsonDoc;
     jsonDoc["method"] = JOYSTICK_CLICK_METHOD;
     
-    udpConnection.SendJsonData(jsonDoc);
+    udpConnection.sendJsonData(jsonDoc);
 }
 
-void MotionController::HandleButtonPress()
+void MotionController::handleButtonPress()
 {
     unsigned long currentTime = millis();
     unsigned long elapsedTime = currentTime - lastButtonPressTime;
@@ -98,7 +98,7 @@ void MotionController::HandleButtonPress()
         if (elapsedTime > kButtonCooldown)
         {
             Serial.println("Button pressed");
-            SendTriggerInput();
+            sendTriggerInput();
             lastButtonPressTime = currentTime;
             isVibrating = true;
             analogWrite(VIBRATION_MOTOR_PIN, VIBRATION_MOTOR_MAX);
@@ -116,11 +116,11 @@ void MotionController::HandleButtonPress()
     previousButtonState = currentButtonState; 
 }
 
-void MotionController::HandleJoystickClick()
+void MotionController::handleJoystickClick()
 {
     unsigned long currentTime = millis();
     unsigned long elapsedTime = currentTime - lastButtonPressTime;
-    bool currentButtonState = joystick.ReadJoystickClick();
+    bool currentButtonState = joystick.readJoystickClick();
 
     // Prevent holding down button
     if (currentButtonState && !previousJoystickClickState)
@@ -128,7 +128,7 @@ void MotionController::HandleJoystickClick()
         if (elapsedTime > kButtonCooldown)
         {
             Serial.println("Joystick Clicked!");
-            SendJoystickClick();
+            sendJoystickClick();
             lastJoystickClickTime = currentTime;
         }
         

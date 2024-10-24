@@ -21,10 +21,8 @@
 
 class BluetoothServer {
     public:
-        BluetoothServer();
-        ~BluetoothServer();
-        void Init();
-        void Loop();
+        void init();
+        void loop();
         GyroData gyroData = {0, 0};
     private:
         // https://www.uuidgenerator.net/

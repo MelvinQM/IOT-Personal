@@ -10,11 +10,8 @@
 
 #include "udp_connection.h"
 
-UdpConnection::UdpConnection() {}
 
-UdpConnection::~UdpConnection() {}
-
-void UdpConnection::Init()
+void UdpConnection::init()
 {
     //Connect to the WiFi network
     WiFi.begin(kSSID, kPassword);
@@ -32,7 +29,7 @@ void UdpConnection::Init()
     udp.begin(kUDPPort);
 }
 
-void UdpConnection::SendJsonData(JsonDocument jsonDoc, bool response)
+void UdpConnection::sendJsonData(JsonDocument jsonDoc, bool response)
 {
     // Clear previous UDP buffer
     udp.flush();

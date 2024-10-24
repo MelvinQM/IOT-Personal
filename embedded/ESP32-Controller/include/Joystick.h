@@ -13,13 +13,13 @@
 
 class Joystick {
     public:
-        void Init();
-        bool ReadJoystickClick();
-        void ReadJoystickAxis();
-        JoystickData GetAxis();
+        void init();
+        bool readJoystickClick();
+        void readJoystickAxis();
+        JoystickData getAxis();
     private:
         JoystickData data = {0.0f, 0.0f};
-        void NormalizeAxis(int x, int y);
+        void normalizeAxis(int x, int y);
 
         #define RANGE_IN_MIN JOYSTICK_RANGE_IN_MIN
         #define RANGE_IN_MAX JOYSTICK_RANGE_IN_MAX

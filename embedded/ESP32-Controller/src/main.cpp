@@ -13,10 +13,10 @@ MotionController controller;
 
 void setup() 
 {
-  controller.Init();
+  controller.init();
 }
 
 void loop() 
 {
-  controller.Run(); 
+  controller.loop(); 
 }

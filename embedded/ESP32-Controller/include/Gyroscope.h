@@ -18,10 +18,10 @@
 
 class Gyroscope {
     public:
-        void Init();
-        void Loop();
-        void CalibrateGyro();
-        GyroData GetXYZ();
+        void init();
+        void loop();
+        void calibrateGyro();
+        GyroData getXYZ();
     private:
         MPU6050 mpu;
         /**

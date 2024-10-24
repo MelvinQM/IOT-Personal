@@ -20,9 +20,9 @@ class BluetoothClient
         BluetoothClient(Gyroscope *gyro);
         ~BluetoothClient();
 
-        void Init();
-        void Loop();
-        String SendGyroData();
+        void init();
+        void loop();
+        String sendGyroData();
     private:
         Gyroscope *gyro;
         

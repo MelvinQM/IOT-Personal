@@ -103,7 +103,7 @@ class MyAdvertisedDeviceCallbacks : public BLEAdvertisedDeviceCallbacks {
   }
 };
 
-void BluetoothClient::Init()
+void BluetoothClient::init()
 {
   Serial.println("Starting Arduino BLE Client application...");
   BLEDevice::init("");
@@ -116,7 +116,7 @@ void BluetoothClient::Init()
   pBLEScan->start(5, false);
 }
 
-void BluetoothClient::Loop()
+void BluetoothClient::loop()
 {
   // Try to connect once
   if (doConnect == true) {
@@ -130,7 +130,7 @@ void BluetoothClient::Loop()
 
   // When connection is established send data
   if (connected) {
-    String data = SendGyroData();
+    String data = sendGyroData();
     Serial.println("Setting new characteristic value to \"" + data + "\"");
     pRemoteCharacteristic->writeValue(data.c_str(), data.length());
   } else if (doScan) {
@@ -138,7 +138,7 @@ void BluetoothClient::Loop()
   }
 }
 
-String BluetoothClient::SendGyroData()
+String BluetoothClient::sendGyroData()
 {
   // Get data from gyroscope
   GyroData data = gyro->GetXYZ();

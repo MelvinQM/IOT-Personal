@@ -19,18 +19,18 @@ class MotionController {
     public:
         MotionController();
         ~MotionController();
-        void Init();
-        void Run();
+        void init();
+        void loop();
     private:
         UdpConnection udpConnection;
         Gyroscope gyro;
         Joystick joystick;
 
-        void SendTriggerInput();
-        void SendJoystickClick();
-        void SendControllerData();
-        void HandleButtonPress();
-        void HandleJoystickClick();
+        void sendTriggerInput();
+        void sendJoystickClick();
+        void sendControllerData();
+        void handleButtonPress();
+        void handleJoystickClick();
 
         // Trigger configs
         unsigned long lastButtonPressTime = 0;
@@ -49,12 +49,12 @@ class MotionController {
         #define GYRO_TASK_PRIORITY      1
         #define GYRO_TASK_CORE          0
         #define GYRO_TASK_NAME          "GyroTask"
-        static void GyroTask(void *pvParameters)
+        static void gyroTask(void *pvParameters)
         {
             Gyroscope* gyro = static_cast<Gyroscope*>(pvParameters);
             for (;;)
             {
-                gyro->Loop();
+                gyro->loop();
                 vTaskDelay(GYRO_DELAY / portTICK_PERIOD_MS);
             }
         }
