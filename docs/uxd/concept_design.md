@@ -2,25 +2,14 @@
 
 ## Contents
 - **[1. Concept](#1-concept)**
-  - **[1.1 User Needs](#11-user-needs)**
-  - **[1.2 Product Requirements](#12-product-requirements)**
-  - **[1.3 Console Concepts](#13-console-concepts)**
-  - **[1.4 Controller Concepts](#14-controller-concepts)**
+    - **[1.1 User Needs](#11-user-needs)**
+    - **[1.2 Product Requirements](#12-product-requirements)**
+    - **[1.3 Controller Concepts](#13-controller-concepts)**
+    - **[1.4 Console Concepts](#14-console-concepts)**
 - **[2. Design](#2-design)**
-  - **[2.1 Software Decisions](#21-software-decisions)**
-    - **[2.1.1 Fusion360](#211-fusion360)**
-    - **[2.1.2 Fritzing](#212-fritzing)**
-    - **[2.1.3 Aseprite](#213-aseprite)**
-  - **[2.2 Prototypes](#22-prototypes)**
-    - **[2.2.1 First Prototype Model/Print](#221-first-prototype-modelprint)**
-    - **[2.2.2 Trigger Mechanism](#222-trigger-mechanism)**
-    - **[2.2.3 Joystick Holder](#223-joystick-holder)**
-    - **[2.2.4 Vibration Motor Holder](#224-vibration-motor-holder)**
-    - **[2.2.5 MPU6050 Holder](#225-mpu6050-holder)**
-    - **[2.2.6 DC-DC Converter Holder](#226-dc-dc-converter-holder)**
-    - **[2.2.7 Battery Holder](#227-battery-holder)**
-  - **[2.3 Current Controller Design](#23-current-controller-design)**
-    - **[2.3.1 Current Prints](#231-current-prints)**
+    - **[2.1 Software Decisions](#21-software-decisions)**
+    - **[2.2 Controller Prototypes](#22-controller-prototyping)**
+    - **[2.3 Console Prototypes](#23-console-prototyping)**
 
 ## 1. Concept
 The concept for my project is to make a game similair to Duck Hunt. Where the player will be provided a controller and a display. Instead of using the traditional way I will be trying to put my own spin on it. The traditional way is by using an optical sensor in the gun/controller that when pressed will see if it is pointing at a portion of the screen that's white. Also the moment the controller is pressed the whole screen goes black except for the target/duck. The moment the screen flickers and the sensor sees a white spot on the screen it has hit a duck. 
@@ -71,24 +60,34 @@ Additionally the controller will be wireless and communicate with the display th
     - **Time-bound**: Connection stability testing should be completed by the end of the development within 10 weeks.
 
 
-### 1.3 Console concepts
-
-### 1.4 Controller concepts
+### 1.3 Controller concepts
 The controller is one of the most important elements of this entire projects. Having a solid concept is essential for the project to feel complete.
 Below some concepts can be seen.
-<p align="center">
+<div align="center">
   <img src="/../assets/images/controller-concepts-1.png" alt="cursorconcept" width="75%">
-</p>
+</div>
 
-<p align="center">
+<div align="center">
   <img src="/../assets/images/controller-concepts-2.png" alt="cursorconcept" width="75%">
-</p>
+</div>
 
 An additional idea is to allow the controller to be plugged into an attachment to give it more of a gun feel. This allows the controller to be more multi purpose incase of additional games, but still allow it to be fitting for the main game being worked on.
-<p align="center">
+<div align="center">
   <img src="/../assets/images/controller-concepts-attachment.png" alt="cursorconcept" width="75%">
-</p>
+</div>
 <br>
+
+### 1.4 Console concepts
+
+One of the inspirations for designing the console was from looking at existing 3d models. I came across the following model which seemed like a good fit. [Link]("https://cults3d.com/en/3d-model/gadget/fix-it-felix-jr-cabinet-with-lithophane")
+<div align="center">
+  <img src="/../assets/images/console-inspiration.png" alt="console-inspiration" width="75%">
+</div>
+
+The console is modeled after a classic arcade cabinet. This cabinet is modeled around the ESP32 display more about this display [here](../embedded/technical_documentation.md#431-esp32-2432s024-esp-display)
+
+
+
 
 ### 1.5 Materials
 For the purpose of designing and manufacturing a controller and console. The most important factor was being able to make a creative and functional product. This is why a 3d printed design was the most logical option. The controller can be made to have any kind of shape using 3d printing while techniques such as laser cutting would be a lot harder to make work for this purpose. 
@@ -110,8 +109,12 @@ For the purpose of designing and manufacturing a controller and console. The mos
 - **Purpose:** Aseprite is a pixel art program that allows users to create 2D graphics and animations, focusing on pixel art.
 - **Decision for Choosing:** A program was required to make low pixel count graphics that low memory for storing on an embedded device.
 
-### 2.2 Prototypes
-#### 2.2.1 First prototype model/print
+#### 2.1.4 Bambu Studio
+- **Purpose:** Bambu studio is the slicer for the Bambu X1 Carbon 3d printer used in this project.
+- **Decision for Choosing:** Bambu studio is the best way to interface with the X1C printer as it is the company's own 3D printing slicer specifically made to use for their printers.
+
+### 2.2 Controller Prototyping
+#### 2.2.1 Basic shape
 To create the basic shape of the controller a fusion360 tutorial was used. Although this tutorial was in spanish I muted the audio and was still able to follow along quite nicely using the automatically generated subtitles. [Wii controller fusion tutorial](https://www.youtube.com/watch?v=6r9C27qcxtE&ab_channel=LuisAmaya)
 
 This model was to create a basic shape for the controller. 
@@ -123,37 +126,37 @@ I then moved around all components around to see if everything would fit. *(This
   <img src="/../assets/images/fusion-inside-controller.png" alt="inside-controller">
 </div>
 
-This print was mostly to get a feeling of the size of the controller to see if everything would fit the way I expected from inspecting it in the CAD.
-<div align="center">
-  <img src="/../assets/images/first-print.jpg" alt="first-print">
-</div>
-Some adjustments that were quite obvious right away was the thickness of the model. 1mm was quite thin and fragile. Increasing the shell of the model to 2mm makes it a lot more robust. This does take some space away from the components inside the model.
-
 
 #### 2.2.2 Trigger mechanism
-One of the most important elements of the design was the trigger button. I opened up a wii controller to see how this was handled. I noticed that the button was loose and was connected using a T join see picture below.
-<div align="center">
-  <img src="/../assets/images/wiicontrollerinside.jpg" alt="wiicontrollerinside">
+
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    One of the most important elements of the design was the trigger button. I opened up a wii controller to see how this was handled. I noticed that the button was loose and was connected using a T join see picture below.
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/wiicontrollerinside.jpg" alt="wiicontrollerinside" width="75%">
+  </div>
+</div>
+<br>
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    This joint allows the button to move up and down to press a button. I worked on making a system similair to this. I changed the button to have a sharper edge to allow for easier shooting. The wii controller has a softer edge which could lead to your finger sliding off easier when rapid firing.
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/trigger-design.png" alt="trigger-design" width="75%">
+    <img src="/../assets/images/trigger-fusion-model.png" alt="trigger-fusion-model" width="75%">
+  </div>
+</div>
+<br>
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    After testing with this design through a few iterations a satisfying result was created to allow the trigger to press a switch.
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/trigger-mechanism.png" alt="trigger-mechanism" width="75%">
+  </div>
 </div>
 
-
-This joint allows the button to move up and down to press a button. I worked on making a system similair to this. I changed the button to have a sharper edge to allow for easier shooting. The wii controller has a softer edge which could lead to your finger sliding off easier when rapid firing.
-
-<div style="display: flex; justify-content: center; align-items: center;">
-  <img src="/../assets/images/trigger-design.png" alt="trigger-design" width="50%">
-  <img src="/../assets/images/trigger-fusion-model.png" alt="trigger-fusion-model" width="50%">
-</div>
-
-To test this design the trigger was printed with a seperate holder:
-<div style="display: flex; justify-content: center; align-items: center;">
-  <img src="/../assets/images/trigger-testprint.jpg" alt="trigger-testprint">
-</div>
-
-After the result of this test was satisfying the next step was to look at how this trigger would press a button.
-
-<div style="display: flex; justify-content: center; align-items: center;">
-  <img src="/../assets/images/trigger-mechanism.png" alt="trigger-mechanism">
-</div>
 
 #### 2.2.3 Joystick Holder
 The controller will also have a joystick on the top. To fasten this component a very simple push fit mechanism was used.
@@ -170,50 +173,110 @@ The vibration motor had an interesting requirement. The vibrating part had to be
 </div>
 
 #### 2.2.5 MPU6050 Holder
-The holder for the MPU6050 was fixed to the top half of the controller and is fairly simple. The MPU has 2 holes meant for screwing it into constructions since the design did not allow for screws unless the print would be made significantly larger. This is why simple push fit "nubs" were used.
-<div style="display: flex; justify-content: center; align-items: center;">
-  <img src="/../assets/images/mpuholder-1.png" alt="mpuholder-1" width="50%">
-  <img src="/../assets/images/mpuholder-2.png" alt="mpuholder-2" width="50%">
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    The holder for the MPU6050 was fixed to the top half of the controller and is fairly simple. The MPU has 2 holes meant for screwing it into constructions since the design did not allow for screws unless the print would be made significantly larger. This is why simple push fit "nubs" were used.
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/mpuholder-2.png" alt="mpuholder-2" width="75%">
+  </div>
 </div>
-
 
 #### 2.2.6 DC-DC Converter Holder
-The dc-dc converter is fastened the same way the MPU is. This similarily is fastened to the top half of the controller
-<div style="display: flex; justify-content: center;">
-  <img src="/../assets/images/dc-dc-holder2.png" alt="dc-dc-holder2" width="50%">
+
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    The dc-dc converter is fastened the same way the MPU is. This similarily is fastened to the top half of the controller
+  </div>
+  <div style="flex: 1; text-align: right; margin-left: 4px;">
+    <img src="/../assets/images/dc-dc-holder2.png" alt="dc-dc-holder2">
+  </div>
 </div>
 
-#### 2.2.6 Battery Holder
+
+#### 2.2.7 Battery Holder
 To hold in the battery in the battery compartment a batter lid mechanism was designed. 
 <img src="/../assets/images/batteryholder-1.png" alt="batteryholder-1" >
 
-By looking at the Wii controller as inspiration a similair mechanism was designed. This mechanism is also used in many television remotes. It allows for a small latch that can be openend with the use of a finger nail or a flat head screw driver or something similair. (The plastic used PLA was quite tough and doesn't bend like the traditional remote material. Using a screwdriver is reccomended because of this.)
-<div style="display: flex; justify-content: center;">
-  <img src="/../assets/images/batteryholder-2.png" alt="batteryholder-2" >
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    By looking at the Wii controller as inspiration a similair mechanism was designed. This mechanism is also used in many television remotes. It allows for a small latch that can be openend with the use of a finger nail or a flat head screw driver or something similair. (The plastic used PLA was quite tough and doesn't bend like the traditional remote material. Using a screwdriver is reccomended because of this.)
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/batteryholder-2.png" alt="batteryholder-2" width="75%">
+  </div>
 </div>
 
-The battery holder is fit into place using three mechanisms the latch in the front specified earlier. 2 nubs on the back to fit the lid into position.
 
-<div style="display: flex; justify-content: center;">
-  <img src="/../assets/images/batteryholder-4.png" alt="batteryholder-4">
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    The battery holder is fit into place using three mechanisms the latch in the front specified earlier. 2 nubs on the back to fit the lid into position.
+    And a railing on the side to make sure the battery lid is positioned correctly and doesn't shift.
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/batteryholder-4.png" alt="batteryholder-4" width="75%">
+    <img src="/../assets/images/batteryholder-3.png" alt="batteryholder-3" width="75%">
+  </div>
 </div>
 
-And a railing on the side to make sure the battery lid is positioned correctly and doesn't shift.
-<img src="/../assets/images/batteryholder-3.png" alt="batteryholder-3" >
 
 
-### 2.3 Current Controller Design
+
+
+
+#### 2.2.8 Current Controller Design
 <div style="display: flex; flex-direction: column;justify-content: center; align-items: center;">
   <img src="/../assets/images/currentdesign-1.png" alt="currentdesign-1">
   <img src="/../assets/images/currentdesign-2.png" alt="currentdesign-2">
 </div>
 
-### 2.3.1 Current Prints
 
-<div style="display: flex; flex-direction: column;justify-content: center; align-items: center;">
-  <img src="/../assets/images/currentprint-1.jpg" alt="currentprint-1">
-  <br>
-  <img src="/../assets/images/currentprint-2.jpg" alt="currentprint-2">
-  <br>
-  <img src="/../assets/images/currentprint-3.jpg" alt="currentprint-3">
+
+### 2.3 Console Prototyping
+I started off modeling the chosen display in Fusion360 with accurate measurements to make it easier to design a container around it.
+<div align="center">
+  <img src="/../assets/images/espdisplaymodel.png" alt="espdisplaymodel" width="75%">
+</div>
+
+### 2.3.1 Basic shape
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    The basic shape of the console was created using the previous mentioned model as reference. The display has been tilted 10 degrees to allow for easier viewing from a top angle as the console will be quite small.
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/consolemodel-1.png" alt="consolemodel-1" width="75%">
+  </div>
+</div>
+
+### 2.3.2 RGB Led
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    To allow the RGB led which is used as an indicator light to provide the user or developer to see the status of the system. A hole was made to allow the light to shine through the enclosure.
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/consolemodel-2.png" alt="consolemodel-2" width="75%">
+  </div>
+</div>
+
+
+
+### 2.3.2 USB-C 
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    To power the system the use of a usb-c cable is required. To allow for a seamless way to plug this cable in a hole was added with enough tolerance to fit most usb-c cables.
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/consolemodel-3.png" alt="consolemodel-3" width="75%">
+  </div>
+</div>
+
+
+### 2.3.2 Enclosure assembly
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/" alt="" width="75%">
+  </div>
 </div>
