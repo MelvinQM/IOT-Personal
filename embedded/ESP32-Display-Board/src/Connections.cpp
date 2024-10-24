@@ -25,11 +25,11 @@ void Connections::init()
     WiFi.mode(WIFI_AP_STA);
     wm.setDarkMode(true);
     // wm.resetSettings(); // To reset the saved wifi connections
-    wm.autoConnect("HootPursuitAP", "password");
+    wm.autoConnect(kWifiManagerPortalName, kWifiManagerPortalPassword);
 
     // Enable SoftAP
     WiFi.softAPConfig(AP_LOCAL_IP, AP_GATEWAY_IP, AP_NETWORK_MASK);
-    WiFi.softAPsetHostname("HootPursuitHost");
+    WiFi.softAPsetHostname(kSoftApHostname);
     if (!WiFi.softAP(kSSID, kPassword))
     {
         Serial.println("Soft AP creation failed.");

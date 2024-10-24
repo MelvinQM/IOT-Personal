@@ -43,6 +43,9 @@ class Connections {
         WiFiUDP udp;
         GameDataModel& g = GameDataModel::getInstance();
 
+        const char* kWifiManagerPortalName = "HootPursuitAP";
+        const char* kWifiManagerPortalPassword = "password";
+        const char* kSoftApHostname = "HootPursuitHost";
         // const String kHostName = "192.168.0.239";
         const String kHostName = "145.92.189.173";
         const char *kSSID = "HootPursuitConsoleAP";
