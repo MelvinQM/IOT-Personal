@@ -10,7 +10,7 @@
  * License: This project is licensed under the MIT License.
  */
 
-#include "GameController.h"
+#include "game_controller.h"
 
 /**
  * DONT FORGET TO CHANGE THE USER_SETUP.H IN THE TFT_eSPI lib inside .pio/libdeps
@@ -22,54 +22,54 @@ GameController::GameController()
 GameController::~GameController()
 {
     // Delete the tasks on game exit to free up resources
-    if (ConnTaskHandle != NULL) vTaskDelete(ConnTaskHandle);
+    if (connTaskHandle != NULL) vTaskDelete(connTaskHandle);
 }
 
-void GameController::Init()
+void GameController::init()
 {
     xTaskCreatePinnedToCore(
-        ConnectionsTask,
+        connectionsTask,
         CONN_TASK_NAME,
         CONN_TASK_STACK_SIZE,
         &conn,
         CONN_TASK_PRIORITY,
-        &ConnTaskHandle,
+        &connTaskHandle,
         CONN_TASK_CORE
     );
     vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
     Serial.print("Init: Executing on core ");
     Serial.println(xPortGetCoreID());
 
-    InitLed();
-    SetLedRGB(blue);
-    while(!conn.GetConnection())
+    initLed();
+    setLedRGB(blue);
+    while(!conn.getConnection())
     {
         vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
         Serial.print(".");
     }
     
-    sRender.InitializeDisplay(SCREEN_ROTATION, true, TFT_BLACK);
+    sRender.init(SCREEN_ROTATION, true, TFT_BLACK);
 }
 
-void GameController::Loop()
+void GameController::loop()
 {
     switch(state)
     {
         case Intro:
             // Intro screen
-            ShowIntro();
+            showIntro();
             break;
         case Playing:
             // Gameplay
-            Play();
+            play();
             break;
         case EndGame:
             // Fill in name
-            End();
+            end();
             break;
         case ShowingHighScores:
             // Show highscores from database
-            ShowHighScores();
+            showHighScores();
             break;
         default:
             Serial.println("State Error Unrecognized state: " + state);
@@ -78,22 +78,21 @@ void GameController::Loop()
     vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
 }
 
-void GameController::ShowIntro()
+void GameController::showIntro()
 {
     Serial.println("------Showing Intro Sequence------");
     
-    // Reset settings
-    settings = {};
 
     // Create session and show its id on screen
-    settings.sessionId = conn.CreateSession();
-    sRender.ShowIntro(settings.sessionId);
+    settings = {};
+    settings.sessionId = conn.createSession();
+    sRender.renderIntro(settings.sessionId);
 
     // Start polling until a player id is found
     Serial.print("Start polling.");
     JsonDocument response;
     int playerId = 0;
-    SetLedRGB(yellow);
+    setLedRGB(yellow);
 
     // unsigned long startTime;
     // unsigned long timeoutDuration = 10000;
@@ -105,7 +104,7 @@ void GameController::ShowIntro()
         //     break; // Exit the loop after 10 seconds
         // }
 
-        response = conn.GetSessionById(settings.sessionId);
+        response = conn.getSessionById(settings.sessionId);
         if(response["player_id"]) {
             settings.playerId = response["player_id"];
             settings.difficultyId = response["difficulty_id"];
@@ -119,47 +118,44 @@ void GameController::ShowIntro()
         vTaskDelay(BIG_TIMEOUT_DELAY / portTICK_PERIOD_MS);
     }
     Serial.println();
-    SetLedRGB(green);
+    setLedRGB(green);
 
     settings.startTime = millis();
 
     state = Playing;
 }
 
-void GameController::Play()
+void GameController::play()
 {
     Serial.println("------Start Gameplay------");
     
-    //TODO: Add settings received from session
-    sRender.GameLoop(settings);
-
-    // Upload score
-    conn.CreateScore(settings.sessionId, settings.score);
-
-    // If game ended setState to Highscores
+    sRender.gameLoop(settings);
+    conn.createScore(settings.sessionId, settings.score);
     state = ShowingHighScores;
 }
 
-void GameController::ShowHighScores()
+void GameController::showHighScores()
 {
     Serial.println("------Showing Highscores------");
     
     //TODO: Fetch highscores
     
-    sRender.ShowHighscores();
+    sRender.renderHighscores();
 
     // After some time go to end screen
     state = EndGame;
 }
 
-void GameController::End()
+void GameController::end()
 {
     Serial.println("------Ending Game------");
+
     //TODO: Either quit or restart based on user input
+
     state = Playing;
 }
 
-void GameController::InitLed()
+void GameController::initLed()
 {
     // Initialize GPIO pins for RGB LED
     pinMode(LED_PIN_R, OUTPUT);
@@ -167,9 +163,9 @@ void GameController::InitLed()
     pinMode(LED_PIN_B, OUTPUT);
 
     // Initialize LED control channels
-    ledcSetup(LED_R_CHANNEL, freq, resolution);
-    ledcSetup(LED_G_CHANNEL, freq, resolution);
-    ledcSetup(LED_B_CHANNEL, freq, resolution);
+    ledcSetup(LED_R_CHANNEL, kFreq, kResolution);
+    ledcSetup(LED_G_CHANNEL, kFreq, kResolution);
+    ledcSetup(LED_B_CHANNEL, kFreq, kResolution);
     
     // Attach channels to pins
     ledcAttachPin(LED_PIN_R, LED_R_CHANNEL);
@@ -177,7 +173,7 @@ void GameController::InitLed()
     ledcAttachPin(LED_PIN_B, LED_B_CHANNEL);
 }
 
-void GameController::SetLedRGB(RGBColor color, float brightness)
+void GameController::setLedRGB(RGBColor color, float brightness)
 {
     ledcWrite(LED_R_CHANNEL, 255 - color.r * brightness);
     ledcWrite(LED_G_CHANNEL, 255 - color.g * brightness);

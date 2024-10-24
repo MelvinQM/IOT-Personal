@@ -9,53 +9,49 @@
  */
 
 
-#include "Connections.h"
+#include "connections.h"
 
 // Manual IP Configuration for Soft AP
 IPAddress AP_LOCAL_IP(192, 168, 1, 1);
 IPAddress AP_GATEWAY_IP(192, 168, 1, 254);
 IPAddress AP_NETWORK_MASK(255, 255, 255, 0);
 
-void Connections::Init()
+void Connections::init()
 {
     Serial.println("------------[Wifi & Api]------------");
-    GetMacAddress();
+    getMacAddress();
+
+    // Initialize wifi connection
     WiFi.mode(WIFI_AP_STA);
     wm.setDarkMode(true);
     // wm.resetSettings(); // To reset the saved wifi connections
     wm.autoConnect("HootPursuitAP", "password");
 
     // Enable SoftAP
-    //WiFi.mode(WIFI_AP_STA);  // Enable both AP and STA modes simultaneously
     WiFi.softAPConfig(AP_LOCAL_IP, AP_GATEWAY_IP, AP_NETWORK_MASK);
     WiFi.softAPsetHostname("HootPursuitHost");
-
-    // To initiate the Soft AP, pause the program if the initialization process encounters an error.
-    if (!WiFi.softAP(ssid, password))
+    if (!WiFi.softAP(kSSID, kPassword))
     {
         Serial.println("Soft AP creation failed.");
         while(1);
     }
 
-    udp.begin(localPort);
-    Serial.printf("UDP server : %s:%i \n", WiFi.localIP().toString().c_str(), localPort);
+    udp.begin(kLocalPort);
+    Serial.printf("UDP server : %s:%i \n", WiFi.localIP().toString().c_str(), kLocalPort);
 
-
-    isConnected = Connect();
+    isConnected = true;
 }
 
-bool Connections::GetConnection()
+bool Connections::getConnection()
 {
     return isConnected;
 }
 
-bool Connections::Connect()
+bool Connections::connect()
 {
     if(WiFi.status() == WL_CONNECTED) return true;
 
-    // Password protected ap
     bool res = wm.autoConnect("HootPursuitAP","password"); 
-
     if(!res) {
         Serial.println("Failed to connect");        
         // ESP.restart();
@@ -67,35 +63,26 @@ bool Connections::Connect()
     return res;
 }
 
-void Connections::Loop()
+void Connections::loop()
 {
-    isConnected = Connect();
+    isConnected = connect();
     if(!isConnected) return;
 
-    UdpListen();
+    udpListen();
     vTaskDelay(UDP_DELAY / portTICK_PERIOD_MS);
 }
 
-void Connections::UdpListen()
+void Connections::udpListen()
 {
     int packetSize = udp.parsePacket();
-
-    // If no packet is received, avoid printing or spamming output
-    // if (packetSize <= 0) {
-    //     vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
-    //     return;      
-    // }
 
     if (packetSize) {
         // Serial.printf("\nReceived packet from : %s\n", udp.remoteIP().toString());
         // Serial.printf("Size : %d", packetSize);
         // Serial.printf("[Server Connected]: %s", AP_LOCAL_IP.toString().c_str());
+
         int len = udp.read(packetBuffer, 255);
         if (len > 0) packetBuffer[len - 1] = 0;
-        // udp.beginPacket(udp.remoteIP(), udp.remotePort());
-        // udp.printf("UDP packet was received OK\r\n");
-        // udp.endPacket();
-        // Serial.println("\n");
         
         JsonDocument jsonDoc;
         DeserializationError error = deserializeJson(jsonDoc, packetBuffer);
@@ -113,17 +100,17 @@ void Connections::UdpListen()
             int gY = jsonDoc["data"]["gY"];
             float jX = jsonDoc["data"]["jX"];
             float jY = jsonDoc["data"]["jY"];
-            g.SetGyroData({gX, gY});
-            g.SetJoystickData({jX, jY});
+            g.setGyroData({gX, gY});
+            g.setJoystickData({jX, jY});
             //Serial.printf("From UDP: jX: %f jY: %f\n",jX ,jY );
             //Serial.printf("From Model: jX: %f jY: %f\n",g.GetJoystickX() ,g.GetJoystickY());
 
         } else if(method == TRIGGER_METHOD) {
             Serial.println("Trigger pressed");
-            g.SetTriggerPressed(true);
+            g.setTriggerPressed(true);
         } else if(method == JOYSTICK_CLICK_METHOD) {
             Serial.println("Joystick clicked");
-            g.SetJoystickClicked(true);
+            g.setJoystickClicked(true);
         } else {    
             Serial.println("Error: Method not recognized!");
         }
@@ -132,14 +119,14 @@ void Connections::UdpListen()
     }
 }
 
-JsonDocument Connections::MakeAPICall(String method, String endpoint, JsonDocument* jsonDoc)
+JsonDocument Connections::makeAPICall(String method, String endpoint, JsonDocument* jsonDoc)
 {
     WiFiClient wifiClient;
     HTTPClient http;
     JsonDocument jsonResponse;
     wifiClient.setTimeout(WIFI_TIMEOUT);
 
-    String url = "http://" + hostName + "/api/" + endpoint;
+    String url = "http://" + kHostName + "/api/" + endpoint;
     Serial.println("API Call to: " + url);
     http.begin(wifiClient, url);
 
@@ -188,40 +175,36 @@ JsonDocument Connections::MakeAPICall(String method, String endpoint, JsonDocume
 }
 
 
-void Connections::CreatePlayer(String name)
+void Connections::createPlayer(String name)
 {
-    // Create the JSON payload
     JsonDocument doc;
     doc["name"] = name;
 
-    // Call the unified API function with the POST method
-    JsonDocument response = MakeAPICall("POST", "player", &doc);
+    JsonDocument response = makeAPICall("POST", "player", &doc);
 
-    // Check for the response
     if (!response.isNull()) {
         Serial.println("CreatePlayer: Player created successfully.");
-        //serializeJsonPretty(response, Serial);  // Print the formatted response for debugging
+        //serializeJsonPretty(response, Serial); 
     } else {
         Serial.println("CreatePlayer: Failed to create player.");
     }
 }
 
-void Connections::FetchPlayers()
+void Connections::fetchPlayers()
 {
-    JsonDocument response = MakeAPICall("GET", "player");
+    JsonDocument response = makeAPICall("GET", "player");
 
-    // Check for the response
     if (!response.isNull()) {
         Serial.println("FetchPlayers: Fetched players");
-        //serializeJsonPretty(response, Serial);  // Print the formatted response for debugging
+        //serializeJsonPretty(response, Serial);
     } else {
         Serial.println("FetchPlayers: Failed to fetch players");
     }
 }
 
-int Connections::CreateSession()
+int Connections::createSession()
 {
-    JsonDocument res = MakeAPICall("POST", "session");
+    JsonDocument res = makeAPICall("POST", "session");
     String message = res["message"];
     int sessionId = res["id"];
     Serial.println("Create session: " + message);
@@ -229,14 +212,13 @@ int Connections::CreateSession()
     return sessionId;
 }
 
-JsonDocument Connections::GetSessionById(int id)
+JsonDocument Connections::getSessionById(int id)
 {
-    JsonDocument response = MakeAPICall("GET", "session/" + String(id));
+    JsonDocument response = makeAPICall("GET", "session/" + String(id));
 
-    // Check for the response
     if (!response.isNull()) {
         Serial.println("Session retrieved");
-        serializeJsonPretty(response, Serial);  // Print the formatted response for debugging
+        //serializeJsonPretty(response, Serial);
         return response;
     } else {
         Serial.println("Failed to get session by id.");
@@ -246,14 +228,14 @@ JsonDocument Connections::GetSessionById(int id)
     
 }
 
-void Connections::UpdateSession(GameSettings &settings)
+void Connections::updateSession(GameSettings &settings)
 {
     JsonDocument doc;
     if(settings.completed) doc["completed"] = true;
     if(settings.startTime) doc["start_time"] = settings.startTime;
     if(settings.endTime) doc["end_time"] = settings.endTime;
 
-    JsonDocument response = MakeAPICall("PATCH", "session/" + String(settings.sessionId), &doc);
+    JsonDocument response = makeAPICall("PATCH", "session/" + String(settings.sessionId), &doc);
 
     // Check for the response
     if (!response.isNull()) {
@@ -265,13 +247,13 @@ void Connections::UpdateSession(GameSettings &settings)
 
 }
 
-void Connections::CreateScore(int sessionId, int score)
+void Connections::createScore(int sessionId, int score)
 {
     JsonDocument doc;
     doc["session_id"] = sessionId;
     doc["score"] = score;
 
-    JsonDocument response = MakeAPICall("POST", "score", &doc);
+    JsonDocument response = makeAPICall("POST", "score", &doc);
 
     if (!response.isNull()) {
         Serial.println("CreateScore: ");
@@ -281,13 +263,12 @@ void Connections::CreateScore(int sessionId, int score)
     }
 }
 
-void Connections::GetMacAddress()
+void Connections::getMacAddress()
 {
-    // Variable to store the MAC address
-    uint8_t baseMac[6];
-    
     // Get MAC address of the WiFi station interface
+    uint8_t baseMac[6];
     esp_read_mac(baseMac, ESP_MAC_WIFI_STA);
+    
     Serial.print("Station MAC: ");
     for (int i = 0; i < 5; i++) {
         Serial.printf("%02X:", baseMac[i]);

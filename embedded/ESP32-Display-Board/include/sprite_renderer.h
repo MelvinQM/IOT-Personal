@@ -19,7 +19,7 @@
 #include "sprites/background.h"
 #include "sprites/owl.h"
 
-#include "GameDataModel.h"
+#include "game_data_model.h"
 
 class SpriteRenderer {
     private:
@@ -32,10 +32,10 @@ class SpriteRenderer {
         };
 
     public:
-        void InitializeDisplay(int rotation, bool swapBytes, int fillColor);
-        void GameLoop(GameSettings &settings);
-        void ShowIntro(int sessionId);
-        void ShowHighscores();
+        void init(int rotation, bool swapBytes, int fillColor);
+        void gameLoop(GameSettings &settings);
+        void renderIntro(int sessionId);
+        void renderHighscores();
 
     private:
         TFT_eSPI tft = TFT_eSPI();
@@ -48,27 +48,26 @@ class SpriteRenderer {
         TFT_eSprite scoreText = TFT_eSprite(&tft);
         TFT_eSprite bulletsText = TFT_eSprite(&tft);
         TFT_eSprite owlsText = TFT_eSprite(&tft);
-
         TFT_eSprite introText = TFT_eSprite(&tft);
         
 
         GameDataModel& g = GameDataModel::getInstance();
-        bool CheckCollision(int cursorX, int cursorY, int cursorHitBoxSize, int owlX, int owlY, int owlHitBoxSize);
-        void UpdateCursorPosition(int& x, int& y, bool useGyro);
-        void HandleCursorCollision(int& x, int& y);
-        void AnimateOwl();
-        void MoveOwl();
-        void ResetOwl();
-        void UpdateUI(int& x, int& y, int& score);
-        void UpdateTextElement(TFT_eSprite &text, TextSpriteSettings &settings, String content);
+        bool checkCollision(int cursorX, int cursorY, int cursorHitBoxSize, int owlX, int owlY, int owlHitBoxSize);
+        void updateCursorPosition(int& x, int& y, bool useGyro);
+        void handleCursorCollision(int& x, int& y);
+        void animateOwl();
+        void moveOwl();
+        void resetOwl();
+        void updateUI(int& x, int& y, int& score);
+        void updateTextElement(TFT_eSprite &text, const TextSpriteSettings &settings, String content);
 
         // Gameloop configs
         int score = 0;
         int totalOwls = 10;
         int owlsKilled = 0;
         int owlsMissed = 0;
-        int x = SCREEN_WIDTH / 2 -  cursorSpriteRatio / 2;
-        int y = SCREEN_HEIGHT / 2 - cursorSpriteRatio / 2;
+        int x = SCREEN_WIDTH / 2 -  kCursorSpriteRatio / 2;
+        int y = SCREEN_HEIGHT / 2 - kCursorSpriteRatio / 2;
         int bullets = 3;
         unsigned long startMovementTime;
         unsigned long startAnimationTime;
@@ -76,34 +75,35 @@ class SpriteRenderer {
         unsigned long elapsedTime;
 
         // Cursor configs
-        int cursorSpriteRatio = 40;     // 40x40
-        int cursorColorDepth = 16;
-        int cursorMovementDelay = 1;   // in millis
+        const int kCursorSpriteRatio = 40;      // 40x40
+        const int kCursorColorDepth = 16;
+        const int kCursorMovementDelay = 1;     // in millis
+        const int kCursorHitBoxMargin = 10;     // in pixels
 
         // Background configs
-        int backgroundColorDepth = 8;
+        int kBackgroundColorDepth = 8;
 
         // Owl configs
-        int owlColorDepth = 16;
-        int owlSpriteRatio = 64; // 64x64
+        const int kOwlColorDepth = 16;
+        const int kOwlSpriteRatio = 64;    // 64x64
         int animationIndex = 0;
         int owlX = -64;
         int owlY = 100;
         bool owlAlive = true;
-        int animationDelay = 150;   // in milis
-        int movementDelay = 10;     // in milis
-        int movementStepSize = 5;   // in pixels
+        const int kAnimationDelay = 150;   // in milis
+        const int kMovementDelay = 10;     // in milis
+        const int kMovementStepSize = 5;   // in pixels
 
-        const unsigned short* const spriteArray[4] PROGMEM = {
-            owlNeutralSprite,
-            owlUpSprite,
-            owlNeutralSprite,
-            owlDownSprite,
+        const unsigned short* const kSpriteArray[4] PROGMEM = {
+            kOwlNeutralSprite,
+            kOwlUpSprite,
+            kOwlNeutralSprite,
+            kOwlDownSprite,
         };
 
 
         // Gameplay text
-        TextSpriteSettings axisTextSettings = {
+        const TextSpriteSettings kAxisTextSettings = {
             .width = 120,
             .height = 40,
             .fontSize = 2,
@@ -111,7 +111,7 @@ class SpriteRenderer {
             .posY = 10
         };
 
-        TextSpriteSettings scoreTextSettings = {
+        const TextSpriteSettings kScoreTextSettings = {
             .width = 120,
             .height = 20,
             .fontSize = 2,
@@ -119,7 +119,7 @@ class SpriteRenderer {
             .posY = 207
         };
 
-        TextSpriteSettings bulletsTextSettings = {
+        const TextSpriteSettings kBulletsTextSettings = {
             .width = 60,
             .height = 20,
             .fontSize = 2,
@@ -127,7 +127,7 @@ class SpriteRenderer {
             .posY = 208
         };
 
-        TextSpriteSettings owlsTextSettings = {
+        const TextSpriteSettings kOwlsTextSettings = {
             .width = 60,
             .height = 20,
             .fontSize = 2,
@@ -136,7 +136,7 @@ class SpriteRenderer {
         };
 
         // Intro text
-        TextSpriteSettings introTextSettings = {
+        const TextSpriteSettings kIntroTextSettings = {
             .width = 200,
             .height = 20,
             .fontSize = 2,

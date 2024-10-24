@@ -10,7 +10,7 @@
  * License: This project is licensed under the MIT License.
  */
 
-#include "BluetoothServer.h"
+#include "bluetooth_server.h"
 
 BluetoothServer::BluetoothServer(){};
 BluetoothServer::~BluetoothServer(){};

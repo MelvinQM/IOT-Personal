@@ -7,14 +7,14 @@
  * License: This project is licensed under the MIT License.
  */
 
-#include "GameController.h"
+#include "game_controller.h"
 
 GameController game;
 
 void setup() {
-  game.Init();
+  game.init();
 }
 
 void loop() {
-  game.Loop();
+  game.loop();
 }

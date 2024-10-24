@@ -19,35 +19,37 @@
 #include <WiFiUdp.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
-#include "GameDataModel.h"
+#include "game_data_model.h"
 
 class Connections {
     public:
-        void Init();
-        void Loop();
-        void UdpListen();
-        bool Connect();
-        bool GetConnection();
+        void init();
+        void loop();
+        void udpListen();
+        bool connect();
+        bool getConnection();
 
-        void CreatePlayer(String name);
-        void FetchPlayers();
-        int CreateSession();
-        JsonDocument GetSessionById(int id);
-        void UpdateSession(GameSettings &settings);
-        void CreateScore(int sessionId, int score);
+        void createPlayer(String name);
+        void fetchPlayers();
+        int createSession();
+        JsonDocument getSessionById(int id);
+        void updateSession(GameSettings &settings);
+        void createScore(int sessionId, int score);
     private:
-        JsonDocument MakeAPICall(String method, String endpoint, JsonDocument* jsonDoc = nullptr);
-        void GetMacAddress();
+        JsonDocument makeAPICall(String method, String endpoint, JsonDocument* jsonDoc = nullptr);
+        void getMacAddress();
+
         WiFiManager wm;
         WiFiUDP udp;
         GameDataModel& g = GameDataModel::getInstance();
-        bool isConnected = false;
-        // String hostName = "192.168.0.239";
-        String hostName = "145.92.189.173";
-        const char *ssid = "HootPursuitConsoleAP";
-        const char *password = "hootpursuitaccess";
+
+        // const String kHostName = "192.168.0.239";
+        const String kHostName = "145.92.189.173";
+        const char *kSSID = "HootPursuitConsoleAP";
+        const char *kPassword = "hootpursuitaccess";
         char packetBuffer[255];
-        unsigned int localPort = 44444;
+        unsigned int kLocalPort = 44444;
+        bool isConnected = false;
 };
 
 #endif

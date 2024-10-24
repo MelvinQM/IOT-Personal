@@ -36,52 +36,52 @@ public:
         return instance;
     }
 
-    float GetJoystickX()
+    float getJoystickX()
     {
         return jData.x;
     }
 
-    float GetJoystickY()
+    float getJoystickY()
     {
         return jData.y;
     }
 
-    float GetGyroX()
+    float getGyroX()
     {
         return gData.x;
     }
 
-    float GetGyroY()
+    float getGyroY()
     {
         return gData.y;
     }
 
-    bool GetTriggerPress()
+    bool getTriggerPress()
     {
         return buttonPressed;
     }
 
-    bool GetJoystickClicked()
+    bool getJoystickClicked()
     {
         return joystickClicked;
     }
 
-    void SetJoystickData(JoystickData jData)
+    void setJoystickData(JoystickData jData)
     {
         this->jData = jData;
     }
 
-    void SetGyroData(GyroData jData)
+    void setGyroData(GyroData jData)
     {
         this->gData = gData;
     }
 
-    void SetTriggerPressed(bool buttonPressed)
+    void setTriggerPressed(bool buttonPressed)
     {
         this->buttonPressed = buttonPressed;
     }
 
-    void SetJoystickClicked(bool joystickClicked)
+    void setJoystickClicked(bool joystickClicked)
     {
         this->joystickClicked = joystickClicked;
     }

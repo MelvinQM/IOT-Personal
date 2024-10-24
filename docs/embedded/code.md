@@ -14,12 +14,13 @@
 
 ## 1. Project Structure
 ### 1.1 Code conventions
-The project is written in C++ and to format this code the use of the [Google C++ code conventions](https://google.github.io/styleguide/cppguide.html#Inputs_and_Outputs) were used. These conventions were used to ensure the readability and maintainability of the code.
+The project is written in C++ and to format this code the use of the standard Arduino conventions were used. These conventions were used to ensure the readability and maintainability of the code. Another benefit is that most libraries follow this format so the code can be consistent.
+
 These conventions consist of most importantly but not exlusively:
 
-- Classes and Functions are written in `Camelcase`.
+- Classes are written in `Camelcase`.
 - The use of **guards** in header files is **mandatory** to prevent multiple inclusions.
-- Variable names are written using `snake_case`.
+- Functions and variable names are written using `camelCase`.
 - Filenames should be `lowercase` and can include `dashes` or `underscores`.
 - Variables declared as a const, and whose value is fixed for the duration of the program, are named with a leading "k" followed by mixed case `kUpdateSpeed`
 
