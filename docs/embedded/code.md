@@ -76,6 +76,8 @@ wm.autoConnect(kWifiManagerPortalName, kWifiManagerPortalPassword);
 ```
 The system will first try to connect to any wifi connections already saved in memory. If no connection was found a portal will open. To connect to this portal you will have to connect to the hotspot created named based on `kWifiManagerPortalName`. To connect to this portal you will also need to insert `kWifiManagerPortalPassword`.
 
+Api calls can be made by using the `makeApiCall()` function of the `connections` class.
+
 #### 2.2.1 UDP Connection through SoftAccessPoint
 To establish the connection between console and controller the SoftAP needs to be initialized on the console first. Using the local ip, gateway ip and a network mask the access point is intialized. A hostname is then specified allowing the controller to find the AP.
 
