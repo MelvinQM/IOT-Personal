@@ -22,16 +22,26 @@ The program used to create the gcode required for the printed is Bambu Studio th
 <img src="/../assets/images/bambustudio.png" alt="bambustudio">
 
 #### 2.1.3 Slicer print settings
-The bambustudio files can be found in this repo under assets/3d-files/.. These files come with the settings already setup.
+The bambustudio files can be found in this repo under assets/3d-files/bambustudio/.. These files come with the settings already setup.
 
 The controller was printed using the following settings:
 
-- **Top**:
-    - No Support - Default settings for printer.
-- **Batterylid**:
-    - Tree support **manual** - Using the `support painting` function only the overhanging parts were drawn with tree support.
-- **Bottom** (Print facing up to avoid using as much support):
-    - Tree support **automatic** (Threshold angle 15) this uses a bit more filament than most likely optimal, but ensures the quality of the controller.
+
+
+| **Part**         | **Support Type**          | **Details**                                                                                       |
+|------------------|---------------------------|---------------------------------------------------------------------------------------------------|
+| **Top**          | No Support                | Default settings for printer.                                                                     |
+| **Batterylid**   | Tree Support (Manual)     | Support painting function used; only overhanging parts have tree support.                         |
+| **Bottom**       | Tree Support (Automatic)  | Threshold angle: 15°. Uses more filament to ensure controller quality.                            |
+| **Trigger**      | Tree Support (Automatic)  | Threshold angle: 20°.                                                                             |
+| **Console Front**| No Support                | Default settings for printer.                                                                     |
+| **Console Back** | No Support                | Default settings for printer.                                                                     |
+| **Console Banner** | No Support              | Default settings for printer. (uses multicolor)                                                   |
+
+
+The banner uses multicolor to do this the color for each body in the stl can be assigned:
+<img src="/../assets/images/multicolor.png" alt="bambustudiosupport">
+
 
 With support the sliced file looks like this:
 <img src="/../assets/images/bambustudiosupport.png" alt="bambustudiosupport">

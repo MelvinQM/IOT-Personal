@@ -230,10 +230,6 @@ The vibration motor had an interesting requirement. The vibrating part had to be
 </div>
 
 
-
-
-
-
 #### 2.2.8 Current Controller Design
 <div style="display: flex; flex-direction: column;justify-content: center; align-items: center;">
   <img src="/../assets/images/currentdesign-1.png" alt="currentdesign-1">
@@ -248,7 +244,7 @@ I started off modeling the chosen display in Fusion360 with accurate measurement
   <img src="/../assets/images/espdisplaymodel.png" alt="espdisplaymodel" width="75%">
 </div>
 
-### 2.3.1 Basic shape
+#### 2.3.1 Basic shape
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
     The basic shape of the console was created using the previous mentioned model as reference. The display has been tilted 10 degrees to allow for easier viewing from a top angle as the console will be quite small.
@@ -258,7 +254,7 @@ I started off modeling the chosen display in Fusion360 with accurate measurement
   </div>
 </div>
 
-### 2.3.2 RGB Led
+#### 2.3.2 RGB Led
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
     To allow the RGB led which is used as an indicator light to provide the user or developer to see the status of the system. A hole was made to allow the light to shine through the enclosure.
@@ -270,7 +266,7 @@ I started off modeling the chosen display in Fusion360 with accurate measurement
 
 
 
-### 2.3.2 USB-C 
+#### 2.3.3 USB-C 
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
     To power the system the use of a usb-c cable is required. To allow for a seamless way to plug this cable in a hole was added with enough tolerance to fit most usb-c cables.
@@ -281,7 +277,7 @@ I started off modeling the chosen display in Fusion360 with accurate measurement
 </div>
 
 
-### 2.3.2 Enclosure assembly
+#### 2.3.4 Enclosure assembly
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
     The enclosure is divided in two halfs. These halves connect through the use of 4 push fit nubs. By allowing for a small amount of tolerance these will allow for opening and closing of the console.
@@ -290,4 +286,21 @@ I started off modeling the chosen display in Fusion360 with accurate measurement
     <img src="/../assets/images/consolemodel-4.png" alt="" width="50%">
     <img src="/../assets/images/consolemodel-5.png" alt="" width="50%">
   </div>
+</div>
+
+#### 2.3.5 Banner
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    To add some final bit of creativity to the console I added these banners. The banners is printed on its own and slides into the console. This also allows for modularity with the banners to hotswap if needed for example if a new game is able to created one day.
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/consolemodel-6.png" alt="" width="50%">
+  </div>
+</div>
+
+#### 2.2.8 Current Console Design
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="/../assets/images/currentdesign-console-1.png" alt="currentdesign-console-1" width="33%">
+  <img src="/../assets/images/currentdesign-console-2.png" alt="currentdesign-consolen-2" width="33%">
+  <img src="/../assets/images/currentdesign-console-3.png" alt="currentdesign-console-3" width="33%">
 </div>
