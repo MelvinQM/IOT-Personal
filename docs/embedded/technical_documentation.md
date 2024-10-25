@@ -34,8 +34,8 @@ This project will be an Embedded system take on the game Duck Hunt. This project
 Below all components are specified for both the console and the controller. The components marked extra are only added if enough time is presented as they are not as important.
 
 - Console
-    - External power source (Optional)
-        - Power switch
+    - External power source (Extra)
+        - Power switch (Extra)
     - Display
         - Onboard RGB Led
     - Speaker / Buzzer (Extra)
@@ -45,6 +45,7 @@ Below all components are specified for both the console and the controller. The 
         - Power Switch (Extra)
         - DC - DC Converter
     - Gyroscope
+    - Joystick
     - Trigger button
     - Vibration Motor
 
