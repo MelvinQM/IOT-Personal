@@ -64,16 +64,17 @@ Additionally the controller will be wireless and communicate with the display th
 The controller is one of the most important elements of this entire projects. Having a solid concept is essential for the project to feel complete.
 Below some concepts can be seen.
 <div align="center">
-  <img src="/../assets/images/controller-concepts-1.png" alt="cursorconcept" width="75%">
+  <img src="/../assets/images/controller-concepts-1.png" alt="cursorconcept" width="49%">
+  <img src="/../assets/images/controller-concepts-2.png" alt="cursorconcept" width="49%">
 </div>
-
-<div align="center">
-  <img src="/../assets/images/controller-concepts-2.png" alt="cursorconcept" width="75%">
-</div>
-
-An additional idea is to allow the controller to be plugged into an attachment to give it more of a gun feel. This allows the controller to be more multi purpose incase of additional games, but still allow it to be fitting for the main game being worked on.
-<div align="center">
-  <img src="/../assets/images/controller-concepts-attachment.png" alt="cursorconcept" width="75%">
+<br>
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    An additional idea is to allow the controller to be plugged into an attachment to give it more of a gun feel. This allows the controller to be more multi purpose incase of additional games, but still allow it to be fitting for the main game being worked on.
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/controller-concepts-attachment.png" alt="cursorconcept" width="75%">
+  </div>
 </div>
 <br>
 
@@ -84,7 +85,7 @@ One of the inspirations for designing the console was from looking at existing 3
   <img src="/../assets/images/console-inspiration.png" alt="console-inspiration" width="75%">
 </div>
 
-The console is modeled after a classic arcade cabinet. This cabinet is modeled around the ESP32 display more about this display [here](../embedded/technical_documentation.md#431-esp32-2432s024-esp-display)
+The console is modeled after a classic arcade cabinet. This cabinet is modeled around the ESP32 display more about this display can be found in the [Embedded Technical Documentation](../embedded/technical_documentation.md#431-esp32-2432s024-esp-display)
 
 
 
@@ -150,13 +151,14 @@ I then moved around all components around to see if everything would fit. *(This
 <br>
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-    After testing with this design through a few iterations a satisfying result was created to allow the trigger to press a switch.
+    After testing with this design through a few iterations a satisfying result was created to allow the trigger to press a switch. 
   </div>
   <div style="flex: 1; text-align: right;">
     <img src="/../assets/images/trigger-mechanism.png" alt="trigger-mechanism" width="75%">
   </div>
 </div>
 
+[Trigger prints can be found here](create_test.md#222-trigger-mechanism)
 
 #### 2.2.3 Joystick Holder
 The controller will also have a joystick on the top. To fasten this component a very simple push fit mechanism was used.
@@ -186,7 +188,7 @@ The vibration motor had an interesting requirement. The vibrating part had to be
 
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-    The dc-dc converter is fastened the same way the MPU is. This similarily is fastened to the top half of the controller
+    The DC-DC converter is fastened the same way the MPU is. This similarily is fastened to the top half of the controller. Considerations were made to ensure the input of this converter was facing towards the battery cables to reduce the distance between them.
   </div>
   <div style="flex: 1; text-align: right; margin-left: 4px;">
     <img src="/../assets/images/dc-dc-holder2.png" alt="dc-dc-holder2">
@@ -195,19 +197,27 @@ The vibration motor had an interesting requirement. The vibrating part had to be
 
 
 #### 2.2.7 Battery Holder
-To hold in the battery in the battery compartment a batter lid mechanism was designed. 
+
 <img src="/../assets/images/batteryholder-1.png" alt="batteryholder-1" >
 
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-    By looking at the Wii controller as inspiration a similair mechanism was designed. This mechanism is also used in many television remotes. It allows for a small latch that can be openend with the use of a finger nail or a flat head screw driver or something similair. (The plastic used PLA was quite tough and doesn't bend like the traditional remote material. Using a screwdriver is reccomended because of this.)
+    To hold in a battery in the battery compartment, a battery lid mechanism was designed. By looking at the Wii controller as inspiration a similair mechanism was designed. This mechanism is also used in many television remotes. The basic idea is to use 2 nubs at the back to fast the lid into position first then to close it the front lid bends slightly to fit into place. Once into place it can be removed by bending this same front lid back and then pull it out.
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/wii-battery-holder.jpg" alt="wii-battery-holder" width="75%">
+  </div>
+</div>
+<br>
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    It allows for a small latch that can be openend with the use of a finger nail or a flat head screw driver or something similair. (The plastic used PLA was quite tough and doesn't bend like the traditional remote material. Using a screwdriver is reccomended because of this.)
   </div>
   <div style="flex: 1; text-align: right;">
     <img src="/../assets/images/batteryholder-2.png" alt="batteryholder-2" width="75%">
   </div>
 </div>
-
-
+<br>
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
     The battery holder is fit into place using three mechanisms the latch in the front specified earlier. 2 nubs on the back to fit the lid into position.
@@ -274,9 +284,10 @@ I started off modeling the chosen display in Fusion360 with accurate measurement
 ### 2.3.2 Enclosure assembly
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-
+    The enclosure is divided in two halfs. These halves connect through the use of 4 push fit nubs. By allowing for a small amount of tolerance these will allow for opening and closing of the console.
   </div>
   <div style="flex: 1; text-align: right;">
-    <img src="/../assets/images/" alt="" width="75%">
+    <img src="/../assets/images/consolemodel-4.png" alt="" width="50%">
+    <img src="/../assets/images/consolemodel-5.png" alt="" width="50%">
   </div>
 </div>
