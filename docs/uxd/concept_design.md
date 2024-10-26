@@ -18,9 +18,9 @@ The concept for my project is to make a game similair to Duck Hunt. Where the pl
   <img src="/../assets/images/product_concept.png" alt="productconcept">
 </div>
 
-I wanted to put my own spin on it. The controller will have a gyroscope in it allowing it to serve as a motion controller. Similair to the Wii but not exactly as the wii uses a different technique. I wish to emulate the easy of use of the Wii controller but using a different technique.
+I wanted to put my own spin on it. The controller will have a gyroscope in it allowing it to serve as a motion controller. Similair to the Wii but not exactly as the wii uses a different technique. I wish to emulate the ease of use of the Wii controller but using a different technique.
 
-Additionally the controller will be wireless and communicate with the display through a bluetooth connection. This will allow the controller to tell the display where to move the cursor.
+Additionally the controller will be wireless and communicate with the display through an UDP connection. This will allow the controller to tell the display where to move the cursor.
 
 ### 1.1 User Needs
 - **Inclusive Age Range**: The system should cater to users of all ages, from retro game enjoyers of old to young kids. This allows more people to enjoy the product and increase the amount of possible users.
@@ -52,11 +52,11 @@ Additionally the controller will be wireless and communicate with the display th
     - **Relevant**: Comfort is important for user satisfaction and prolonged playtime.
     - **Time-bound**: Comfort assessments will be conducted within the initial 10 weeks of development.
 
-4. Bluetooth Connection Stability
+4. WiFi Connection Stability
     - **Specific**: The controller must maintain a stable Bluetooth connection to the display.
     - **Measurable**: The connection must not drop within a 10-meter range during continuous gameplay for at least 95% of the time.
     - **Achievable**: Testing in various environments to ensure reliability.
-    - **Relevant**: A stable bluetooth connection is essential for a smooth gaming experience.
+    - **Relevant**: A stable connection is essential for a smooth gaming experience.
     - **Time-bound**: Connection stability testing should be completed by the end of the development within 10 weeks.
 
 
@@ -91,7 +91,7 @@ The console is modeled after a classic arcade cabinet. This cabinet is modeled a
 
 
 ### 1.5 Materials
-For the purpose of designing and manufacturing a controller and console. The most important factor was being able to make a creative and functional product. This is why a 3d printed design was the most logical option. The controller can be made to have any kind of shape using 3d printing while techniques such as laser cutting would be a lot harder to make work for this purpose. 
+For the purpose of designing and manufacturing a controller and console. The most important factor was being able to make a creative and functional product. This is why a 3D printed design was the most logical option. The controller can be made to have any kind of shape using 3D printing while techniques such as laser cutting would be a lot harder to make work for this purpose. 
 
 
 ## 2. Design
@@ -291,7 +291,7 @@ I started off modeling the chosen display in Fusion360 with accurate measurement
 #### 2.3.5 Banner
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-    To add some final bit of creativity to the console I added these banners. The banners is printed on its own and slides into the console. This also allows for modularity with the banners to hotswap if needed for example if a new game is able to created one day.
+    To add some final bit of creativity to the console I added these banners. The banners are printed on its own and slides into the console. This also allows for modularity with the banners to hotswap if needed for example if a new game is able to created one day.
   </div>
   <div style="flex: 1; text-align: right;">
     <img src="/../assets/images/consolemodel-6.png" alt="" width="50%">
