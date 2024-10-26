@@ -67,8 +67,11 @@ Below is the table that outlines the necessary parts for this project:
 
 
 ## 3 Project wiring diagram
-The diagram for connecting the entire project:
+The wiring diagram was created using Fusion360 Electronics. The components were created using a mix of custom made symbols in Fusion360 and some edited versions taken from [SnapEDA](https://www.snapeda.com). All fusion electronics files can be found in docs/assets/diagrams/FusionElectronics/...
 
+<img src="/../assets/diagrams/FusionElectronics/ControllerWiringDiagram.png" alt="ControllerWiringDiagram">
+
+***As the console has no wiring involved no wiring diagram is needed. The console only needs to be connected to power using a USB-C cable.***
 
 ## 4. Components
 ### 4.2 MPU6050 

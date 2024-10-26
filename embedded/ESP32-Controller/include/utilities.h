@@ -14,12 +14,12 @@
 #include <ArduinoJson.h>
 
 // Pin definitions
-#define BUTTON_PIN          21
+#define BUTTON_PIN          41
 #define GYRO_INTERRUPT_PIN  15
 #define VIBRATION_MOTOR_PIN 47
 #define JOYSTICK_VRX_PIN    1
 #define JOYSTICK_VRY_PIN    2
-#define JOYSTICK_SW_PIN     48
+#define JOYSTICK_SW_PIN     41
 
 // General settings
 #define BAUD_RATE           115200
