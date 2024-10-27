@@ -72,8 +72,15 @@ void Connections::loop()
     vTaskDelay(UDP_DELAY / portTICK_PERIOD_MS);
 }
 
+void Connections::setListenForPackets(bool listen)
+{
+    listenForPackets = listen;
+}
+
 void Connections::udpListen()
 {
+    if(!listenForPackets) return;
+
     int packetSize = udp.parsePacket();
 
     if (packetSize) {

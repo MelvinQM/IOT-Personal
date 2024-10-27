@@ -35,6 +35,7 @@ class Connections {
         JsonDocument getSessionById(int id);
         void updateSession(GameSettings &settings);
         void createScore(int sessionId, int score);
+        void setListenForPackets(bool listen);
     private:
         JsonDocument makeAPICall(String method, String endpoint, JsonDocument* jsonDoc = nullptr);
         void getMacAddress();
@@ -53,6 +54,7 @@ class Connections {
         char packetBuffer[255];
         unsigned int kLocalPort = 44444;
         bool isConnected = false;
+        bool listenForPackets = false;
 };
 
 #endif

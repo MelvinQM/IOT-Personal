@@ -129,8 +129,11 @@ void GameController::play()
 {
     Serial.println("------Start Gameplay------");
     
+    conn.setListenForPackets(true);
     sRender.gameLoop(settings);
     conn.createScore(settings.sessionId, settings.score);
+    conn.setListenForPackets(false);
+    
     state = ShowingHighScores;
 }
 
