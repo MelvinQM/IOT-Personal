@@ -58,6 +58,20 @@ class MotionController {
                 vTaskDelay(GYRO_DELAY / portTICK_PERIOD_MS);
             }
         }
+
+        TaskHandle_t sendControllerDataTaskHandle = NULL;
+        #define SEND_CONTROLLER_TASK_STACK_SIZE    5000
+        #define SEND_CONTROLLER_TASK_PRIORITY      1
+        #define SEND_CONTROLLER_TASK_CORE          1
+        #define SEND_CONTROLLER_TASK_NAME          "ControllerDataTask"
+        // New task function for sendControllerData
+        static void sendControllerDataTask(void *pvParameters) {
+            MotionController *controller = reinterpret_cast<MotionController *>(pvParameters);
+            while (true) {
+                controller->sendControllerData();
+                vTaskDelay(CONTROLLER_DATA_SEND_INTERVAL / portTICK_PERIOD_MS);  // Set appropriate delay
+            }
+        }
 };
 
 

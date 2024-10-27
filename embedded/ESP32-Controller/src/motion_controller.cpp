@@ -37,21 +37,31 @@ void MotionController::init()
         &gyroTaskHandle,
         GYRO_TASK_CORE
     );
+
+    xTaskCreatePinnedToCore(
+        sendControllerDataTask,
+        SEND_CONTROLLER_TASK_NAME,
+        SEND_CONTROLLER_TASK_STACK_SIZE,
+        this,
+        SEND_CONTROLLER_TASK_PRIORITY,
+        &sendControllerDataTaskHandle,
+        SEND_CONTROLLER_TASK_CORE
+    );
 }
 
 void MotionController::loop() 
 {
-    joystick.readJoystickAxis();
-    sendControllerData();
     handleButtonPress();
     handleJoystickClick();
-
-
     vTaskDelay(SMALL_COOLDOWN / portTICK_PERIOD_MS);
 }
 
+
 void MotionController::sendControllerData()
 {
+    // Read joystick data
+    joystick.readJoystickAxis();
+
     // Get data from gyroscope
     GyroData gData = gyro.getXYZ();
     JoystickData jData = joystick.getAxis();
@@ -73,7 +83,7 @@ void MotionController::sendTriggerInput()
     JsonDocument jsonDoc;
     jsonDoc["method"] = TRIGGER_METHOD;
 
-    udpConnection.sendJsonData(jsonDoc);
+    udpConnection.sendJsonData(jsonDoc, true);
 }
 
 void MotionController::sendJoystickClick()
@@ -82,7 +92,7 @@ void MotionController::sendJoystickClick()
     JsonDocument jsonDoc;
     jsonDoc["method"] = JOYSTICK_CLICK_METHOD;
     
-    udpConnection.sendJsonData(jsonDoc);
+    udpConnection.sendJsonData(jsonDoc, true);
 }
 
 void MotionController::handleButtonPress()

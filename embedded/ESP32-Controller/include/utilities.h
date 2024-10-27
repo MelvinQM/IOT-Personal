@@ -26,6 +26,7 @@
 #define TIMEOUT_DELAY       1000
 #define TRIGGER_COOLDOWN    100
 #define SMALL_COOLDOWN      1
+#define CONTROLLER_DATA_SEND_INTERVAL 5
 
 // Vibration motor settings
 #define VIBRATION_MOTOR_MAX     255

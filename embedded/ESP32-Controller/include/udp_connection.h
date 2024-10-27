@@ -18,7 +18,7 @@ class UdpConnection
 {
     public:
         void init();
-        void sendJsonData(JsonDocument doc, bool response = false);
+        void sendJsonData(JsonDocument doc, bool response = false, bool retry = false);
     private:
         const char *kUDPAddress = "192.168.1.1";
         const int kUDPPort = 44444;
