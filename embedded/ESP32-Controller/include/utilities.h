@@ -19,13 +19,13 @@
 #define VIBRATION_MOTOR_PIN 47
 #define JOYSTICK_VRX_PIN    1
 #define JOYSTICK_VRY_PIN    2
-#define JOYSTICK_SW_PIN     41
+#define JOYSTICK_SW_PIN     42
 
 // General settings
 #define BAUD_RATE           115200
 #define TIMEOUT_DELAY       1000
 #define TRIGGER_COOLDOWN    100
-#define SMALL_COOLDOWN      1
+#define SMALL_COOLDOWN      10
 #define CONTROLLER_DATA_SEND_INTERVAL 5
 
 // Vibration motor settings
