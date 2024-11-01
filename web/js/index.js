@@ -187,7 +187,8 @@ userForm.addEventListener("submit", async (e) => {
   const name = document.getElementById("name").value;
   const sessionId = document.getElementById("sessionId").value;
   const difficulty_id = document.getElementById("difficultyId").value;
-  const enableGyro = document.getElementById("enableGyro").value;
+  const enableGyro = document.getElementById("enableGyro").checked;
+  console.log("AAA", enableGyro);
 
   let isValid = true;
 

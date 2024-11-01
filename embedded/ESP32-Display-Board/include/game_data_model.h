@@ -71,7 +71,7 @@ public:
         this->jData = jData;
     }
 
-    void setGyroData(GyroData jData)
+    void setGyroData(GyroData gData)
     {
         this->gData = gData;
     }

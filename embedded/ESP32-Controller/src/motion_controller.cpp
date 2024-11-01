@@ -75,6 +75,7 @@ void MotionController::sendControllerData()
     jsonDoc["data"]["jX"] = jData.x;
     jsonDoc["data"]["jY"] = jData.y;
 
+    Serial.printf("GX: %d, GY: %d\n", gData.x, gData.y);
     udpConnection.sendJsonData(jsonDoc);
 }
 

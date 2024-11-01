@@ -23,6 +23,10 @@ class Gyroscope {
         void calibrateGyro();
         GyroData getXYZ();
     private:
+        float screenWidth = 320;
+        float screenHeight = 240;
+        float sensitivity = 150;
+
         MPU6050 mpu;
         /**
          * Uncomment "OUTPUT_READABLE_QUATERNION" if you want to see the actual 
