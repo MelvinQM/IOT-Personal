@@ -35,7 +35,7 @@ class SpriteRenderer {
         void init(int rotation, bool swapBytes, int fillColor);
         void gameLoop(GameSettings &settings);
         void renderIntro(int sessionId);
-        void renderHighscores();
+        void renderHighscores(JsonDocument& highscores);
 
     private:
         TFT_eSPI tft = TFT_eSPI();
@@ -49,6 +49,7 @@ class SpriteRenderer {
         TFT_eSprite bulletsText = TFT_eSprite(&tft);
         TFT_eSprite owlsText = TFT_eSprite(&tft);
         TFT_eSprite introText = TFT_eSprite(&tft);
+    
         
 
         GameDataModel& g = GameDataModel::getInstance();

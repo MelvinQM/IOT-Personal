@@ -10,11 +10,13 @@
 #define UTILITIES_H
 
 #include <Arduino.h>
+#include <ArduinoJson.h>
 
 // General settings
 #define BAUD_RATE           115200
 #define TIMEOUT_DELAY       1000
 #define BIG_TIMEOUT_DELAY   5000
+#define HIGHSCORE_KEEPALIVE 10000
 
 // Game settings
 #define CURSOR_SPEED    10
@@ -43,6 +45,7 @@
 // Wifi settings
 #define WIFI_TIMEOUT    10000
 #define UDP_DELAY       10
+#define HIGHSCORE_AMOUNT 10
 
 // Defining the JSON method names
 #define TRIGGER_METHOD              "trigger"

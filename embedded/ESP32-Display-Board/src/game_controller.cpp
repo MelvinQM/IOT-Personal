@@ -128,7 +128,8 @@ void GameController::showIntro()
 void GameController::play()
 {
     Serial.println("------Start Gameplay------");
-    
+
+    settings.score = 0;
     conn.setListenForPackets(true);
     sRender.gameLoop(settings);
     conn.createScore(settings.sessionId, settings.score);
@@ -141,9 +142,8 @@ void GameController::showHighScores()
 {
     Serial.println("------Showing Highscores------");
     
-    //TODO: Fetch highscores
-    
-    sRender.renderHighscores();
+    JsonDocument& highscores = conn.getHighscores();
+    sRender.renderHighscores(highscores);
 
     // After some time go to end screen
     state = EndGame;

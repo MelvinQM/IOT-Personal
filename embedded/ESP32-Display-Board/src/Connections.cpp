@@ -270,6 +270,11 @@ void Connections::createScore(int sessionId, int score)
     }
 }
 
+JsonDocument& Connections::getHighscores() {
+    static JsonDocument doc = makeAPICall("GET", "actions/gethighscores?count=" + String(HIGHSCORE_AMOUNT));
+    return doc;
+}
+
 void Connections::getMacAddress()
 {
     // Get MAC address of the WiFi station interface

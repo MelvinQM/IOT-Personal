@@ -19,6 +19,11 @@ void SpriteRenderer::init(int rotation, bool swapBytes, int fillColor)
 
     // Clear the screen before writing to it
     tft.fillScreen(fillColor);
+
+    
+    background.setColorDepth(kBackgroundColorDepth);
+    background.createSprite(SCREEN_WIDTH, SCREEN_HEIGHT);
+    background.setSwapBytes(true); // Correct color
 }
 
 
@@ -32,10 +37,6 @@ void SpriteRenderer::gameLoop(GameSettings &settings)
     scoreText.createSprite(kScoreTextSettings.width, kScoreTextSettings.height);
     bulletsText.createSprite(kBulletsTextSettings.width, kBulletsTextSettings.height);
     owlsText.createSprite(kOwlsTextSettings.width, kOwlsTextSettings.height);
-
-    background.setColorDepth(kBackgroundColorDepth);
-    background.createSprite(SCREEN_WIDTH, SCREEN_HEIGHT);
-    background.setSwapBytes(true); // Correct color
 
     owl.setColorDepth(kOwlColorDepth);
     owl.createSprite(kOwlSpriteRatio, kOwlSpriteRatio);
@@ -192,10 +193,7 @@ void SpriteRenderer::renderIntro(int sessionId)
 {
     // Intro screen initialization
     introText.createSprite(kIntroTextSettings.width, kIntroTextSettings.height);
-    background.setColorDepth(kBackgroundColorDepth);
-    background.createSprite(SCREEN_WIDTH, SCREEN_HEIGHT);
-    background.setSwapBytes(true); // Correct color
-    
+
     // Intro screen
     background.fillSprite(TFT_PURPLE);
     updateTextElement(introText, kIntroTextSettings, "HOOT SHOOTER SESSION-ID:" + String(sessionId));
@@ -208,9 +206,22 @@ void SpriteRenderer::renderIntro(int sessionId)
     background.deleteSprite();
 }
 
-void SpriteRenderer::renderHighscores()
+void SpriteRenderer::renderHighscores(JsonDocument& highscores)
 {
+    background.fillSprite(TFT_BLACK);
 
+    // Render highscores on page
+    tft.drawString("HIGHSCORES", 85, 10, 4);
+    int y = 50;
+    for (JsonObject obj : highscores.as<JsonArray>()) {
+        const char* name = obj["name"];
+        const char* score = obj["score"];
+
+        tft.drawString(String(name) + " : " + String(score), 125, y, 2);
+        y += 17;
+    }
+
+    vTaskDelay(HIGHSCORE_KEEPALIVE / portTICK_PERIOD_MS);
 }
 
 void SpriteRenderer::updateTextElement(TFT_eSprite &text, const TextSpriteSettings &settings, String content)

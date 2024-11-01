@@ -30,8 +30,8 @@ class GameController
         {
             Intro,
             Playing,
-            EndGame,
             ShowingHighScores,
+            EndGame,
         };
     public:
         GameController();
@@ -43,7 +43,7 @@ class GameController
         SpriteRenderer sRender;
         GameSettings settings;
 
-        GameState state = Intro;
+        GameState state = ShowingHighScores;
 
         const int kFreq = 2000;
         const int kResolution = 8; 

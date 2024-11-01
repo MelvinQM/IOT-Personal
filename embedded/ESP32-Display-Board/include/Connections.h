@@ -18,7 +18,6 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
 #include <HTTPClient.h>
-#include <ArduinoJson.h>
 #include "game_data_model.h"
 
 class Connections {
@@ -32,6 +31,8 @@ class Connections {
         void createPlayer(String name);
         void fetchPlayers();
         int createSession();
+
+        JsonDocument& getHighscores();
         JsonDocument getSessionById(int id);
         void updateSession(GameSettings &settings);
         void createScore(int sessionId, int score);
@@ -47,8 +48,8 @@ class Connections {
         const char* kWifiManagerPortalName = "HootPursuitAP";
         const char* kWifiManagerPortalPassword = "password";
         const char* kSoftApHostname = "HootPursuitHost";
-        // const String kHostName = "192.168.0.239";
-        const String kHostName = "145.92.189.173";
+        const String kHostName = "192.168.0.8";
+        // const String kHostName = "145.92.189.173";
         const char *kSSID = "HootPursuitConsoleAP";
         const char *kPassword = "hootpursuitaccess";
         char packetBuffer[255];
