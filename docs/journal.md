@@ -403,3 +403,43 @@ and I'm not sure why you add the $id id it's empty/null see comment in file.
 
 
 ## Week 8
+
+### API Updates
+Added more endpoints namely the capability to add "Actions" actions are endpoints that don't strictly talk to just one table. The only action as of right now is the gethighscores action. This action communicates with both the player and score tables to retrieve a list of the highscores in descending order. An option is also present to specify the count of the highscores by adding the url paramater `?count={number}` you can specify the amount you want to receive.
+
+### RGB Led control (Display)
+To allow for more indication incases of the diplay not working properly or just to receive more information from the system. An RGB control was added to the Display project. The display has an onboard RGB Led that can be used for this task. The following statusses can now be shown:
+Blue: System is starting
+Yellow: Polling for session data
+Green: Game is starting
+
+### Frontend Session control
+The capability was added to start a session from the frontend. The frontend now has input fields for the session id, username, difficulty and control mode. As soon as play is pressed these settings are saved in the session that was created before hand by the embedded device. The embedded device itself is polling the session with a fixed interval. As soon as the new data has been added to the session this is fetched by the embedded device and the game can then begin.
+
+While the session is running the scores and settings can be viewed from the frontend which will upon clicking play switch views to a "playing" view. This also prevents any players from accidentally clicking play more than once.
+
+
+## Week 9 
+
+### Controller Assemble (Redesign)
+I already worked on trying to assemble my controller today but I was unable to fit all the components inside the controller. 
+Unfortunately this will most likely not be possible unless something like a PCB is used. Which is just not in scope at the moment. 
+I will be trying to think of a new plan going forward and designing a simpler design which allows for a breadboard to be inside to allow for an easier assembling process.
+
+The design I ended up settling on and printing was the following:
+<div align="center">
+  <img src="/assets/images/breadboard-controller-1.jpg" alt="breadboardcontroller" width=30%>
+  <img src="/assets/images/breadboard-controller-2.jpg" alt="breadboardcontroller" width=30%>
+  <img src="/assets/images/breadboard-controller-3.jpg" alt="breadboardcontroller" width=30%>
+</div>
+
+The original design could still be used if a PCB was introduced since this would allow for no soldering being required for connecting most of the components.
+
+### Display Highscores page and session page
+On the embedded device the functionality has been added to show the highscores and the session id page has been modified to have a more pleasing look. Also the use of sprites has been removed from these simple pages as they don't require constant updating of the screen so the more easy to work with drawString function is plenty.
+
+The highscores page makes use of the actions/gethighscores endpoint and specified that it only wants to receive 10. The benefit of not using sprites in this case is that you can just call drawString many times and not have to create and manage a sprite for each highscore.
+<div align="center">
+  <img src="/assets/images/highscores-page.jpg" alt="breadboardcontroller" width=49%>
+  <img src="/assets/images/session-page.jpg" alt="breadboardcontroller" width=49%>
+</div>
