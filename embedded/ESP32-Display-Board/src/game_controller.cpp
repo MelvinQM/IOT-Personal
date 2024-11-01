@@ -154,8 +154,11 @@ void GameController::end()
     Serial.println("------Ending Game------");
 
     //TODO: Either quit or restart based on user input
+    bool keepPlaying = sRender.renderEndScreen();
 
-    state = Playing;
+
+    keepPlaying = true;
+    keepPlaying ? state = Playing : state = Intro;
 }
 
 void GameController::initLed()

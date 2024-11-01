@@ -75,10 +75,6 @@ void SpriteRenderer::gameLoop(GameSettings &settings)
     scoreText.deleteSprite();
     bulletsText.deleteSprite();
     owlsText.deleteSprite();
-    background.deleteSprite();
-
-
-    settings.score = score + 23;
 }
 
 void SpriteRenderer::updateCursorPosition(int& x, int& y, bool useGyro) 
@@ -191,24 +187,22 @@ void SpriteRenderer::resetOwl()
 
 void SpriteRenderer::renderIntro(int sessionId)
 {
-    // Intro screen initialization
-    introText.createSprite(kIntroTextSettings.width, kIntroTextSettings.height);
-
-    // Intro screen
-    background.fillSprite(TFT_PURPLE);
-    updateTextElement(introText, kIntroTextSettings, "HOOT SHOOTER SESSION-ID:" + String(sessionId));
-    
-    // Update screen
+    // Clear screen
+    background.fillSprite(TFT_BLACK);
     background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
 
-    // Intro screen cleanup
-    introText.deleteSprite();
-    background.deleteSprite();
+    // Draw string
+    tft.drawString("HOOT PURSUIT", 75, 30, 4);
+    tft.drawLine(40, 75, 285, 75, TFT_WHITE);
+    tft.drawString("SESSION-ID : " + String(sessionId), 110, 120, 2);
+
+    int width = tft.drawString("Enter the above session id into the web portal", 13, 200, 2);
 }
 
 void SpriteRenderer::renderHighscores(JsonDocument& highscores)
 {
     background.fillSprite(TFT_BLACK);
+    background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
 
     // Render highscores on page
     tft.drawString("HIGHSCORES", 85, 10, 4);
@@ -222,6 +216,22 @@ void SpriteRenderer::renderHighscores(JsonDocument& highscores)
     }
 
     vTaskDelay(HIGHSCORE_KEEPALIVE / portTICK_PERIOD_MS);
+}
+
+bool SpriteRenderer::renderEndScreen()
+{
+    background.fillSprite(TFT_BLACK);
+    background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
+
+    // Add buttons for Keep Playing and End Session
+    bool keepPlaying = false;
+    bool optionChosen = true;
+    while(!optionChosen)
+    {
+
+    }
+
+    return keepPlaying;
 }
 
 void SpriteRenderer::updateTextElement(TFT_eSprite &text, const TextSpriteSettings &settings, String content)

@@ -36,6 +36,7 @@ class SpriteRenderer {
         void gameLoop(GameSettings &settings);
         void renderIntro(int sessionId);
         void renderHighscores(JsonDocument& highscores);
+        bool renderEndScreen();
 
     private:
         TFT_eSPI tft = TFT_eSPI();
