@@ -28,15 +28,17 @@ The controller was printed using the following settings:
 
 
 
-| **Part**         | **Support Type**          | **Details**                                                                                       |
-|------------------|---------------------------|---------------------------------------------------------------------------------------------------|
-| **Top**          | No Support                | Default settings for printer.                                                                     |
-| **Batterylid**   | Tree Support (Manual)     | Support painting function used; only overhanging parts have tree support.                         |
-| **Bottom**       | Tree Support (Automatic)  | Threshold angle: 15°. Uses more filament to ensure controller quality.                            |
-| **Trigger**      | Tree Support (Automatic)  | Threshold angle: 20°.                                                                             |
-| **Console Front**| No Support                | Default settings for printer.                                                                     |
-| **Console Back** | No Support                | Default settings for printer.                                                                     |
-| **Console Banner** | No Support              | Default settings for printer. (uses multicolor)                                                   |
+| **Part**                         | **Support Type**          | **Details**                                                                                       |
+|----------------------------------|---------------------------|---------------------------------------------------------------------------------------------------|
+| **Top**                          | No Support                | Default settings for printer.                                                                     |
+| **Batterylid**                   | Tree Support (Manual)     | Support painting function used; only overhanging parts have tree support.                         |
+| **Bottom**                       | Tree Support (Automatic)  | Threshold angle: 15°. Uses more filament to ensure controller quality.                            |
+| **Trigger**                      | Tree Support (Automatic)  | Threshold angle: 20°.                                                                             |
+| **Console Front**                | No Support                | Default settings for printer.                                                                     |
+| **Console Back**                 | No Support                | Default settings for printer.                                                                     |
+| **Console Banner**               | No Support                | Default settings for printer. (uses multicolor)                                                   |
+| **Breadboard Controller Top**    | No Support                | Default settings for printer.                                                                     |
+| **Breadboard Controller Bottom** | Tree support (Automatic)  | Threshold angle: 20°. Print on side and use default settings for                                  |
 
 
 The banner uses multicolor to do this the color for each body in the stl can be assigned:
@@ -59,7 +61,7 @@ Some adjustments that were quite obvious right away was the thickness of the mod
 
 #### 2.2.2 Trigger mechanism
 
-One of the most important mechanics opf the controller was of course the trigger to test this a small print was made. More about the inspiration for this mechanism can be found in [concept & design](concept_design.md#222-trigger-mechanism).
+One of the most important mechanics of the controller was the trigger to test this a small print was made. More about the inspiration for this mechanism can be found in [concept & design](concept_design.md#222-trigger-mechanism).
 To test this design the trigger was printed with a seperate holder:
 
 <div   style="display: flex; justify-content: space-between;">
@@ -80,6 +82,19 @@ After some iterations the whole controller was printed. The trigger can be inser
 </div>
 
 To assemble the controller follow the placement of components specified in [concept & design](concept_design.md#228-current-controller-design)
+
+#### 2.2.4 Breadboard Controller
+After having issues assembling the motion controllr with all the components properly soldered and wired. An easier design was made for the purpose of testing the project.
+
+<div align="center" style="display: flex; justify-content: space-between;">
+  <img src="/../assets/images/breadboard-controller-1.jpg" alt="currentprint-1" width="49%" style="object-fit: contain; height: auto;">
+  <img src="/../assets/images/breadboard-controller-2.jpg" alt="currentprint-2" width="49%" style="object-fit: contain; height: auto;">
+</div>
+
+<div align="center" style="display: flex; justify-content: space-between;">
+  <img src="/../assets/images/breadboard-controller-3.jpg" alt="currentprint-2" width="49%" style="object-fit: contain; height: auto;">
+  <video src="/../assets/videos/BreadboardControllerPrint.mp4" width=49% controls></video>
+</div>
 
 <!-- <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
