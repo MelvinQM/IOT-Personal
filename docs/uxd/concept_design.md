@@ -12,7 +12,7 @@
     - **[2.3 Console Prototypes](#23-console-prototyping)**
 
 ## 1. Concept
-The concept for my project is to make a game similair to Duck Hunt. Where the player will be provided a controller and a display. Instead of using the traditional way I will be trying to put my own spin on it. The traditional way is by using an optical sensor in the gun/controller that when pressed will see if it is pointing at a portion of the screen that's white. Also the moment the controller is pressed the whole screen goes black except for the target/duck. The moment the screen flickers and the sensor sees a white spot on the screen it has hit a duck. 
+The concept for my project is to make a game similair to Duck Hunt. Where the player will be provided a controller and a display. Instead of using the traditional way I will be trying to put my own spin on it. The traditional way is by using an optical sensor in the gun/controller that when pressed will see if it is pointing at a portion of the screen that's white. This is made possible by making the screen go dark except for the duck's hitbox when pressing the trigger. The moment the screen flickers and the sensor sees a white spot on the screen it has hit a duck. 
 <div align="center">
   <img src="/../assets/images/cursor_concept.png" alt="cursorconcept">
   <img src="/../assets/images/product_concept.png" alt="productconcept">
@@ -40,17 +40,17 @@ Additionally the controller will be wireless and communicate with the display th
 
 2. Controller Design
     - **Specific**: The controller design must be non-violent and visually appealing to a broad demographic.
-    - **Measurable**: Conduct surveys with at least 5 potential users to get optinions on appeal and ensure it resonates with all ages.
+    - **Measurable**: Conduct surveys with at least 5 potential users to get opinions on appeal and ensure it resonates with all ages.
     - **Achievable**: There will be multiple iterations on concepts based on feedback within the 10 week development time.
     - **Relevant**: This is crucial for players across age groups.
     - **Time-bound**: Final design will be completed within 10 weeks.
 
-2. Ergonomic Comfort
+3. Ergonomic Comfort
     - **Specific**: The wireless controller should be easy to hold for both children and adults.
     - **Measurable**: User testing with a sample size of at least 5 individuals across different age groups to assess comfort levels on a 1-10 scale.
     - **Achievable**: Feedback will be collected and incorporated into the design in two iterations over a four-month period.
     - **Relevant**: Comfort is important for user satisfaction and prolonged playtime.
-    - **Time-bound**: Comfort assessments will be conducted within the initial 10 weeks of development.
+    - **Time-bound**: Assessments will be conducted within the initial 10 weeks of development.
 
 4. WiFi Connection Stability
     - **Specific**: The controller must maintain a stable Bluetooth connection to the display.
@@ -236,6 +236,15 @@ The vibration motor had an interesting requirement. The vibrating part had to be
   <img src="/../assets/images/currentdesign-2.png" alt="currentdesign-2">
 </div>
 
+#### 2.2.9 Prototype Breadboard Controller Design
+To perform functionality testing the motion controller design above isn't quite optimal. As all the components take up quite a bit of space with wiring reliably testing with components can be quite the challenge. That's why the following controller design was made. It is designed to be a simpler version which can be easily open and closed. By allowing a breadboard to fit experimenting is quite a bit easier.
+
+<div style="display: flex;">
+  <img src="/../assets/images/breadboard-controller-design-1.png" alt="breadboard-controller-design-1" width=49%>
+  <img src="/../assets/images/breadboard-controller-design-2.png" alt="breadboard-controller-design-2" width=49%>
+</div>
+
+The top and bottom are fitted using 4 push fit holes on the 4 corners and by using the same design for the joystick holder used for the previous motion controller 
 
 
 ### 2.3 Console Prototyping
