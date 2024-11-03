@@ -167,6 +167,9 @@ const openPlayingScreen = async (sessionId, name) => {
         statusElement.textContent = "Completed";
         statusElement.parentElement.classList.toggle("text-danger");
         statusElement.parentElement.classList.toggle("text-success");
+        
+        // Stop fetching when game is completed
+        clearInterval(fetchInterval);
       }
     } else {
       console.error("No session data found");

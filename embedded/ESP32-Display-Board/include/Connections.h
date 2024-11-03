@@ -34,7 +34,7 @@ class Connections {
 
         JsonDocument getHighscores();
         JsonDocument getSessionById(int id);
-        void updateSession(GameSettings &settings);
+        void endSession(int id);
         void createScore(int sessionId, int score);
         void setListenForPackets(bool listen);
     private:

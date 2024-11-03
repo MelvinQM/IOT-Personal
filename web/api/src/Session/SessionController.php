@@ -53,9 +53,7 @@ class SessionController {
                     ErrorCodeHelper::getInstance()->handleErrorCode(400,'Invalid JSON format');
                 }
                 $rows = $this->gateway->update($id, $data);
-                
-                if($rows == 0) break;
-                
+            
                 echo json_encode([
                     "message" => "Session updated",
                     "rows" => $rows

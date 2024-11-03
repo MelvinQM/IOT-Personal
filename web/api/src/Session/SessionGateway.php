@@ -115,7 +115,7 @@ class SessionGateway
         if ($currentSessionData["completed"]) {
             ErrorCodeHelper::getInstance()->handleErrorCode(400,"Can't update a completed session");
         }
-
+        
         //Prevent updating value when value is null
         $sql = "UPDATE session SET 
                     difficulty_id = COALESCE(?, difficulty_id), 

@@ -44,7 +44,6 @@ class GameController
         GameSettings settings;
 
         GameState state = Intro;
-
         const int kFreq = 2000;
         const int kResolution = 8; 
 

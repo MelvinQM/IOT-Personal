@@ -145,6 +145,9 @@ JsonDocument Connections::makeAPICall(String method, String endpoint, JsonDocume
     } else if (method == "POST") {
         http.addHeader("Content-Type", "application/json");
         httpResponseCode = http.POST(payload);
+    } else if (method == "PATCH"){
+        http.addHeader("Content-Type", "application/json");
+        httpResponseCode = http.PATCH(payload);
     } else {
         Serial.println("Unsupported HTTP method: " + method);
         http.end();
@@ -228,14 +231,13 @@ JsonDocument Connections::getSessionById(int id)
     
 }
 
-void Connections::updateSession(GameSettings &settings)
+void Connections::endSession(int id)
 {
     JsonDocument doc;
-    if(settings.completed) doc["completed"] = true;
-    if(settings.startTime) doc["start_time"] = settings.startTime;
-    if(settings.endTime) doc["end_time"] = settings.endTime;
+    doc["completed"] = true;
 
-    JsonDocument response = makeAPICall("PATCH", "session/" + String(settings.sessionId), &doc);
+    JsonDocument response = makeAPICall("PATCH", "session/" + String(id), &doc);
+
 
     // Check for the response
     if (!response.isNull()) {
@@ -257,7 +259,7 @@ void Connections::createScore(int sessionId, int score)
 
     if (!response.isNull()) {
         Serial.println("CreateScore: ");
-        serializeJsonPretty(response, Serial);
+        //serializeJsonPretty(response, Serial);
     } else {
         Serial.println("CreateScore: Failed to create score.");
     }

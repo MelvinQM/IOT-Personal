@@ -63,10 +63,7 @@ struct GameSettings {
     unsigned int playerId;
     Difficulty difficultyId;
     unsigned int score;
-    unsigned long startTime;
-    unsigned long endTime;
     boolean useGyro;
-    boolean completed;
 };
 
 #endif

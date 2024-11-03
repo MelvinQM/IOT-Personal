@@ -90,7 +90,7 @@ void GameController::showIntro()
         sRender.renderIntro(settings.sessionId);
         vTaskDelay(BIG_TIMEOUT_DELAY / portTICK_PERIOD_MS);
     }
-
+    
     // Start polling until a player id is found
     Serial.print("Start polling.");
     JsonDocument response;
@@ -114,9 +114,6 @@ void GameController::showIntro()
     }
     Serial.println();
     setLedRGB(green);
-
-    settings.startTime = millis();
-
     state = Playing;
 }
 
@@ -148,12 +145,17 @@ void GameController::end()
 {
     Serial.println("------Ending Game------");
 
-    //TODO: Either quit or restart based on user input
     conn.setListenForPackets(true);
     bool keepPlaying = sRender.renderEndScreen(settings.useGyro);
     conn.setListenForPackets(false);
 
-    keepPlaying ? state = Playing : state = Intro;
+    if(keepPlaying) {
+        state = Playing;
+    } else {
+        conn.endSession(settings.sessionId);
+        state = Intro;
+    }
+
 }
 
 void GameController::initLed()
