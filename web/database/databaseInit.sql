@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS `database_name`.`Player` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 2;
 
@@ -50,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `database_name`.`Session` (
   `start_time` DATETIME NULL,
   `end_time` DATETIME NULL,
   `player_id` INT(11) NULL,
-  `difficulty_id` INT(11) NULL DEFAULT 1,
+  `difficulty_id` INT(11) NULL DEFAULT 0,
   `use_gyro` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
@@ -76,7 +77,7 @@ AUTO_INCREMENT = 2;
 CREATE TABLE IF NOT EXISTS `database_name`.`Score` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `session_id` INT(11) NOT NULL,
-  `score` VARCHAR(45) NOT NULL DEFAULT 0,
+  `score` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `fk_score_session_idx` (`session_id` ASC) VISIBLE,
   CONSTRAINT `fk_score_session`
