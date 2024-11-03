@@ -26,7 +26,6 @@ void SpriteRenderer::init(int rotation, bool swapBytes, int fillColor)
     background.setSwapBytes(true); // Correct color
 }
 
-
 void SpriteRenderer::gameLoop(GameSettings &settings)
 {
     // Applying game difficulties
@@ -43,7 +42,7 @@ void SpriteRenderer::gameLoop(GameSettings &settings)
     // Game loop initialization
     createCursorSprite();
 
-    axisText.createSprite(kAxisTextSettings.width, kAxisTextSettings.height);
+    //axisText.createSprite(kAxisTextSettings.width, kAxisTextSettings.height);
     scoreText.createSprite(kScoreTextSettings.width, kScoreTextSettings.height);
     bulletsText.createSprite(kBulletsTextSettings.width, kBulletsTextSettings.height);
     owlsText.createSprite(kOwlsTextSettings.width, kOwlsTextSettings.height);
@@ -83,7 +82,7 @@ void SpriteRenderer::gameLoop(GameSettings &settings)
     }
 
     // Gameloop cleanup
-    axisText.deleteSprite();
+    //axisText.deleteSprite();
     scoreText.deleteSprite();
     bulletsText.deleteSprite();
     owlsText.deleteSprite();
@@ -179,7 +178,7 @@ bool SpriteRenderer::checkCollision(int cursorX, int cursorY, int cursorHitBoxSi
 void SpriteRenderer::updateUI(int& x, int& y, int& score)
 {
     background.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, SCREEN_WIDTH, SCREEN_HEIGHT, kBackgroundSprite);
-    updateTextElement(axisText, kAxisTextSettings, "X: " + String(x) + ", Y: " + String(y));
+    //updateTextElement(axisText, kAxisTextSettings, "X: " + String(x) + ", Y: " + String(y));
     updateTextElement(scoreText, kScoreTextSettings, "SCORE: " + String(score));
     updateTextElement(bulletsText, kBulletsTextSettings, String(bullets) + "/" + String(totalBullets));
     updateTextElement(owlsText, kOwlsTextSettings, String(owlsKilled + owlsMissed) + "/" + String(totalOwls));
@@ -214,7 +213,7 @@ void SpriteRenderer::animateOwl()
     elapsedTime = millis() - startAnimationTime;
     if(elapsedTime > kAnimationDelay && owlAlive)   // Calculate elapsed time in microseconds)
     {
-        animationIndex = (animationIndex + 1) % 4;
+        animationIndex = (animationIndex + 1) % kTotalAnimationFrames;
         owl.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, kOwlSpriteRatio, kOwlSpriteRatio, (const unsigned short*) pgm_read_ptr(&kSpriteArray[animationIndex]));
         startAnimationTime = millis();
     }
@@ -247,20 +246,21 @@ void SpriteRenderer::renderIntro(int sessionId)
     tft.drawString("Enter the above session id into the web portal", 13, 200, 2);
 }
 
+
 void SpriteRenderer::renderHighscores(JsonDocument highscores)
 {
     background.fillSprite(TFT_BLACK);
     background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
 
     // Render highscores on page
-    tft.drawString("HIGHSCORES", 85, 10, 4);
-    int y = 50;
+    tft.drawString("HIGHSCORES", kHighscoreTitleX, kTitleY, kTitleFontSize);
+    int y = kInitialY;
     for (JsonObject obj : highscores.as<JsonArray>()) {
         const char* name = obj["name"];
-        const char* score = obj["score"];
+        const int score = obj["score"];
 
-        tft.drawString(String(name) + " : " + String(score), 125, y, 2);
-        y += 17;
+        tft.drawString(String(name) + " : " + String(score), kNameX, y, kFontSize);
+        y += kYIncrement;
     }
 
     vTaskDelay(HIGHSCORE_KEEPALIVE / portTICK_PERIOD_MS);

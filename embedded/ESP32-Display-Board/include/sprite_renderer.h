@@ -45,7 +45,7 @@ class SpriteRenderer {
         TFT_eSprite owl = TFT_eSprite(&tft);
         
         // UI Sprites
-        TFT_eSprite axisText = TFT_eSprite(&tft);
+        //TFT_eSprite axisText = TFT_eSprite(&tft);
         TFT_eSprite scoreText = TFT_eSprite(&tft);
         TFT_eSprite bulletsText = TFT_eSprite(&tft);
         TFT_eSprite owlsText = TFT_eSprite(&tft);
@@ -73,6 +73,15 @@ class SpriteRenderer {
         const int kTotalBulletsEasy = 3;
         const int kTotalBulletsNormal = 2;
         const int kTotalBulletsHard = 1;
+
+        // Highscore page settings
+        const int kHighscoreTitleX = 85;
+        const int kTitleY = 10;
+        const int kTitleFontSize = 4;
+        const int kNameX = 125;
+        const int kInitialY = 50;
+        const int kFontSize = 2;
+        const int kYIncrement = 17;
 
         // Gameloop configs
         int score = 0;
@@ -122,6 +131,7 @@ class SpriteRenderer {
         int movementStepSize = kMovementStepSizeEasy;   
         int kMovementDelay = 10;
         int owlKillScore = kOwlKillScoreEasy;
+        
 
 
         unsigned long shootDelayStartTime; 
@@ -129,6 +139,7 @@ class SpriteRenderer {
         const unsigned long dFlashInterval = 200; 
         bool shootOnCooldown = false;
 
+        const int kTotalAnimationFrames = 4;
         const unsigned short* const kSpriteArray[4] PROGMEM = {
             kOwlNeutralSprite,
             kOwlUpSprite,

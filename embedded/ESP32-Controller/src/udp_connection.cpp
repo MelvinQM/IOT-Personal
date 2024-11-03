@@ -35,7 +35,7 @@ void UdpConnection::sendJsonData(JsonDocument &jsonDoc, bool response, bool retr
     udp.flush();
     
     // Send the JSON string to the server
-    int attempts = retry ? 5 : 1;
+    int attempts = retry ? 2 : 1;
     bool sendSuccess = false;
     for (int i = 0; i < attempts; i++) {
         udp.beginPacket(kUDPAddress, kUDPPort);

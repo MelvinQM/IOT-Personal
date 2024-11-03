@@ -53,9 +53,9 @@ const getPlayerIdFromName = (name) => {
   return fetch(`/api/player?name=${name}`)
     .then((response) => response.json())
     .then((data) => {
-      const playerId = data.id;
-      console.log(playerId);
-      return playerId;
+      // console.log("Player info: ", data);
+      // console.log("Player id: ", data[0].id);
+      return data[0].id;
     })
     .catch((error) => {
       console.error("Error:", error);
