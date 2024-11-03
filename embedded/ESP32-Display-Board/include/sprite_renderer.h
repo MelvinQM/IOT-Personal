@@ -54,6 +54,8 @@ class SpriteRenderer {
         
 
         GameDataModel& g = GameDataModel::getInstance();
+
+        // Game Logic
         bool checkCollision(int cursorX, int cursorY, int cursorHitBoxSize, int owlX, int owlY, int owlHitBoxSize);
         void updateCursorPosition(int& x, int& y, bool useGyro);
         void handleTriggerFire(int& x, int& y);
@@ -63,32 +65,41 @@ class SpriteRenderer {
         void updateUI(int& x, int& y, int& score);
         void updateTextElement(TFT_eSprite &text, const TextSpriteSettings &settings, String content);
 
-        // Gameloop configs
+        // Game Settings
+        const int kTotalBulletsEasy = 3;
+        const int kTotalBulletsNormal = 2;
+        const int kTotalBulletsHard = 1;
+        const int owlKillScoreEasy = 80;
+        const int owlKillScoreNormal = 90;
+        const int owlKillScoreHard = 100;
+
+        // Game Loop Configs
         int score = 0;
         int totalOwls = 10;
         int owlsKilled = 0;
         int owlsMissed = 0;
-        int x = SCREEN_WIDTH / 2 -  kCursorSpriteRatio / 2;
+        int x = SCREEN_WIDTH / 2 - kCursorSpriteRatio / 2;
         int y = SCREEN_HEIGHT / 2 - kCursorSpriteRatio / 2;
-        const int kTotalBullets = 3;
-        int bullets = kTotalBullets;
+        int totalBullets = kTotalBulletsEasy;
+        int bullets = totalBullets;
+
         unsigned long startMovementTime;
         unsigned long startAnimationTime;
         unsigned long startCursorTime;
         unsigned long elapsedTime;
 
-        // Cursor configs
-        const int kCursorSpriteRatio = 40;      // 40x40
+        // Cursor Configs
+        const int kCursorSpriteRatio = 40;  // 40x40
         const int kCursorColorDepth = 16;
-        const int kCursorMovementDelay = 1;     // in millis
-        const int kCursorHitBoxMargin = 10;     // in pixels
+        const int kCursorMovementDelay = 1; // in millis
+        const int kCursorHitBoxMargin = 10; // in pixels
 
-        // Background configs
+        // Background Configs
         int kBackgroundColorDepth = 8;
 
-        // Owl configs
+        // Owl Configs
         const int kOwlColorDepth = 16;
-        const int kOwlSpriteRatio = 64;    // 64x64
+        const int kOwlSpriteRatio = 64; // 64x64
         int animationIndex = 0;
         int owlX = -64;
         int owlY = 100;
@@ -99,11 +110,7 @@ class SpriteRenderer {
         const int kMovementStepSizeHard = 12;
         int movementStepSize = kMovementStepSizeEasy;   
         int kMovementDelay = 10;
-        const int owlKillScoreEasy = 80;
-        const int owlKillScoreNormal = 90;
-        const int owlKillScoreHard = 100;
         int owlKillScore = owlKillScoreEasy;
-
 
         unsigned long shootDelayStartTime; 
         const unsigned long kShootCooldownDuration = 1000; 

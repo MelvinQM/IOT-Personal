@@ -33,9 +33,11 @@ void SpriteRenderer::gameLoop(GameSettings &settings)
     if(settings.difficultyId == NORMAL) {
         movementStepSize = kMovementStepSizeNormal;
         owlKillScore = owlKillScoreNormal;
+        totalBullets = kTotalBulletsNormal;
     } else if(settings.difficultyId == HARD) {
         movementStepSize = kMovementStepSizeHard;
         owlKillScore = owlKillScoreHard;
+        totalBullets = kTotalBulletsHard;
     }
 
     // Game loop initialization
