@@ -44,6 +44,8 @@ class MotionController {
         unsigned long lastJoystickClickTime = 0;
         const unsigned long kJoystickClickCooldown = 100;
         
+        bool buttonPressPending = false;
+
         TaskHandle_t gyroTaskHandle = NULL;
         #define GYRO_TASK_STACK_SIZE    5000
         #define GYRO_TASK_PRIORITY      1

@@ -51,7 +51,6 @@ void MotionController::init()
 
 void MotionController::loop() 
 {
-    Serial.printf("AA: %d\n", digitalRead(BUTTON_PIN));
     handleButtonPress();
     handleJoystickClick();
     vTaskDelay(SMALL_COOLDOWN / portTICK_PERIOD_MS);
@@ -60,6 +59,7 @@ void MotionController::loop()
 
 void MotionController::sendControllerData()
 {
+    if(buttonPressPending) return;
     // Read joystick data
     joystick.readJoystickAxis();
 
@@ -81,20 +81,24 @@ void MotionController::sendControllerData()
 
 void MotionController::sendTriggerInput()
 {
+    buttonPressPending = true;
     // Create a JSON document
     JsonDocument jsonDoc;
     jsonDoc["method"] = TRIGGER_METHOD;
 
-    udpConnection.sendJsonData(jsonDoc, true);
+    udpConnection.sendJsonData(jsonDoc, false, true);
+    buttonPressPending = false;
 }
 
 void MotionController::sendJoystickClick()
 {
+    buttonPressPending = true;
     // Create a JSON document
     JsonDocument jsonDoc;
     jsonDoc["method"] = JOYSTICK_CLICK_METHOD;
     
-    udpConnection.sendJsonData(jsonDoc, true);
+    udpConnection.sendJsonData(jsonDoc, false, true);
+    buttonPressPending = false;
 }
 
 void MotionController::handleButtonPress()
@@ -122,7 +126,7 @@ void MotionController::handleButtonPress()
     {
         // Stop vibrating
         analogWrite(VIBRATION_MOTOR_PIN, VIBRATION_MOTOR_MIN);
-        isVibrating = false;  // Reset vibration state
+        isVibrating = false;
     }
 
     previousButtonState = currentButtonState; 
@@ -131,13 +135,13 @@ void MotionController::handleButtonPress()
 void MotionController::handleJoystickClick()
 {
     unsigned long currentTime = millis();
-    unsigned long elapsedTime = currentTime - lastButtonPressTime;
+    unsigned long elapsedTime = currentTime - lastJoystickClickTime;
     bool currentButtonState = joystick.readJoystickClick();
 
     // Prevent holding down button
     if (currentButtonState && !previousJoystickClickState)
     {
-        if (elapsedTime > kButtonCooldown)
+        if (elapsedTime > kJoystickClickCooldown)
         {
             Serial.println("Joystick Clicked!");
             sendJoystickClick();

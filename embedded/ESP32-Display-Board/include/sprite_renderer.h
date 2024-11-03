@@ -72,7 +72,7 @@ class SpriteRenderer {
         const int kOwlKillScoreHard = 100;
         const int kTotalBulletsEasy = 3;
         const int kTotalBulletsNormal = 2;
-        const int kTotalBulletsHard = 2;
+        const int kTotalBulletsHard = 1;
 
         // Gameloop configs
         int score = 0;
@@ -91,7 +91,7 @@ class SpriteRenderer {
         // Cursor configs
         const int kCursorSpriteRatio = 40;      // 40x40
         const int kCursorColorDepth = 16;
-        const int kCursorMovementDelay = 1;     // in millis
+        const int kCursorMovementDelay = 20;     // in millis
         const int kCursorHitBoxMargin = 10;     // in pixels
 
         // End Game screen configs

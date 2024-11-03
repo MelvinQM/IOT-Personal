@@ -129,7 +129,7 @@ void GameController::play()
     sRender.gameLoop(settings);
     conn.createScore(settings.sessionId, settings.score);
     conn.setListenForPackets(false);
-    
+
     state = ShowingHighScores;
 }
 
@@ -137,6 +137,9 @@ void GameController::showHighScores()
 {
     Serial.println("------Showing Highscores------");
     
+    // Delay to let highscores update
+    vTaskDelay(BIG_TIMEOUT_DELAY / portTICK_PERIOD_MS);
+
     sRender.renderHighscores(conn.getHighscores());
     state = EndGame;
 }

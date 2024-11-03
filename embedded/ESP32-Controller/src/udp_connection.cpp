@@ -29,19 +29,20 @@ void UdpConnection::init()
     udp.begin(kUDPPort);
 }
 
-void UdpConnection::sendJsonData(JsonDocument jsonDoc, bool response, bool retry)
+void UdpConnection::sendJsonData(JsonDocument &jsonDoc, bool response, bool retry)
 {
     // Clear previous UDP buffer
     udp.flush();
     
     // Send the JSON string to the server
-    int attempts = retry ? 2 : 1;
+    int attempts = retry ? 5 : 1;
     bool sendSuccess = false;
-    for (int i = 0; i < attempts && !sendSuccess; i++) {
+    for (int i = 0; i < attempts; i++) {
         udp.beginPacket(kUDPAddress, kUDPPort);
         serializeJson(jsonDoc, udp);
         udp.println();
         sendSuccess = udp.endPacket() > 0;
+        if(sendSuccess) break;
     }
 
     if (response && udp.parsePacket()) {
