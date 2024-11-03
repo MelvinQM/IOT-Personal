@@ -94,6 +94,20 @@ class SpriteRenderer {
         const int kCursorMovementDelay = 1;     // in millis
         const int kCursorHitBoxMargin = 10;     // in pixels
 
+        // End Game screen configs
+        const int kButtonBorderOffset = 20;
+        const int kButtonWidth = (SCREEN_WIDTH / 2) - (kButtonBorderOffset * 2);
+        const int kButtonHeight = SCREEN_HEIGHT - (kButtonBorderOffset * 2);
+        const int kButtonTextOriginY = 110;
+        const int kPlayButtonTextOriginX = 205;
+        const int kEndButtonTextOriginX = 45;
+        const int kButtonTextFontSize = 2;
+
+        const int kPlayButtonOriginX = SCREEN_WIDTH / 2 + kButtonBorderOffset;
+        const int kPlayButtonOriginY = kButtonBorderOffset;
+        const int kEndButtonOriginX = kButtonBorderOffset;
+        const int kEndButtonOriginY = kButtonBorderOffset;
+
         // Background configs
         int kBackgroundColorDepth = 8;
 

@@ -281,12 +281,11 @@ bool SpriteRenderer::renderEndScreen(bool useGyro)
     while(!optionChosen)
     {
         background.fillSprite(TFT_BLACK);
-        background.drawRect(20, 20, 120, 200, TFT_RED);
-        background.drawRect(180, 20, 120, 200, TFT_GREEN);
-        background.drawString("Play Again!", 205, 110, 2);
-        background.drawString("End Session", 45, 110, 2);
-        // endGameSection.pushToSprite(&background, 40, 100);
-        // playAgainSection.pushToSprite(&background, 200, 100);
+        background.drawRect(kEndButtonOriginX, kEndButtonOriginY, kButtonWidth, kButtonHeight, TFT_RED);
+        background.drawRect(kPlayButtonOriginX, kPlayButtonOriginY, kButtonWidth, kButtonHeight, TFT_GREEN);
+        background.drawString("Play Again!", kPlayButtonTextOriginX, kButtonTextOriginY, kButtonTextFontSize);
+        background.drawString("End Session", kEndButtonTextOriginX, kButtonTextOriginY, kButtonTextFontSize);
+
         updateCursorPosition(x, y, false);
 
         if(g.getTriggerPressed())
