@@ -18,11 +18,6 @@
 #define BIG_TIMEOUT_DELAY   5000
 #define HIGHSCORE_KEEPALIVE 10000
 
-// Game settings
-#define CURSOR_SPEED    10
-#define USE_GYRO        false
-#define EXTRA_SCORE_MAX 50
-#define EXTRA_SCORE_DIVISION_FACTOR SCREEN_WIDTH / EXTRA_SCORE_MAX
 
 // Display settings and configurations
 #define SCREEN_WIDTH    320
@@ -30,6 +25,12 @@
 #define SCREEN_ORIGIN_X 0
 #define SCREEN_ORIGIN_Y 0
 #define SCREEN_ROTATION 1   // Landscape
+
+// Game settings
+#define CURSOR_SPEED    10
+#define USE_GYRO        false
+#define EXTRA_SCORE_MAX 50
+#define EXTRA_SCORE_DIVISION_FACTOR (SCREEN_WIDTH / EXTRA_SCORE_MAX)
 
 // Pin definitions
 #define BUTTON_PIN  22

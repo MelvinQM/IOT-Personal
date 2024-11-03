@@ -27,7 +27,7 @@ private:
 
     JoystickData jData;
     GyroData gData;
-    bool buttonPressed;
+    bool triggerPressed;
     bool joystickClicked;
 
 public:
@@ -56,9 +56,9 @@ public:
         return gData.y;
     }
 
-    bool getTriggerPress()
+    bool getTriggerPressed()
     {
-        return buttonPressed;
+        return triggerPressed;
     }
 
     bool getJoystickClicked()
@@ -76,9 +76,9 @@ public:
         this->gData = gData;
     }
 
-    void setTriggerPressed(bool buttonPressed)
+    void setTriggerPressed(bool triggerPressed)
     {
-        this->buttonPressed = buttonPressed;
+        this->triggerPressed = triggerPressed;
     }
 
     void setJoystickClicked(bool joystickClicked)

@@ -56,7 +56,7 @@ class SpriteRenderer {
         GameDataModel& g = GameDataModel::getInstance();
         bool checkCollision(int cursorX, int cursorY, int cursorHitBoxSize, int owlX, int owlY, int owlHitBoxSize);
         void updateCursorPosition(int& x, int& y, bool useGyro);
-        void handleCursorCollision(int& x, int& y);
+        void handleTriggerFire(int& x, int& y);
         void animateOwl();
         void moveOwl();
         void resetOwl();
@@ -70,7 +70,8 @@ class SpriteRenderer {
         int owlsMissed = 0;
         int x = SCREEN_WIDTH / 2 -  kCursorSpriteRatio / 2;
         int y = SCREEN_HEIGHT / 2 - kCursorSpriteRatio / 2;
-        int bullets = 3;
+        const int kTotalBullets = 3;
+        int bullets = kTotalBullets;
         unsigned long startMovementTime;
         unsigned long startAnimationTime;
         unsigned long startCursorTime;
@@ -103,6 +104,11 @@ class SpriteRenderer {
         const int owlKillScoreHard = 100;
         int owlKillScore = owlKillScoreEasy;
 
+
+        unsigned long shootDelayStartTime; 
+        const unsigned long kShootCooldownDuration = 1000; 
+        const unsigned long dFlashInterval = 200; 
+        bool shootOnCooldown = false;
 
         const unsigned short* const kSpriteArray[4] PROGMEM = {
             kOwlNeutralSprite,

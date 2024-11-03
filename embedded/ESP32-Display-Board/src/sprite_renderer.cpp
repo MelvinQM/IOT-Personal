@@ -67,7 +67,7 @@ void SpriteRenderer::gameLoop(GameSettings &settings)
         
         // Cursor logic
         updateCursorPosition(x, y, settings.useGyro);
-        handleCursorCollision(x, y);
+        handleTriggerFire(x, y);
 
         // Update screen
         background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
@@ -116,12 +116,43 @@ void SpriteRenderer::updateCursorPosition(int& x, int& y, bool useGyro)
         }
 }
 
-void SpriteRenderer::handleCursorCollision(int& x, int& y)
+void SpriteRenderer::handleTriggerFire(int& x, int& y)
 {
+    bool firedTrigger = g.getTriggerPressed() && !shootOnCooldown && bullets != 0;
+    unsigned long currentTime = millis();
+
+    if(firedTrigger)
+    {
+        shootDelayStartTime = millis();
+        shootOnCooldown = true;
+        bullets--;
+        g.setTriggerPressed(false);
+    }
+
+    if(shootOnCooldown)
+    {
+        g.setTriggerPressed(false);
+        unsigned long elapsedFlashTime = currentTime - shootDelayStartTime;
+        if (elapsedFlashTime < kShootCooldownDuration) {
+            if ((elapsedFlashTime / dFlashInterval) % 2 == 0) {
+                cursor.deleteSprite();
+            } else {
+                cursor.createSprite(kCursorSpriteRatio, kCursorSpriteRatio);
+                cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, kCursorSpriteRatio, kCursorSpriteRatio, kCursorSprite);
+            }
+        } else {
+            shootOnCooldown = false;
+            cursor.createSprite(kCursorSpriteRatio, kCursorSpriteRatio);
+            cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, kCursorSpriteRatio, kCursorSpriteRatio, kCursorSprite);
+        }
+    }
+
+    
+
     // Collision detection
     if (checkCollision(x, y, kCursorSpriteRatio - kCursorHitBoxMargin, owlX, owlY, kCursorSpriteRatio - kCursorHitBoxMargin) && owlAlive) {
         cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, kCursorSpriteRatio, kCursorSpriteRatio, cursorSpriteRed);
-        if (g.getTriggerPress()) {
+        if (firedTrigger) {
             owlAlive = false;
             owlsKilled++;
             Serial.println("Owl killed!");
@@ -129,6 +160,8 @@ void SpriteRenderer::handleCursorCollision(int& x, int& y)
             score += (owlKillScore + ((SCREEN_WIDTH - owlX) / EXTRA_SCORE_DIVISION_FACTOR)); // Extra points if killed really fast
             owl.fillSprite(TFT_BLACK);
             g.setTriggerPressed(false);
+
+            bullets = kTotalBullets;
         }
     } else {
         cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, kCursorSpriteRatio, kCursorSpriteRatio, kCursorSprite);
@@ -148,7 +181,7 @@ void SpriteRenderer::updateUI(int& x, int& y, int& score)
     background.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, SCREEN_WIDTH, SCREEN_HEIGHT, kBackgroundSprite);
     updateTextElement(axisText, kAxisTextSettings, "X: " + String(x) + ", Y: " + String(y));
     updateTextElement(scoreText, kScoreTextSettings, "SCORE: " + String(score));
-    updateTextElement(bulletsText, kBulletsTextSettings, String(bullets) + "/" + String(bullets));
+    updateTextElement(bulletsText, kBulletsTextSettings, String(bullets) + "/" + String(kTotalBullets));
     updateTextElement(owlsText, kOwlsTextSettings, String(owlsKilled + owlsMissed) + "/" + String(totalOwls));
 }
 
@@ -167,6 +200,7 @@ void SpriteRenderer::moveOwl()
             } else {
                 //Serial.println("Owl missed!");
                 owlsMissed++;
+                bullets = kTotalBullets;
                 resetOwl();
             }
 
