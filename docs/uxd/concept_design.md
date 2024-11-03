@@ -53,7 +53,7 @@ Additionally the controller will be wireless and communicate with the display th
     - **Time-bound**: Assessments will be conducted within the initial 10 weeks of development.
 
 4. WiFi Connection Stability
-    - **Specific**: The controller must maintain a stable Bluetooth connection to the display.
+    - **Specific**: The controller must maintain a stable connection to the display.
     - **Measurable**: The connection must not drop within a 10-meter range during continuous gameplay for at least 95% of the time.
     - **Achievable**: Testing in various environments to ensure reliability.
     - **Relevant**: A stable connection is essential for a smooth gaming experience.
