@@ -37,7 +37,7 @@ class MotionController {
         bool isVibrating = false;
         bool previousButtonState = LOW;
         const unsigned long kButtonCooldown = 100;
-        const unsigned long kVibrationDuration = 200;
+        const unsigned long kVibrationDuration = 400;
 
         // Joystick click configs
         bool previousJoystickClickState = LOW;

@@ -25,7 +25,6 @@ void MotionController::init()
     joystick.init();
     gyro.init();
     pinMode(BUTTON_PIN, INPUT);
-    //digitalWrite(BUTTON_PIN, HIGH);
     pinMode(VIBRATION_MOTOR_PIN, OUTPUT);
 
 
@@ -52,6 +51,7 @@ void MotionController::init()
 
 void MotionController::loop() 
 {
+    Serial.printf("AA: %d\n", digitalRead(BUTTON_PIN));
     handleButtonPress();
     handleJoystickClick();
     vTaskDelay(SMALL_COOLDOWN / portTICK_PERIOD_MS);
@@ -102,7 +102,7 @@ void MotionController::handleButtonPress()
     unsigned long currentTime = millis();
     unsigned long elapsedTime = currentTime - lastButtonPressTime;
 
-    bool currentButtonState = !digitalRead(BUTTON_PIN);
+    bool currentButtonState = digitalRead(BUTTON_PIN);
 
     // Prevent holding down button
     if (currentButtonState && !previousButtonState)
