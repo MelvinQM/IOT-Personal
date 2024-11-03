@@ -137,10 +137,7 @@ void GameController::showHighScores()
 {
     Serial.println("------Showing Highscores------");
     
-    JsonDocument& highscores = conn.getHighscores();
-    sRender.renderHighscores(highscores);
-
-    // After some time go to end screen
+    sRender.renderHighscores(conn.getHighscores());
     state = EndGame;
 }
 

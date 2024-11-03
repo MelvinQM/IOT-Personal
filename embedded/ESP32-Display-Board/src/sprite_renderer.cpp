@@ -76,6 +76,9 @@ void SpriteRenderer::gameLoop(GameSettings &settings)
     scoreText.deleteSprite();
     bulletsText.deleteSprite();
     owlsText.deleteSprite();
+
+    settings.score = score;
+    score = 0;
 }
 
 void SpriteRenderer::updateCursorPosition(int& x, int& y, bool useGyro) 
@@ -191,7 +194,6 @@ void SpriteRenderer::renderIntro(int sessionId)
     background.fillSprite(TFT_BLACK);
     background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
 
-    // Draw string
     tft.drawString("HOOT PURSUIT", 75, 30, 4);
     tft.drawLine(40, 75, 285, 75, TFT_WHITE);
     if(sessionId) {
@@ -203,7 +205,7 @@ void SpriteRenderer::renderIntro(int sessionId)
     tft.drawString("Enter the above session id into the web portal", 13, 200, 2);
 }
 
-void SpriteRenderer::renderHighscores(JsonDocument& highscores)
+void SpriteRenderer::renderHighscores(JsonDocument highscores)
 {
     background.fillSprite(TFT_BLACK);
     background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);

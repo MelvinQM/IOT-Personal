@@ -32,7 +32,7 @@ class Connections {
         void fetchPlayers();
         int createSession();
 
-        JsonDocument& getHighscores();
+        JsonDocument getHighscores();
         JsonDocument getSessionById(int id);
         void updateSession(GameSettings &settings);
         void createScore(int sessionId, int score);

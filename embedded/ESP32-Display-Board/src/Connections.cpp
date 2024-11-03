@@ -84,10 +84,6 @@ void Connections::udpListen()
     int packetSize = udp.parsePacket();
 
     if (packetSize) {
-        // Serial.printf("\nReceived packet from : %s\n", udp.remoteIP().toString());
-        // Serial.printf("Size : %d", packetSize);
-        // Serial.printf("[Server Connected]: %s", AP_LOCAL_IP.toString().c_str());
-
         int len = udp.read(packetBuffer, 255);
         if (len > 0) packetBuffer[len - 1] = 0;
         
@@ -121,8 +117,6 @@ void Connections::udpListen()
         } else {    
             Serial.println("Error: Method not recognized!");
         }
-    } else {
-        //Serial.print(".");
     }
 }
 
@@ -141,7 +135,6 @@ JsonDocument Connections::makeAPICall(String method, String endpoint, JsonDocume
     
     String payload;
     if (jsonDoc != nullptr) {
-        Serial.println("Serializing JSON payload...");
         serializeJson(*jsonDoc, payload);
     } else {
         payload = "{}";
@@ -270,8 +263,8 @@ void Connections::createScore(int sessionId, int score)
     }
 }
 
-JsonDocument& Connections::getHighscores() {
-    static JsonDocument doc = makeAPICall("GET", "actions/gethighscores?count=" + String(HIGHSCORE_AMOUNT));
+JsonDocument Connections::getHighscores() {
+    JsonDocument doc = makeAPICall("GET", "actions/gethighscores?count=" + String(HIGHSCORE_AMOUNT));
     return doc;
 }
 

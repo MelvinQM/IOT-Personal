@@ -35,7 +35,7 @@ class SpriteRenderer {
         void init(int rotation, bool swapBytes, int fillColor);
         void gameLoop(GameSettings &settings);
         void renderIntro(int sessionId);
-        void renderHighscores(JsonDocument& highscores);
+        void renderHighscores(JsonDocument highscores);
         bool renderEndScreen();
 
     private:
