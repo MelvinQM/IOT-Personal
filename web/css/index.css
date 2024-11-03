@@ -53,10 +53,15 @@ body {
 .customTable td {
   color: white;
   background-color: transparent !important; /* Ensures the header and cells also have no background */
-  max-height: 300px;
-  overflow-y: auto;
+
 }
 
+.scoreTableContainer {
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #fff #343a40;
+}
 
 .duckContainer {
   position: absolute;
