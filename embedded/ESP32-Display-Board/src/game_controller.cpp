@@ -85,8 +85,11 @@ void GameController::showIntro()
 
     // Create session and show its id on screen
     settings = {};
-    settings.sessionId = conn.createSession();
-    sRender.renderIntro(settings.sessionId);
+    while(settings.sessionId == 0) {
+        settings.sessionId = conn.createSession();
+        sRender.renderIntro(settings.sessionId);
+        vTaskDelay(BIG_TIMEOUT_DELAY / portTICK_PERIOD_MS);
+    }
 
     // Start polling until a player id is found
     Serial.print("Start polling.");
@@ -94,16 +97,8 @@ void GameController::showIntro()
     int playerId = 0;
     setLedRGB(yellow);
 
-    // unsigned long startTime;
-    // unsigned long timeoutDuration = 10000;
     while(settings.playerId  == 0)
     {
-        // // Check if 10 seconds have passed
-        // if (millis() - startTime >= timeoutDuration) {
-        //     Serial.println("Timeout! No player connected.");
-        //     break; // Exit the loop after 10 seconds
-        // }
-
         response = conn.getSessionById(settings.sessionId);
         if(response["player_id"]) {
             settings.playerId = response["player_id"];

@@ -41,6 +41,7 @@ void SpriteRenderer::gameLoop(GameSettings &settings)
     owl.setColorDepth(kOwlColorDepth);
     owl.createSprite(kOwlSpriteRatio, kOwlSpriteRatio);
     owl.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, kOwlSpriteRatio, kOwlSpriteRatio, kOwlNeutralSprite); // Initial sprite
+    resetOwl();
 
     // Gameloop
     startMovementTime, startAnimationTime, startCursorTime = millis();
@@ -168,8 +169,7 @@ void SpriteRenderer::animateOwl()
     elapsedTime = millis() - startAnimationTime;
     if(elapsedTime > kAnimationDelay && owlAlive)   // Calculate elapsed time in microseconds)
     {
-        animationIndex++;
-        if(animationIndex == 4) animationIndex = 0;
+        animationIndex = (animationIndex + 1) % 4;
         owl.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, kOwlSpriteRatio, kOwlSpriteRatio, (const unsigned short*) pgm_read_ptr(&kSpriteArray[animationIndex]));
         startAnimationTime = millis();
     }
@@ -194,9 +194,13 @@ void SpriteRenderer::renderIntro(int sessionId)
     // Draw string
     tft.drawString("HOOT PURSUIT", 75, 30, 4);
     tft.drawLine(40, 75, 285, 75, TFT_WHITE);
-    tft.drawString("SESSION-ID : " + String(sessionId), 110, 120, 2);
+    if(sessionId) {
+        tft.drawString("SESSION-ID : " + String(sessionId), 110, 120, 2);
+    } else {
+        tft.drawString("Unable to connect retrying..." , 80, 120, 2);
+    }
 
-    int width = tft.drawString("Enter the above session id into the web portal", 13, 200, 2);
+    tft.drawString("Enter the above session id into the web portal", 13, 200, 2);
 }
 
 void SpriteRenderer::renderHighscores(JsonDocument& highscores)
