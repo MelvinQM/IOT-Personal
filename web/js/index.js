@@ -128,15 +128,18 @@ const openPlayingScreen = async (sessionId, name) => {
     : "Ongoing";
 
   const scoreElement = document.getElementById("infoScores");
+
   // Start fetching every 10 seconds for scores connected to session id
   setInterval(async () => {
     let scoreData = await fetchScoreBySessionId(sessionId);
     if (scoreData.length > 0) {
       scoreElement.innerHTML = ""; // Clear previous data
       scoreData.forEach((data) => {
+        let tr = document.createElement("tr");
         let td = document.createElement("td");
         td.textContent = data.score;
-        scoreElement.appendChild(td);
+        tr.appendChild(td);
+        scoreElement.appendChild(tr);
       });
     } else {
       console.log("No score data found");
@@ -145,6 +148,7 @@ const openPlayingScreen = async (sessionId, name) => {
     let sessionData = await fetchSessionData(sessionId);
     if (sessionData) {
       if (sessionData.end_time) {
+        endTimeElement.textContent = sessionData.end_time;
       }
       if (sessionData.completed) {
         statusElement.textContent = "Completed";
