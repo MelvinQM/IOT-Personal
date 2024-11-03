@@ -146,10 +146,10 @@ void GameController::end()
     Serial.println("------Ending Game------");
 
     //TODO: Either quit or restart based on user input
-    bool keepPlaying = sRender.renderEndScreen();
+    conn.setListenForPackets(true);
+    bool keepPlaying = sRender.renderEndScreen(settings.useGyro);
+    conn.setListenForPackets(false);
 
-
-    keepPlaying = true;
     keepPlaying ? state = Playing : state = Intro;
 }
 

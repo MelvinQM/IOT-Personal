@@ -43,7 +43,7 @@ class GameController
         SpriteRenderer sRender;
         GameSettings settings;
 
-        GameState state = Playing;
+        GameState state = Intro;
 
         const int kFreq = 2000;
         const int kResolution = 8; 

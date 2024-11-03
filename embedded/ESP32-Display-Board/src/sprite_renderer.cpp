@@ -32,17 +32,16 @@ void SpriteRenderer::gameLoop(GameSettings &settings)
     // Applying game difficulties
     if(settings.difficultyId == NORMAL) {
         movementStepSize = kMovementStepSizeNormal;
-        owlKillScore = owlKillScoreNormal;
+        owlKillScore = kOwlKillScoreNormal;
         totalBullets = kTotalBulletsNormal;
     } else if(settings.difficultyId == HARD) {
         movementStepSize = kMovementStepSizeHard;
-        owlKillScore = owlKillScoreHard;
+        owlKillScore = kOwlKillScoreHard;
         totalBullets = kTotalBulletsHard;
     }
 
     // Game loop initialization
-    cursor.setColorDepth(kCursorColorDepth);
-    cursor.createSprite(kCursorSpriteRatio, kCursorSpriteRatio);
+    createCursorSprite();
 
     axisText.createSprite(kAxisTextSettings.width, kAxisTextSettings.height);
     scoreText.createSprite(kScoreTextSettings.width, kScoreTextSettings.height);
@@ -59,6 +58,7 @@ void SpriteRenderer::gameLoop(GameSettings &settings)
     owlsKilled = 0;
     owlsMissed = 0;
     bool isRunning = true;
+    g.setTriggerPressed(false); // Prevent buffered input
     while(isRunning)
     {
         // Background and UI
@@ -139,13 +139,11 @@ void SpriteRenderer::handleTriggerFire(int& x, int& y)
             if ((elapsedFlashTime / dFlashInterval) % 2 == 0) {
                 cursor.deleteSprite();
             } else {
-                cursor.createSprite(kCursorSpriteRatio, kCursorSpriteRatio);
-                cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, kCursorSpriteRatio, kCursorSpriteRatio, kCursorSprite);
+                createCursorSprite();
             }
         } else {
             shootOnCooldown = false;
-            cursor.createSprite(kCursorSpriteRatio, kCursorSpriteRatio);
-            cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, kCursorSpriteRatio, kCursorSpriteRatio, kCursorSprite);
+            createCursorSprite();
         }
     }
 
@@ -163,7 +161,7 @@ void SpriteRenderer::handleTriggerFire(int& x, int& y)
             owl.fillSprite(TFT_BLACK);
             g.setTriggerPressed(false);
 
-            bullets = kTotalBullets;
+            bullets = totalBullets;
         }
     } else {
         cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, kCursorSpriteRatio, kCursorSpriteRatio, kCursorSprite);
@@ -183,14 +181,13 @@ void SpriteRenderer::updateUI(int& x, int& y, int& score)
     background.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, SCREEN_WIDTH, SCREEN_HEIGHT, kBackgroundSprite);
     updateTextElement(axisText, kAxisTextSettings, "X: " + String(x) + ", Y: " + String(y));
     updateTextElement(scoreText, kScoreTextSettings, "SCORE: " + String(score));
-    updateTextElement(bulletsText, kBulletsTextSettings, String(bullets) + "/" + String(kTotalBullets));
+    updateTextElement(bulletsText, kBulletsTextSettings, String(bullets) + "/" + String(totalBullets));
     updateTextElement(owlsText, kOwlsTextSettings, String(owlsKilled + owlsMissed) + "/" + String(totalOwls));
 }
 
 void SpriteRenderer::moveOwl()
 {
     animateOwl();
-
     elapsedTime = millis() - startMovementTime;
     if(elapsedTime > kMovementDelay)
     {
@@ -202,7 +199,7 @@ void SpriteRenderer::moveOwl()
             } else {
                 //Serial.println("Owl missed!");
                 owlsMissed++;
-                bullets = kTotalBullets;
+                bullets = totalBullets;
                 resetOwl();
             }
 
@@ -230,7 +227,7 @@ void SpriteRenderer::resetOwl()
     owlY = random(SCREEN_ORIGIN_Y, SCREEN_HEIGHT - kOwlSpriteRatio);
     owlAlive = true;
 
-    bullets = 3;
+    bullets = totalBullets;
 }
 
 void SpriteRenderer::renderIntro(int sessionId)
@@ -269,17 +266,40 @@ void SpriteRenderer::renderHighscores(JsonDocument highscores)
     vTaskDelay(HIGHSCORE_KEEPALIVE / portTICK_PERIOD_MS);
 }
 
-bool SpriteRenderer::renderEndScreen()
+bool SpriteRenderer::renderEndScreen(bool useGyro)
 {
     background.fillSprite(TFT_BLACK);
     background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
+    createCursorSprite();
 
     // Add buttons for Keep Playing and End Session
     bool keepPlaying = false;
-    bool optionChosen = true;
+    bool optionChosen = false;
+    startCursorTime = millis();
+
+    g.setTriggerPressed(false); // Prevent buffered input
     while(!optionChosen)
     {
+        background.fillSprite(TFT_BLACK);
+        background.drawRect(20, 20, 120, 200, TFT_RED);
+        background.drawRect(180, 20, 120, 200, TFT_GREEN);
+        background.drawString("Play Again!", 205, 110, 2);
+        background.drawString("End Session", 45, 110, 2);
+        // endGameSection.pushToSprite(&background, 40, 100);
+        // playAgainSection.pushToSprite(&background, 200, 100);
+        updateCursorPosition(x, y, false);
 
+        if(g.getTriggerPressed())
+        {
+            if(x > SCREEN_WIDTH / 2){
+                keepPlaying = true;
+            } else {
+                keepPlaying = false;
+            }
+            optionChosen = true;
+        }
+        
+        background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
     }
 
     return keepPlaying;
@@ -291,4 +311,10 @@ void SpriteRenderer::updateTextElement(TFT_eSprite &text, const TextSpriteSettin
     text.fillSprite(TFT_BLACK);
     text.drawString(content, SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, settings.fontSize);
     text.pushToSprite(&background, settings.posX, settings.posY, TFT_BLACK);
+}
+
+void SpriteRenderer::createCursorSprite()
+{
+    cursor.createSprite(kCursorSpriteRatio, kCursorSpriteRatio);
+    cursor.pushImage(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y, kCursorSpriteRatio, kCursorSpriteRatio, kCursorSprite);
 }
