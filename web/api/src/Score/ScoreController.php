@@ -131,7 +131,7 @@ class ScoreController {
     private function getValidationErrors(array $data, bool $isNew = true) : array
     {
         $errors = [];
-        if($isNew && empty($data["score"])) 
+        if($isNew && (!isset($data["score"]) || $data["score"] === null)) 
         {
             $errors[] = "score is required";
         }
