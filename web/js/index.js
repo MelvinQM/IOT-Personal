@@ -53,7 +53,7 @@ const getPlayerIdFromName = (name) => {
   return fetch(`/api/player?name=${name}`)
     .then((response) => response.json())
     .then((data) => {
-      const playerId = data[0].id;
+      const playerId = data.id;
       console.log(playerId);
       return playerId;
     })
@@ -63,7 +63,7 @@ const getPlayerIdFromName = (name) => {
     });
 };
 
-const addToSession = (sessionId, playerId, useGyro, difficultyId) => {
+const addToSessionStart = (sessionId, playerId, useGyro, difficultyId) => {
   return fetch("/api/session/" + sessionId, {
     method: "PATCH",
     headers: {
@@ -76,6 +76,27 @@ const addToSession = (sessionId, playerId, useGyro, difficultyId) => {
       difficulty_id: difficultyId,
       completed: false,
       start_time: getCurrentDateTime(),
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Updated session: ", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      return null;
+    });
+};
+
+const addToSessionEnd = (endTime, sessionId) => {
+  return fetch("/api/session/" + sessionId, {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      end_time: endTime
     }),
   })
     .then((response) => response.json())
@@ -143,7 +164,7 @@ const openPlayingScreen = async (sessionId, name) => {
   const scoreElement = document.getElementById("infoScores");
 
   // Start fetching every 10 seconds for scores connected to session id
-  setInterval(async () => {
+  const fetchInterval = setInterval(async () => {
     let scoreData = await fetchScoreBySessionId(sessionId);
     if (scoreData.length > 0) {
       scoreElement.innerHTML = ""; // Clear previous data
@@ -169,6 +190,10 @@ const openPlayingScreen = async (sessionId, name) => {
         statusElement.parentElement.classList.toggle("text-success");
         
         // Stop fetching when game is completed
+        let endTime = getCurrentDateTime();
+        endTimeElement.textContent = endTime;
+        await addToSessionEnd(endTime, sessionId);
+        
         clearInterval(fetchInterval);
       }
     } else {
@@ -189,7 +214,7 @@ const createPlayer = (name) => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      return data[0].id;
+      return data.id;
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -249,7 +274,7 @@ userForm.addEventListener("submit", async (e) => {
       console.log("Player already exists, adding to session....");
     }
 
-    await addToSession(sessionId, playerId, enableGyro, difficulty_id);
+    await addToSessionStart(sessionId, playerId, enableGyro, difficulty_id);
     await openPlayingScreen(sessionId, name);
   }
 });
