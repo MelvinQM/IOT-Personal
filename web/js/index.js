@@ -5,6 +5,19 @@
  * License: This project is licensed under the MIT License.
  */
 
+function getDifficultyName(difficultyId) {
+  switch (difficultyId) {
+    case 1:
+      return "EASY";
+    case 2:
+      return "NORMAL";
+    case 3:
+      return "HARD";
+    default:
+      return "UNKNOWN"; // In case of an invalid ID
+  }
+}
+
 function redirectToAdmin() {
   window.location.href = "/admin";
 }
@@ -120,7 +133,7 @@ const openPlayingScreen = async (sessionId, name) => {
 
   nameElement.textContent = name;
   sessionIdElement.textContent = sessionId;
-  difficultyIdElement.textContent = sessionData.difficulty_id;
+  difficultyIdElement.textContent = getDifficultyName(sessionData.difficulty_id);
   controlMethodElement.textContent = sessionData.use_gyro ? "Gyro" : "Joystick";
   startTimeElement.textContent = sessionData.start_time;
   endTimeElement.textContent = sessionData.end_time
