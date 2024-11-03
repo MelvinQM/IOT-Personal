@@ -110,7 +110,7 @@ void GameController::showIntro()
             Serial.print(".");
         }
 
-        vTaskDelay(BIG_TIMEOUT_DELAY / portTICK_PERIOD_MS);
+        vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
     }
     Serial.println();
     setLedRGB(green);

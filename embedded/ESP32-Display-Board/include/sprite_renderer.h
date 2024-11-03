@@ -92,9 +92,17 @@ class SpriteRenderer {
         int owlX = -64;
         int owlY = 100;
         bool owlAlive = true;
-        const int kAnimationDelay = 150;   // in milis
-        const int kMovementDelay = 10;     // in milis
-        const int kMovementStepSize = 5;   // in pixels
+        const int kAnimationDelay = 150;   
+        const int kMovementStepSizeEasy = 5;        
+        const int kMovementStepSizeNormal = 8;
+        const int kMovementStepSizeHard = 12;
+        int movementStepSize = kMovementStepSizeEasy;   
+        int kMovementDelay = 10;
+        const int owlKillScoreEasy = 80;
+        const int owlKillScoreNormal = 90;
+        const int owlKillScoreHard = 100;
+        int owlKillScore = owlKillScoreEasy;
+
 
         const unsigned short* const kSpriteArray[4] PROGMEM = {
             kOwlNeutralSprite,

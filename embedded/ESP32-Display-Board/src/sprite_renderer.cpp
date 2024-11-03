@@ -29,6 +29,15 @@ void SpriteRenderer::init(int rotation, bool swapBytes, int fillColor)
 
 void SpriteRenderer::gameLoop(GameSettings &settings)
 {
+    // Applying game difficulties
+    if(settings.difficultyId == NORMAL) {
+        movementStepSize = kMovementStepSizeNormal;
+        owlKillScore = owlKillScoreNormal;
+    } else if(settings.difficultyId == HARD) {
+        movementStepSize = kMovementStepSizeHard;
+        owlKillScore = owlKillScoreHard;
+    }
+
     // Game loop initialization
     cursor.setColorDepth(kCursorColorDepth);
     cursor.createSprite(kCursorSpriteRatio, kCursorSpriteRatio);
@@ -117,7 +126,7 @@ void SpriteRenderer::handleCursorCollision(int& x, int& y)
             owlsKilled++;
             Serial.println("Owl killed!");
             
-            score += (100 + ((SCREEN_WIDTH - owlX) / EXTRA_SCORE_DIVISION_FACTOR)); // Extra points if killed really fast
+            score += (owlKillScore + ((SCREEN_WIDTH - owlX) / EXTRA_SCORE_DIVISION_FACTOR)); // Extra points if killed really fast
             owl.fillSprite(TFT_BLACK);
             g.setTriggerPressed(false);
         }
@@ -150,13 +159,13 @@ void SpriteRenderer::moveOwl()
     elapsedTime = millis() - startMovementTime;
     if(elapsedTime > kMovementDelay)
     {
-        owlX += kMovementDelay;
+        owlX += movementStepSize;
         // If owl flies offscreen
         if(owlX > SCREEN_WIDTH + kOwlSpriteRatio) {
             if(!owlAlive) {
                 resetOwl();
             } else {
-                Serial.println("Owl missed!");
+                //Serial.println("Owl missed!");
                 owlsMissed++;
                 resetOwl();
             }

@@ -29,7 +29,6 @@
 #define SCREEN_HEIGHT   240
 #define SCREEN_ORIGIN_X 0
 #define SCREEN_ORIGIN_Y 0
-#define REFRESH_RATE    10
 #define SCREEN_ROTATION 1   // Landscape
 
 // Pin definitions
