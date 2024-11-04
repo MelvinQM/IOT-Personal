@@ -17,13 +17,13 @@ body {
     font-family: 'ArcadeClassic', sans-serif;
 }
 
-.styledContainer {
+.styled-container {
     background-color: rgba(0, 0, 0, 0.5); /* 50% transparent black */
     width: 350px;
     height: 450px;
 }
 
-.styledSmallContainer {
+.styled-small-container {
   background-color: rgba(0, 0, 0, 0.5); /* 50% transparent black */
   width: 200px;
   height: 450px;
@@ -44,25 +44,25 @@ body {
   border-color: white;
 }
 
-.customTable {
+.custom-table {
   background-color: transparent !important;
 }
 
-.customTable th,
-.customTable td {
+.custom-table th,
+.custom-table td {
   color: white;
   background-color: transparent !important; /* Ensures the header and cells also have no background */
 
 }
 
-.scoreTableContainer {
+.score-table-container {
   max-height: 300px;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #fff #343a40;
 }
 
-.duckContainer {
+.duck-container {
   position: absolute;
   top: 0;
   width: 100%;
@@ -79,7 +79,7 @@ body {
   animation: fly 1s steps(2) infinite, move 10s linear infinite;
 }
 
-.duckContainer {
+.duck-container {
   position: absolute;
   top: 10%;
   width: 100%;

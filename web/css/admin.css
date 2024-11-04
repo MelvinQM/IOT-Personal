@@ -13,7 +13,7 @@ body {
     color: white;
 }
 
-.datatable {
+.data-table {
     max-height: 500px;
     margin-bottom: 2em;
     overflow-y: auto;
