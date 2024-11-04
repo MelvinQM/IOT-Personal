@@ -5,6 +5,114 @@
  * License: This project is licensed under the MIT License.
  */
 
+
+const ApiService = {
+  async getPlayerIdFromName(name) {
+    return fetch(`/api/player?name=${name}`)
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log("Player info: ", data);
+        // console.log("Player id: ", data[0].id);
+        return data[0].id;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        return null;
+      });
+  },
+
+  async addToSessionStart(sessionId, playerId, useGyro, difficultyId) {
+    return fetch("/api/session/" + sessionId, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        player_id: playerId,
+        use_gyro: useGyro,
+        difficulty_id: difficultyId,
+        completed: false,
+        start_time: getCurrentDateTime(),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Updated session: ", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        return null;
+      });
+  },
+
+  async addToSessionEnd(endTime, sessionId) {
+    return fetch("/api/session/" + sessionId, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        end_time: endTime
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Updated session: ", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        return null;
+      });
+  },
+
+  async fetchSessionData(sessionId) {
+    return fetch("/api/session/" + sessionId)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Fetched session: ", data);
+        return data;
+      })
+      .catch((error) => {
+        console.error("Error fetching session:", error);
+        return null;
+      });
+  },
+  
+  async fetchScoreBySessionId(sessionId) {
+    return fetch(`/api/score?session_id=${sessionId}`)
+      .then((response) => response.json())
+      .then((scores) => {
+        console.log("Fetched scores: ", scores);
+        return scores;
+      })
+      .catch((error) => {
+        console.error("Error fetching scores:", error);
+      });
+  },
+
+  async createPlayer(name) {
+    return fetch("/api/player", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: name }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        return data.id;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        return null;
+      });
+  },
+}
+
 function getDifficultyName(difficultyId) {
   switch (difficultyId) {
     case 1:
@@ -14,7 +122,7 @@ function getDifficultyName(difficultyId) {
     case 3:
       return "HARD";
     default:
-      return "UNKNOWN"; // In case of an invalid ID
+      return "UNKNOWN";
   }
 }
 
@@ -49,91 +157,6 @@ function getCurrentDateTime() {
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
-const getPlayerIdFromName = (name) => {
-  return fetch(`/api/player?name=${name}`)
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log("Player info: ", data);
-      // console.log("Player id: ", data[0].id);
-      return data[0].id;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      return null;
-    });
-};
-
-const addToSessionStart = (sessionId, playerId, useGyro, difficultyId) => {
-  return fetch("/api/session/" + sessionId, {
-    method: "PATCH",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      player_id: playerId,
-      use_gyro: useGyro,
-      difficulty_id: difficultyId,
-      completed: false,
-      start_time: getCurrentDateTime(),
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Updated session: ", data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      return null;
-    });
-};
-
-const addToSessionEnd = (endTime, sessionId) => {
-  return fetch("/api/session/" + sessionId, {
-    method: "PATCH",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      end_time: endTime
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Updated session: ", data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      return null;
-    });
-};
-
-const fetchSessionData = (sessionId) => {
-  return fetch("/api/session/" + sessionId)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Fetched session: ", data);
-      return data;
-    })
-    .catch((error) => {
-      console.error("Error fetching session:", error);
-      return null;
-    });
-};
-
-const fetchScoreBySessionId = (sessionId) => {
-  return fetch(`/api/score?session_id=${sessionId}`)
-    .then((response) => response.json())
-    .then((scores) => {
-      console.log("Fetched scores: ", scores);
-      return scores;
-    })
-    .catch((error) => {
-      console.error("Error fetching scores:", error);
-    });
-};
-
 const openPlayingScreen = async (sessionId, name) => {
   console.log("----Opening playing screen-----");
 
@@ -141,7 +164,7 @@ const openPlayingScreen = async (sessionId, name) => {
   toggleDivs();
 
   // Make initial call to fetch session data
-  let sessionData = await fetchSessionData(sessionId);
+  let sessionData = await ApiService.fetchSessionData(sessionId);
 
   // Insert data into table
   const nameElement = document.getElementById("infoPlayerName");
@@ -165,7 +188,7 @@ const openPlayingScreen = async (sessionId, name) => {
 
   // Start fetching every 10 seconds for scores connected to session id
   const fetchInterval = setInterval(async () => {
-    let scoreData = await fetchScoreBySessionId(sessionId);
+    let scoreData = await ApiService.fetchScoreBySessionId(sessionId);
     if (scoreData.length > 0) {
       scoreElement.innerHTML = ""; // Clear previous data
       scoreData.forEach((data) => {
@@ -179,7 +202,7 @@ const openPlayingScreen = async (sessionId, name) => {
       console.log("No score data found");
     }
 
-    let sessionData = await fetchSessionData(sessionId);
+    let sessionData = await ApiService.fetchSessionData(sessionId);
     if (sessionData) {
       if (sessionData.end_time) {
         endTimeElement.textContent = sessionData.end_time;
@@ -192,7 +215,7 @@ const openPlayingScreen = async (sessionId, name) => {
         // Stop fetching when game is completed
         let endTime = getCurrentDateTime();
         endTimeElement.textContent = endTime;
-        await addToSessionEnd(endTime, sessionId);
+        await ApiService.addToSessionEnd(endTime, sessionId);
         
         clearInterval(fetchInterval);
       }
@@ -202,25 +225,6 @@ const openPlayingScreen = async (sessionId, name) => {
   }, 10000);
 };
 
-const createPlayer = (name) => {
-  return fetch("/api/player", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ name: name }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      return data.id;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      return null;
-    });
-};
 
 let userForm = document.getElementById("userForm");
 
@@ -256,7 +260,7 @@ userForm.addEventListener("submit", async (e) => {
     console.log("Session ID:", sessionId);
 
     // Usage of getPlayerId
-    let playerId = await getPlayerIdFromName(name);
+    let playerId = await ApiService.getPlayerIdFromName(name);
 
     if (playerId) {
       console.log("ID found: ", playerId);
@@ -268,13 +272,13 @@ userForm.addEventListener("submit", async (e) => {
       console.log(
         "No existing player found - Creating new player and adding to session...."
       );
-      playerId = await createPlayer(name);
+      playerId = await ApiService.createPlayer(name);
     } else {
       // Player already exists
       console.log("Player already exists, adding to session....");
     }
 
-    await addToSessionStart(sessionId, playerId, enableGyro, difficulty_id);
+    await ApiService.addToSessionStart(sessionId, playerId, enableGyro, difficulty_id);
     await openPlayingScreen(sessionId, name);
   }
 });
