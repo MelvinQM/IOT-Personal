@@ -9,7 +9,7 @@
         - **[2.1.1 HTML](#211-html)**
         - **[2.1.2 CSS](#212-css)**
         - **[2.1.3 Javascript](#213-javascript)**
-    - **[2.2 Backend](#21-backend)**
+    - **[2.2 Backend](#22-backend)**
         - **[2.2.1 API Code Structure](#221-api-code-structure)**
         - **[2.2.2 API entrypoint](#222-api-entrypoint)**
         - **[2.2.3 Controllers & Gateways](#222-controllers-gateways)**
@@ -46,9 +46,79 @@ The code for the website is divided between the frontend and backend code. The f
 
 #### 2.1.1 HTML
 
+**index.html**:
+
+The `index.html` file serves as the main interface for the Hoot Pursuit game, providing the player with the ability to enter necessary information to start a game session. It includes the following primary sections:
+
+- **Page Setup**: Sets up the page metadata, including title, favicon, Bootstrap initialization and linking to the custom css file `/css/index.css` Links to a custom CSS file for additional styling.
+- **Input Form**:  Shows session details (Session ID, Player, Difficulty, Control method, Start/End time) and game state.
+- **Session details**: Displays session details when a game session is in progress. Contains a table that dynamically shows session details (Session ID, Player, Difficulty, Control method, Start/End time) and the game's current status. There is also a table present to show scores provides a dynamic view of the player's scores, allowing real-time score updates.
+- **Script**: Links to `index.js` for frontend JavaScript logic handling events, such as form submission, element toggling, and API calls.
+
+**admin.html**:
+
+The `admin.html` file is the main interface for viewing all database data in Hoot Pursuit, providing an organized view of players, highscores, sessions, difficulties, and scores. Key sections include:
+
+- **Page Setup**: Sets up page metadata, title, Bootstrap styling, and links to custom CSS (/css/admin.css) for additional styling.
+- **Navbar**: A top navigation bar with links to the "Home" and "Dashboard" pages for easy navigation.
+- **Data Tables**: On the admin page a table is present for all the database tables and endpoints present. `(Tables: Player, Score, Session and Difficulty, Actions: Highscores)`
+- **Scripts**: Links to admin.js for frontend JavaScript that handles data fetching, UI updates, and interactions with the server.
+
+
 #### 2.1.2 CSS
 
+**index.css**: 
+
+The `index.css` file defines the main styles for the Hoot Pursuit game interface, creating a retro aesthetic and managing layout, colors, fonts, and animations. Key style definitions include:
+
+- **Font**: "ArcadeClassic" is assigned.
+- **Background**: Applies a pixelated background image (`web/assets/background.png`) covering the entire window for a classic arcade look.
+- **Custom containers**: A custom container is declared which has a semi transparent black background.
+- **Custom button**: Customizes button styles, removing borders and setting hover behavior with a dark background and white color for emphasis.
+- **Tables**: Customizes tables with auto-scroll for long lists, thin white scrollbars, and constrained height for better layout.
+- **Duck animation**: An animation for the movement of a duck sprite on the webend is also defined. This allows for some movement on screen to interest the user.
+
+**admin.css**: 
+
+The `admin.css` file styles the admin interface, focusing on a dark theme with a retro touch for consistency with the retro game look and feel.
+
+- **Font**: "ArcadeClassic" is assigned.
+- **Background**: Applies a black background with a subtle gradient effect for some interesting visuals.
+- **Tables**: Customizes tables with auto-scroll for long lists, thin white scrollbars, and constrained height for better layout.
+- **Additional styling**: Adds varioous stylign to enhance the user experience `ex: a hover underline to navbar links for visual feedback`.
+
+
 #### 2.1.3 Javascript
+The javascript logic is defined per page `index.js` for index.html and `admin.js` for `admin.html`.
+
+**ApiService**: To allow for communication with the API a const ApiService is defined in both javascript files which has functions to make specific calls to the API. 
+*Example code only*:
+```js
+async getData() {
+    return fetch('/api/data')
+        .then((response) => response.json())
+        .then((data) => {
+            return data;
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            return null;
+        });
+},
+```
+**Index Page specific**:
+
+- **Helper functions**: Besides the connection the API a number of helper functions are defined to support the index page logic.
+    - `getDifficultyName(difficultyId)`: converts a numerical difficulty ID into a difficulty name.
+    - `redirectToAdmin()`: Redirects the user to the admin page.
+    - `toggleDivs()`: Toggles the visibility of the different screens in the app (e.g., input screen, playing screen, and score screen).
+    - `getCurrentDateTime()`: Returns the current date and time in a YYYY-MM-DD HH:MM:SS format.
+
+- **OpenPlayingScreen()**: Initializes the playing screen when a session begins. It performs the following tasks:
+    - **Toggle View**: calls toggleDivs() to switch the screen to the playing view.
+    - **Data Fetch**: Retrieves session details by calling ApiService.fetchSessionData(sessionId), which returns data related to the session’s configuration and status.
+    - **Data Insertion into HTML Elements**: Retrieves elements by their IDs and updates their textContent based on the fetched data.
+    - **Score and Session Fetching**: Initiates a recurring interval to call ApiService.fetchScoreBySessionId(sessionId) and ApiService.fetchSessionData(sessionId), updating and displaying the session's scores and session details in table elements.
 
 
 ### 2.2 Backend
