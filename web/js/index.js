@@ -131,9 +131,9 @@ function redirectToAdmin() {
 }
 
 function toggleDivs() {
-  var inputScreen = document.getElementById("inputScreen");
-  var playingScreen = document.getElementById("playingScreen");
-  var scoreScreen = document.getElementById("scoreScreen");
+  var inputScreen = document.getElementById("input-screen");
+  var playingScreen = document.getElementById("playing-screen");
+  var scoreScreen = document.getElementById("score-screen");
 
   inputScreen.classList.toggle("d-none");
   inputScreen.classList.toggle("d-block");
@@ -167,13 +167,13 @@ const openPlayingScreen = async (sessionId, name) => {
   let sessionData = await ApiService.fetchSessionData(sessionId);
 
   // Insert data into table
-  const nameElement = document.getElementById("infoPlayerName");
-  const sessionIdElement = document.getElementById("infoSessionId");
-  const difficultyIdElement = document.getElementById("infoDifficulty");
-  const controlMethodElement = document.getElementById("infoControlMethod");
-  const startTimeElement = document.getElementById("infoStartTime");
-  const endTimeElement = document.getElementById("infoEndTime");
-  const statusElement = document.getElementById("infoStatus");
+  const nameElement = document.getElementById("info-player-name");
+  const sessionIdElement = document.getElementById("info-session-id");
+  const difficultyIdElement = document.getElementById("info-difficulty");
+  const controlMethodElement = document.getElementById("info-control-method");
+  const startTimeElement = document.getElementById("info-start-time");
+  const endTimeElement = document.getElementById("info-end-time");
+  const statusElement = document.getElementById("info-status");
 
   nameElement.textContent = name;
   sessionIdElement.textContent = sessionId;
@@ -184,7 +184,7 @@ const openPlayingScreen = async (sessionId, name) => {
     ? sessionData.end_time
     : "Ongoing";
 
-  const scoreElement = document.getElementById("infoScores");
+  const scoreElement = document.getElementById("info-scores");
 
   // Start fetching every 10 seconds for scores connected to session id
   const fetchInterval = setInterval(async () => {
@@ -226,7 +226,7 @@ const openPlayingScreen = async (sessionId, name) => {
 };
 
 
-let userForm = document.getElementById("userForm");
+let userForm = document.getElementById("user-form");
 
 userForm.addEventListener("submit", async (e) => {
   // Prevent page refresh
@@ -234,23 +234,23 @@ userForm.addEventListener("submit", async (e) => {
 
   // Get values from the form
   const name = document.getElementById("name").value;
-  const sessionId = document.getElementById("sessionId").value;
-  const difficulty_id = document.getElementById("difficultyId").value;
-  const enableGyro = document.getElementById("enableGyro").checked;
+  const sessionId = document.getElementById("session-id").value;
+  const difficulty_id = document.getElementById("difficulty-id").value;
+  const enableGyro = document.getElementById("enable-gyro").checked;
   console.log("AAA", enableGyro);
 
   let isValid = true;
 
   if (!name) {
-    document.getElementById("nameError").textContent = "Name is required";
+    document.getElementById("name-error").textContent = "Name is required";
     isValid = false;
   }
 
   if (!sessionId) {
-    document.getElementById("sessionIdError").textContent = "ID is required";
+    document.getElementById("session-id-error").textContent = "ID is required";
     isValid = false;
   } else if (sessionId <= 0) {
-    document.getElementById("sessionIdError").textContent =
+    document.getElementById("session-id-error").textContent =
       "ID must be positive";
     isValid = false;
   }

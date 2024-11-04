@@ -26,10 +26,10 @@
           class="styled-container align-items-start d-flex justify-content-center border border-4 border-success rounded"
         >
           <div
-            id="inputScreen"
+            id="input-screen"
             class="h-100 d-flex justify-content-center align-items-center"
           >
-            <form id="userForm">
+            <form id="user-form">
               <div class="d-flex flex-column">
                 <div class="text-white">Enter Name</div>
                 <input
@@ -44,13 +44,13 @@
                   class="form-control mt-2"
                   placeholder="Session ID"
                   type="number"
-                  id="sessionId"
+                  id="session-id"
                 />
                 <div class="d-flex mt-4">
                   <div class="me-2">
                     <div class="text-white">Difficulty</div>
                     <select
-                      id="difficultyId"
+                      id="difficulty-id"
                       class="form-select"
                       aria-label="Default select example"
                     >
@@ -65,20 +65,20 @@
                     <input
                       class="form-check-input mt-2 p-2"
                       type="checkbox"
-                      id="enableGyro"
+                      id="enable-gyro"
                     />
                   </div>
                 </div>
                 <span
                   class="text-danger error-message"
-                  id="sessionIdError"
+                  id="session-id-error"
                 ></span>
                 <button class="btn btn-light mt-4" type="submit">Play!</button>
               </div>
             </form>
           </div>
 
-          <div id="playingScreen" class="d-none h-100">
+          <div id="playing-screen" class="d-none h-100">
             <div
               class="d-flex flex-column align-items-start h-100 text-white mt-2"
             >
@@ -96,38 +96,38 @@
                   <tbody>
                     <tr>
                       <td>Session ID</td>
-                      <td id="infoSessionId">NULL</td>
+                      <td id="info-session-id">NULL</td>
                     </tr>
                     <tr>
                       <td>Player</td>
-                      <td id="infoPlayerName">NULL</td>
+                      <td id="info-player-name">NULL</td>
                     </tr>
                     <tr>
                       <td>Difficulty</td>
-                      <td id="infoDifficulty">NULL</td>
+                      <td id="info-difficulty">NULL</td>
                     </tr>
                     <tr>
                       <td>Control method</td>
-                      <td id="infoControlMethod">NULL</td>
+                      <td id="info-control-method">NULL</td>
                     </tr>
                     <tr>
                       <td>Start time</td>
-                      <td id="infoStartTime">NULL</td>
+                      <td id="info-start-time">NULL</td>
                     </tr>
                     <tr>
                       <td>End time</td>
-                      <td id="infoEndTime">NULL</td>
+                      <td id="info-end-time">NULL</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               <div class="text-center w-100 mb-4 text-danger">
-                Game status: &nbsp;<span id="infoStatus">In Progress</span>
+                Game status: &nbsp;<span id="info-status">In Progress</span>
               </div>
             </div>
           </div>
         </div>
-        <div id="scoreScreen" class="d-none ms-2">
+        <div id="score-screen" class="d-none ms-2">
           <div
             class="styled-small-container align-items-start d-flex justify-content-center border border-4 border-success rounded"
           >
@@ -144,7 +144,7 @@
                       <th>Scores</th>
                     </tr>
                   </thead>
-                  <tbody id="infoScores">
+                  <tbody id="info-scores">
                     <tr>
                       <td>NONE</td>
                     </tr>
