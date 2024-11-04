@@ -6,149 +6,36 @@
  * License: This project is licensed under the MIT License.
  */
 
+const ApiService = {
+    async fetchData(endpoint, tableId, columns){
+        return fetch(endpoint)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(element => {
+                    // Create a row
+                    const row = document.createElement('tr');
+                    
+                    // Populate row based on specified columns
+                    columns.forEach(col => {
+                        const cell = document.createElement('td');
+                        cell.textContent = typeof col === 'function' ? col(element) : element[col];
+                        row.appendChild(cell);
+                    });
+                    
+                    // Append row to the table body
+                    document.getElementById(tableId).appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('/api/player')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(element => {
-                //Create columns
-                const id = document.createElement('td');
-                id.textContent = element.id;
-                
-                const name = document.createElement('td');
-                name.textContent = element.name;
-                
-                // Create a row
-                const row = document.createElement('tr');
-                row.appendChild(id);
-                row.appendChild(name);
-                
-                // Append id and name to table body
-                document.getElementById("players").appendChild(row);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-
-
-
-    fetch('/api/score')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(element => {
-                //Create columns
-                const id = document.createElement('td');
-                id.textContent = element.id;
-                
-                const sessionId = document.createElement('td');
-                sessionId.textContent = element.session_id;
-                
-                const score = document.createElement('td');
-                score.textContent = element.score;
-                
-                // Create a row
-                const row = document.createElement('tr');
-                row.appendChild(id);
-                row.appendChild(sessionId);
-                row.appendChild(score);
-                
-                // Append id and name to table body
-                document.getElementById("scores").appendChild(row);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-
-
-
-    fetch('/api/session')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(element => {
-                //Create columns
-                const id = document.createElement('td');
-                id.textContent = element.id;
-                
-                const completed = document.createElement('td');
-                completed.textContent = element.completed ? "True" : "False";
-                
-                const startTime = document.createElement('td');
-                startTime.textContent = element.start_time;
-
-                const endTime = document.createElement('td');
-                endTime.textContent = element.end_time;
-                
-                const playerId = document.createElement('td');
-                playerId.textContent = element.player_id;
-                
-                const difficultyId = document.createElement('td');
-                difficultyId.textContent = element.difficulty_id;
-
-                // Create a row
-                const row = document.createElement('tr');
-                row.appendChild(id);
-                row.appendChild(completed);
-                row.appendChild(startTime);
-                row.appendChild(endTime);
-                row.appendChild(playerId);
-                row.appendChild(difficultyId);
-                
-                // Append id and name to table body
-                document.getElementById("sessions").appendChild(row);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-
-    fetch('/api/difficulty')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(element => {
-                //Create columns
-                const id = document.createElement('td');
-                id.textContent = element.id;
-                
-                const name = document.createElement('td');
-                name.textContent = element.name;
-                
-                // Create a row
-                const row = document.createElement('tr');
-                row.appendChild(id);
-                row.appendChild(name);
-                
-                // Append id and name to table body
-                document.getElementById("difficulties").appendChild(row);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-
-    fetch('/api/actions/gethighscores')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(element => {
-                //Create columns
-                const name = document.createElement('td');
-                name.textContent = element.name;
-                
-                const score = document.createElement('td');
-                score.textContent = element.score;
-                
-                // Create a row
-                const row = document.createElement('tr');
-                row.appendChild(name);
-                row.appendChild(score);
-                
-                // Append id and name to table body
-                document.getElementById("highscores").appendChild(row);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-        
+    ApiService.fetchData('/api/player', 'players', ['id', 'name']);
+    ApiService.fetchData('/api/score', 'scores', ['id', 'session_id', 'score']);
+    ApiService.fetchData('/api/session', 'sessions', ['id', element => element.completed ? "True" : "False", 'start_time','end_time','player_id','difficulty_id']);
+    ApiService.fetchData('/api/difficulty', 'difficulties', ['id', 'name']);
+    ApiService.fetchData('/api/actions/gethighscores', 'highscores', ['name', 'score']);
 });
