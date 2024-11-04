@@ -16,12 +16,44 @@
 
 ## 1. Project Structure
 
-
 ### 1.1 Code conventions
-These conventions consist of most importantly but not exclusively:
+## 1.1.1 PHP Code Conventions
 
-- Classes are written in `Camelcase`.
-- Functions and variable names are written using `camelCase`.
+- **File Naming**: Use `snake_case` for file names.
+- **Class Names**: Use `CamelCase`.
+- **Method Names**: Use `camelCase`.
+- **Variable Names**: Use `camelCase`.
+- **Constants**: Use `UPPER_SNAKE_CASE`.
+- **Comments**: Use `//` for single-line comments and `/** ... */` for multi-line comments.
+- **Array Syntax**: Prefer `[]` over `array()` for array declarations.
+
+## 1.1.2 HTML Code Conventions
+
+- **File Naming**: Use `kebab-case` for file names.
+- **Element Names**: Use lowercase for element names.
+- **Attributes**: Use lowercase and hyphen-separated names (e.g., `data-attribute`).
+- **Doctype**: Always declare `<!DOCTYPE html>` at the beginning of the document.
+- **Comments**: Use `<!-- Comment -->` for comments.
+
+## 1.1.3 CSS Code Conventions
+
+- **File Naming**: Use `kebab-case` for file names.
+- **Selectors**: Use lowercase and hyphen-separated names for class and ID selectors (e.g., `.my-class`, `#my-id`).
+- **Indentation**: Use 2 spaces for indentation.
+- **Properties**: Use lowercase for property names and hyphen-separated format (e.g., `background-color`).
+- **Values**: Use lowercase for color names and units (e.g., `px`, `em`, `%`).
+- **Organization**: Group related styles together (e.g., layout, typography, colors).
+- **Comments**: Use `/* Comment */` for comments.
+
+## 1.1.4 JavaScript Code Conventions
+
+- **File Naming**: Use `kebab-case` for file names.
+- **Variable Names**: Use `camelCase` for variable names.
+- **Function Names**: Use `camelCase` for function names.
+- **Class Names**: Use `CamelCase` for class names.
+- **Line Length**: Limit lines to 80-100 characters.
+- **Semicolons**: Always use semicolons at the end of statements.
+- **Comments**: Use `//` for single-line comments and `/* ... */` for multi-line comments.
 
 ### 1.2 File structure
 The project’s codebase is contained within the `web/` folder, which houses both frontend and backend components.
