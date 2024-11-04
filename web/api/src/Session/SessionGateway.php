@@ -44,9 +44,9 @@ class SessionGateway
      *
      * @param array $data array of all session colomn data (completed, start_time, end_time, player_id, difficulty_id)
      *
-     * @return string The ID of the newly created session.
+     * @return int The ID of the newly created session.
      */
-    public function create(array $data) : string
+    public function create(array $data) : int
     {
         $sql = "INSERT INTO session (completed, start_time, end_time, player_id, difficulty_id) VALUES (?, ?, ?, ?, ?)";
 
@@ -106,7 +106,7 @@ class SessionGateway
      *
      * @return int The number of rows affected by the update.
      */
-    public function update(string $id, array $data) : string
+    public function update(string $id, array $data) : int
     {
         // Check if player_id is being updated
         $currentSessionData = $this->get($id);
@@ -154,7 +154,7 @@ class SessionGateway
      *
      * @return int The number of rows affected by the update.
      */
-    public function delete(string $id) : bool
+    public function delete(string $id) : int
     {
         $sql = "DELETE FROM session WHERE id = ?";
 

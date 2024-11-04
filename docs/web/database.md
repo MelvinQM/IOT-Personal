@@ -9,7 +9,7 @@
 3. **[Database Design](#database-design)**
    - **[3.1 Tables](#31-tables)**
      - **[3.1.1 Player Table](#311-player-table)**
-     - **[3.1.2 Highscore Table](#312-highscore-table)**
+     - **[3.1.2 Score Table](#312-score-table)**
      - **[3.1.3 Session Table](#313-session-table)**
      - **[3.1.4 Difficulty Table](#314-difficulty-table)**
    - **[3.2 Relationships](#32-relationships)**

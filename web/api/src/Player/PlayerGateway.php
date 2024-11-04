@@ -56,9 +56,9 @@ class PlayerGateway
      *
      * @param array $data The player data to insert.
      *
-     * @return string The ID of the newly created player.
+     * @return int The ID of the newly created player.
      */
-    public function create(array $data) : string
+    public function create(array $data) : int
     {
         $sql = "INSERT INTO player (name) VALUES (?)";
 
@@ -111,7 +111,7 @@ class PlayerGateway
      *
      * @return int The number of rows affected by the update.
      */
-    public function update(string $id, array $data) : string
+    public function update(string $id, array $data) : int
     {
         $sql = "UPDATE player SET name = ? WHERE id = ?";
 
@@ -129,9 +129,9 @@ class PlayerGateway
      *
      * @param string $id The ID of the player to delete.
      *
-     * @return bool True if a row was deleted, false otherwise.
+     * @return int The number of rows affected by the update.
      */
-    public function delete(string $id) : bool
+    public function delete(string $id) : int
     {
         $sql = "DELETE FROM player WHERE id = ?";
 

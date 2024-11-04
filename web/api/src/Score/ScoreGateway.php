@@ -61,7 +61,7 @@ class ScoreGateway
      *
      * @return string The ID of the newly created score.
      */
-    public function create(array $data) : string
+    public function create(array $data) : int
     {
         $sql = "INSERT INTO score (session_id, score) VALUES (?, ?)";
 
@@ -114,7 +114,7 @@ class ScoreGateway
      *
      * @return int The number of rows affected by the update.
      */
-    public function update(string $id, array $data) : string
+    public function update(string $id, array $data) : int
     {
         $sql = "UPDATE score SET score = ? WHERE id = ?";
 
@@ -134,7 +134,7 @@ class ScoreGateway
      *
      * @return int The number of rows affected by the update.
      */
-    public function delete(string $id) : bool
+    public function delete(string $id) : int
     {
         $sql = "DELETE FROM score WHERE id = ?";
 

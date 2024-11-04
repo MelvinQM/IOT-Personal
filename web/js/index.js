@@ -11,7 +11,6 @@ const ApiService = {
     return fetch(`/api/player?name=${name}`)
       .then((response) => response.json())
       .then((data) => {
-        // console.log("Player info: ", data);
         // console.log("Player id: ", data[0].id);
         return data[0].id;
       })
@@ -38,7 +37,7 @@ const ApiService = {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Updated session: ", data);
+        // console.log("Updated session: ", data);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -59,7 +58,7 @@ const ApiService = {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Updated session: ", data);
+        // console.log("Updated session: ", data);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -71,7 +70,7 @@ const ApiService = {
     return fetch("/api/session/" + sessionId)
       .then((response) => response.json())
       .then((data) => {
-        console.log("Fetched session: ", data);
+        // console.log("Fetched session: ", data);
         return data;
       })
       .catch((error) => {
@@ -84,7 +83,7 @@ const ApiService = {
     return fetch(`/api/score?session_id=${sessionId}`)
       .then((response) => response.json())
       .then((scores) => {
-        console.log("Fetched scores: ", scores);
+        // console.log("Fetched scores: ", scores);
         return scores;
       })
       .catch((error) => {
@@ -103,7 +102,7 @@ const ApiService = {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         return data.id;
       })
       .catch((error) => {
@@ -158,8 +157,6 @@ function getCurrentDateTime() {
 }
 
 const openPlayingScreen = async (sessionId, name) => {
-  console.log("----Opening playing screen-----");
-
   // Switch views
   toggleDivs();
 
@@ -237,15 +234,12 @@ userForm.addEventListener("submit", async (e) => {
   const sessionId = document.getElementById("session-id").value;
   const difficulty_id = document.getElementById("difficulty-id").value;
   const enableGyro = document.getElementById("enable-gyro").checked;
-  console.log("AAA", enableGyro);
 
   let isValid = true;
-
   if (!name) {
     document.getElementById("name-error").textContent = "Name is required";
     isValid = false;
   }
-
   if (!sessionId) {
     document.getElementById("session-id-error").textContent = "ID is required";
     isValid = false;
@@ -256,17 +250,8 @@ userForm.addEventListener("submit", async (e) => {
   }
 
   if (isValid) {
-    console.log("Name:", name);
-    console.log("Session ID:", sessionId);
-
     // Usage of getPlayerId
     let playerId = await ApiService.getPlayerIdFromName(name);
-
-    if (playerId) {
-      console.log("ID found: ", playerId);
-    } else {
-      console.log("No ID found.");
-    }
 
     if (!playerId) {
       console.log(
