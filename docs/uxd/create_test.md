@@ -4,27 +4,37 @@
 
 ### 1.1 Effectiveness test
 #### 1.1.1 Test case
+
 ***Hyptohesis***: My assumption is that the user will not encounter any errors and is able to start the game.
+
 ***Metrics***: Missclicks, Clicks, Completion rate.
+
 ***Criteria***: The test is considered a failure if the user is unable to figure out how to enter data or if the user thinks it is unclear where session information is located.
-1. *Task 1: Enter Session ID and player name and click play*
-    - *Goal*: Find where to enter a console ID on the homepage and proceed to the console page.
-    - *Questions*: 
-        - Was it clear where to enter the session ID and name?
-        - Did you encounter any errors?
-2. *Task 2: Check session details*
-    - *Goal*: View the session details on screen.
-    - *Questions*:
-        - Are the details easy to read and understand?
-        - Did you instantly know what this page shows?
-3. *Task 3: Check the score table*
-    - *Goal*: View the session details on screen.
-    - *Questions*:
-        - Is the score table easily found?
-        - Is it clear what the info means?
+
+***Task 1: Enter Session ID and player name and click play***
+
+- *Goal*: Find where to enter a console ID on the homepage and proceed to the console page.
+- *Questions*: 
+    - Was it clear where to enter the session ID and name?
+    - Did you encounter any errors?
+
+**Task 2: Check session details***
+
+- *Goal*: View the session details on screen.
+- *Questions*:
+    - Are the details easy to read and understand?
+    - Did you instantly know what this page shows?
+
+***Task 3: Check the score table***
+
+- *Goal*: View the session details on screen.
+- *Questions*:
+  - Is the score table easily found?
+  - Is it clear what the info means?
 
 #### 1.1.2 Test results
 **Task 1**:
+
 | Participant | Was it clear where to enter the player name? | Did you encounter any errors?                 | Clicks | Missclicks |
 |-------------|----------------------------------------------|-----------------------------------------------|--------|------------|
 | Lucas       |  Yes                                         | No                                            | 7      | 0          |
@@ -32,6 +42,7 @@
 | Lars        |  Yes                                         | No                                            | 5      | 0          |
 
 **Task 2**:
+
 | Participant | Are the details easy to read and understand?                  | Did you instantly know what this page shows? |
 |-------------|---------------------------------------------------------------|----------------------------------------------|
 | Lucas       | No, text is close together                                    | Yes                                          |
@@ -39,6 +50,7 @@
 | Lars        | Yes maybe make the glow a bit less strong on the table header | Yes                                          |
 
 **Task 3**:
+
 | Participant | Is the score table easily found? | Is it clear what the info means?  |
 |-------------|----------------------------------|-----------------------------------|
 | Lucas       | Yes                              | Yes                               |
@@ -58,6 +70,7 @@
     - *Goal*: View the console which will now start the game.
 
 #### 1.2.2 Test results
+
 | Participant | Time taken to start game | Clicks to completion |
 |-------------|--------------------------|----------------------|
 | Lucas       | 21 sec                   | 8                    |
