@@ -3,7 +3,7 @@
 ## 1. Introduction
 The goal of the webapplication for the Hoot Shooter project was to create a retro 'feel' website. The website had as purpose to be the the controller for the game console. The website will have a button allowing to start the game, also through the use of the web portal various game settings will be able to be changed and selected. During gameplay the website will show various usefull information such as the current game session settings and the scores acquired during the session. Besides the website for the user a simple website that shows varous tables filled with data retrieved from the API will also be present. This will allow a direct monitor for the database containing the session and game data. 
 
-To allow for all the communications required with the database an API will also have to be developed to allow for the connectivity through a safe middle person preventing security risks.
+To allow for all the communications required with the database an API will also have to be developed to allow for the connectivity through a safe intermediate preventing security risks.
 
 
 ## 2. Technologies Used
@@ -85,10 +85,7 @@ For the styling Bootstrap was used. Bootstrap is a styling component library all
 </div>
 
 #### 2.5.3 Testing
-To make sure the deployment process was properly tested for use on multiple devices. I've deployed the project on multiple desktops to ensure the project is able to setup without any glaring issues. Tests were also done to ensure the efficiency and effectiveness of the web application. These can be seen in the [Create & Test](../uxd/create_test.md) page
-
-
-
+To make sure the deployment process was properly tested for use on multiple devices. I've deployed the project on multiple desktops to ensure the project is able to setup without any glaring issues. Tests were also done to ensure the efficiency and effectiveness of the web application. These can be seen in the [Create & Test](../uxd/create_test.md) page.
 
 
 ## 3. Design Decisions
