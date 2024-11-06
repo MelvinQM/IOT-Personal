@@ -146,17 +146,22 @@ To implement a bluetooth connection on the project first off a library to manage
 This method seemed to work well at first but quickly issues arose when trying to use it together with a Wifi connectin. The console's screen refused to turn on when both bluetooth and wifi were running at the same time. A workaround should exist allowing for the antenna used to be shared between wifi and bluetooth but further research is required to get this functioning. The code used for this implementation can be found in `embedded/ESP32-Controller/Deprecated` for the client code and `embedded/ESP32-Display-Board/Deprecated` for the server code.
 
 #### 4.3.2 UDP
-The method used currently is the UDP method. The client code for this can be found in `embedded/ESP32-Controller/include/udp_connection.h` and `embedded/ESP32-Controller/src/udp_connection.cpp`. The server code can be found in `embedded/ESP32-Display-Board/include/connections.h` and `embedded/ESP32-Display-Board/src/connections.cpp`. The UDP method can be implemented through the use of the arduino core `Wifi.h` header and the `WiFiUdp.h` header. The console established a SoftAP which is an accesspoint with a static ip allowing for the controller to be able to connect to it without having to change any settings. The connection is able to be succesfully established the console will listen for UDP packets using. This listener listens in a fixed rate continuously. 
+The client code for this can be found in `embedded/ESP32-Controller/include/udp_connection.h` and `embedded/ESP32-Controller/src/udp_connection.cpp`. The server code can be found in `embedded/ESP32-Display-Board/include/connections.h` and `embedded/ESP32-Display-Board/src/connections.cpp`. The UDP method can be implemented through the use of the arduino core `Wifi.h` header and the `WiFiUdp.h` header. The console established a SoftAP which is an accesspoint with a static ip allowing for the controller to be able to connect to it without having to change any settings. The connection is able to be succesfully established the console will listen for UDP packets using. This listener listens in a fixed rate continuously. 
 
 The controller upon connecting to the SoftAP will start sending packets containing the controller data to the console. This works decently well with some delay. A big problem that does arrise is that when sending a message such as a button click this message can get lost in the high traffic of the joystick and gyroscope data which needs to be sent at a high frequency.
 
 #### 4.3.3 ESP-NOW
+Setting up ESP-NOW is possible through the use of the `esp_now.h` header. A ESP-NOW connection is setup by storing the MAC address of the device on the sender's side of the project. This allowst the sender to find the server and send it data. 
 
+Through testing the ESP-NOW connection is a lot more stable than the UDP connection from earlier.
 
 ## 5. Conclusion
+This research explored communication methods for a motion-controlled game using ESP32 devices. Various wireless communication options, including BLE, Wi-Fi (UDP/TCP), and ESP-NOW, were considered. While BLE and Wi-Fi are common in existing motion controllers, ESP-NOW emerged as the most promising for this project due to its low latency, efficiency, and minimal overhead.
 
+Despite challenges like range and lack of message acknowledgment, ESP-NOW offers the best balance for the game’s requirements. Future work will focus on optimizing its use and managing interference to improve communication reliability.
 
 ## 6. Reccomendations
+Future research could focus on optimizing the ESP-NOW architecture even further. Several improvements can still be researched. Subjects like auto pairing and message acknowledgement.
 
 
 ## 7. References
