@@ -1,7 +1,8 @@
 /*
  * Author: Melvin Moes
- * Date: October 17, 2024
- * Description:
+ * Date: November 5, 2024
+ * Description: This script handles the game session flow, including player creation, session management, and score fetching. 
+ * It connects with the backend API to start and end sessions, retrieve player information, and display real-time score updates.
  * License: This project is licensed under the MIT License.
  */
 

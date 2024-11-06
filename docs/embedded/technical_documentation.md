@@ -69,6 +69,8 @@ Below is the table that outlines the necessary parts for this project:
 ## 3 Project wiring diagram
 The wiring diagram was created using Fusion360 Electronics. The components were created using a mix of custom made symbols in Fusion360 and some edited versions taken from [SnapEDA](https://www.snapeda.com). All fusion electronics files can be found in docs/assets/diagrams/FusionElectronics/...
 
+A wiring diagram is a visual representation of an electrical circuit, showing the connections between different components. It uses standardized symbols to represent elements like power sources, switches, resistors, and wires. This diagram is useful for understanding how electricity flows through the circuit.
+
 <img src="/../assets/diagrams/FusionElectronics/ControllerWiringDiagram.png" alt="ControllerWiringDiagram">
 
 ***As the console has no wiring involved no wiring diagram is needed. The console only needs to be connected to power using a USB-C cable.***

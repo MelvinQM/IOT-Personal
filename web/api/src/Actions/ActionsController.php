@@ -2,7 +2,7 @@
 /*
  * Author: Melvin Moes
  * Date: October 23, 2024
- * Description: 
+ * Description:A controller managing the connection to the Actions table of a database. This controller needs a gateway to handle it's sql calls.
  * License: This project is licensed under the MIT License.
  */
 class ActionsController {

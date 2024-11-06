@@ -38,36 +38,5 @@ class ErrorCodeHelper {
             "code" => $code,
             "message" => $msg
         ]);
-
-        // header("Content-Type: text/html; charset=UTF-8");
-        // echo <<<HTML
-        //     <html>
-        //         <head>
-        //             <style>
-        //                 body {
-        //                     background-color: black;
-        //                     margin: 0;
-        //                     height: 100vh;
-        //                     display: flex;
-        //                     justify-content: center;
-        //                     align-items: center;
-        //                 }
-
-        //                 .container {
-        //                     display: flex;
-        //                     flex-direction: column;
-        //                     align-items: center;
-        //                     color: white;
-        //                 }
-        //             </style>
-        //         </head>
-        //         <body>
-        //             <div class="container">
-        //                 <img src='https://http.cat/$code' alt='HTTP Cat'>
-        //                 <p>$msg</p>
-        //             </div>
-        //         </body>
-        //     </html>
-        // HTML;
     }
 }

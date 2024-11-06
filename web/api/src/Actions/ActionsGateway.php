@@ -2,7 +2,7 @@
 /*
  * Author: Melvin Moes
  * Date: October 23, 2024
- * Description: 
+ * Description: A gateway class managing custom sql queries to multiple database tables.
  * License: This project is licensed under the MIT License.
  */
 class ActionsGateway 
