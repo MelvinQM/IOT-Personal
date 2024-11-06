@@ -1,7 +1,10 @@
 /*
  * Author: Melvin Moes
- * Date: November 5, 2024
- * Description: 
+ * Date: November 6, 2024
+ * Description: This header file defines the `Connections` class for managing ESP-NOW communication 
+ * on the ESP32 platform. The class includes methods for initializing ESP-NOW, sending 
+ * data, and retrieving the device's MAC address. It also includes a callback function 
+ * for handling the status of sent data packets.
  * License: This project is licensed under the MIT License.
  */
 
@@ -19,20 +22,12 @@ class Connections {
         void sendData(JsonDocument data);
         void getMacAddress();
     private:
-        
-        typedef struct struct_message {
-            char a[32];
-            int b;
-            float c;
-            bool d;
-        } struct_message;
-
-        // Create a struct_message called myData
-        struct_message myData;
         static uint8_t broadcastAddress[6];
         esp_now_peer_info_t peerInfo;
 
-        // callback when data is sent
+        const int kChannel = 7;
+
+        // Callback when data is sent
         static void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
             Serial.print("\r\nLast Packet Send Status:\t");
             Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");

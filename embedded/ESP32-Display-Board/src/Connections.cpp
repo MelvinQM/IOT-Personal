@@ -1,7 +1,12 @@
 /*
  * Author: Melvin Moes
- * Date: November 5, 2024
- * Description: 
+ * Date: November 6, 2024
+ * Description: This class is an implementation of the connections.h which handles 
+ * network communication tasks for the project. It provides methods for managing 
+ * Wi-Fi connections using the `WiFiManager` library, creating and fetching player 
+ * entities through an API, and handling ESP-NOW communication. The class includes 
+ * functionality to initialize Wi-Fi, create player profiles, manage game sessions, 
+ * and interact with a remote server for player data and scoring.
  * License: This project is licensed under the MIT License.
  */
 
@@ -106,10 +111,7 @@ void Connections::onDataRecvCallback(const uint8_t * mac, const uint8_t *incomin
     } else if(method == JOYSTICK_CLICK_METHOD) {
         Serial.println("Joystick clicked");
         g.setJoystickClicked(true);
-
-        
-    } else 
-    {    
+    } else {    
         Serial.println("Error: Method not recognized!");
     }
 }

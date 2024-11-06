@@ -1,12 +1,11 @@
 /*
  * Author: Melvin Moes
- * Date: October 18, 2024
+ * Date: November 6, 2024
  * Description: This header file defines the Connections class, which manages 
  * network connections for the project. It includes functionalities for initializing 
- * Wi-Fi connections, creating player entities through an API connection, and handling UDP communications. 
+ * Wi-Fi connections, creating player entities through an API connection, and handling ESP-NOW communications. 
  * The class utilizes the WiFiManager library for easy Wi-Fi management and ArduinoJson 
- * for parsing JSON data. It also contains methods for fetching player data and 
- * listening for UDP packets.
+ * for parsing JSON data.
  * License: This project is licensed under the MIT License.
  */
 
@@ -57,13 +56,6 @@ class Connections {
         static void OnDataRecv(const uint8_t *macAddr, const uint8_t *data, int dataLen);
         JsonDocument makeAPICall(String method, String endpoint, JsonDocument* jsonDoc = nullptr);
         void getMacAddress();
-
-
-        // Address of controller
-
-        
-
-
 };
 
 #endif

@@ -1,6 +1,6 @@
 /*
  * Author: Melvin Moes
- * Date: October 18, 2024
+ * Date: November 6, 2024
  * Description: This class handles the rendering of sprites using the TFT_eSPI library. 
  * The class can initialize the display, handle rendering of the cursor, background, and owl/enemy sprites,
  * and their positions and logic such as collision. 

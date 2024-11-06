@@ -1,13 +1,22 @@
+/*
+ * Author: Melvin Moes
+ * Date: November 6, 2024
+ * Description: This file defines the `Connections` class for managing ESP-NOW communication 
+ * between ESP32 devices. It includes methods for initializing the connection, 
+ * sending data, and retrieving the device's MAC address.
+ * License: This project is licensed under the MIT License.
+ */
+
 #include "connections.h"
 
-// Mac address of the console 24:DC:C3:4A:5D:00
+// Mac address of the console
 uint8_t Connections::broadcastAddress[] = {0x24, 0xDC, 0xC3, 0x4A, 0x5D, 0x00};
 
 void Connections::init()
 {
     // Set device as a Wi-Fi Station
     WiFi.mode(WIFI_STA);
-    esp_wifi_set_channel(7, WIFI_SECOND_CHAN_NONE);
+    esp_wifi_set_channel(kChannel, WIFI_SECOND_CHAN_NONE);
 
     // Init ESP-NOW
     if (esp_now_init() != ESP_OK) {
@@ -16,11 +25,11 @@ void Connections::init()
     }
 
     // Register CallBack to get the status of sent message.
-    esp_now_register_send_cb(OnDataSent);
+    //esp_now_register_send_cb(OnDataSent);
     
     // Register peer
-    memcpy(peerInfo.peer_addr, broadcastAddress, 6);
-    peerInfo.channel = 7;  
+    memcpy(peerInfo.peer_addr, broadcastAddress, sizeof(broadcastAddress));
+    peerInfo.channel = kChannel;  
     peerInfo.encrypt = false;
     
     // Add peer        
@@ -40,11 +49,10 @@ void Connections::sendData(JsonDocument data)
     // Send message via ESP-NOW
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) payload.c_str(), payload.length());
     
-    if (result == ESP_OK) {
-        Serial.println("Sent with success");
-    }
-    else {
+    if (result != ESP_OK) {
         Serial.println("Error sending the data");
+    } else {
+        //Serial.println("Sent with success");
     }
 }
 
@@ -60,9 +68,3 @@ void Connections::getMacAddress()
     }
     Serial.printf("%02X\n", baseMac[5]);
 }
-
-
-
-
-
-

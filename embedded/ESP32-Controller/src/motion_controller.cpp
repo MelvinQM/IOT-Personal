@@ -1,8 +1,8 @@
 /*
  * Author: Melvin Moes
- * Date: October 18, 2024
+ * Date: November 6, 2024
  * Description: This class implements the MotionController header. It initializes the 
- * joystick and gyroscope, manages the UDP connection for sending data to the console and handles 
+ * joystick and gyroscope, manages the ESP-NOW connection for sending data to the console and handles 
  * input from a button. The Init function sets up the necessary components, while 
  * the Run function processes joystick movements, button presses, and activates a vibration motor 
  * based on input. A separate task is created for handling gyroscope data.

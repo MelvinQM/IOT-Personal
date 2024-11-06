@@ -1,6 +1,6 @@
 /*
  * Author: Melvin Moes
- * Date: October 18, 2024
+ * Date: November 6, 2024
  * Description: An implementation of the Gyroscope header which handles the initialization, data
  * collecting, and processing of gyroscope data from the MPU6050 sensor.
  * License: This project is licensed under the MIT License.
@@ -20,53 +20,49 @@ void Gyroscope::init()
     Wire.begin();
     Wire.setClock(400000);
 
-    // initialize device
+    // Initialize device
     Serial.println(F("Initializing I2C devices..."));
     mpu.initialize();
     pinMode(GYRO_INTERRUPT_PIN, INPUT);
 
-    // verify connection
+    // Verify connection
     Serial.println(F("Testing device connections..."));
     Serial.println(mpu.testConnection() ? F("MPU6050 connection successful") : F("MPU6050 connection failed"));
 
-    // load and configure the DMP
+    // Load and configure the DMP
     Serial.println(F("Initializing DMP..."));
     devStatus = mpu.dmpInitialize();
 
-    // supply your own gyro offsets here, scaled for min sensitivity
-    mpu.setXGyroOffset(87.00000);
-    mpu.setYGyroOffset(51.00000);
-    mpu.setZGyroOffset(10.00000);
-    mpu.setZAccelOffset(1558.00000); // 1688 factory default for my test chip
+    // Supply your own gyro offsets here, scaled for min sensitivity
+    mpu.setXAccelOffset(-2232.00000);
+    mpu.setYAccelOffset(2079.00000);
+    mpu.setZAccelOffset(1558.00000);
+    mpu.setXGyroOffset(78.00000);
+    mpu.setYGyroOffset(1.00000);
+    mpu.setZGyroOffset(19.00000);
 
-    // make sure it worked (returns 0 if so)
     if (devStatus == 0) {
         // Calibration Time: generate offsets and calibrate our MPU6050
         mpu.CalibrateAccel(6);
         mpu.CalibrateGyro(6);
         mpu.PrintActiveOffsets();
-        // turn on the DMP, now that it's ready
+
+        // Turn on the DMP
         Serial.println(F("Enabling DMP..."));
         mpu.setDMPEnabled(true);
 
-        // enable Arduino interrupt detection
+        // Enable Arduino interrupt detection
         Serial.print(F("Enabling interrupt detection (Arduino external interrupt "));
         Serial.print(digitalPinToInterrupt(GYRO_INTERRUPT_PIN));
         Serial.println(F(")..."));
         attachInterrupt(digitalPinToInterrupt(GYRO_INTERRUPT_PIN), dmpDataReady, RISING);
         mpuIntStatus = mpu.getIntStatus();
 
-        // set our DMP Ready flag so the main loop() function knows it's okay to use it
         Serial.println(F("DMP ready! Waiting for first interrupt..."));
         dmpReady = true;
 
-        // get expected DMP packet size for later comparison
         packetSize = mpu.dmpGetFIFOPacketSize();
     } else {
-        // ERROR!
-        // 1 = initial memory load failed
-        // 2 = DMP configuration updates failed
-        // (if it's going to break, usually the code will be 1)
         Serial.print(F("DMP Initialization failed (code "));
         Serial.print(devStatus);
         Serial.println(F(")"));
@@ -75,11 +71,9 @@ void Gyroscope::init()
 
 void Gyroscope::loop()
 {
-    // if programming failed, don't try to do anything
     if (!dmpReady) return;
     
-    // read a packet from FIFO
-    if (mpu.dmpGetCurrentFIFOPacket(fifoBuffer)) { // Get the Latest packet 
+    if (mpu.dmpGetCurrentFIFOPacket(fifoBuffer)) {
         #ifdef OUTPUT_READABLE_QUATERNION
             // display quaternion values in easy matrix form: w x y z
             mpu.dmpGetQuaternion(&q, fifoBuffer);

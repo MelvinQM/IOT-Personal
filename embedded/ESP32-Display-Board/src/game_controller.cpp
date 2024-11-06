@@ -1,6 +1,6 @@
 /*
  * Author: Melvin Moes
- * Date: October 18, 2024
+ * Date: November 6, 2024
  * Description: An implementation of the GameController class, which manages 
  * the game statemachine. It includes methods for initializing the game, handling the main game loop, 
  * and managing the game state. This class created a SpriteRenderer class for handling the display and sprites. 
@@ -12,9 +12,6 @@
 
 #include "game_controller.h"
 
-/**
- * DONT FORGET TO CHANGE THE USER_SETUP.H IN THE TFT_eSPI lib inside .pio/libdeps
- */
 GameController::GameController() 
 {
     Serial.begin(BAUD_RATE);
