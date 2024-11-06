@@ -75,11 +75,11 @@ To fullfill the requirement of having at least two types of visual and/or sensor
 - RGB LED indicator: For the use of notifying the user and developers of the console state.
 - Vibration Motor/Rumble Pack: For the use in the controller for feedback upon firing.
 
-[Display code](code#26-sprite-rendering)
+[Display code](code#27-sprite-rendering)
 
-[RGB LED code](code#27-rgb-led)
+[RGB LED code](code#28-rgb-led)
 
-[Vibration Motor code](code#28-vibration-motor)
+[Vibration Motor code](code#26-vibration-motor)
 
 ### 2.5 WifiManager (EMBRQ#05)
 [Code Documentation](code#221-api-connection-through-wifimanager)
