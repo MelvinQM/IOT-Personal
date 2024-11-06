@@ -16,15 +16,16 @@
 #include "utilities.h"
 #include "WiFiManager.h"
 #include <WiFi.h>
-#include <WiFiUdp.h>
 #include <HTTPClient.h>
 #include "game_data_model.h"
+#include <esp_now.h>
 
 class Connections {
     public:
+        Connections();
+
         void init();
         void loop();
-        void udpListen();
         bool connect();
         bool getConnection();
 
@@ -36,26 +37,33 @@ class Connections {
         JsonDocument getSessionById(int id);
         void endSession(int id);
         void createScore(int sessionId, int score);
-        void setListenForPackets(bool listen);
+        void onDataRecvCallback(const uint8_t *macAddr, const uint8_t *data, int dataLen);
     private:
-        JsonDocument makeAPICall(String method, String endpoint, JsonDocument* jsonDoc = nullptr);
-        void getMacAddress();
-
-        WiFiManager wm;
-        WiFiUDP udp;
-        GameDataModel& g = GameDataModel::getInstance();
+        static IPAddress AP_LOCAL_IP;
+        static IPAddress AP_GATEWAY_IP;
+        static IPAddress AP_NETWORK_MASK;
+        static uint8_t broadcastAddress[6];
 
         const char* kWifiManagerPortalName = "HootPursuitAP";
         const char* kWifiManagerPortalPassword = "password";
-        const char* kSoftApHostname = "HootPursuitHost";
         const String kHostName = "192.168.0.8";
+        static Connections* instance;
         // const String kHostName = "145.92.189.173";
-        const char *kSSID = "HootPursuitConsoleAP";
-        const char *kPassword = "hootpursuitaccess";
-        char packetBuffer[255];
-        unsigned int kLocalPort = 44444;
+
+        WiFiManager wm;
+        GameDataModel& g = GameDataModel::getInstance();
         bool isConnected = false;
-        bool listenForPackets = false;
+
+        static void OnDataRecv(const uint8_t *macAddr, const uint8_t *data, int dataLen);
+        JsonDocument makeAPICall(String method, String endpoint, JsonDocument* jsonDoc = nullptr);
+        void getMacAddress();
+
+
+        // Address of controller
+
+        
+
+
 };
 
 #endif

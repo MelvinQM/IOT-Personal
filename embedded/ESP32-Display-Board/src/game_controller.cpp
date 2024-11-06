@@ -88,7 +88,7 @@ void GameController::showIntro()
     while(settings.sessionId == 0) {
         settings.sessionId = conn.createSession();
         sRender.renderIntro(settings.sessionId);
-        vTaskDelay(BIG_TIMEOUT_DELAY / portTICK_PERIOD_MS);
+        vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
     }
     
     // Start polling until a player id is found
@@ -106,8 +106,6 @@ void GameController::showIntro()
             settings.useGyro = response["use_gyro"];
             Serial.println("Player connected to session!");
             Serial.printf("Difficulty: %d\nPlayerId: %d\nUse gyro: %d\n" , settings.difficultyId, settings.playerId, settings.useGyro);
-        } else {
-            Serial.print(".");
         }
 
         vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
@@ -122,10 +120,10 @@ void GameController::play()
     Serial.println("------Start Gameplay------");
 
     settings.score = 0;
-    conn.setListenForPackets(true);
+    // conn.setListenForPackets(true);
     sRender.gameLoop(settings);
     conn.createScore(settings.sessionId, settings.score);
-    conn.setListenForPackets(false);
+    // conn.setListenForPackets(false);
 
     state = ShowingHighScores;
 }
@@ -135,7 +133,7 @@ void GameController::showHighScores()
     Serial.println("------Showing Highscores------");
     
     // Delay to let highscores update
-    vTaskDelay(BIG_TIMEOUT_DELAY / portTICK_PERIOD_MS);
+    vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
 
     sRender.renderHighscores(conn.getHighscores());
     state = EndGame;
@@ -145,9 +143,9 @@ void GameController::end()
 {
     Serial.println("------Ending Game------");
 
-    conn.setListenForPackets(true);
+    // conn.setListenForPackets(true);
     bool keepPlaying = sRender.renderEndScreen(settings.useGyro);
-    conn.setListenForPackets(false);
+    // conn.setListenForPackets(false);
 
     if(keepPlaying) {
         state = Playing;

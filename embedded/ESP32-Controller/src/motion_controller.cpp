@@ -21,7 +21,8 @@ MotionController::~MotionController() {}
 void MotionController::init()
 {
     Serial.println("\n------------[Initializing Game]------------");
-    udpConnection.init();
+    conn.init();
+    conn.getMacAddress();
     joystick.init();
     gyro.init();
     pinMode(BUTTON_PIN, INPUT);
@@ -59,7 +60,6 @@ void MotionController::loop()
 
 void MotionController::sendControllerData()
 {
-    if(buttonPressPending) return;
     // Read joystick data
     joystick.readJoystickAxis();
 
@@ -75,30 +75,26 @@ void MotionController::sendControllerData()
     jsonDoc["data"]["jX"] = jData.x;
     jsonDoc["data"]["jY"] = jData.y;
 
-    //Serial.printf("GX: %d, GY: %d\n", gData.x, gData.y);
-    udpConnection.sendJsonData(jsonDoc);
+    conn.sendData(jsonDoc);
 }
 
 void MotionController::sendTriggerInput()
 {
-    buttonPressPending = true;
     // Create a JSON document
     JsonDocument jsonDoc;
     jsonDoc["method"] = TRIGGER_METHOD;
 
-    udpConnection.sendJsonData(jsonDoc, false, true);
-    buttonPressPending = false;
+    conn.sendData(jsonDoc);
+
 }
 
 void MotionController::sendJoystickClick()
 {
-    buttonPressPending = true;
     // Create a JSON document
     JsonDocument jsonDoc;
     jsonDoc["method"] = JOYSTICK_CLICK_METHOD;
-    
-    udpConnection.sendJsonData(jsonDoc, false, true);
-    buttonPressPending = false;
+
+    conn.sendData(jsonDoc);
 }
 
 void MotionController::handleButtonPress()

@@ -12,8 +12,8 @@
 
 #include "utilities.h"
 #include "gyroscope.h"
-#include "udp_connection.h"
 #include "joystick.h"
+#include "connections.h"
 
 class MotionController {
     public:
@@ -22,7 +22,7 @@ class MotionController {
         void init();
         void loop();
     private:
-        UdpConnection udpConnection;
+        Connections conn;
         Gyroscope gyro;
         Joystick joystick;
 

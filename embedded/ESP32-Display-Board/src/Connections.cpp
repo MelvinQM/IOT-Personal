@@ -1,20 +1,23 @@
 /*
  * Author: Melvin Moes
- * Date: October 18, 2024
- * Description: This source file implements the Connections class, which manages Wi-Fi connections and UDP 
- * communication for the game application. The class provides methods for initializing a Wi-Fi connection for communicating with a remote API
- * and setting up a soft access point for handling UDP packet reception. It includes functionality for creating players and fetching player data 
- * via HTTP requests.
+ * Date: November 5, 2024
+ * Description: 
  * License: This project is licensed under the MIT License.
  */
 
 
 #include "connections.h"
 
-// Manual IP Configuration for Soft AP
-IPAddress AP_LOCAL_IP(192, 168, 1, 1);
-IPAddress AP_GATEWAY_IP(192, 168, 1, 254);
-IPAddress AP_NETWORK_MASK(255, 255, 255, 0);
+
+uint8_t Connections::broadcastAddress[] = {0x68, 0xB6, 0xB3, 0x2A, 0xB5, 0xCC};
+IPAddress Connections::AP_LOCAL_IP(192, 168, 1, 1);
+IPAddress Connections::AP_GATEWAY_IP(192, 168, 1, 254);
+IPAddress Connections::AP_NETWORK_MASK(255, 255, 255, 0);
+Connections* Connections::instance = nullptr;
+
+Connections::Connections() {
+    instance = this;
+}
 
 void Connections::init()
 {
@@ -27,17 +30,16 @@ void Connections::init()
     // wm.resetSettings(); // To reset the saved wifi connections
     wm.autoConnect(kWifiManagerPortalName, kWifiManagerPortalPassword);
 
-    // Enable SoftAP
-    WiFi.softAPConfig(AP_LOCAL_IP, AP_GATEWAY_IP, AP_NETWORK_MASK);
-    WiFi.softAPsetHostname(kSoftApHostname);
-    if (!WiFi.softAP(kSSID, kPassword))
-    {
-        Serial.println("Soft AP creation failed.");
-        while(1);
-    }
 
-    udp.begin(kLocalPort);
-    Serial.printf("UDP server : %s:%i \n", WiFi.localIP().toString().c_str(), kLocalPort);
+    // Init ESP-NOW
+    if (esp_now_init() != ESP_OK) {
+        Serial.println("Error initializing ESP-NOW");
+        return;
+    }
+    
+    // Registering callback for receiving messages    
+    esp_now_register_recv_cb(OnDataRecv);
+
 
     isConnected = true;
 }
@@ -54,7 +56,6 @@ bool Connections::connect()
     bool res = wm.autoConnect("HootPursuitAP","password"); 
     if(!res) {
         Serial.println("Failed to connect");        
-        // ESP.restart();
     } else { 
         Serial.println("**WiFi Connected**");
     }
@@ -68,55 +69,55 @@ void Connections::loop()
     isConnected = connect();
     if(!isConnected) return;
 
-    udpListen();
+
     vTaskDelay(UDP_DELAY / portTICK_PERIOD_MS);
 }
 
-void Connections::setListenForPackets(bool listen)
+void Connections::onDataRecvCallback(const uint8_t * mac, const uint8_t *incomingData, int len) 
 {
-    listenForPackets = listen;
+    char* buff = (char*) incomingData;
+    String jsonData = String(buff);
+    JsonDocument doc;
+
+    DeserializationError error = deserializeJson(doc, jsonData);
+
+    if(!error) {
+        //serializeJsonPretty(doc, Serial);
+    } else {
+        Serial.printf("Error: %s\n", error.f_str());
+        return;
+    }
+
+    String method = doc["method"].as<String>();
+    if(method == CONTROLLER_AXIS_DATA_METHOD) {
+        int gX = doc["data"]["gX"];
+        int gY = doc["data"]["gY"];
+        float jX = doc["data"]["jX"];
+        float jY = doc["data"]["jY"];
+
+        g.setGyroData({gX, gY});
+        g.setJoystickData({jX, jY});
+        //Serial.printf("From UDP: jX: %f jY: %f\n",jX ,jY );
+        //Serial.printf("From Model: jX: %f jY: %f\n",g.GetJoystickX() ,g.GetJoystickY());
+
+    } else if(method == TRIGGER_METHOD) {
+        Serial.println("Trigger pressed");
+        g.setTriggerPressed(true);
+    } else if(method == JOYSTICK_CLICK_METHOD) {
+        Serial.println("Joystick clicked");
+        g.setJoystickClicked(true);
+
+        
+    } else 
+    {    
+        Serial.println("Error: Method not recognized!");
+    }
 }
 
-void Connections::udpListen()
+void Connections::OnDataRecv(const uint8_t *macAddr, const uint8_t *data, int dataLen) 
 {
-    if(!listenForPackets) return;
-
-    int packetSize = udp.parsePacket();
-
-    if (packetSize) {
-        int len = udp.read(packetBuffer, 255);
-        if (len > 0) packetBuffer[len - 1] = 0;
-        
-        JsonDocument jsonDoc;
-        DeserializationError error = deserializeJson(jsonDoc, packetBuffer);
-
-        // Test if parsing succeeds.
-        if (error) {
-            Serial.print(F("deserializeJson() failed: "));
-            Serial.println(error.f_str());
-            return;
-        }
-            
-        String method = jsonDoc["method"].as<String>();
-        if(method == CONTROLLER_AXIS_DATA_METHOD) {
-            int gX = jsonDoc["data"]["gX"];
-            int gY = jsonDoc["data"]["gY"];
-            float jX = jsonDoc["data"]["jX"];
-            float jY = jsonDoc["data"]["jY"];
-            g.setGyroData({gX, gY});
-            g.setJoystickData({jX, jY});
-            //Serial.printf("From UDP: jX: %f jY: %f\n",jX ,jY );
-            //Serial.printf("From Model: jX: %f jY: %f\n",g.GetJoystickX() ,g.GetJoystickY());
-
-        } else if(method == TRIGGER_METHOD) {
-            Serial.println("Trigger pressed");
-            g.setTriggerPressed(true);
-        } else if(method == JOYSTICK_CLICK_METHOD) {
-            Serial.println("Joystick clicked");
-            g.setJoystickClicked(true);
-        } else {    
-            Serial.println("Error: Method not recognized!");
-        }
+    if (instance) {
+        instance->onDataRecvCallback(macAddr, data, dataLen);
     }
 }
 
@@ -176,7 +177,6 @@ JsonDocument Connections::makeAPICall(String method, String endpoint, JsonDocume
 
     return jsonResponse;
 }
-
 
 void Connections::createPlayer(String name)
 {
