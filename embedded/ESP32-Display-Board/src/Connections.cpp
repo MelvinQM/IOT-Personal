@@ -46,6 +46,9 @@ void Connections::init()
     esp_now_register_recv_cb(OnDataRecv);
 
 
+
+    Serial.print("Current Wi-Fi Channel: ");
+    Serial.println(WiFi.channel());
     isConnected = true;
 }
 

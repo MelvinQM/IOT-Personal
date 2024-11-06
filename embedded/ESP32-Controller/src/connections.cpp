@@ -25,7 +25,7 @@ void Connections::init()
     }
 
     // Register CallBack to get the status of sent message.
-    //esp_now_register_send_cb(OnDataSent);
+    esp_now_register_send_cb(OnDataSent);
     
     // Register peer
     memcpy(peerInfo.peer_addr, broadcastAddress, sizeof(broadcastAddress));

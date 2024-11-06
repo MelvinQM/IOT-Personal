@@ -219,3 +219,45 @@ if (connected)
 </div>
 
 After looking into some techniques for desiging a motion controlled game console. A decision was made to use the MPU6050 which allows for both gyroscopic and accelerometer angles. This allows the controller to be able to control a digital cursor by rotating on the vertical and horizontal axis. -->
+
+
+#### 2.2.1 UDP Connection through SoftAccessPoint
+To establish the connection between console and controller the SoftAP needs to be initialized on the console first. Using the local ip, gateway ip and a network mask the access point is intialized. A hostname is then specified allowing the controller to find the AP.
+
+The controller will attempt to connect to the AP and begin to send UDP packets containing the following json formatted data:
+    jsonDoc["method"] = CONTROLLER_AXIS_DATA_METHOD;
+    jsonDoc["data"]["gX"] = gData.x;
+    jsonDoc["data"]["gY"] = gData.y;
+    jsonDoc["data"]["jX"] = jData.x;
+    jsonDoc["data"]["jY"] = jData.y;
+
+AxisData:
+```json
+{
+    "method": "axisData",
+    "data": {
+        "gX": 0.0,
+        "gY": 0.0,
+        "jX": 0.0,
+        "gX": 0.0
+    }
+}
+```
+
+Upon clicking either the joystick or the trigger a packet will also be sent:
+
+**Joystick Clicked**:
+```json
+{
+    "method": "joystickClick",
+}
+```
+
+**Trigger Pressed**:
+```json
+{
+    "method": "trigger",
+}
+```
+
+The console will receive these packets and store them in an instance of the `GameDataModel` class. This class holds all data and is created to serve as the middle man between the `SpriteRenderer` class and the `Connections` class

@@ -45,9 +45,9 @@ class Connections {
 
         const char* kWifiManagerPortalName = "HootPursuitAP";
         const char* kWifiManagerPortalPassword = "password";
-        const String kHostName = "192.168.0.8";
+        // const String kHostName = "192.168.0.8";
         static Connections* instance;
-        // const String kHostName = "145.92.189.173";
+        const String kHostName = "145.92.189.173";
 
         WiFiManager wm;
         GameDataModel& g = GameDataModel::getInstance();
