@@ -440,6 +440,21 @@ On the embedded device the functionality has been added to show the highscores a
 
 The highscores page makes use of the actions/gethighscores endpoint and specified that it only wants to receive 10. The benefit of not using sprites in this case is that you can just call drawString many times and not have to create and manage a sprite for each highscore.
 <div align="center">
-  <img src="/assets/images/highscores-page.jpg" alt="breadboardcontroller" width=49%>
-  <img src="/assets/images/session-page.jpg" alt="breadboardcontroller" width=49%>
+  <img src="/assets/images/highscores-page.jpg" alt="highscores-page" width=49%>
+  <img src="/assets/images/session-page.jpg" alt="session-page" width=49%>
 </div>
+
+### Display Retry/End session page
+FInally in week 9 I worked on adding a screen to allow the user to end the session or choose to play another game.
+<div align="center">
+  <img src="/assets/images/end-page.jpg" alt="end-page">
+</div>
+
+## Week 10
+
+### Implementing ESP-NOW 
+I switched from UDP to ESP-NOW after experiencing delay which reduced the enjoyment of the gameplay. After having done multiple user tests where the main concern was the delay I focussed on this part. I researched Bluetooth, Udp and ESP-NOW and came to the conclusion through the most recent testing that ESP-NOW worked the best for my application.
+
+### Finishing up all documentation
+I worked hard on finishing on finishing all the documentation for both the embedded and web side. I also worked on the system architecture and finished up my research.
+
