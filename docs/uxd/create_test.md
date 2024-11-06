@@ -1,5 +1,14 @@
 # Create & Test
 
+- **[1. User Testing](#1-basic-concept)**
+    - **[1.1 Effectiveness Test](#11-effectiveness-test)**
+    - **[1.2 Efficiency Test](#12-efficiency-test)**
+- **[2. Manufacturing](#2-manufacturing)**
+    - **[2.1 Print details](#21-print-details-slicer-printer)**
+    - **[2.2 Prints](#22-prints)**
+
+
+
 ## 1. User testing
 
 ### 1.1 Effectiveness test
@@ -40,6 +49,7 @@
 | Lucas       |  Yes                                         | No                                            | 7      | 0          |
 | Nick        |  Yes very clear                              | No                                            | 4      | 0          |
 | Lars        |  Yes                                         | No                                            | 5      | 0          |
+| Simon       |  Yes                                         | No                                            | 6      | 0          |
 
 **Task 2**:
 
@@ -48,6 +58,7 @@
 | Lucas       | No, text is close together                                    | Yes                                          |
 | Nick        | Yes except because of the font the session id is hard to read | Yes it was clear right away                  |
 | Lars        | Yes maybe make the glow a bit less strong on the table header | Yes                                          |
+| Simon       | Yes                                                           | No, too focused on the game console          |
 
 **Task 3**:
 
@@ -56,6 +67,7 @@
 | Lucas       | Yes                              | Yes                               |
 | Nick        | Yes                              | Yes                               |
 | Lars        | Yes                              | Yes                               |
+| Simon       | Yes                              | Yes                               |
 
 ### 1.2 Efficiency test
 #### 1.2.1 Test case
@@ -73,9 +85,10 @@
 
 | Participant | Time taken to start game | Clicks to completion |
 |-------------|--------------------------|----------------------|
-| Lucas       | 21 sec                   | 8                    |
-| Nick        | 25 sec                   | 7                    |
-| Lars        | 23 sec                   | 7                    |
+| Lucas       | 21 sec                   | 7                    |
+| Nick        | 25 sec                   | 4                    |
+| Lars        | 23 sec                   | 5                    |
+| Simon       | 26 sec                   | 6                    |
 
 
 
@@ -93,11 +106,21 @@
   </div>
 </div>
 
-#### 2.1.2 Slicer layout
+#### 2.1.2 Printing Material
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    The material used is PLA "Bambu Green" from bambulabs. This material is easy to print with and great for prototyping. 
+  </div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/../assets/images/pla.png" alt="x1c" width=75%>
+  </div>
+</div>
+
+#### 2.1.3 Slicer layout
 The program used to create the gcode required for the printed is Bambu Studio the program looks like this:
 <img src="/../assets/images/bambustudio.png" alt="bambustudio">
 
-#### 2.1.3 Slicer print settings
+#### 2.1.4 Slicer print settings
 The bambustudio files can be found in this repo under assets/3d-files/bambustudio/.. These files come with the settings already setup.
 
 The controller was printed using the following settings:
