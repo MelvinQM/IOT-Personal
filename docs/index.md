@@ -1,9 +1,10 @@
 {{ mdocotion_header('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80') }}
 # Game console
-The project is based on the IoT Minor blueprint Gameconsole
 <div align="center">
   <img src="/assets/images/gameconsole.png" alt="gameconsole">
 </div>
+The project is based on the IoT Minor blueprint Gameconsole
+<br>
 <br>
 
 # Hoot Pursuit
@@ -22,8 +23,10 @@ The project is based on the IoT Minor blueprint Gameconsole
     </p>
   </div>
   <div style="flex: 1; text-align: right;">
-    <img src="/assets/images/project.jpg" alt="project">
+    <img src="/assets/images/project.jpg" alt="project" style="height: 350px; width: auto;">
   </div>
 </div>
+
+For more details of the system first see the [System Architecture](system_architecture)
 
 
