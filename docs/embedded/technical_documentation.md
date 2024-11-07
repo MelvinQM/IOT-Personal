@@ -97,14 +97,13 @@ A wiring diagram is a visual representation of an electrical circuit, showing th
 </div>
 
 
-
-
-
 ### 4.3 ESP32-2432S024
 #### 4.3.1 ESP32-2432S024 (ESP Display)
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
     The ESP32-2432S024 or how it will be called for ease of reading the ESP Display is a 2.4 inch display with a resolution of 320x240. This display allows for full color display and touchscreen support. This display has an ESP32 onboard which allows the user to not have to wire anything to communicate from the esp to the display. This board also exposes some extra GPIO pins.
+
+    To use the display a library is required called TFT_eSPI a important fact for using this library is that the library needs to configured before use. This is done by changing the User_Setup.h to use the correct pins and settings. This was all found in the user manual. Provided from the store page which can be found in the [BOM](#2-bill-of-materials)
   </div>
   <div style="flex: 1; text-align: right;">
     <img src="/../assets/images/components/display-dimensions.png" alt="rawmpudata" style="width: 75%; height: auto;">

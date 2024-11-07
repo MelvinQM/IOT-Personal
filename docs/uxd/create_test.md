@@ -38,8 +38,8 @@
 
 - *Goal*: View the session details on screen.
 - *Questions*:
-  - Is the score table easily found?
-  - Is it clear what the info means?
+    - Is the score table easily found?
+    - Is it clear what the score info means?
 
 #### 1.1.2 Test results
 **Task 1**:
@@ -59,21 +59,31 @@
 | Nick        | Yes except because of the font the session id is hard to read | Yes it was clear right away                  |
 | Lars        | Yes maybe make the glow a bit less strong on the table header | Yes                                          |
 | Simon       | Yes                                                           | No, too focused on the game console          |
+| Giorgio     | Yes                                                           | Yes                                          |
+| Ferdi       | Yes                                                           | Yes                                          |
+| Margot      | Yes                                                           | Yes                                          |
 
 **Task 3**:
 
-| Participant | Is the score table easily found? | Is it clear what the info means?  |
-|-------------|----------------------------------|-----------------------------------|
-| Lucas       | Yes                              | Yes                               |
-| Nick        | Yes                              | Yes                               |
-| Lars        | Yes                              | Yes                               |
-| Simon       | Yes                              | Yes                               |
+| Participant | Is the score table easily found? | Is it clear what the score info means?  |
+|-------------|----------------------------------|-----------------------------------------|
+| Lucas       | Yes                              | Yes                                     |
+| Nick        | Yes                              | Yes                                     |
+| Lars        | Yes                              | Yes                                     |
+| Simon       | Yes                              | Yes                                     |
+| Giorgio     | Yes                              | Yes                                     |
+| Ferdi       | Yes                              | Yes                                     |
+| Margot      | Yes                              | Yes                                     |
 
 ### 1.2 Efficiency test
 #### 1.2.1 Test case
+
 ***Hypothesis***: My assumption is that the game can be started under 3 minutes.
+
 ***Metrics***: Time taken, amount of clicks to completion
+
 ***Criteria***: The test is considered a failure if the game can not be started within the allocated time or the game encounters a bug causing the game to either not be started within 3 min es or not start at all.
+
 1. *Task 1: Startup the console and view the session id provided*
     - *Goal*: Find where to enter a console ID on the homepage and proceed to the console page.
 2. *Task 2: Enter Session ID and player name*
@@ -89,8 +99,34 @@
 | Nick        | 25 sec                   | 4                    |
 | Lars        | 23 sec                   | 5                    |
 | Simon       | 26 sec                   | 6                    |
+| Giorgio     | 52 sec                   | 7                    |
+| Ferdi       | 47 sec                   | 8                    |
+| Margot      | 65 sec                   | 8                    |
 
 
+### 1.2 Satisfaction test
+#### 1.2.1 Test case
+***Hypothesis***: My assumption is that the Wii Controller will be liked but the breadboard controller will not.
+
+***Criteria***: The test is considered a failure if both the controllers are considered not child friendly and not pleasant to look at.
+
+***Questions***:
+
+  - What is your opinion on the controller design (Both breadboard and wii controller)?
+  - Do you have any additional feedback for the look of the controller?
+
+#### 1.2.2 Test results
+
+| Participant | Opinion on controller design (Both breadboard and wii controller)                                                                                                        | Would you say the controller looks right for all ages                                    | Additional Feedback | Notes                                                                        |
+|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|---------------------|------------------------------------------------------------------------------|
+| Giorgio     | It would be nice if it was a little bit flatter but it was pretty comfortable. Wish the wii controller worked do I could  test it out because it feels great in my hand. | It does but it might be a little too big. The wii controller is perfect for all ages.    |       Less delay. Sounds would be nice.              |                                                                              |
+| Ferdi       | Sad that the Wii controller doesn’t work, it does look like a lot of fun. Breadboard worked good and was easy to start with.                                             | Wii controller 100%, the breadboard aswell but could be a bit smaller for smaller hands. |  Fix delay, I would have definetly have the highscore if it wasn’t for the delay.        |                 |
+| Margot| It looks great! Looks very proffesional|  The controller looks well suited for all ages if we are talking about the wii controller the breadboard controller might be a bit too big for children|                     | Had trouble distinguishing the game and the website causing some confusions. |
+
+## 1.3 Test conclusions
+From all the tests some conclusions can be immediately drawn. The time taken for a game to start was a lot faster than expected. The 20+ range were a lot faster as expected but no person took longer than 70 seconds. This is a good result. Some problems did arise with the breadboard controller the size seems to be a bit too big for children, but since the original plan is still to make the Wii like controller the primary design this is not a big issue. 
+
+The delay in the controller responsiveness was a big factor for most players. Because of this the research to market focussed on looking into better ways of communicating through the controller. The testers all used the UDP method as of the time of their test. After the tests were conclucded a new protocol was introduced called ESP-NOW this had as a result that the delay was eliminated and the delay is now no longer an issue. Because of the result of these tests more attention was given to this so this helped greatly in the end product.
 
 ## 2. Manufacturing
 
@@ -163,7 +199,7 @@ Some adjustments that were quite obvious right away was the thickness of the mod
 One of the most important mechanics of the controller was the trigger to test this a small print was made. More about the inspiration for this mechanism can be found in [concept & design](concept_design.md#222-trigger-mechanism).
 To test this design the trigger was printed with a seperate holder:
 
-<div   style="display: flex; justify-content: space-between;">
+<div style="display: flex; justify-content: space-between;">
   <img src="/../assets/images/trigger-testprint.jpg" alt="trigger-testprint" width=49%>
   <video src="/../assets/videos/TriggerTestPrint.mp4" width=49% controls></video>
 </div>
@@ -194,12 +230,3 @@ After having issues assembling the motion controllr with all the components prop
   <img src="/../assets/images/breadboard-controller-3.jpg" alt="currentprint-2" width="49%" style="object-fit: contain; height: auto;">
   <video src="/../assets/videos/BreadboardControllerPrint.mp4" width=49% controls></video>
 </div>
-
-<!-- <div style="display: flex; align-items: center;">
-  <div style="flex: 1;">
-
-  </div>
-  <div style="flex: 1; text-align: right;">
-    <img src="" alt="" width=75%>
-  </div>
-</div> -->
