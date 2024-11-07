@@ -141,7 +141,7 @@ void BluetoothClient::loop()
 String BluetoothClient::sendGyroData()
 {
   // Get data from gyroscope
-  GyroData data = gyro->GetXYZ();
+  GyroData data = gyro->getXY();
 
   // Create a JSON document
   JsonDocument jsonDoc;

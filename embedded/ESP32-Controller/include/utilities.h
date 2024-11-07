@@ -40,7 +40,7 @@
 #define JOYSTICK_RANGE_OUT_MIN      -1.0
 #define JOYSTICK_RANGE_OUT_MAX      1.0
 #define JOYSTICK_DEAD_ZONE          0.1
-#define JOYSTICK_CLICK_COOLDOWN     100     // in milis
+#define JOYSTICK_CLICK_COOLDOWN     100
 
 // Gyroscope settings
 #define GYRO_DELAY 50
@@ -51,12 +51,23 @@
 #define CONTROLLER_AXIS_DATA_METHOD "axisData"
 
 
-// Data structures
+/**
+ * @struct GyroData
+ * @brief Holds gyroscope data for the x and y axes.
+ *
+ * This structure is used to store the formatted x and y values obtained from the gyroscope sensor.
+ */
 struct GyroData {
     int x;
     int y;
 };
 
+/**
+ * @struct JoystickData
+ * @brief Holds joystick data for the x and y axes.
+ *
+ * This structure is used to store the normalized x and y values obtained from the joystick.
+ */
 struct JoystickData {
     float x;
     float y;

@@ -8,8 +8,7 @@
 
 #include "Gyroscope.h"
 
-// INTERRUPT DETECTION ROUTINE
-volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
+volatile bool mpuInterrupt = false;  
 void IRAM_ATTR dmpDataReady() {
     mpuInterrupt = true;
 }
@@ -75,7 +74,7 @@ void Gyroscope::loop()
     
     if (mpu.dmpGetCurrentFIFOPacket(fifoBuffer)) {
         #ifdef OUTPUT_READABLE_QUATERNION
-            // display quaternion values in easy matrix form: w x y z
+            // Display quaternion values in easy matrix form: w x y z
             mpu.dmpGetQuaternion(&q, fifoBuffer);
             Serial.print("quat\t");
             Serial.print(q.w);
@@ -88,7 +87,7 @@ void Gyroscope::loop()
         #endif
 
         #ifdef OUTPUT_READABLE_EULER
-            // display Euler angles in degrees
+            // Display Euler angles in degrees
             mpu.dmpGetQuaternion(&q, fifoBuffer);
             mpu.dmpGetEuler(euler, &q);
             Serial.print("euler\t");
@@ -100,7 +99,7 @@ void Gyroscope::loop()
         #endif
 
         #ifdef OUTPUT_READABLE_YAWPITCHROLL
-            // display Euler angles in degrees
+            // Display Euler angles in degrees
             mpu.dmpGetQuaternion(&q, fifoBuffer);
             mpu.dmpGetGravity(&gravity, &q);
             mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
@@ -113,7 +112,7 @@ void Gyroscope::loop()
         #endif
 
         #ifdef OUTPUT_READABLE_REALACCEL
-            // display real acceleration, adjusted to remove gravity
+            // Display real acceleration, adjusted to remove gravity
             mpu.dmpGetQuaternion(&q, fifoBuffer);
             mpu.dmpGetAccel(&aa, fifoBuffer);
             mpu.dmpGetGravity(&gravity, &q);
@@ -127,8 +126,7 @@ void Gyroscope::loop()
         #endif
 
         #ifdef OUTPUT_READABLE_WORLDACCEL
-            // display initial world-frame acceleration, adjusted to remove gravity
-            // and rotated based on known orientation from quaternion
+            // Display initial world-frame acceleration
             mpu.dmpGetQuaternion(&q, fifoBuffer);
             mpu.dmpGetAccel(&aa, fifoBuffer);
             mpu.dmpGetGravity(&gravity, &q);
@@ -144,7 +142,7 @@ void Gyroscope::loop()
     }
 }
 
-GyroData Gyroscope::getXYZ() 
+GyroData Gyroscope::getXY() 
 {    
     // Calculate offsets
     float offsetX = ypr[2] * sensitivity;

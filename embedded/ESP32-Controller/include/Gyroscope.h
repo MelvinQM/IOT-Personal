@@ -18,10 +18,24 @@
 
 class Gyroscope {
     public:
+        /**
+         * Initializes the gyroscope and sets up the MPU6050 sensor.
+         * This method configures the device settings, enables the DMP (Digital Motion Processor),
+         * and prepares the device for reading data.
+         */
         void init();
+
+
+        /**
+         * Loop that reads data from mpu6050 sensor every available packet.
+         */
         void loop();
-        void calibrateGyro();
-        GyroData getXYZ();
+
+        /**
+         * Retrieves the current XY values from the gyroscope.
+         * @return {GyroData} - A struct containing the current gyroscopic data for the X and Y axis
+         */
+        GyroData getXY();
     private:
         float screenWidth = 320;
         float screenHeight = 240;
@@ -77,7 +91,7 @@ class Gyroscope {
         uint16_t fifoCount;     // count of all bytes currently in FIFO
         uint8_t fifoBuffer[64]; // FIFO storage buffer
 
-        // orientation/motion vars
+        // Orientation/motion vars
         Quaternion q;           // [w, x, y, z]         quaternion container
         VectorInt16 aa;         // [x, y, z]            accel sensor measurements
         VectorInt16 aaReal;     // [x, y, z]            gravity-free accel sensor measurements
@@ -86,6 +100,17 @@ class Gyroscope {
         float euler[3];         // [psi, theta, phi]    Euler angle container
         float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gravity vector
 
+
+        /**
+         * Clamps a given value within a specified range.
+         * If the value is less than the minimum, the minimum is returned. If the value is greater
+         * than the maximum, the maximum is returned. Otherwise, the original value is returned.
+         *
+         * @param {float} value - The value to clamp.
+         * @param {float} min - The minimum allowable value.
+         * @param {float} max - The maximum allowable value.
+         * @return {float} - The clamped value within the specified range.
+         */
         static float clamp(float value, float min, float max) {
             if (value < min) return min;   // If value is less than min, return min
             if (value > max) return max;   // If value is greater than max, return max

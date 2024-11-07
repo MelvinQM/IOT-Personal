@@ -17,19 +17,55 @@
 
 class MotionController {
     public:
+        /**
+         * Constructor for the MotionController class.
+         * Initializes the Serial monitor.
+         */
         MotionController();
-        ~MotionController();
+
+        /**
+         * Initializes the motion controller's components, including the gyroscope, joystick, and ESP-NOW connection.
+         * Sets up tasks for gyroscope reading and controller axis data sending.
+         */
         void init();
+
+        /**
+         * Main control loop for the MotionController.
+         * Continuously read for Button and Joystick click presses.
+         */
         void loop();
     private:
         Connections conn;
         Gyroscope gyro;
         Joystick joystick;
 
+        /**
+         * Sends trigger input data via ESP-NOW.
+         * This method is called when the trigger is pressed, sending the input status.
+         */
         void sendTriggerInput();
+
+        /**
+         * Sends joystick click data via ESP-NOW.
+         * Called when the joystick click is detected, this method sends the click state.
+         */
         void sendJoystickClick();
+
+        /**
+         * Sends combined controller data, including gyroscope and joystick values, via ESP-NOW.
+         */
         void sendControllerData();
+
+        /**
+         * Handles button press events and manages cooldown and vibration states.
+         * This method ensures that button presses are processed with appropriate delays.
+         */
         void handleButtonPress();
+
+        /**
+         * Handles joystick click events and manages cooldown.
+         * Ensures that repeated clicks are managed with a cooldown period.
+         */
         void handleJoystickClick();
 
         // Trigger configs
@@ -51,6 +87,12 @@ class MotionController {
         #define GYRO_TASK_PRIORITY      1
         #define GYRO_TASK_CORE          0
         #define GYRO_TASK_NAME          "GyroTask"
+        /**
+         * Task function for reading gyroscope data asynchronously.
+         * Continuously calls the gyroscope's loop method with a delay, allowing for asynchronous updates.
+         *
+         * @param {void*} pvParameters - Pointer to gyroscope instance passed to the task.
+         */
         static void gyroTask(void *pvParameters)
         {
             Gyroscope* gyro = static_cast<Gyroscope*>(pvParameters);
@@ -66,7 +108,12 @@ class MotionController {
         #define SEND_CONTROLLER_TASK_PRIORITY      1
         #define SEND_CONTROLLER_TASK_CORE          1
         #define SEND_CONTROLLER_TASK_NAME          "ControllerDataTask"
-        // New task function for sendControllerData
+        /**
+         * Task function for sending controller data asynchronously.
+         * Continuously sends controller data at a specified interval.
+         *
+         * @param {void*} pvParameters - Pointer to MotionController instance passed to the task.
+         */
         static void sendControllerDataTask(void *pvParameters) {
             MotionController *controller = reinterpret_cast<MotionController *>(pvParameters);
             while (true) {

@@ -27,7 +27,16 @@ class Connections {
 
         const int kChannel = 11;
 
-        // Callback when data is sent
+        /**
+         * Callback function invoked after data is sent using ESP-NOW.
+         * Displays the status of the last packet sent in the serial monitor.
+         *
+         * @param {uint8_t*} mac_addr - Pointer to the MAC address of the receiver.
+         * @param {esp_now_send_status_t} status - Status of the data transmission, either success or failure.
+         * Values:
+         * - ESP_NOW_SEND_SUCCESS: Transmission was successful.
+         * - ESP_NOW_SEND_FAIL: Transmission failed.
+         */
         static void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
             Serial.print("\r\nLast Packet Send Status:\t");
             Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");

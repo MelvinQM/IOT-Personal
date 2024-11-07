@@ -16,8 +16,6 @@ MotionController::MotionController()
     Serial.begin(BAUD_RATE);
 }
 
-MotionController::~MotionController() {}
-
 void MotionController::init()
 {
     Serial.println("\n------------[Initializing Game]------------");
@@ -64,7 +62,7 @@ void MotionController::sendControllerData()
     joystick.readJoystickAxis();
 
     // Get data from gyroscope
-    GyroData gData = gyro.getXYZ();
+    GyroData gData = gyro.getXY();
     JoystickData jData = joystick.getAxis();
 
     // Create a JSON document
