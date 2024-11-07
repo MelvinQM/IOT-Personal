@@ -6,6 +6,8 @@
  * License: This project is licensed under the MIT License.
  */
 
+const interval = 5000;
+
 const ApiService = {
     async fetchData(endpoint, tableId, columns){
         return fetch(endpoint)
@@ -32,10 +34,17 @@ const ApiService = {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+const fetchAllData = () => {
     ApiService.fetchData('/api/player', 'players', ['id', 'name']);
     ApiService.fetchData('/api/score', 'scores', ['id', 'session_id', 'score']);
     ApiService.fetchData('/api/session', 'sessions', ['id', element => element.completed ? "True" : "False", 'start_time','end_time','player_id','difficulty_id']);
     ApiService.fetchData('/api/difficulty', 'difficulties', ['id', 'name']);
     ApiService.fetchData('/api/actions/gethighscores', 'highscores', ['name', 'score']);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    fetchAllData();
+    setInterval(() => {
+        fetchAllData();
+    }, interval);
 });

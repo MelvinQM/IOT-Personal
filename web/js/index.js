@@ -6,6 +6,7 @@
  * License: This project is licensed under the MIT License.
  */
 
+const interval = 2500;
 
 const ApiService = {
   async getPlayerIdFromName(name) {
@@ -220,7 +221,7 @@ const openPlayingScreen = async (sessionId, name) => {
     } else {
       console.error("No session data found");
     }
-  }, 10000);
+  }, interval);
 };
 
 
@@ -251,7 +252,6 @@ userForm.addEventListener("submit", async (e) => {
   }
 
   if (isValid) {
-    // Usage of getPlayerId
     let playerId = await ApiService.getPlayerIdFromName(name);
 
     if (!playerId) {
@@ -260,7 +260,6 @@ userForm.addEventListener("submit", async (e) => {
       );
       playerId = await ApiService.createPlayer(name);
     } else {
-      // Player already exists
       console.log("Player already exists, adding to session....");
     }
 

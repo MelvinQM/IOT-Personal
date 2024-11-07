@@ -35,6 +35,12 @@
     <img src="/../assets/images/game-console-2.jpg" alt="game-console-2" width="49%" >
 </div>
 
+**Gameplay**:
+
+<div align="center">
+    <video src="/../assets/videos/gameplay.mp4" controls alt="game-console-1">
+</div>
+
 ### 1.3 **Requirements Reflection and Recommendations**
 The following requirements were thought of at the start of the designing process:
 
