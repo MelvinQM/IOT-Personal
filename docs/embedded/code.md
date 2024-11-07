@@ -74,10 +74,11 @@ GameState state = Intro;
 
 ### 2.2 Communication
 
-[Controller: connections.cpp](https://gitlab.fdmci.hva.nl/IoT/2024-2025-semester-1/individual-project/nuufoowaamee68/-/blob/main/embedded/ESP32-Controller/src/connections.cpp?ref_type=heads)
-[Controller: connections.h](https://gitlab.fdmci.hva.nl/IoT/2024-2025-semester-1/individual-project/nuufoowaamee68/-/blob/main/embedded/ESP32-Controller/include/connections.h?ref_type=heads)
-[Console: connections.cpp](https://gitlab.fdmci.hva.nl/IoT/2024-2025-semester-1/individual-project/nuufoowaamee68/-/blob/main/embedded/ESP32-Display-Board/src/Connections.cpp?ref_type=heads)
-[Console: connections.h](https://gitlab.fdmci.hva.nl/IoT/2024-2025-semester-1/individual-project/nuufoowaamee68/-/blob/main/embedded/ESP32-Display-Board/include/Connections.h?ref_type=heads)
+Controller: [connections.cpp](https://gitlab.fdmci.hva.nl/IoT/2024-2025-semester-1/individual-project/nuufoowaamee68/-/blob/main/embedded/ESP32-Controller/src/connections.cpp?ref_type=heads)
+Controller: [connections.h](https://gitlab.fdmci.hva.nl/IoT/2024-2025-semester-1/individual-project/nuufoowaamee68/-/blob/main/embedded/ESP32-Controller/include/connections.h?ref_type=heads)
+
+Console: [connections.cpp](https://gitlab.fdmci.hva.nl/IoT/2024-2025-semester-1/individual-project/nuufoowaamee68/-/blob/main/embedded/ESP32-Display-Board/src/Connections.cpp?ref_type=heads)
+Console: [connections.h](https://gitlab.fdmci.hva.nl/IoT/2024-2025-semester-1/individual-project/nuufoowaamee68/-/blob/main/embedded/ESP32-Display-Board/include/Connections.h?ref_type=heads)
 
 The `Connections` class provides an interface for initializing and managing the connection for both the controller and console.
 The communication between the controller console and the api is handled through WiFi. The connection from the console to the API is handled through a WiFi connection and the connection between the console and the controller is handled through the use of an Access Point and a ESP-NOW connection.
@@ -95,6 +96,7 @@ The system will first try to connect to any wifi connections already saved in me
 Api calls can be made by using the `makeApiCall()` function of the `connections` class.
 
 Various methods are available to perform api calls:
+
 - `fetchPlayers()`: Sends a GET request to retrieve a list of players from the API. This method returns player JSON data that can be used to verify player existence or retrieve player statistics.
 - `getSessionById()`: Sends a GET request with a specific session ID to retrieve the session details. The response includes session information, such as the session ID, associated player ID, and any other relevant session data. This method is crucial for polling until a session is associated with a player.
 - `getHighscores()`: Sends a GET request to fetch the JSON list of high scores. This method retrieves the top 10 scores across all sessions and players as a JsonDocument.
@@ -229,7 +231,7 @@ The Sprite Rendering logic in the `SpriteRenderer` class is responsible for rend
 - **UI Updates**: The class updates the display to show the player's score, remaining bullets, and other game statistics, keeping the player informed about their progress.
 - **Collision Detection**: Detects collisions between the cursor and the owl sprite using bounding box checks to award points for successful hits.
 
-### 2.71 Sprite Generation
+### 2.7.1 Sprite Generation
 In this project the use of Sprites is required. To do this sprites were made using Aseprite to make sprites with a small size `ex: 32x32`. After exporting these as pngs they were converted to byte arrays for use in code. 
 
 An [online converter](http://www.rinkydinkelectronics.com/t_imageconverter565.php) was used for this.

@@ -15,7 +15,7 @@ One of my first ideas was to make some sort of motion controller. This idea seem
 
 
 ## 2. Research question
-A question that arose during the development was how to ensure the communication between the controller and the console. This was crucical for the game feel and reliability. The following question arose from this thought:
+A question that arose during the development was how to ensure the communication between the controller and the console. This was crucical for the game's feel and reliability. The following question arose from this thought:
 
 **What is the best method for establishing efficient and reliable communication between an ESP32 display and an ESP32-S3 controller to enable smooth data transmission for a motion-controlled game?**
 
@@ -67,8 +67,6 @@ In hopes to answer the sub question "What are some techniques used in existing c
 ### 4.2 Techniques for wireless communication between two ESP32 devices.
 In hopes to answer the sub question "What techniques are available for wireless communication between two ESP32 devices?" I looked into some products that already exists.
 #### 4.2.1 Bluetooth (BLE)
-To communicate between the controller and display a bluetooth connection is needed. For this project we use BLE (Bluetooth low energy). Beware of using Bluetooth classic as these are not compatible with each other. 
-
 BLE is suited for data transfers that are more bursty and don't require high bandwith. The range of Bluetooth varies on the configuration used. From a few meters to over a kilometer. Using the FEC (Forward Error Correction) the range of a kilometer is made possible. Something to keep in mind is that range and data throughput are not mutually exclusive. For example if you go for a higher range you are reducing the max data throughput.
 
 ##### 4.2.1.1 Peripherals and Centrals
@@ -98,9 +96,7 @@ How a BLE device organizes and structures the data that it exposes to other devi
 
 A service is a grouping of one or more characteristics. Example of this having environmental data like air quality humidity and temperature all represented by a characteristic but grouped into one service called "Environmental Service".
 
-
-
-#### 4.2.2 Wifi (UDP & TCP)
+#### 4.2.2 UDP & TCP
 Another way of sending data between two ESP32's is by using a wifi connection. Through the use of of wifi many options are available the once looked at were UDP & TCP.
 
 ##### 4.2.2.1 UDP
@@ -136,14 +132,13 @@ Althought ESP-NOW sounds perfect for the situation at hand it is important to al
 - **Security Considerations**: While ESP-NOW offers basic data security and privacy, it is not as secure as protocols like **HTTPS** or **MQTT** with strong encryption. For projects involving sensitive data, custom security measures will need to be developed to guard against data eavesdropping and unauthorized access.
 - **Compatibility**: ESP-NOW is primarily designed for **ESP8266** and **ESP32** microcontrollers. While it can be used with other ESP32-based devices, compatibility with non-ESP platforms may vary.
 
-- What are some strategies for ensuring consistent connectivity in environments with potential interference?
 
 ### 4.3 Implementing techniques in an Arduino environment
 In hopes to answer the sub question "How can these techniques be implemented in an Arduino environment?" I looked into some products that already exists.
 #### 4.3.1 Bluetooth
 To implement a bluetooth connection on the project first off a library to manage all the bluetooth connection was used. The library that can be used for this is is the BLE library that's in the arduino core for esp32 devices. This library allows for both client and server functionality. A bluetooth server is established on the console which a bluetooth client can connect to. This client would be in this case the controller. The controller then sends data through a characteristic allowing for data transmission.
 
-This method seemed to work well at first but quickly issues arose when trying to use it together with a Wifi connectin. The console's screen refused to turn on when both bluetooth and wifi were running at the same time. A workaround should exist allowing for the antenna used to be shared between wifi and bluetooth but further research is required to get this functioning. The code used for this implementation can be found in `embedded/ESP32-Controller/Deprecated` for the client code and `embedded/ESP32-Display-Board/Deprecated` for the server code.
+This method seemed to work well at first but quickly issues arose when trying to use it together with a Wifi connecting. The console's screen refused to turn on when both bluetooth and wifi were running at the same time. A workaround should exist allowing for the antenna used to be shared between wifi and bluetooth but further research is required to get this functioning. The code used for this implementation can be found in `embedded/ESP32-Controller/Deprecated` for the client code and `embedded/ESP32-Display-Board/Deprecated` for the server code.
 
 #### 4.3.2 UDP
 The client code for this can be found in `embedded/ESP32-Controller/include/udp_connection.h` and `embedded/ESP32-Controller/src/udp_connection.cpp`. The server code can be found in `embedded/ESP32-Display-Board/include/connections.h` and `embedded/ESP32-Display-Board/src/connections.cpp`. The UDP method can be implemented through the use of the arduino core `Wifi.h` header and the `WiFiUdp.h` header. The console established a SoftAP which is an accesspoint with a static ip allowing for the controller to be able to connect to it without having to change any settings. The connection is able to be succesfully established the console will listen for UDP packets using. This listener listens in a fixed rate continuously. 

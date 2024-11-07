@@ -1,12 +1,12 @@
 # Database
 
 ## Contents
-1. **[Database Overview](#1-database-overview)**
+- **[1. Database Overview](#1-database-overview)**
    - **[1.1 Entity-Relationship Diagram (ERD)](#11-entity-relationship-diagram-erd)**
    - **[1.2 EER Diagram](#12-eer-diagram)**
-2. **[Database Setup](#database-setup)**
+- **[2. Database Setup](#2-database-setup)**
    - **[2.1 MySQL Workbench](#21-mysql-workbench)**
-3. **[Database Design](#database-design)**
+- **[3. Database Design](#3-database-design)**
    - **[3.1 Tables](#31-tables)**
      - **[3.1.1 Player Table](#311-player-table)**
      - **[3.1.2 Score Table](#312-score-table)**

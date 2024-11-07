@@ -77,7 +77,7 @@ For the styling Bootstrap was used. Bootstrap is a styling component library all
 #### 2.5.2 Nginx
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-    The Docker container is hosted using Nginx, a high-performance web server and reverse proxy. Nginx was chosen for its efficiency in handling HTTP requests, its lightweight footprint, and its strong support for concurrent connections.
+    Nginx, a high-performance web server and reverse proxy. Nginx is efficienct in handling HTTP requests, its lightweight footprint, and its strong support for concurrent connections allows it to efficiently handle the web server.
   </div>
   <div style="flex: 1; text-align: right;">
     <img src="/../assets/images/nginx.png" alt="nginx">

@@ -11,9 +11,12 @@
 - **[4. Components](#4-components)**
     - **[4.1 MPU6050](#41-mpu6050)**
     - **[4.2 ESP32-2432S024 (Display & Led)](#42-esp32-2432s024)**
+        - **[4.2.1 ESP32-2432S024 (ESP Display)](#421-esp32-2432s024-esp-display)**
+        - **[4.2.2 RGB LED](#422-rgb-led)**
     - **[4.3 Joystick](#43-joystick)**
     - **[4.4 Button](#44-button)**
-    - **[4.5 DC-DC Multi-Output Buck-converter](#45-dc-dc-multi-output-buck-converter-33v5v9v12v)**
+    - **[4.5 Vibration Motor](#45-vibration-motor)**
+    - **[4.6 DC-DC Multi-Output Buck-converter](#46-dc-dc-multi-output-buck-converter-33v5v9v12v)**
 
 
 
@@ -76,7 +79,7 @@ A wiring diagram is a visual representation of an electrical circuit, showing th
 ***As the console has no wiring involved no wiring diagram is needed. The console only needs to be connected to power using a USB-C cable.***
 
 ## 4. Components
-### 4.2 MPU6050 
+### 4.1 MPU6050 
 
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
@@ -97,8 +100,8 @@ A wiring diagram is a visual representation of an electrical circuit, showing th
 </div>
 
 
-### 4.3 ESP32-2432S024
-#### 4.3.1 ESP32-2432S024 (ESP Display)
+### 4.2 ESP32-2432S024
+#### 4.2.1 ESP32-2432S024 (ESP Display)
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
     The ESP32-2432S024 or how it will be called for ease of reading the ESP Display is a 2.4 inch display with a resolution of 320x240. This display allows for full color display and touchscreen support. This display has an ESP32 onboard which allows the user to not have to wire anything to communicate from the esp to the display. This board also exposes some extra GPIO pins.
@@ -111,7 +114,7 @@ A wiring diagram is a visual representation of an electrical circuit, showing th
 </div>
 
 
-#### 4.3.2 RGB LED
+#### 4.2.2 RGB LED
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
   	The ESP32-2432S024 besides a display also has a RGB led allowing a broad range of colored light to be displayed. This allows the system to display a certain condition through a color indication.
@@ -123,7 +126,7 @@ A wiring diagram is a visual representation of an electrical circuit, showing th
   </div>
 </div>
 
-### 4.4 Joystick
+### 4.3 Joystick
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
     The joystick consists of 2 potentiometers one for the x axis and one for the y axis. This allows for 2d coordinate to be determined which in turn can be used for the cursor on screen. The joystick serves as an alternative to using gyro data. The joystick also has a click function so it also serves as a button.
@@ -133,7 +136,7 @@ A wiring diagram is a visual representation of an electrical circuit, showing th
   </div>
 </div>
 
-### 4.5 Button
+### 4.4 Button
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
     A simple button is also used to be used as the "fire" button and as a general action button. This button simply gives a signal to a connected GPIO pin.

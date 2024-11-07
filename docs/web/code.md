@@ -117,7 +117,7 @@ The `admin.css` file styles the admin interface, focusing on a dark theme with a
 - **Font**: "ArcadeClassic" is assigned.
 - **Background**: Applies a black background with a subtle gradient effect for some interesting visuals.
 - **Tables**: Customizes tables with auto-scroll for long lists, thin white scrollbars, and constrained height for better layout.
-- **Additional styling**: Adds varioous stylign to enhance the user experience `ex: a hover underline to navbar links for visual feedback`.
+- **Additional styling**: Adds varioous styling to enhance the user experience `ex: a hover underline to navbar links for visual feedback`.
 
 
 #### 2.1.3 Javascript

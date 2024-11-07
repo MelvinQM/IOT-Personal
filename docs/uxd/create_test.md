@@ -3,6 +3,8 @@
 - **[1. User Testing](#1-basic-concept)**
     - **[1.1 Effectiveness Test](#11-effectiveness-test)**
     - **[1.2 Efficiency Test](#12-efficiency-test)**
+    - **[1.3 Satisfaction Test](#13-satisfaction-test)**
+    - **[1.4 Test conclusions](#14-test-conclusions)**
 - **[2. Manufacturing](#2-manufacturing)**
     - **[2.1 Print details](#21-print-details-slicer-printer)**
     - **[2.2 Prints](#22-prints)**
@@ -104,8 +106,8 @@
 | Margot      | 65 sec                   | 8                    |
 
 
-### 1.2 Satisfaction test
-#### 1.2.1 Test case
+### 1.3 Satisfaction test
+#### 1.3.1 Test case
 ***Hypothesis***: My assumption is that the Wii Controller will be liked but the breadboard controller will not.
 
 ***Criteria***: The test is considered a failure if both the controllers are considered not child friendly and not pleasant to look at.
@@ -115,7 +117,7 @@
   - What is your opinion on the controller design (Both breadboard and wii controller)?
   - Do you have any additional feedback for the look of the controller?
 
-#### 1.2.2 Test results
+#### 1.3.2 Test results
 
 | Participant | Opinion on controller design (Both breadboard and wii controller)                                                                                                        | Would you say the controller looks right for all ages                                    | Additional Feedback | Notes                                                                        |
 |-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|---------------------|------------------------------------------------------------------------------|
@@ -123,7 +125,7 @@
 | Ferdi       | Sad that the Wii controller doesn’t work, it does look like a lot of fun. Breadboard worked good and was easy to start with.                                             | Wii controller 100%, the breadboard aswell but could be a bit smaller for smaller hands. |  Fix delay, I would have definetly have the highscore if it wasn’t for the delay.        |                 |
 | Margot| It looks great! Looks very proffesional|  The controller looks well suited for all ages if we are talking about the wii controller the breadboard controller might be a bit too big for children|                     | Had trouble distinguishing the game and the website causing some confusions. |
 
-## 1.3 Test conclusions
+## 1.4 Test conclusions
 From all the tests some conclusions can be immediately drawn. The time taken for a game to start was a lot faster than expected. The 20+ range were a lot faster as expected but no person took longer than 70 seconds. This is a good result. Some problems did arise with the breadboard controller the size seems to be a bit too big for children, but since the original plan is still to make the Wii like controller the primary design this is not a big issue. 
 
 The delay in the controller responsiveness was a big factor for most players. Because of this the research to market focussed on looking into better ways of communicating through the controller. The testers all used the UDP method as of the time of their test. After the tests were conclucded a new protocol was introduced called ESP-NOW this had as a result that the delay was eliminated and the delay is now no longer an issue. Because of the result of these tests more attention was given to this so this helped greatly in the end product.
