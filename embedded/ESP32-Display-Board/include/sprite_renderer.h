@@ -23,6 +23,14 @@
 
 class SpriteRenderer {
     private:
+        /**
+         * @typedef {Object} TextSpriteSettings
+         * @property {int} width - The width of the sprite.
+         * @property {int} height - The height of the sprite.
+         * @property {int} fontSize - The font size for text elements.
+         * @property {int} posX - The X position for the sprite.
+         * @property {int} posY - The Y position for the sprite.
+         */
         struct TextSpriteSettings {
             int width;
             int height;
@@ -32,10 +40,37 @@ class SpriteRenderer {
         };
 
     public:
+        /**
+         * Initializes the display with specified rotation, byte swapping, and fill color.
+         * @param {int} rotation - The rotation of the display (0, 90, 180, or 270).
+         * @param {bool} swapBytes - If true, swap the byte order for display compatibility.
+         * @param {int} fillColor - The background fill color for the display.
+         */
         void init(int rotation, bool swapBytes, int fillColor);
+
+        /**
+         * Main game loop that manages the game flow and rendering.
+         * @param {GameSettings} settings - The game settings affecting gameplay.
+         */
         void gameLoop(GameSettings &settings);
+
+        /**
+         * Renders the introduction screen, including session ID.
+         * @param {int} sessionId - The session ID to be displayed on the intro screen.
+         */
         void renderIntro(int sessionId);
+
+        /**
+         * Renders the highscores page.
+         * @param {JsonDocument} highscores - A JSON document containing the highscores to render.
+         */
         void renderHighscores(JsonDocument highscores);
+
+        /**
+         * Renders the end screen and determines whether to use gyroscope-based control.
+         * @param {bool} useGyro - Whether to use the gyroscope for control.
+         * @returns {bool} - Returns true if the end screen was rendered successfully, false otherwise.
+         */
         bool renderEndScreen(bool useGyro);
 
     private:
@@ -54,15 +89,72 @@ class SpriteRenderer {
     
 
         GameDataModel& g = GameDataModel::getInstance();
+        /**
+         * Checks for a collision between the cursor and the owl.
+         * @param {int} cursorX - The X position of the cursor.
+         * @param {int} cursorY - The Y position of the cursor.
+         * @param {int} cursorHitBoxSize - The size of the cursor's hit box.
+         * @param {int} owlX - The X position of the owl.
+         * @param {int} owlY - The Y position of the owl.
+         * @param {int} owlHitBoxSize - The size of the owl's hit box.
+         * @returns {bool} - Returns true if there is a collision, false otherwise.
+         */
         bool checkCollision(int cursorX, int cursorY, int cursorHitBoxSize, int owlX, int owlY, int owlHitBoxSize);
+
+        /**
+         * Updates the cursor's position based on gyro data or joystick input.
+         * @param {int} x - The X position of the cursor.
+         * @param {int} y - The Y position of the cursor.
+         * @param {bool} useGyro - Whether to use gyro input for the cursor movement.
+         */
         void updateCursorPosition(int& x, int& y, bool useGyro);
+
+        /**
+         * Handles the logic for firing the trigger.
+         * @param {int} x - The X position of the cursor.
+         * @param {int} y - The Y position of the cursor.
+         */
         void handleTriggerFire(int& x, int& y);
+
+        /**
+         * Animates the owl's movement.
+         */
         void animateOwl();
+
+        /**
+         * Moves the owl across the screen
+         */
         void moveOwl();
+
+        /**
+         * Resets the owl's position and state.
+         */
         void resetOwl();
+
+        /**
+         * Updates the UI elements such as score and owls remaining.
+         * @param {int} x - The X position of the cursor.
+         * @param {int} y - The Y position of the cursor.
+         * @param {int} score - The current score to display.
+         */
         void updateUI(int& x, int& y, int& score);
+
+        /**
+         * Updates a text sprite element with new content.
+         * @param {TFT_eSprite} text - The text sprite to update.
+         * @param {TextSpriteSettings} settings - The settings for the text sprite (e.g., position, font size).
+         * @param {String} content - The new content to display in the text sprite.
+         */
         void updateTextElement(TFT_eSprite &text, const TextSpriteSettings &settings, String content);
+
+        /**
+         * Creates the cursor sprite.
+         */
         void createCursorSprite();
+
+        /**
+         * Renders the countdown screen before the game starts.
+         */
         void renderCountdown();
 
         // Difficulty settings

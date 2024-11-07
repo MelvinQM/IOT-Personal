@@ -52,12 +52,27 @@
 #define JOYSTICK_CLICK_METHOD       "joystickClick"
 #define CONTROLLER_AXIS_DATA_METHOD "axisData"
 
+/**
+ * @enum {int} Difficulty - Enumeration for the game difficulty levels.
+ * @property {int} EASY - Easy level difficulty.
+ * @property {int} NORMAL - Normal level difficulty.
+ * @property {int} HARD - Hard level difficulty.
+ */
 enum Difficulty {
     EASY = 1,
     NORMAL = 2,
     HARD = 3
 };
 
+/**
+ * @struct GameSettings
+ * @brief A structure that holds the current game settings, including session ID, player ID, difficulty, score, and gyro usage.
+ * @property {unsigned int} sessionId - The unique session ID for the current game session.
+ * @property {unsigned int} playerId - The unique player ID associated with the session.
+ * @property {Difficulty} difficultyId - The difficulty level selected for the game.
+ * @property {unsigned int} score - The current score of the player.
+ * @property {boolean} useGyro - Whether the gyro is used for game control.
+ */
 struct GameSettings {
     unsigned int sessionId;
     unsigned int playerId;
