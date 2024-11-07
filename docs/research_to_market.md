@@ -37,7 +37,7 @@ To answer the questions a few research methods will be used:
 In hopes to answer the sub question "What are some techniques used in existing controllers?" I looked into some products that already exists.
 <div style="display: flex; align-items: center;">
     <div style="flex: 1;">
-        <img src="/../assets/images/duckhuntbox.jpg" alt="cursorconcept" style="max-width: 100%;">
+        <img src="/../assets/images/DuckHuntBox.jpg" alt="duckhuntbox" style="max-width: 100%;">
     </div>
     <div style="flex: 1;">
         <h4>Duck Hunt Light Gun</h4>
