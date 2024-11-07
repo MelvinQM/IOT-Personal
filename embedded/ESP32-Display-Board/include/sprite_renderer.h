@@ -45,6 +45,7 @@ class SpriteRenderer {
         TFT_eSprite owl = TFT_eSprite(&tft);
         
         // UI Sprites
+        TFT_eSprite countdownText = TFT_eSprite(&tft);
         //TFT_eSprite axisText = TFT_eSprite(&tft);
         TFT_eSprite scoreText = TFT_eSprite(&tft);
         TFT_eSprite bulletsText = TFT_eSprite(&tft);
@@ -62,6 +63,7 @@ class SpriteRenderer {
         void updateUI(int& x, int& y, int& score);
         void updateTextElement(TFT_eSprite &text, const TextSpriteSettings &settings, String content);
         void createCursorSprite();
+        void renderCountdown();
 
         // Difficulty settings
         const int kMovementStepSizeEasy = 5;        

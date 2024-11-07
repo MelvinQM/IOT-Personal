@@ -28,6 +28,9 @@ void SpriteRenderer::init(int rotation, bool swapBytes, int fillColor)
 
 void SpriteRenderer::gameLoop(GameSettings &settings)
 {
+    renderCountdown();
+
+
     // Applying game difficulties
     if(settings.difficultyId == NORMAL) {
         movementStepSize = kMovementStepSizeNormal;
@@ -244,6 +247,34 @@ void SpriteRenderer::renderIntro(int sessionId)
     }
 
     tft.drawString("Enter the above session id into the web portal", 13, 200, 2);
+}
+
+void SpriteRenderer::renderCountdown()
+{
+    background.fillSprite(TFT_BLACK);
+    background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
+    
+    int countdown = 3;
+    while (countdown > 0)
+    {
+        // Alternate background color
+        uint16_t bgColor = (countdown % 2 ? TFT_BLACK : TFT_WHITE);
+        uint16_t textColor = (countdown % 2 ? TFT_WHITE : TFT_BLACK);
+
+        background.fillSprite(bgColor);
+        
+        // Set the text color to the opposite of the background color
+        background.setTextColor(textColor);
+
+        // Convert countdown to a character ('3', '2', '1') and display it
+        background.drawString(String(countdown), 150, 110, 6);
+
+        countdown--;
+
+        // Push the updated sprite to the screen
+        background.pushSprite(SCREEN_ORIGIN_X, SCREEN_ORIGIN_Y);
+        vTaskDelay(TIMEOUT_DELAY / portTICK_PERIOD_MS);
+    }
 }
 
 
