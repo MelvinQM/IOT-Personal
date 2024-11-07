@@ -4,7 +4,7 @@ nav:
     - ♟️ Learning journal: journal
     - 🔬 Research to market:
       - Research: research_to_market
-      # - Implementation & Results: research_to_market_implementation
+      - Implementation & Results: research_to_market_implementation
     - 🧰 Embedded:
       - Requirements: embedded/requirements
       - Technical documentation: embedded/technical_documentation
