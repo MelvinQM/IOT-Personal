@@ -229,6 +229,12 @@ The Sprite Rendering logic in the `SpriteRenderer` class is responsible for rend
 - **UI Updates**: The class updates the display to show the player's score, remaining bullets, and other game statistics, keeping the player informed about their progress.
 - **Collision Detection**: Detects collisions between the cursor and the owl sprite using bounding box checks to award points for successful hits.
 
+### 2.71 Sprite Generation
+In this project the use of Sprites is required. To do this sprites were made using Aseprite to make sprites with a small size `ex: 32x32`. After exporting these as pngs they were converted to byte arrays for use in code. 
+
+An [online converter](http://www.rinkydinkelectronics.com/t_imageconverter565.php) was used for this.
+
+
 ### 2.8 RGB LED
 ***--Display logic--***
 
